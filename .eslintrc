@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "env": {
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base", "plugin:react/recommended"],
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "space-before-function-paren": [2, "never"],
+    "comma-dangle": ["error", "never"]
+  }
+}
