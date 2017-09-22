@@ -1,0 +1,51 @@
+i.fa
+  display: none
+#nav-displayer
+  display: block
+  nav
+    background: #171717
+    text-align: center
+    ul
+      display: inline-block
+      -webkit-padding-start: 0
+      li
+        list-style-type: none
+        display: inline-block
+        a
+          display: inline-block
+          text-decoration: none
+          font-size: 1.5em
+          color: #FFFFFF
+          margin: 1em 3em
+          padding-bottom: 0.25em
+          &.selected
+            border-bottom: solid 0.07em #0093DE
+@media (max-width: 640px)
+  #nav-wrapper
+    i
+      display: inline-block
+      &.fa-bars
+        top: 0
+        left: 0
+        margin: 0.2em 0.3em
+      &.fa-times
+        position: absolute
+        color: #FFFFFF
+        top: 0.5em
+        right: 0.5em
+        margin: 0.2em 0.3em
+    #nav-displayer
+      display: none
+      position: absolute
+      top: 0
+      left: 0
+      height: 100%
+      background: rgba(0,0,0,0.2)
+      &.show
+        display: block
+      nav
+        background: #313131
+        margin: 1em
+        ul
+          li
+            width: 100%

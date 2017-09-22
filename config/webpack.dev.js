@@ -84,7 +84,7 @@ module.exports = webpackMerge(commonConfig, {
      * See: https://github.com/ampedandwired/html-webpack-plugin
      */
     new HtmlWebpackPlugin({
-      template: 'public/index.html',
+      template: 'client/index.html',
       chunksSortMode: 'dependency',
       metadata: METADATA
     }),

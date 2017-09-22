@@ -1,24 +1,13 @@
 /**
  * @author: mbellange
  */
-
-const webpack = require('webpack');
-const path = require('path');
 const helpers = require('./helpers');
 
 /**
  * Webpack Plugins
  */
-// problem with copy-webpack-plugin
 const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-/**
- * PostCSS plugins
- */
- const precss = require('precss');
- const cssnext = require('postcss-cssnext');
 
 /**
  * Webpack configuration
@@ -28,17 +17,14 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
 
   entry: {
-  /*  polyfills: './src/polyfills',
-    vendor: './src/vendor',*/
-    main: [
-      'react-hot-loader/patch',
-      './public/main'
-    ]
+    /* polyfills: './src/polyfills', */
+    main: './client/app',
+    vendor: './client/vendor'
   },
 
   resolve: {
-    extensions: ['.js', '.json', '.css'],
-    modules: [helpers.root('public'), helpers.root('node_modules')]
+    extensions: ['.js', '.css'],
+    modules: [helpers.root('client'), helpers.root('node_modules')]
   },
 
   module: {
@@ -52,33 +38,29 @@ module.exports = {
       },
 
       {
-        test: /\.json$/,
-        use: 'json-loader'
-      },
-
-      {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
-          'resolve-url-loader',
           {
-            loader: 'postcss-loader',
+            loader: 'css-loader',
             options: {
-              sourceMap: true
+              importLoaders: 1,
+              alias: {
+                '../fonts': 'font-awesome/fonts'
+              }
             }
-          }
+          },
+          'postcss-loader'
         ]
       },
 
       {
         test: /\.html$/,
         use: 'raw-loader',
-        exclude: [helpers.root('public/index.html')]
+        exclude: [helpers.root('client/index.html')]
       },
-
       {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        test: /\.(woff(2)?|ttf|eot|png|jpg|jpeg|gif|svg)(\?v=\d+\.\d+\.\d+)?$/,
         use: [{
           loader: 'url-loader',
           options: {
@@ -91,27 +73,11 @@ module.exports = {
   },
 
   plugins: [
-    new LoaderOptionsPlugin({
-      debug: true,
-      options: {
-        context: __dirname,
-        // A temporary workaround for `scss-loader`
-        // https://github.com/jtangelder/sass-loader/issues/298
-        output: {
-          path: helpers.root('dist/public')
-        },
-        postcss: [ // <---- postcss configs go here under LoadOptionsPlugin({ options: { ??? } })
-          precss,
-          cssnext
-        ]
-        // ...other configs that used to directly on `modules.exports`
-      }
-    }),
-    new ExtractTextPlugin('vendor.css'),
+    new ExtractTextPlugin('app.css'),
 
-    /*new CommonsChunkPlugin({
-      names: ['polyfills', 'vendor']
-    })*/
+    new CommonsChunkPlugin({
+      names: ['vendor']
+    })
   ],
 
   node: {
