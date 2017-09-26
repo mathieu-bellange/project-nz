@@ -1,51 +1,79 @@
-i.fa
-  display: none
-#nav-displayer
-  display: block
+#nav-wrapper
+  position: fixed
+  top: 0
+  left: 0
+  padding: 1em
+  width: calc(100%-2em)
   nav
-    background: #171717
-    text-align: center
-    ul
+    width: 100%
+    display: inline-block
+    color: #FFFFFF
+    #menu
+      width: 100%
+      white-space: nowrap
       display: inline-block
-      -webkit-padding-start: 0
-      li
-        list-style-type: none
+      #int
+        background: transparent
         display: inline-block
+        text-align: center
+        width: 4.2em
+        overflow: hidden
+        transition: width 1s ease-in-out, background 1s ease-in-out
+        &.show
+          background: rgba(49,49,49,0.7)
+          width: 100%
+        i
+          float: left
+          font-size: 1.5em
+          padding: 0.75em 1em 1em
+          &:hover
+            cursor: pointer
+          &.fa-bars
+            color: #000000
         a
+          font-size: 1.5em
           display: inline-block
           text-decoration: none
-          font-size: 1.5em
+          margin: 0.5em 3em
           color: #FFFFFF
-          margin: 1em 3em
           padding-bottom: 0.25em
           &.selected
             border-bottom: solid 0.07em #0093DE
+
 @media (max-width: 640px)
   #nav-wrapper
-    i
-      display: inline-block
-      &.fa-bars
-        top: 0
-        left: 0
-        margin: 0.2em 0.3em
-      &.fa-times
-        position: absolute
-        color: #FFFFFF
-        top: 0.5em
-        right: 0.5em
-        margin: 0.2em 0.3em
-    #nav-displayer
-      display: none
-      position: absolute
-      top: 0
-      left: 0
+    transition: height 1s ease-in-out, background 1s ease-in-out
+    height: 0%
+    &.show
+      background: rgba(0,0,0,0.7)
       height: 100%
-      background: rgba(0,0,0,0.2)
-      &.show
-        display: block
-      nav
-        background: #313131
-        margin: 1em
-        ul
-          li
-            width: 100%
+    nav
+      #menu
+        #int
+          width: 2em
+          display: block
+          &.show
+            background: rgba(49,49,49, 0.9)
+          i
+            padding: 0
+            &.fa-times
+              padding: 0.35em 0.5em
+              float: right
+          span
+            text-align: center
+            display: block
+            padding: 2em 3em
+            a
+              margin: 0
+@media (max-width: 980px)
+  #nav-wrapper
+    width: calc(100% - 1em)
+    padding: 0.5em
+    nav
+      #menu
+        #int
+          i
+            font-size: 1em
+          span
+            a
+              font-size: 1em

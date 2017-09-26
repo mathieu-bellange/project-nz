@@ -24,7 +24,7 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.css'],
-    modules: [helpers.root('client'), helpers.root('node_modules')]
+    modules: [helpers.root('client'), helpers.root('public'), helpers.root('node_modules')]
   },
 
   module: {
@@ -33,7 +33,7 @@ module.exports = {
 
       {
         test: /\.js$/,
-        exclude: [/node_modules/, /config/, /server/],
+        exclude: [/node_modules/, /config/, /server/, /public/],
         use: 'babel-loader'
       },
 
@@ -46,7 +46,8 @@ module.exports = {
             options: {
               importLoaders: 1,
               alias: {
-                '../fonts': 'font-awesome/fonts'
+                '../fonts': 'font-awesome/fonts',
+                './images': 'images'
               }
             }
           },

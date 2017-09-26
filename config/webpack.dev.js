@@ -110,6 +110,7 @@ module.exports = webpackMerge(commonConfig, {
     port: METADATA.port,
     host: METADATA.host,
     historyApiFallback: true,
+    contentBase: helpers.root('public'),
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000
