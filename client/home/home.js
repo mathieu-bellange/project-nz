@@ -5,7 +5,7 @@ import './home.css';
 export default class Home extends React.Component {
   render() {
     return (
-      <main>
+      <main id="home">
         <header>
           <h1>Notre voyage</h1>
           <p>Expliqué par des gens bien d'une super façon</p>

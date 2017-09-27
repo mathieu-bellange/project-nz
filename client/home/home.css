@@ -1,4 +1,4 @@
-main
+#home
   padding: 6.5em 3em
   header
     color: #FFFFFF
@@ -28,8 +28,18 @@ main
       border: 0.1em solid #FFFFFF
       display: inline-block
 
+@media (max-width: 980px)
+  #home
+    padding: 4.5em 2em
+    header
+      padding: 1.5em 2.5em
+      margin-bottom: 5em
+    #content
+      a
+        font-size: 1.5em
+
 @media (max-width: 640px)
-  main
+  #home
     padding: 3em 2em
     header
       padding: 1.5em 2.5em
@@ -43,13 +53,3 @@ main
       a
         font-size: 1.83em
         padding: 0.25em 0.25em
-
-@media (max-width: 980px)
-  main
-    padding: 4.5em 2em
-    header
-      padding: 1.5em 2.5em
-      margin-bottom: 5em
-    #content
-      a
-        font-size: 1.5em
