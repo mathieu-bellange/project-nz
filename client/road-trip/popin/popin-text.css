@@ -1,0 +1,8 @@
+.popin-text
+  color: #ffffff
+  background-color: rgba(190,188,188,0.7)
+  padding: 0.5em 1em
+  opacity: 0
+  transition: opacity 0.5s ease-out
+  &.show
+    opacity: 1

@@ -3,3 +3,5 @@
   overflow: hidden
   #roadTrip-canvas
     position: relative
+  #popup-wrapper
+    position: absolute

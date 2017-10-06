@@ -1,10 +1,12 @@
 import React from 'react';
+
 import RoadTripCanvas from './canvas';
+import * as Boxes from './boxes';
 
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;
-  pixelRatio = 4;
+  pixelRatio = 8;
 
   constructor(props) {
     super(props);
@@ -21,7 +23,8 @@ export default class RoadTrip extends React.Component {
       canvasCenter: {
         x: 0,
         y: 0
-      }
+      },
+      boxes: []
     };
     this.onResize = this.onResize.bind(this);
     this.centerCanvas = this.centerCanvas.bind(this);
@@ -39,6 +42,13 @@ export default class RoadTrip extends React.Component {
     });
   }
 
+  defineBoxes() {
+    const boxes = Boxes.find({ x: 708, y: 502 });
+    this.setState({
+      boxes: [...boxes]
+    });
+  }
+
   onResize() {
     if (typeof window !== 'undefined') {
       this.setState({
@@ -46,6 +56,7 @@ export default class RoadTrip extends React.Component {
         windowHeight: window.innerHeight
       });
       this.centerCanvas();
+      this.defineBoxes();
     }
   }
 
@@ -54,6 +65,7 @@ export default class RoadTrip extends React.Component {
       window.addEventListener('resize', this.onResize, false);
     }
     this.centerCanvas();
+    this.defineBoxes();
   }
 
   componentWillUnmount() {
@@ -70,6 +82,7 @@ export default class RoadTrip extends React.Component {
           canvasHeight={this.height}
           canvasCenter={this.state.canvasCenter}
           pixelRatio={this.state.pixelRatio}
+          popinBoxes={this.state.boxes}
         ></RoadTripCanvas>
       </main>
     );

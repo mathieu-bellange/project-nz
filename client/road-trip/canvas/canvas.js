@@ -4,6 +4,7 @@ import Raphael from 'raphael';
 
 import './canvas.css';
 import * as NorthIsland from '../north-island';
+import * as Popin from '../popin';
 
 export default class RoadTripCanvas extends React.Component {
   canvasId = 'roadTrip-canvas';
@@ -12,7 +13,8 @@ export default class RoadTripCanvas extends React.Component {
     canvasWidth: PropTypes.number.isRequired,
     canvasHeight: PropTypes.number.isRequired,
     canvasCenter: PropTypes.object.isRequired,
-    pixelRatio: PropTypes.number.isRequired
+    pixelRatio: PropTypes.number.isRequired,
+    popinBoxes: PropTypes.array
   };
 
   constructor(props) {
@@ -62,7 +64,11 @@ export default class RoadTripCanvas extends React.Component {
     return (
         <div id="viewport">
           <div id={this.canvasId} style={this.state.canvasStyle}>
+
           </div>
+          <Popin.Wrapper
+            popinBoxes={this.props.popinBoxes}
+          ></Popin.Wrapper>
         </div>
     );
   }

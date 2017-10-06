@@ -1,0 +1,30 @@
+#popin-wrapper
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  display: flex
+  & > div
+    display: flex
+    flex-direction: column
+    .popin-text-container
+      flex: 1
+      display: flex
+      align-items: center
+      width: 80%
+      &.left
+        justify-content: flex-end
+      &.right
+        justify-content: flex-start
+  #left-container
+    align-items: flex-end
+    flex: 1
+    height: 100%
+  #middle-container
+    flex: 1
+    height: 100%
+    opacity: 0.7
+  #right-container
+    flex: 1
+    height: 100%
