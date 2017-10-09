@@ -1,3 +1,5 @@
+import TypeBox from './type-box';
+
 const boxes = [
   {
     center: {
@@ -8,16 +10,33 @@ const boxes = [
       {
         box: {
           id: 1,
-          text: 'Du texte un peu long pour voir ce que ça fait de ouf'
+          pictures: [
+            {
+              up: true,
+              src: '/images/DSC01597.jpg',
+              wide: true
+            },
+            {
+              up: false,
+              src: '/images/DSC00864.jpg',
+              wide: false
+            },
+            {
+              up: false,
+              src: '/images/DSC00864.jpg',
+              wide: false
+            }
+          ],
+          type: TypeBox.Pictures
         },
-        left: true,
+        left: false,
         position: 0
       },
       {
-        left: true
+        left: false
       },
       {
-        left: false
+        left: true
       },
       {
         box: {
@@ -25,9 +44,10 @@ const boxes = [
           text: `Des cadres de textes/photos/vidéos qui apparaîssent au fur
           et à mesure que l'on scroll. Les cadres possèdent une
           transistion d'affichage pour les faire
-          apparaître progressivement.`
+          apparaître progressivement.`,
+          type: TypeBox.Text
         },
-        left: false,
+        left: true,
         position: 2
       }
     ]

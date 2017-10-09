@@ -5,6 +5,8 @@ import { add, subtract } from 'mathjs';
 
 import './popin-wrapper.css';
 import PopinText from './popin-text';
+import PopinImage from './popin-image';
+import * as Boxes from '../boxes';
 
 export default class PopinWrapper extends React.Component {
   paper;
@@ -151,12 +153,21 @@ export default class PopinWrapper extends React.Component {
                 .map((box, index) => {
                   if (box.box) {
                     const popinBox = box.box;
-                    return <div key={index} className="popin-text-container left">
-                      <PopinText
+                    let component;
+                    if (popinBox.type === Boxes.Type.Text) {
+                      component = <PopinText
                         key={popinBox.id}
                         text={popinBox.text}
                         display={this.state.displayBox}
-                      />
+                      />;
+                    } else if (popinBox.type === Boxes.Type.Pictures) {
+                      component = <PopinImage
+                        prin="/images/DSC00864.jpg"
+                        display={this.state.displayBox}
+                      />;
+                    }
+                    return <div key={index} className="popin-text-container left">
+                      {component}
                     </div>;
                   }
                   return <div key={index} className="popin-text-container left"></div>;
@@ -173,11 +184,22 @@ export default class PopinWrapper extends React.Component {
                 .map((box, index) => {
                   if (box.box) {
                     const popinBox = box.box;
-                    return <div key={index} className="popin-text-container right">
-                      <PopinText key={popinBox.id}
+                    let component;
+                    if (popinBox.type === Boxes.Type.Text) {
+                      component = <PopinText
+                        key={popinBox.id}
                         text={popinBox.text}
                         display={this.state.displayBox}
-                      />
+                      />;
+                    } else if (popinBox.type === Boxes.Type.Pictures) {
+                      component = <PopinImage
+                        prin="/images/DSC00864.jpg"
+                        pictures={popinBox.pictures}
+                        display={this.state.displayBox}
+                      />;
+                    }
+                    return <div key={index} className="popin-text-container right">
+                      {component}
                     </div>;
                   }
                   return <div key={index} className="popin-text-container right"></div>;

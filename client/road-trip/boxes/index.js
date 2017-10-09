@@ -1,4 +1,5 @@
 import boxes from './boxes';
+import TypeBox from './type-box';
 
 function find(center) {
   return boxes
@@ -6,4 +7,4 @@ function find(center) {
     .reduce((init, box) => init.concat(box.boxes), []);
 }
 
-export { find };
+export { find, TypeBox as Type };
