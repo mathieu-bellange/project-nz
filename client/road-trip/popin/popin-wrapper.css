@@ -14,9 +14,14 @@
       align-items: center
       width: 80%
       &.left
+        padding: 2em 0 2em 2em
         justify-content: flex-end
       &.right
+        padding: 2em 2em 2em 0
         justify-content: flex-start
+      &.alone
+        justify-content: flex-start
+        flex: none
   #left-container
     align-items: flex-end
     flex: 1

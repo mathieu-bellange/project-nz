@@ -10,3 +10,4 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
+import 'lodash/isEqual';

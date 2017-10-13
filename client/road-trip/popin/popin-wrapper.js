@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Raphael from 'raphael';
 import { add, subtract } from 'mathjs';
+import isequal from 'lodash/isEqual';
 
 import './popin-wrapper.css';
 import PopinText from './popin-text';
@@ -58,6 +59,18 @@ export default class PopinWrapper extends React.Component {
       x: container.clientWidth / 2,
       y: container.clientHeight / 2
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isequal(prevProps.popinBoxes, this.props.popinBoxes)) {
+      if (this.props.popinBoxes.filter(popinBox => popinBox.position).length === 0) {
+        this.setState({
+          displayBox: true
+        });
+      } else {
+        this.circleAnimation(0);
+      }
+    }
   }
 
   circleAnimation(x) {
@@ -165,7 +178,7 @@ export default class PopinWrapper extends React.Component {
                         display={this.state.displayBox}
                       />;
                     }
-                    return <div key={index} className="popin-text-container left">
+                    return <div key={index} className={`popin-text-container left ${box.position !== undefined ? '' : 'alone'}`}>
                       {component}
                     </div>;
                   }
@@ -197,7 +210,7 @@ export default class PopinWrapper extends React.Component {
                         display={this.state.displayBox}
                       />;
                     }
-                    return <div key={index} className="popin-text-container right">
+                    return <div key={index} className={`popin-text-container right ${box.position !== undefined ? '' : 'alone'}`}>
                       {component}
                     </div>;
                   }
