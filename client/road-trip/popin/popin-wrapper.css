@@ -26,6 +26,9 @@
     align-items: flex-end
     flex: 1
     height: 100%
+    & > span
+      display: block
+      width: 80%
   #middle-container
     flex: 1
     height: 100%
@@ -33,3 +36,20 @@
   #right-container
     flex: 1
     height: 100%
+    & > span
+      display: block
+      width: 80%
+
+.example-enter
+  opacity: 0.01
+
+.example-enter.example-enter-active
+  opacity: 1
+  transition: opacity 1000ms ease-in
+
+.example-leave
+  opacity: 1
+
+.example-leave.example-leave-active
+  opacity: 0.01
+  transition: opacity 500ms ease-in

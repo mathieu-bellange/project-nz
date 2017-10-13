@@ -13,7 +13,7 @@ export default class PopinImage extends React.Component {
 
   render() {
     return (
-        <div className={`popin-image ${this.props.display ? 'show' : ''}`}>
+        <div className="popin-image">
           <div className="prin">
             <div className="img-wrapper">
               <img src={this.props.prin}></img>

@@ -1,7 +1,6 @@
 .popin-image
   border: 2px solid rgba(190,188,188,0.7)
   background-color: rgba(256,256,256,0.7)
-  opacity: 0
   transition: opacity 0.5s ease-out
   width: 100%
   display: flex
@@ -21,5 +20,3 @@
   img
     max-width: 100%
     display: block
-  &.show
-    opacity: 1

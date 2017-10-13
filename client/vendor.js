@@ -2,6 +2,7 @@ import 'react';
 import 'react-dom';
 import 'react-router-dom';
 import 'prop-types';
+import 'react-addons-css-transition-group';
 import 'raphael';
 import { add, subtract } from 'mathjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
