@@ -58,7 +58,6 @@ export default class PopinWrapper extends React.Component {
       x: container.clientWidth / 2,
       y: container.clientHeight / 2
     };
-    this.circleAnimation(0);
   }
 
   circleAnimation(x) {

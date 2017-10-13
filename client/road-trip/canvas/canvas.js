@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Raphael from 'raphael';
 
 import './canvas.css';
-import * as NorthIsland from '../north-island';
 import * as Popin from '../popin';
 
 export default class RoadTripCanvas extends React.Component {
-  canvasId = 'roadTrip-canvas';
-
   static propTypes = {
-    canvasWidth: PropTypes.number.isRequired,
-    canvasHeight: PropTypes.number.isRequired,
+    canvasId: PropTypes.string.isRequired,
     canvasCenter: PropTypes.object.isRequired,
     pixelRatio: PropTypes.number.isRequired,
     popinBoxes: PropTypes.array
@@ -23,26 +18,6 @@ export default class RoadTripCanvas extends React.Component {
       canvasStyle: {}
     };
     this.defineCanvasStyle = this.defineCanvasStyle.bind(this);
-  }
-
-  componentDidMount() {
-    // init Rapahael
-    const rsr = Raphael(
-      this.canvasId,
-      this.props.canvasWidth * this.props.pixelRatio,
-      this.props.canvasHeight * this.props.pixelRatio
-    );
-    rsr.setViewBox(
-      0,
-      0,
-      this.props.canvasWidth * this.props.pixelRatio,
-      this.props.canvasHeight * this.props.pixelRatio
-    );
-    // drawing on the canvas
-    const niLayer = new NorthIsland.Layer(rsr, this.props.pixelRatio);
-    niLayer.draw();
-    const rniLayer = new NorthIsland.RoadLayer(rsr, this.props.pixelRatio);
-    rniLayer.draw();
   }
 
   componentDidUpdate(prevProps) {
@@ -63,7 +38,7 @@ export default class RoadTripCanvas extends React.Component {
   render() {
     return (
         <div id="viewport">
-          <div id={this.canvasId} style={this.state.canvasStyle}>
+          <div id={this.props.canvasId} style={this.state.canvasStyle}>
 
           </div>
           <Popin.Wrapper

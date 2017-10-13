@@ -2,10 +2,21 @@ import TypeBox from './type-box';
 
 const boxes = [
   {
-    center: {
-      x: 708,
-      y: 502
-    },
+    id: 1,
+    boxes: [
+      {
+        box: {
+          id: 1,
+          title: 'Road To Nz',
+          text: 'first text',
+          type: TypeBox.Text
+        },
+        left: true
+      }
+    ]
+  },
+  {
+    id: 666,
     boxes: [
       {
         box: {

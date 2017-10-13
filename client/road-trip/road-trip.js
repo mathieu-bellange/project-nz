@@ -1,24 +1,23 @@
 import React from 'react';
+import Raphael from 'raphael';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
+import * as NorthIsland from './north-island';
 import RoadTripCanvas from './canvas';
 import * as Boxes from './boxes';
 
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;
-  pixelRatio = 8;
+  pixelRatio = 10;
+  canvasId = 'roadTrip-canvas';
+  actualPointSubject;
 
   constructor(props) {
     super(props);
-    let windowWidth = 0;
-    let windowHeight = 0;
-    if (typeof window !== 'undefined') {
-      windowWidth = window.innerWidth;
-      windowHeight = window.innerHeight;
-    }
+    const self = this;
     this.state = {
-      windowWidth,
-      windowHeight,
       pixelRatio: this.pixelRatio,
       canvasCenter: {
         x: 0,
@@ -26,60 +25,73 @@ export default class RoadTrip extends React.Component {
       },
       boxes: []
     };
-    this.onResize = this.onResize.bind(this);
+    this.actualPointSubject = new Subject();
+    const theOne = Observable.combineLatest(
+      Observable
+        .fromEvent(window, 'resize')
+        .map(() => ({ width: window.innerWidth, height: window.innerHeight }))
+        .startWith({ width: window.innerWidth, height: window.innerHeight }),
+      this.actualPointSubject
+    );
+    theOne.subscribe((values) => {
+      const [windowSize, actualPoint] = values;
+      self.centerCanvas(actualPoint, windowSize);
+      self.defineBoxes(actualPoint.id);
+    });
     this.centerCanvas = this.centerCanvas.bind(this);
+    this.initRaphael = this.initRaphael.bind(this);
   }
 
-  centerCanvas() {
-    const point = {
-      x: 708 * this.state.pixelRatio,
-      y: 502 * this.state.pixelRatio
-    };
-    const x = (0 - point.x) + (this.state.windowWidth / 2);
-    const y = (0 - point.y) + (this.state.windowHeight / 2);
+  centerCanvas(actualPoint, windowSize) {
+    const x = (0 - actualPoint.x) + (windowSize.width / 2);
+    const y = (0 - actualPoint.y) + (windowSize.height / 2);
     this.setState({
       canvasCenter: { x, y }
     });
   }
 
-  defineBoxes() {
-    const boxes = Boxes.find({ x: 708, y: 502 });
+  defineBoxes(id) {
+    const boxes = Boxes.find(id);
     this.setState({
       boxes: [...boxes]
     });
   }
 
-  onResize() {
-    if (typeof window !== 'undefined') {
-      this.setState({
-        windowWidth: window.innerWidth,
-        windowHeight: window.innerHeight
-      });
-      this.centerCanvas();
-      this.defineBoxes();
-    }
+  initRaphael() {
+    // init Rapahael
+    const canvas = Raphael(
+      this.canvasId,
+      this.width * this.pixelRatio,
+      this.height * this.pixelRatio
+    );
+    canvas.setViewBox(
+      0,
+      0,
+      this.width * this.pixelRatio,
+      this.height * this.pixelRatio
+    );
+
+    // drawing on the canvas
+    /* const niLayer = new NorthIsland.Layer(canvas, this.pixelRatio);
+    niLayer.draw();
+    const rniLayer = new NorthIsland.RoadLayer(canvas, this.pixelRatio);
+    rniLayer.draw(); */
+    const firstMonthScenario = new NorthIsland.FirstMonthScenario(canvas, this.pixelRatio, this.actualPointSubject);
+    firstMonthScenario.launch();
   }
 
   componentDidMount() {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', this.onResize, false);
-    }
-    this.centerCanvas();
-    this.defineBoxes();
+    this.initRaphael();
   }
 
   componentWillUnmount() {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', this.onResize);
-    }
   }
 
   render() {
     return (
       <main id="roadTrip">
         <RoadTripCanvas
-          canvasWidth={this.width}
-          canvasHeight={this.height}
+          canvasId={this.canvasId}
           canvasCenter={this.state.canvasCenter}
           pixelRatio={this.state.pixelRatio}
           popinBoxes={this.state.boxes}
