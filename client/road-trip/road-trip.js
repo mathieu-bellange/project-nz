@@ -13,10 +13,12 @@ export default class RoadTrip extends React.Component {
   pixelRatio = 10;
   canvasId = 'roadTrip-canvas';
   actualPointSubject;
+  firstMonthScenario;
 
   constructor(props) {
     super(props);
     const self = this;
+    let index = 0;
     this.state = {
       pixelRatio: this.pixelRatio,
       canvasCenter: {
@@ -36,8 +38,15 @@ export default class RoadTrip extends React.Component {
     theOne.subscribe((values) => {
       const [windowSize, actualPoint] = values;
       self.centerCanvas(actualPoint, windowSize);
-      self.defineBoxes(actualPoint.id);
+      self.defineBoxes(actualPoint.id, actualPoint.keepPrevious);
     });
+    Observable.fromEvent(window, 'keypress')
+      .filter(event => event.keyCode === 13)
+      .map(() => {
+        index += 1;
+        return index;
+      })
+      .subscribe(() => self.firstMonthScenario.nextStep(index));
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
   }
@@ -50,8 +59,11 @@ export default class RoadTrip extends React.Component {
     });
   }
 
-  defineBoxes(id) {
+  defineBoxes(id, keepPrevious) {
     const boxes = Boxes.find(id);
+    if (keepPrevious) {
+      boxes.push(...this.state.boxes);
+    }
     this.setState({
       boxes: [...boxes]
     });
@@ -76,8 +88,8 @@ export default class RoadTrip extends React.Component {
     niLayer.draw();
     const rniLayer = new NorthIsland.RoadLayer(canvas, this.pixelRatio);
     rniLayer.draw(); */
-    const firstMonthScenario = new NorthIsland.FirstMonthScenario(canvas, this.pixelRatio, this.actualPointSubject);
-    firstMonthScenario.launch();
+    this.firstMonthScenario = new NorthIsland.FirstMonthScenario(canvas, this.pixelRatio, this.actualPointSubject);
+    this.firstMonthScenario.launch();
   }
 
   componentDidMount() {

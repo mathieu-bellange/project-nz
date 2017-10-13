@@ -20,4 +20,10 @@ export default class Airplane {
   stopAnimation() {
     this.svg.stop();
   }
+
+  landing() {
+    this.svg.animate({ transform: 't-300,300' }, 2000, () => {
+      this.svg.animate({ transform: 't-10000,0' }, 50000);
+    });
+  }
 }

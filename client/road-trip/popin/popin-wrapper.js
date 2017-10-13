@@ -63,10 +63,12 @@ export default class PopinWrapper extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (!isequal(prevProps.popinBoxes, this.props.popinBoxes)) {
-      if (this.props.popinBoxes.filter(popinBox => popinBox.position).length === 0) {
-        this.setState({
-          displayBox: true
-        });
+      if (this.props.popinBoxes.filter(popinBox => popinBox.position !== undefined).length === 0) {
+        setTimeout(() => {
+          this.setState({
+            displayBox: true
+          });
+        }, 2000);
       } else {
         this.circleAnimation(0);
       }

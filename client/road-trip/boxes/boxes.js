@@ -1,8 +1,9 @@
 import TypeBox from './type-box';
 
 const boxes = [
+  // launch
   {
-    id: 1,
+    id: 0,
     boxes: [
       {
         box: {
@@ -14,6 +15,45 @@ const boxes = [
         left: true
       }
     ]
+  },
+  // firstStep
+  {
+    id: 1,
+    keepPrevious: true,
+    boxes: [
+      {
+        box: {
+          id: 1,
+          pictures: [
+            {
+              up: true,
+              src: '/images/DSC01597.jpg',
+              wide: true
+            },
+            {
+              up: false,
+              src: '/images/DSC00864.jpg',
+              wide: false
+            },
+            {
+              up: false,
+              src: '/images/DSC00864.jpg',
+              wide: false
+            }
+          ],
+          type: TypeBox.Pictures
+        },
+        left: false
+      },
+      {
+        left: false
+      }
+    ]
+  },
+  // thirdStep
+  {
+    id: 3,
+    boxes: []
   },
   {
     id: 666,
