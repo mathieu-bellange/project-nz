@@ -1,7 +1,6 @@
 .popin-image
   border: 2px solid rgba(190,188,188,0.7)
   background-color: rgba(256,256,256,0.7)
-  transition: opacity 0.5s ease-out
   width: 100%
   display: flex
   padding: 0.2em 0.3em
@@ -13,10 +12,14 @@
       display: flex
       height: 50%
       align-items: center
+      .img-wrapper
+        max-width: calc(50% - 8px)
+        &.wide
+          max-width: none
+        &.down
+          padding-top: 2px
   .img-wrapper
     padding: 4px
-    &.down
-      padding-top: 2px
   img
     max-width: 100%
     display: block

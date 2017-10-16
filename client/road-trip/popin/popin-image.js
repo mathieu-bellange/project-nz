@@ -25,7 +25,7 @@ export default class PopinImage extends React.Component {
                 this.props.pictures
                   .filter(picture => picture.up)
                   .map((picture, index) =>
-                    <div key={index} className="img-wrapper">
+                    <div key={index} className={`img-wrapper ${picture.wide ? 'wide' : ''}`}>
                       <img src={picture.src}></img>
                     </div>)
               }
@@ -35,7 +35,7 @@ export default class PopinImage extends React.Component {
                 this.props.pictures
                   .filter(picture => !picture.up)
                   .map((picture, index) =>
-                    <div key={index} className="img-wrapper">
+                    <div key={index} className={`img-wrapper ${picture.wide ? 'wide' : ''}`}>
                       <img src={picture.src}></img>
                     </div>)
               }
