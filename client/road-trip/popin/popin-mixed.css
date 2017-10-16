@@ -1,0 +1,26 @@
+.popin-mixed
+  border: 2px solid rgba(190,188,188,0.7)
+  background-color: rgba(256,256,256,0.7)
+  width: 100%
+  display: flex
+  padding: 0.2em 0.3em
+  .prin
+    width: 50%
+    padding: 4px
+  .secondary
+    width: 50%
+    & > div
+      display: flex
+      height: 50%
+      align-items: center
+      .img-wrapper
+        max-width: calc(50% - 8px)
+        &.wide
+          max-width: none
+        &.down
+          padding-top: 2px
+  .img-wrapper
+    padding: 4px
+  img
+    max-width: 100%
+    display: block

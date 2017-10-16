@@ -6,13 +6,11 @@ const boxes = [
     id: 0,
     boxes: [
       {
-        box: {
-          id: 1,
-          title: 'Road To Nz',
-          text: 'first text',
-          type: TypeBox.Text
-        },
-        left: true
+        id: 0,
+        left: true,
+        title: 'Road To Nz',
+        text: 'first text',
+        type: TypeBox.Text
       }
     ]
   },
@@ -22,37 +20,64 @@ const boxes = [
     keepPrevious: true,
     boxes: [
       {
-        box: {
-          id: 1,
-          pictures: [
-            {
-              up: true,
-              src: '/images/DSC01597.jpg',
-              wide: true
-            },
-            {
-              up: false,
-              src: '/images/DSC00864.jpg',
-              wide: false
-            },
-            {
-              up: false,
-              src: '/images/DSC00864.jpg',
-              wide: false
-            }
-          ],
-          type: TypeBox.Pictures
-        },
-        left: false
-      },
+        id: 1,
+        left: false,
+        pictures: [
+          {
+            up: true,
+            src: '/images/DSC01597.jpg',
+            wide: true
+          },
+          {
+            up: false,
+            src: '/images/DSC00864.jpg',
+            wide: false
+          },
+          {
+            up: false,
+            src: '/images/DSC00864.jpg',
+            wide: false
+          }
+        ],
+        type: TypeBox.Pictures
+      }
+    ]
+  },
+  // secondStep
+  {
+    id: 2,
+    keepPrevious: true,
+    boxes: [
       {
-        left: false
+        id: 2,
+        left: false,
+        title: 'Singapour',
+        text: 'un texte sur singapour',
+        pictures: [
+          {
+            up: true,
+            src: '/images/DSC00864.jpg',
+            wide: false
+          },
+          {
+            up: true,
+            src: '/images/DSC00864.jpg',
+            wide: false
+          },
+          {
+            up: false,
+            src: '/images/DSC00864.jpg',
+            wide: false
+          }
+        ],
+        type: TypeBox.Mixed
       }
     ]
   },
   // thirdStep
   {
     id: 3,
+    keepPrevious: false,
     boxes: []
   },
   {

@@ -8,6 +8,7 @@ import isequal from 'lodash/isEqual';
 import './popin-wrapper.css';
 import PopinText from './popin-text';
 import PopinImage from './popin-image';
+import PopinMixed from './popin-mixed';
 import * as Boxes from '../boxes';
 
 export default class PopinWrapper extends React.Component {
@@ -153,20 +154,21 @@ export default class PopinWrapper extends React.Component {
         <div id="popin-wrapper">
           <div id="left-container">
             <ReactCSSTransitionGroup
-              transitionName="example">
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={500}>
               {
                 this.props.popinBoxes
                   .filter(popinBox => popinBox.left)
                   .map((box, index) => {
-                    if (box.box) {
-                      const popinBox = box.box;
+                    if (box.id !== undefined) {
                       let component;
-                      if (popinBox.type === Boxes.Type.Text) {
+                      if (box.type === Boxes.Type.Text) {
                         component = <PopinText
-                          key={popinBox.id}
-                          text={popinBox.text}
+                          key={box.id}
+                          text={box.text}
                         />;
-                      } else if (popinBox.type === Boxes.Type.Pictures) {
+                      } else if (box.type === Boxes.Type.Pictures) {
                         component = <PopinImage
                           prin="/images/DSC00864.jpg"
                         />;
@@ -185,23 +187,30 @@ export default class PopinWrapper extends React.Component {
           </div>
           <div id="right-container">
             <ReactCSSTransitionGroup
-              transitionName="example">
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={500}>
               {
                 this.props.popinBoxes
                   .filter(popinBox => !popinBox.left)
                   .map((box, index) => {
-                    if (box.box) {
-                      const popinBox = box.box;
+                    if (box.id !== undefined) {
                       let component;
-                      if (popinBox.type === Boxes.Type.Text) {
+                      if (box.type === Boxes.Type.Text) {
                         component = <PopinText
-                          key={popinBox.id}
-                          text={popinBox.text}
+                          key={box.id}
+                          text={box.text}
                         />;
-                      } else if (popinBox.type === Boxes.Type.Pictures) {
+                      } else if (box.type === Boxes.Type.Pictures) {
                         component = <PopinImage
                           prin="/images/DSC00864.jpg"
-                          pictures={popinBox.pictures}
+                          pictures={box.pictures}
+                        />;
+                      } else if (box.type === Boxes.Type.Mixed) {
+                        component = <PopinMixed
+                          title={box.title}
+                          text={box.text}
+                          pictures={box.pictures}
                         />;
                       }
                       return <div key={index} className={`popin-text-container right ${box.position !== undefined ? '' : 'alone'}`}>

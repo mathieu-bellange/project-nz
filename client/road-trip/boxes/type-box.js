@@ -1,6 +1,7 @@
 const TypeBox = {
   Picture: 'img',
-  Text: 'text'
+  Text: 'text',
+  Mixed: 'mixed'
 };
 
 export default TypeBox;
