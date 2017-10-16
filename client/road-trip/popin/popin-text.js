@@ -5,13 +5,13 @@ import './popin-text.css';
 
 export default class PopinText extends React.Component {
   static propTypes = {
-    text: PropTypes.string.isRequired
+    box: PropTypes.object.isRequired
   };
 
   render() {
     return (
         <div className="popin-text">
-          <p>{this.props.text}</p>
+          <p>{this.props.box.text}</p>
         </div>
     );
   }

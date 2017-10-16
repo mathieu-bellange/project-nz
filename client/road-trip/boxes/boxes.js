@@ -22,6 +22,7 @@ const boxes = [
         id: 1,
         left: false,
         position: 1,
+        prin: '/images/DSC00864.jpg',
         pictures: [
           {
             up: true,

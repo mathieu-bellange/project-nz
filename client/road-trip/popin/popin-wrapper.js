@@ -16,6 +16,31 @@ export default class PopinWrapper extends React.Component {
   center;
   containerSize;
   lineStyle = { stroke: '#BEBCBC', 'stroke-width': 2 };
+  mapPopinComponents = function mapPopinComponents(box) {
+    let component = '';
+    switch (box.type) {
+      case Boxes.Type.Text:
+        component = <PopinText
+          box={box}
+        />;
+        break;
+      case Boxes.Type.Picture:
+        component = <PopinImage
+          box={box}
+        />;
+        break;
+      case Boxes.Type.Mixed:
+        component = <PopinMixed
+          box={box}
+        />;
+        break;
+      default:
+        component = '';
+    }
+    return <div key={box.id} className={`popin-text-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'}`}>
+      {component}
+    </div>;
+  };
 
   static propTypes = {
     popinBoxes: PropTypes.array,
@@ -159,22 +184,7 @@ export default class PopinWrapper extends React.Component {
               {
                 this.props.popinBoxes
                   .filter(popinBox => popinBox.left)
-                  .map((box) => {
-                    let component = '';
-                    if (box.type === Boxes.Type.Text) {
-                      component = <PopinText
-                        key={box.id}
-                        text={box.text}
-                      />;
-                    } else if (box.type === Boxes.Type.Picture) {
-                      component = <PopinImage
-                        prin="/images/DSC00864.jpg"
-                      />;
-                    }
-                    return <div key={box.id} className={`popin-text-container left ${box.position !== undefined ? '' : 'alone'}`}>
-                      {component}
-                    </div>;
-                  }, this)
+                  .map(this.mapPopinComponents)
                 }
               </ReactCSSTransitionGroup>
             </div>
@@ -189,29 +199,7 @@ export default class PopinWrapper extends React.Component {
               {
                 this.props.popinBoxes
                   .filter(popinBox => !popinBox.left)
-                  .map((box) => {
-                    let component = '';
-                    if (box.type === Boxes.Type.Text) {
-                      component = <PopinText
-                        key={box.id}
-                        text={box.text}
-                      />;
-                    } else if (box.type === Boxes.Type.Picture) {
-                      component = <PopinImage
-                        prin="/images/DSC00864.jpg"
-                        pictures={box.pictures}
-                      />;
-                    } else if (box.type === Boxes.Type.Mixed) {
-                      component = <PopinMixed
-                        title={box.title}
-                        text={box.text}
-                        pictures={box.pictures}
-                      />;
-                    }
-                    return <div key={box.id} className={`popin-text-container right ${box.position !== undefined ? '' : 'alone'}`}>
-                      {component}
-                    </div>;
-                }, this)
+                  .map(this.mapPopinComponents)
               }
             </ReactCSSTransitionGroup>
           </div>

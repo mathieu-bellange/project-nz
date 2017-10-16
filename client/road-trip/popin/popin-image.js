@@ -6,9 +6,7 @@ import './popin-image.css';
 export default class PopinImage extends React.Component {
   index = 0;
   static propTypes = {
-    pictures: PropTypes.array.isRequired,
-    prin: PropTypes.string.isRequired,
-    display: PropTypes.bool
+    box: PropTypes.object.isRequired
   };
 
   render() {
@@ -16,13 +14,13 @@ export default class PopinImage extends React.Component {
         <div className="popin-image">
           <div className="prin">
             <div className="img-wrapper">
-              <img src={this.props.prin}></img>
+              <img src={this.props.box.prin}></img>
             </div>
           </div>
           <div className="secondary">
             <div className="up">
               {
-                this.props.pictures
+                this.props.box.pictures
                   .filter(picture => picture.up)
                   .map((picture, index) =>
                     <div key={index} className={`img-wrapper ${picture.wide ? 'wide' : ''}`}>
@@ -32,7 +30,7 @@ export default class PopinImage extends React.Component {
             </div>
             <div className="down">
               {
-                this.props.pictures
+                this.props.box.pictures
                   .filter(picture => !picture.up)
                   .map((picture, index) =>
                     <div key={index} className={`img-wrapper ${picture.wide ? 'wide' : ''}`}>
