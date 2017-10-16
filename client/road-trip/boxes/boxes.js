@@ -17,11 +17,11 @@ const boxes = [
   // firstStep
   {
     id: 1,
-    keepPrevious: true,
     boxes: [
       {
         id: 1,
         left: false,
+        position: 1,
         pictures: [
           {
             up: true,
@@ -39,18 +39,23 @@ const boxes = [
             wide: false
           }
         ],
-        type: TypeBox.Pictures
+        type: TypeBox.Picture
+      },
+      {
+        id: 2,
+        position: 2,
+        left: false
       }
     ]
   },
   // secondStep
   {
     id: 2,
-    keepPrevious: true,
     boxes: [
       {
         id: 2,
         left: false,
+        position: 2,
         title: 'Singapour',
         text: 'un texte sur singapour',
         pictures: [
@@ -77,7 +82,6 @@ const boxes = [
   // thirdStep
   {
     id: 3,
-    keepPrevious: false,
     boxes: []
   },
   {
@@ -103,7 +107,7 @@ const boxes = [
               wide: false
             }
           ],
-          type: TypeBox.Pictures
+          type: TypeBox.Picture
         },
         left: false,
         position: 0

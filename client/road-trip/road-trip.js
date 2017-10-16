@@ -25,7 +25,8 @@ export default class RoadTrip extends React.Component {
         x: 0,
         y: 0
       },
-      boxes: []
+      boxes: [],
+      drawCircle: false
     };
     this.actualPointSubject = new Subject();
     const theOne = Observable.combineLatest(
@@ -39,6 +40,7 @@ export default class RoadTrip extends React.Component {
       const [windowSize, actualPoint] = values;
       self.centerCanvas(actualPoint, windowSize);
       self.defineBoxes(actualPoint.id, actualPoint.keepPrevious);
+      self.defineCircle(actualPoint.drawCircle);
     });
     Observable.fromEvent(window, 'keypress')
       .filter(event => event.keyCode === 13)
@@ -49,6 +51,8 @@ export default class RoadTrip extends React.Component {
       .subscribe(() => self.firstMonthScenario.nextStep(index));
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
+    this.defineCircle = this.defineCircle.bind(this);
+    this.defineBoxes = this.defineBoxes.bind(this);
   }
 
   centerCanvas(actualPoint, windowSize) {
@@ -60,12 +64,18 @@ export default class RoadTrip extends React.Component {
   }
 
   defineBoxes(id, keepPrevious) {
-    const boxes = Boxes.find(id);
+    let boxes = Boxes.find(id);
     if (keepPrevious) {
-      boxes.push(...this.state.boxes);
+      boxes = this.state.boxes.filter(box => box.type).concat(boxes);
     }
     this.setState({
       boxes: [...boxes]
+    });
+  }
+
+  defineCircle(drawCircle) {
+    this.setState({
+      drawCircle
     });
   }
 
@@ -107,6 +117,7 @@ export default class RoadTrip extends React.Component {
           canvasCenter={this.state.canvasCenter}
           pixelRatio={this.state.pixelRatio}
           popinBoxes={this.state.boxes}
+          drawCircle={this.state.drawCircle}
         ></RoadTripCanvas>
       </main>
     );

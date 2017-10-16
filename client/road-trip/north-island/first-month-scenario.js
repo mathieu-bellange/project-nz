@@ -14,6 +14,7 @@ export default class FirstMonthScenario {
         x: 708 * this.pixelRatio,
         y: 502 * this.pixelRatio,
         id: 1,
+        drawCircle: false,
         keepPrevious: true
       };
       this.actualPointSubject.next(firstPoint);
@@ -23,6 +24,7 @@ export default class FirstMonthScenario {
       const secondPoint = {
         x: 708 * this.pixelRatio,
         y: 502 * this.pixelRatio,
+        drawCircle: false,
         id: 2,
         keepPrevious: true
       };
@@ -33,6 +35,7 @@ export default class FirstMonthScenario {
       const thirdPoint = {
         x: 708 * this.pixelRatio,
         y: 502 * this.pixelRatio,
+        drawCircle: false,
         id: 3,
         keepPrevious: false
       };
@@ -52,6 +55,7 @@ export default class FirstMonthScenario {
     const actualPoint = {
       x: 708 * this.pixelRatio,
       y: 502 * this.pixelRatio,
+      drawCircle: false,
       id: 0
     };
     this.actualPointSubject.next(actualPoint);

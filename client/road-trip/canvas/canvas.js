@@ -9,6 +9,7 @@ export default class RoadTripCanvas extends React.Component {
     canvasId: PropTypes.string.isRequired,
     canvasCenter: PropTypes.object.isRequired,
     pixelRatio: PropTypes.number.isRequired,
+    drawCircle: PropTypes.bool,
     popinBoxes: PropTypes.array
   };
 
@@ -42,6 +43,7 @@ export default class RoadTripCanvas extends React.Component {
 
           </div>
           <Popin.Wrapper
+            drawCircle={this.props.drawCircle}
             popinBoxes={this.props.popinBoxes}
           ></Popin.Wrapper>
         </div>

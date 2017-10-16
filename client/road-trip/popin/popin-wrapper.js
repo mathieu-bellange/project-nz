@@ -18,7 +18,8 @@ export default class PopinWrapper extends React.Component {
   lineStyle = { stroke: '#BEBCBC', 'stroke-width': 2 };
 
   static propTypes = {
-    popinBoxes: PropTypes.array
+    popinBoxes: PropTypes.array,
+    drawCircle: PropTypes.bool
   };
 
   constructor(props) {
@@ -61,10 +62,8 @@ export default class PopinWrapper extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!isequal(prevProps.popinBoxes, this.props.popinBoxes)) {
-      if (this.props.popinBoxes.filter(popinBox => popinBox.position !== undefined).length > 0) {
-        this.circleAnimation(0);
-      }
+    if (!isequal(prevProps.drawCircle, this.props.drawCircle) && this.props.drawCircle) {
+      this.circleAnimation(0);
     }
   }
 
@@ -160,24 +159,21 @@ export default class PopinWrapper extends React.Component {
               {
                 this.props.popinBoxes
                   .filter(popinBox => popinBox.left)
-                  .map((box, index) => {
-                    if (box.id !== undefined) {
-                      let component;
-                      if (box.type === Boxes.Type.Text) {
-                        component = <PopinText
-                          key={box.id}
-                          text={box.text}
-                        />;
-                      } else if (box.type === Boxes.Type.Pictures) {
-                        component = <PopinImage
-                          prin="/images/DSC00864.jpg"
-                        />;
-                      }
-                      return <div key={index} className={`popin-text-container left ${box.position !== undefined ? '' : 'alone'}`}>
-                        {component}
-                      </div>;
+                  .map((box) => {
+                    let component = '';
+                    if (box.type === Boxes.Type.Text) {
+                      component = <PopinText
+                        key={box.id}
+                        text={box.text}
+                      />;
+                    } else if (box.type === Boxes.Type.Picture) {
+                      component = <PopinImage
+                        prin="/images/DSC00864.jpg"
+                      />;
                     }
-                    return <div key={index} className="popin-text-container left"></div>;
+                    return <div key={box.id} className={`popin-text-container left ${box.position !== undefined ? '' : 'alone'}`}>
+                      {component}
+                    </div>;
                   }, this)
                 }
               </ReactCSSTransitionGroup>
@@ -193,31 +189,28 @@ export default class PopinWrapper extends React.Component {
               {
                 this.props.popinBoxes
                   .filter(popinBox => !popinBox.left)
-                  .map((box, index) => {
-                    if (box.id !== undefined) {
-                      let component;
-                      if (box.type === Boxes.Type.Text) {
-                        component = <PopinText
-                          key={box.id}
-                          text={box.text}
-                        />;
-                      } else if (box.type === Boxes.Type.Pictures) {
-                        component = <PopinImage
-                          prin="/images/DSC00864.jpg"
-                          pictures={box.pictures}
-                        />;
-                      } else if (box.type === Boxes.Type.Mixed) {
-                        component = <PopinMixed
-                          title={box.title}
-                          text={box.text}
-                          pictures={box.pictures}
-                        />;
-                      }
-                      return <div key={index} className={`popin-text-container right ${box.position !== undefined ? '' : 'alone'}`}>
-                        {component}
-                      </div>;
+                  .map((box) => {
+                    let component = '';
+                    if (box.type === Boxes.Type.Text) {
+                      component = <PopinText
+                        key={box.id}
+                        text={box.text}
+                      />;
+                    } else if (box.type === Boxes.Type.Picture) {
+                      component = <PopinImage
+                        prin="/images/DSC00864.jpg"
+                        pictures={box.pictures}
+                      />;
+                    } else if (box.type === Boxes.Type.Mixed) {
+                      component = <PopinMixed
+                        title={box.title}
+                        text={box.text}
+                        pictures={box.pictures}
+                      />;
                     }
-                    return <div key={index} className="popin-text-container right"></div>;
+                    return <div key={box.id} className={`popin-text-container right ${box.position !== undefined ? '' : 'alone'}`}>
+                      {component}
+                    </div>;
                 }, this)
               }
             </ReactCSSTransitionGroup>

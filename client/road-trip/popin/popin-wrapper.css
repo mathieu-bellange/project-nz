@@ -27,8 +27,10 @@
     flex: 1
     height: 100%
     & > span
-      display: block
+      display: flex
       width: 80%
+      height: 100%
+      flex-direction: column
   #middle-container
     flex: 1
     height: 100%
@@ -37,8 +39,10 @@
     flex: 1
     height: 100%
     & > span
-      display: block
+      display: flex
       width: 80%
+      height: 100%
+      flex-direction: column
 
 .example-enter
   opacity: 0.01
