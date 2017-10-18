@@ -37,7 +37,7 @@ export default class PopinWrapper extends React.Component {
       default:
         component = '';
     }
-    return <div key={box.id} className={`popin-text-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'}`}>
+    return <div key={box.id} className={`popin-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'}`}>
       {component}
     </div>;
   };

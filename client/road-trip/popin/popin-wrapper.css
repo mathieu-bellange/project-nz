@@ -8,16 +8,14 @@
   & > div
     display: flex
     flex-direction: column
-    .popin-text-container
+    .popin-container
       flex: 1
       display: flex
       align-items: center
-      width: 80%
+      padding: 2em 0
       &.left
-        padding: 2em 0 2em 2em
         justify-content: flex-end
       &.right
-        padding: 2em 2em 2em 0
         justify-content: flex-start
       &.alone
         justify-content: flex-start
@@ -28,7 +26,6 @@
     height: 100%
     & > span
       display: flex
-      width: 80%
       height: 100%
       flex-direction: column
   #middle-container
@@ -40,7 +37,6 @@
     height: 100%
     & > span
       display: flex
-      width: 80%
       height: 100%
       flex-direction: column
 
