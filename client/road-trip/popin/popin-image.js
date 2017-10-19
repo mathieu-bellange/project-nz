@@ -5,6 +5,8 @@ import './popin-image.css';
 
 export default class PopinImage extends React.Component {
   elem;
+  secondUpElem;
+  secondDownElem;
   animationState = {
     open: {
       begin: 'openBegin',
@@ -37,6 +39,12 @@ export default class PopinImage extends React.Component {
       offsetTop: this.elem.offsetTop,
       width: `calc(${this.elem.clientWidth}px - 0.6em)`,
       height: `calc(${this.elem.clientHeight}px - 0.4em)`,
+      secondUpStyle: {
+        minHeight: `calc(${this.secondUpElem.clientHeight}px)`
+      },
+      secondDownStyle: {
+        minHeight: `calc(${this.secondDownElem.clientHeight}px)`
+      },
       style: {
         width: `calc(${this.elem.clientWidth}px - 0.6em)`,
         height: `calc(${this.elem.clientHeight}px - 0.4em)`,
@@ -116,7 +124,7 @@ export default class PopinImage extends React.Component {
             </div>
           </div>
           <div className="secondary">
-            <div className="up">
+            <div ref={(el) => { this.secondUpElem = el; }} className="up">
               {
                 this.props.box.pictures
                   .filter(picture => picture.up)
@@ -126,7 +134,7 @@ export default class PopinImage extends React.Component {
                     </div>)
               }
             </div>
-            <div className="down">
+            <div ref={(el) => { this.secondDownElem = el; }} className="down">
               {
                 this.props.box.pictures
                   .filter(picture => !picture.up)
@@ -147,7 +155,7 @@ export default class PopinImage extends React.Component {
           onTransitionEnd={this.finishAnimation}
         >
           <i className="fa fa-times" onClick={this.closeFullScreen}></i>
-          <div>
+          <div className="prin-wrapper">
             <div className="prin">
               <div className="img-wrapper">
                 <img src={this.props.box.prin}></img>
@@ -178,7 +186,7 @@ export default class PopinImage extends React.Component {
           </div>
           <div>
             <div className="secondary">
-              <div className="up">
+              <div style={this.state.secondUpStyle} className="up">
                 {
                   this.props.box.pictures
                   .filter(picture => picture.up)
@@ -188,7 +196,7 @@ export default class PopinImage extends React.Component {
                   </div>)
                 }
               </div>
-              <div className="down">
+              <div style={this.state.secondDownStyle} className="down">
                 {
                   this.props.box.pictures
                   .filter(picture => !picture.up)

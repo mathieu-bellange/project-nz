@@ -16,10 +16,14 @@
     background-color: rgba(256,256,256, 0.2)
     & > div
       flex-direction: column
+      &.prin-wrapper
+        transition: padding 1s ease-in-out
+        padding: 6px 4px
       .prin, .secondary
+        padding: 0
         width: 100%
     i.fa
-      color: #fff
+      color: rgb(190,188,188)
       font-size: 2em
       cursor: pointer
       position: absolute
@@ -36,14 +40,27 @@
         height: 80%
         padding: 0
         overflow-y: auto
-        .img-wrapper
+        .prin-wrapper
           padding: 0
+        .prin
+          .img-wrapper
+            max-width: 100%
+        .secondary
+          .img-wrapper
+            padding: 0
+            max-width: 50%
+            &.wide
+              max-width: 100%
         i.fa
           opacity: 1
         .secondary > div
           height: auto
   .prin
+    transition: padding 1s ease-in-out
     width: 50%
+    padding: 6px 4px
+    .img-wrapper
+      padding: 0
   .secondary
     width: 50%
     & > div
