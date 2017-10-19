@@ -47,6 +47,8 @@
           .img-wrapper
             padding: 0
             max-width: 50%
+            &.wide
+              max-width: 100%
         i.fa
           opacity: 1
         .secondary > div
@@ -59,7 +61,6 @@
     width: 50%
     & > div
       display: flex
-      height: 50%
       align-items: center
       .img-wrapper
         max-width: calc(50% - 8px)

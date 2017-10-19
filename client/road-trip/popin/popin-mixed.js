@@ -133,7 +133,7 @@ export default class PopinMixed extends React.Component {
                 this.props.box.pictures
                   .filter(picture => picture.up)
                   .map((picture, index) =>
-                    <div key={index} className="img-wrapper">
+                    <div key={index} className={`img-wrapper ${picture.wide ? 'wide' : ''}`}>
                       <img src={picture.src}></img>
                     </div>)
               }
@@ -143,7 +143,7 @@ export default class PopinMixed extends React.Component {
                 this.props.box.pictures
                   .filter(picture => !picture.up)
                   .map((picture, index) =>
-                    <div key={index} className="img-wrapper">
+                    <div key={index} className={`img-wrapper ${picture.wide ? 'wide' : ''}`}>
                       <img src={picture.src}></img>
                     </div>)
               }
@@ -172,7 +172,7 @@ export default class PopinMixed extends React.Component {
                   this.props.box.pictures
                     .filter(picture => picture.up)
                     .map((picture, index) =>
-                      <div key={index} className="img-wrapper">
+                      <div key={index} className={`img-wrapper ${picture.wide ? 'wide' : ''}`}>
                         <img src={picture.src}></img>
                       </div>)
                 }
@@ -182,7 +182,7 @@ export default class PopinMixed extends React.Component {
                   this.props.box.pictures
                     .filter(picture => !picture.up)
                     .map((picture, index) =>
-                      <div key={index} className="img-wrapper">
+                      <div key={index} className={`img-wrapper ${picture.wide ? 'wide' : ''}`}>
                         <img src={picture.src}></img>
                       </div>)
                 }
