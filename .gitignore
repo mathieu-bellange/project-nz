@@ -1,10 +1,6 @@
 node_modules
-
 npm-debug.log
-
-
 coverage
-
 dist
 
-bower_components
+public/images/airplane
