@@ -28,7 +28,7 @@
       left: 0
       &.end
         width: calc(100% - 2em)
-        height: 80%
+        height: calc(90% - 2em)
         overflow-y: auto
         i.fa
           opacity: 1
