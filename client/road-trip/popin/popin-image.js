@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import './popin-image.css';
 
 export default class PopinImage extends React.Component {
-  elem;
-  secondUpElem;
-  secondDownElem;
   animationState = {
     open: {
       begin: 'openBegin',
@@ -39,12 +36,6 @@ export default class PopinImage extends React.Component {
       offsetTop: this.elem.offsetTop,
       width: `calc(${this.elem.clientWidth}px - 0.6em)`,
       height: `calc(${this.elem.clientHeight}px - 0.4em)`,
-      secondUpStyle: {
-        minHeight: `calc(${this.secondUpElem.clientHeight}px)`
-      },
-      secondDownStyle: {
-        minHeight: `calc(${this.secondDownElem.clientHeight}px)`
-      },
       style: {
         width: `calc(${this.elem.clientWidth}px - 0.6em)`,
         height: `calc(${this.elem.clientHeight}px - 0.4em)`,
@@ -129,7 +120,7 @@ export default class PopinImage extends React.Component {
                     </div>;
                   }
                   return <div key={picture.id} className="secondary">
-                    <div ref={(el) => { this.secondUpElem = el; }} className="up">
+                    <div className="up">
                       {
                         picture.sources[0]
                           .map(upPic =>
@@ -138,7 +129,7 @@ export default class PopinImage extends React.Component {
                             </div>)
                       }
                     </div>
-                    <div ref={(el) => { this.secondDownElem = el; }} className="down">
+                    <div className="down">
                       {
                         picture.sources[1]
                           .map(dnPic =>
