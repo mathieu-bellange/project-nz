@@ -1,4 +1,5 @@
 import Airplane from './airplane';
+import Sky from './sky';
 
 export default class FirstMonthScenario {
   canvas;
@@ -39,6 +40,7 @@ export default class FirstMonthScenario {
         id: 3,
         keepPrevious: false
       };
+      this.sky.stop();
       this.airplane.stopAnimation();
       this.airplane.landing();
       this.actualPointSubject.next(thirdPoint);
@@ -62,6 +64,8 @@ export default class FirstMonthScenario {
     this.airplane = new Airplane();
     this.airplane.draw(this.canvas, actualPoint);
     this.airplane.animate();
+    this.sky = new Sky(this.canvas, actualPoint);
+    this.sky.launch();
   }
 
   nextStep(index) {
