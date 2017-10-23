@@ -1,0 +1,6 @@
+.prin
+  transition: padding 1s ease-in-out
+  width: 50%
+  padding: 6px 4px
+  .img-wrapper
+    padding: 0

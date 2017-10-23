@@ -23,68 +23,63 @@ const boxes = [
         left: false,
         position: 1,
         pictures: [
-          [
-            {
-              id: 100,
-              prin: true,
+          {
+            id: 10,
+            prin: {
               src: '/images/airplane/01.jpg'
             },
-            {
-              id: 101,
-              prin: false,
+            secondary: {
               sources: [
                 [
                   {
-                    id: 1000,
+                    id: 100,
                     src: '/images/airplane/02.jpg',
                     wide: false
                   },
                   {
-                    id: 1001,
+                    id: 101,
                     src: '/images/airplane/03.jpg',
                     wide: false
                   }
                 ],
                 [
                   {
-                    id: 1002,
+                    id: 102,
                     src: '/images/airplane/04.jpg',
                     wide: false
                   },
                   {
-                    id: 1003,
+                    id: 103,
                     src: '/images/airplane/05.jpg',
                     wide: false
                   }
                 ]
               ]
             }
-          ],
-          [
-            {
-              id: 102,
-              prin: false,
+          },
+          {
+            id: 11,
+            prin: {
+              src: '/images/airplane/06.jpg'
+            },
+            secondary: {
               sources: [
                 [
                   {
-                    id: 1004,
+                    id: 104,
                     src: '/images/airplane/07.jpg',
                     wide: false
                   },
                   {
-                    id: 1001,
+                    id: 105,
                     src: '/images/airplane/08.jpg',
                     wide: false
                   }
-                ]
+                ],
+                []
               ]
-            },
-            {
-              id: 103,
-              prin: true,
-              src: '/images/airplane/06.jpg'
             }
-          ]
+          }
         ],
         type: TypeBox.Picture
       },

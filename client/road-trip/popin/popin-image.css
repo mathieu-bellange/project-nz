@@ -17,8 +17,11 @@
     flex-direction: column
     & > div
       display: flex
-      flex-direction: row
       min-height: min-content
+      &:nth-child(even)
+        flex-direction: row
+      &:nth-child(odd)
+        flex-direction: row-reverse
     i.fa
       color: rgb(190,188,188)
       font-size: 2em
@@ -51,27 +54,3 @@
           opacity: 1
         .secondary > div
           height: auto
-  .prin
-    transition: padding 1s ease-in-out
-    width: 50%
-    padding: 6px 4px
-    .img-wrapper
-      padding: 0
-  .secondary
-    width: 50%
-    & > div
-      display: flex
-      height: 50%
-      align-items: center
-      .img-wrapper
-        max-width: calc(50% - 8px)
-        &.wide
-          max-width: none
-        &.down
-          padding-top: 2px
-  .img-wrapper
-    transition: padding 1s ease-in-out
-    padding: 4px
-  img
-    max-width: 100%
-    display: block

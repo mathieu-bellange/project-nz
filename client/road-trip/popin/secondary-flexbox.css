@@ -1,0 +1,12 @@
+.secondary
+  width: 50%
+  & > div
+    display: flex
+    height: 50%
+    align-items: center
+    .img-wrapper
+      max-width: calc(50% - 8px)
+      &.wide
+        max-width: none
+      &.down
+        padding-top: 2px

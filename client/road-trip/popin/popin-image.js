@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import PrinFlexBox from './prin-flexbox';
+import SecondaryFlexBox from './secondary-flexbox';
 import './popin-image.css';
 
 export default class PopinImage extends React.Component {
+  elem;
   animationState = {
     open: {
       begin: 'openBegin',
@@ -109,38 +112,8 @@ export default class PopinImage extends React.Component {
           className={`popin-image ${this.state.begin ? 'full-screen' : ''}`}
           onClick={this.openFullScreen}
         >
-          {
-            this.props.box.pictures[0]
-              .map((picture) => {
-                  if (picture.prin) {
-                    return <div key={picture.id} className="prin">
-                      <div className="img-wrapper">
-                        <img onLoad={this.prinLoaded} src={picture.src}></img>
-                      </div>
-                    </div>;
-                  }
-                  return <div key={picture.id} className="secondary">
-                    <div className="up">
-                      {
-                        picture.sources[0]
-                          .map(upPic =>
-                            <div key={upPic.id} className={`img-wrapper ${upPic.wide ? 'wide' : ''}`}>
-                              <img src={upPic.src}></img>
-                            </div>)
-                      }
-                    </div>
-                    <div className="down">
-                      {
-                        picture.sources[1]
-                          .map(dnPic =>
-                            <div key={dnPic.id} className={`img-wrapper ${dnPic.wide ? 'wide' : ''}`}>
-                              <img src={dnPic.src}></img>
-                            </div>)
-                      }
-                    </div>
-                  </div>;
-              })
-          }
+          <PrinFlexBox onLoad={this.prinLoaded} img={this.props.box.pictures[0].prin} />
+          <SecondaryFlexBox images={this.props.box.pictures[0].secondary.sources}/>
         </div>
         <div
           style={this.state.style}
@@ -151,65 +124,14 @@ export default class PopinImage extends React.Component {
           onTransitionEnd={this.finishAnimation}
         >
           <i className="fa fa-times" onClick={this.closeFullScreen}></i>
-          <div>
           {
-            this.props.box.pictures[0]
-              .map((picture) => {
-                  if (picture.prin) {
-                    return <div key={picture.id} className="prin">
-                      <div className="img-wrapper">
-                        <img onLoad={this.prinLoaded} src={picture.src}></img>
-                      </div>
-                    </div>;
-                  }
-                  return <div key={picture.id} className="secondary">
-                    <div className="up">
-                      {
-                        picture.sources[0]
-                          .map(upPic =>
-                            <div key={upPic.id} className={`img-wrapper ${upPic.wide ? 'wide' : ''}`}>
-                              <img src={upPic.src}></img>
-                            </div>)
-                      }
-                    </div>
-                    <div className="down">
-                      {
-                        picture.sources[1]
-                          .map(dnPic =>
-                            <div key={dnPic.id} className={`img-wrapper ${dnPic.wide ? 'wide' : ''}`}>
-                              <img src={dnPic.src}></img>
-                            </div>)
-                      }
-                    </div>
-                  </div>;
-              })
+            this.props.box.pictures
+              .map(picture =>
+                  <div key={picture.id}>
+                    <PrinFlexBox img={picture.prin} />
+                    <SecondaryFlexBox images={picture.secondary.sources}/>
+                  </div>)
           }
-          </div>
-          <div>
-          {
-            this.props.box.pictures[1]
-              .map((picture) => {
-                  if (picture.prin) {
-                    return <div key={picture.id} className="prin">
-                      <div className="img-wrapper">
-                        <img onLoad={this.prinLoaded} src={picture.src}></img>
-                      </div>
-                    </div>;
-                  }
-                  return <div key={picture.id} className="secondary">
-                    <div className="up">
-                      {
-                        picture.sources[0]
-                          .map(upPic =>
-                            <div key={upPic.id} className={`img-wrapper ${upPic.wide ? 'wide' : ''}`}>
-                              <img src={upPic.src}></img>
-                            </div>)
-                      }
-                    </div>
-                  </div>;
-              })
-          }
-          </div>
         </div>
       </div>
     );
