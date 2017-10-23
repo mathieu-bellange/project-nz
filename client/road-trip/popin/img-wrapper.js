@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import loadImage from 'blueimp-load-image';
 
 import './img-wrapper.css';
 
 export default class ImgWrapper extends React.Component {
+  component;
   static propTypes = {
     img: PropTypes.object.isRequired,
     onLoad: PropTypes.func
@@ -11,7 +13,29 @@ export default class ImgWrapper extends React.Component {
 
   constructor(props) {
     super(props);
+    if (!props.img.turn) {
+      this.component = <img onLoad={props.onLoad} src={props.img.src}></img>;
+    }
     this.onLoad = this.onLoad.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.img.turn) {
+      loadImage(
+        this.props.img.src,
+        (img) => {
+          if (img.type === 'error') {
+            console.log('Error loading image');
+          } else {
+            console.log('Error loading image');
+            document.getElementById(`canvas${this.props.img.id}`).appendChild(img);
+          }
+        },
+        {
+          orientation: true
+        }
+      );
+    }
   }
 
   onLoad() {
@@ -22,8 +46,8 @@ export default class ImgWrapper extends React.Component {
 
   render() {
     return (
-      <div className={`img-wrapper ${this.props.img.wide ? 'wide' : ''}`}>
-        <img onLoad={this.onLoad} src={this.props.img.src}></img>
+      <div id={`canvas${this.props.img.id}`} className={`img-wrapper ${this.props.img.wide ? 'wide' : ''} `}>
+        {this.component}
       </div>
     );
   }

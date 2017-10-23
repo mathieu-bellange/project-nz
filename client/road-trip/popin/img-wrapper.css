@@ -1,6 +1,7 @@
 .img-wrapper
   transition: padding 1s ease-in-out
   padding: 4px
-  img
+  max-height: calc(100% - 8px)
+  img, canvas
     max-width: 100%
     display: block

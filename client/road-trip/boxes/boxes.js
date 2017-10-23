@@ -68,12 +68,14 @@ const boxes = [
                   {
                     id: 104,
                     src: '/images/airplane/07.jpg',
-                    wide: false
+                    wide: false,
+                    turn: true
                   },
                   {
                     id: 105,
                     src: '/images/airplane/08.jpg',
-                    wide: false
+                    wide: false,
+                    turn: true
                   }
                 ],
                 []
