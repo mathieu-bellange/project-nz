@@ -112,27 +112,16 @@ const boxes = [
                 [
                   {
                     id: 200,
-                    src: '/images/DSC00864.jpg',
+                    src: '/images/singapour/01.jpg',
                     wide: false
                   },
                   {
                     id: 201,
-                    src: '/images/DSC00864.jpg',
+                    src: '/images/singapour/02.jpg',
                     wide: false
                   }
                 ],
-                [
-                  {
-                    id: 202,
-                    src: '/images/DSC00864.jpg',
-                    wide: false
-                  },
-                  {
-                    id: 203,
-                    src: '/images/DSC00864.jpg',
-                    wide: false
-                  }
-                ]
+                []
               ]
             }
           },
@@ -140,20 +129,20 @@ const boxes = [
             id: 21,
             prin: {
               id: 204,
-              src: '/images/DSC00864.jpg'
+              src: '/images/singapour/03.jpg'
             },
             secondary: {
               sources: [
                 [
                   {
                     id: 205,
-                    src: '/images/DSC00864.jpg',
-                    wide: false
+                    src: '/images/singapour/04.jpg',
+                    turn: true
                   },
                   {
                     id: 206,
-                    src: '/images/DSC00864.jpg',
-                    wide: false
+                    src: '/images/singapour/05.jpg',
+                    turn: true
                   }
                 ],
                 []
