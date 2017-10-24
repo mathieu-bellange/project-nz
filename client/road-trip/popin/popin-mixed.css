@@ -14,11 +14,14 @@
     transition: top 1s ease-in-out, left 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, padding 1s ease-in-out
     overflow: hidden
     background-color: rgba(256,256,256, 0.2)
+    flex-direction: column
     & > div
-      flex-direction: column
-      .prin, .secondary
-        transition: min-height 1s ease-in-out
-        width: 100%
+      display: flex
+      min-height: min-content
+      &:nth-child(even)
+        flex-direction: row
+      &:nth-child(odd)
+        flex-direction: row-reverse
     i.fa
       color: rgb(190,188,188)
       font-size: 2em
@@ -32,16 +35,14 @@
       visibility: visible
       top: 5%
       left: 0
-      .prin
-        min-height: 239px
       &.end
         width: calc(100% - 4px)
-        height: 80%
+        height: 90%
         padding: 0
         overflow-y: auto
         .prin
+          padding: 0
           .img-wrapper
-            padding: 0
             max-width: 100%
         .secondary
           .img-wrapper
@@ -53,24 +54,3 @@
           opacity: 1
         .secondary > div
           height: auto
-  .prin
-    width: 50%
-    .text-wrapper
-      padding: 2em
-  .secondary
-    width: 50%
-    & > div
-      display: flex
-      align-items: center
-      .img-wrapper
-        max-width: calc(50% - 8px)
-        &.wide
-          max-width: none
-        &.down
-          padding-top: 2px
-  .img-wrapper
-    transition: padding 1s ease-in-out
-    padding: 4px
-  img
-    max-width: 100%
-    display: block

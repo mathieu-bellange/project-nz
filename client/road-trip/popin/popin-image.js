@@ -112,7 +112,7 @@ export default class PopinImage extends React.Component {
           className={`popin-image ${this.state.begin ? 'full-screen' : ''}`}
           onClick={this.openFullScreen}
         >
-          <PrinFlexBox onLoad={this.prinLoaded} img={this.props.box.pictures[0].prin} />
+          <PrinFlexBox onLoad={this.prinLoaded} box={this.props.box.pictures[0].prin} />
           <SecondaryFlexBox images={this.props.box.pictures[0].secondary.sources}/>
         </div>
         <div
@@ -128,7 +128,7 @@ export default class PopinImage extends React.Component {
             this.props.box.pictures
               .map(picture =>
                   <div key={picture.id}>
-                    <PrinFlexBox img={picture.prin} />
+                    <PrinFlexBox box={picture.prin} />
                     <SecondaryFlexBox images={picture.secondary.sources}/>
                   </div>)
           }

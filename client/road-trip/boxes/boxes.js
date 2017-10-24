@@ -100,23 +100,65 @@ const boxes = [
         id: 2,
         left: false,
         position: 2,
-        title: 'Singapour',
-        text: 'un texte sur singapour',
         pictures: [
           {
-            up: true,
-            src: '/images/DSC00864.jpg',
-            wide: false
+            id: 20,
+            prin: {
+              title: 'Singapour',
+              text: 'un texte sur singapour'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 200,
+                    src: '/images/DSC00864.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 201,
+                    src: '/images/DSC00864.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 202,
+                    src: '/images/DSC00864.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 203,
+                    src: '/images/DSC00864.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
           },
           {
-            up: true,
-            src: '/images/DSC00864.jpg',
-            wide: false
-          },
-          {
-            up: false,
-            src: '/images/DSC00864.jpg',
-            wide: false
+            id: 21,
+            prin: {
+              id: 204,
+              src: '/images/DSC00864.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 205,
+                    src: '/images/DSC00864.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 206,
+                    src: '/images/DSC00864.jpg',
+                    wide: false
+                  }
+                ],
+                []
+              ]
+            }
           }
         ],
         type: TypeBox.Mixed
