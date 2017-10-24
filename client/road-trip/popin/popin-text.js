@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './popin-text.css';
+import PrinFlexBox from './prin-flexbox';
 
 export default class PopinText extends React.Component {
   elem;
@@ -35,11 +35,11 @@ export default class PopinText extends React.Component {
     this.setState({
       offsetLeft: this.elem.offsetLeft,
       offsetTop: this.elem.offsetTop,
-      width: `calc(${this.elem.clientWidth}px - 2em)`,
-      height: `calc(${this.elem.clientHeight}px - 1em)`,
+      width: `calc(${this.elem.clientWidth}px - 0.6em)`,
+      height: `calc(${this.elem.clientHeight}px - 0.4em)`,
       style: {
-        width: `calc(${this.elem.clientWidth}px - 2em)`,
-        height: `calc(${this.elem.clientHeight}px - 1em)`,
+        width: `calc(${this.elem.clientWidth}px - 0.6em)`,
+        height: `calc(${this.elem.clientHeight}px - 0.4em)`,
         top: `calc(${this.elem.offsetTop}px)`,
         left: `calc(${this.elem.offsetLeft}px)`
       }
@@ -104,21 +104,21 @@ export default class PopinText extends React.Component {
 
   render() {
     return (
-      <div className='popin-text-wrapper'>
+      <div style={{ width: '100%' }}>
         <div
-          className={`popin-text ${this.state.begin ? 'full-screen' : ''}`}
+          className={`popin popin-text ${this.state.begin ? 'full-screen' : ''}`}
           ref={(el) => { this.elem = el; }}
           onClick={this.openFullScreen}
         >
-          <p>{this.props.box.text}</p>
+          <PrinFlexBox box={this.props.box} />
         </div>
         <div
           style={this.state.style}
-          className={`popin-text doppleganger ${this.state.begin ? 'full-screen' : ''} ${this.state.end ? ' end' : ' '}`}
+          className={`popin popin-text doppleganger ${this.state.begin ? 'full-screen' : ''} ${this.state.end ? ' end' : ' '}`}
           onTransitionEnd={this.finishAnimation}
         >
           <i className="fa fa-times" onClick={this.closeFullScreen}></i>
-          <p>{this.props.box.text}</p>
+          <PrinFlexBox box={this.props.box} />
         </div>
       </div>
     );

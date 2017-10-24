@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 import PrinFlexBox from './prin-flexbox';
 import SecondaryFlexBox from './secondary-flexbox';
-import './popin-image.css';
+import * as Boxes from '../boxes';
+import './popin.css';
 
-export default class PopinImage extends React.Component {
+export default class Popin extends React.Component {
   elem;
+  clazz;
   animationState = {
     open: {
       begin: 'openBegin',
@@ -27,10 +29,38 @@ export default class PopinImage extends React.Component {
       begin: false,
       end: false
     };
+    switch (props.box.type) {
+      case Boxes.Type.Text:
+        this.clazz = 'popin-text';
+        break;
+      case Boxes.Type.Picture:
+        this.clazz = 'popin-image';
+        break;
+      case Boxes.Type.Mixed:
+        this.clazz = 'popin-mixed';
+        break;
+      default:
+        this.clazz = '';
+    }
     this.openFullScreen = this.openFullScreen.bind(this);
     this.finishAnimation = this.finishAnimation.bind(this);
     this.closeFullScreen = this.closeFullScreen.bind(this);
     this.prinLoaded = this.prinLoaded.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      offsetLeft: this.elem.offsetLeft,
+      offsetTop: this.elem.offsetTop,
+      width: `calc(${this.elem.clientWidth}px - 0.6em)`,
+      height: `calc(${this.elem.clientHeight}px - 0.4em)`,
+      style: {
+        width: `calc(${this.elem.clientWidth}px - 0.6em)`,
+        height: `calc(${this.elem.clientHeight}px - 0.4em)`,
+        top: `calc(${this.elem.offsetTop}px)`,
+        left: `calc(${this.elem.offsetLeft}px)`
+      }
+    });
   }
 
   prinLoaded() {
@@ -109,7 +139,7 @@ export default class PopinImage extends React.Component {
       <div style={{ width: '100%' }}>
         <div
           ref={(el) => { this.elem = el; }}
-          className={`popin-image ${this.state.begin ? 'full-screen' : ''}`}
+          className={`popin ${this.clazz} ${this.state.begin ? 'full-screen' : ''}`}
           onClick={this.openFullScreen}
         >
           <PrinFlexBox onLoad={this.prinLoaded} box={this.props.box.pictures[0].prin} />
@@ -117,7 +147,7 @@ export default class PopinImage extends React.Component {
         </div>
         <div
           style={this.state.style}
-          className={`popin-image doppleganger
+          className={`popin ${this.clazz} doppleganger
             ${this.state.begin ? ' full-screen' : ' '}
             ${this.state.end ? ' end' : ' '}
           `}

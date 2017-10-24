@@ -1,4 +1,4 @@
-#popin-wrapper
+.popin-wrapper
   position: absolute
   top: 0
   left: 0
@@ -21,6 +21,10 @@
       &.alone
         justify-content: flex-start
         align-items: flex-start
+        & > div
+          height: 100%
+          & > div
+            height: calc(100% - 0.4em - 4px)
   #left-container
     align-items: flex-end
     flex: 1

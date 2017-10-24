@@ -6,9 +6,8 @@ import { add, subtract } from 'mathjs';
 import isequal from 'lodash/isEqual';
 
 import './popin-wrapper.css';
+import Popin from './popin';
 import PopinText from './popin-text';
-import PopinImage from './popin-image';
-import PopinMixed from './popin-mixed';
 import * as Boxes from '../boxes';
 
 export default class PopinWrapper extends React.Component {
@@ -25,12 +24,8 @@ export default class PopinWrapper extends React.Component {
         />;
         break;
       case Boxes.Type.Picture:
-        component = <PopinImage
-          box={box}
-        />;
-        break;
       case Boxes.Type.Mixed:
-        component = <PopinMixed
+        component = <Popin
           box={box}
         />;
         break;
@@ -175,7 +170,7 @@ export default class PopinWrapper extends React.Component {
 
   render() {
     return (
-        <div id="popin-wrapper">
+        <div className="popin-wrapper">
           <div id="left-container">
             <ReactCSSTransitionGroup
               transitionName="example"
