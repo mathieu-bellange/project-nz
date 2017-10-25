@@ -1,6 +1,5 @@
 import { add, divide, subtract, multiply, unaryMinus } from 'mathjs';
 
-import Airplane from './airplane';
 import Airport from './airport';
 import Sky from './sky';
 
@@ -9,7 +8,6 @@ export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
   pixelRatio;
-  airplane;
   airport;
 
   steps = [
@@ -46,9 +44,7 @@ export default class FirstMonthScenario {
         keepPrevious: false
       };
       this.sky.stop();
-      this.airplane.stopAnimation();
-      this.airplane.landing();
-      this.airport.draw(this.canvas, {
+      this.airport.landing(this.canvas, {
         x: thirdPoint.x - window.innerWidth/2,
         y: thirdPoint.y + window.innerHeight/2
       });
@@ -56,6 +52,17 @@ export default class FirstMonthScenario {
         x: 708 * this.pixelRatio + (window.innerWidth / 2),
         y: 502 * this.pixelRatio - (window.innerHeight / 2)
       }, thirdPoint);
+    },
+    // fourth step
+    () => {
+      const fourthPoint = {
+        x: 708 * this.pixelRatio,
+        y: 502 * this.pixelRatio,
+        drawCircle: true,
+        id: 4,
+        keepPrevious: false
+      };
+      this.actualPointSubject.next(fourthPoint);
     }
   ];
 
@@ -63,7 +70,6 @@ export default class FirstMonthScenario {
     this.canvas = canvas;
     this.pixelRatio = pixelRatio;
     this.actualPointSubject = actualPointSubject;
-    this.airplane = new Airplane();
     this.airport = new Airport();
   }
 
@@ -75,8 +81,7 @@ export default class FirstMonthScenario {
       id: 0
     };
     this.actualPointSubject.next(actualPoint);
-    this.airplane.draw(this.canvas, actualPoint);
-    this.airplane.animate();
+    this.airport.fliing(this.canvas, actualPoint);
     this.sky = new Sky(this.canvas, actualPoint);
     this.sky.launch();
   }
