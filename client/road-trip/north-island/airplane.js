@@ -22,8 +22,10 @@ export default class Airplane {
   }
 
   landing() {
-    this.svg.animate({ transform: 't-300,300' }, 2000, () => {
-      this.svg.animate({ transform: 't-10000,0' }, 50000);
+    this.svg.animate({ transform: `t-${window.innerWidth - this.airplaneSize.w},${window.innerHeight - this.airplaneSize.h - 64}` }, 4000, () => {
+      this.svg.animate({ transform: 't-10000,0' }, 50000, () => {
+        this.svg.remove();
+      });
     });
   }
 }

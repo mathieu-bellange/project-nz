@@ -4,7 +4,7 @@ import 'react-router-dom';
 import 'prop-types';
 import 'react-addons-css-transition-group';
 import 'raphael';
-import { add, subtract } from 'mathjs';
+import { add, divide, subtract, multiply } from 'mathjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';

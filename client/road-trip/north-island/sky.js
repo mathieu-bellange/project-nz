@@ -42,8 +42,8 @@ export default class Sky {
 
   animate(timeBetweenCloud) {
     setTimeout(() => {
-      this.drawCloud();
       if (this.continueSpawing) {
+        this.drawCloud();
         this.animate(this.randomCloudSpawning());
       }
     }, timeBetweenCloud);
