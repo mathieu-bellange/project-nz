@@ -9,6 +9,7 @@ export default class FirstMonthScenario {
   actualPointSubject;
   pixelRatio;
   airport;
+  index = 0;
 
   steps = [
     // first step
@@ -51,7 +52,7 @@ export default class FirstMonthScenario {
       this.lineDeplacementAnimation({
         x: 708 * this.pixelRatio + (window.innerWidth / 2),
         y: 502 * this.pixelRatio - (window.innerHeight / 2)
-      }, thirdPoint);
+      }, thirdPoint, this.nextStep);
     },
     // fourth step
     () => {
@@ -86,8 +87,9 @@ export default class FirstMonthScenario {
     this.sky.launch();
   }
 
-  nextStep(index) {
-    this.steps[index]();
+  nextStep() {
+    this.index += 1;
+    this.steps[this.index]();
   }
 
   lineDeplacementAnimation(pointA, pointB) {
@@ -112,6 +114,8 @@ export default class FirstMonthScenario {
       setTimeout(() => {
         this.movePointTo(delta, alpha, k, newX, exitX, exec);
       }, 5);
+    } else {
+      this.nextStep();
     }
   }
 }

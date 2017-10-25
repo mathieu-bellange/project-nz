@@ -18,7 +18,6 @@ export default class RoadTrip extends React.Component {
   constructor(props) {
     super(props);
     const self = this;
-    let index = 0;
     this.state = {
       pixelRatio: this.pixelRatio,
       canvasCenter: {
@@ -44,11 +43,7 @@ export default class RoadTrip extends React.Component {
     });
     Observable.fromEvent(window, 'keypress')
       .filter(event => event.keyCode === 13)
-      .map(() => {
-        index += 1;
-        return index;
-      })
-      .subscribe(() => self.firstMonthScenario.nextStep(index));
+      .subscribe(() => self.firstMonthScenario.nextStep());
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
     this.defineCircle = this.defineCircle.bind(this);
@@ -104,9 +99,6 @@ export default class RoadTrip extends React.Component {
 
   componentDidMount() {
     this.initRaphael();
-  }
-
-  componentWillUnmount() {
   }
 
   render() {
