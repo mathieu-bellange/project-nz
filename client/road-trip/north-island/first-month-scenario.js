@@ -2,7 +2,7 @@ import { add, divide, subtract, multiply, unaryMinus } from 'mathjs';
 
 import Airport from './airport';
 import Sky from './sky';
-
+import { Marker, Coordinate, Path } from '../tools';
 
 export default class FirstMonthScenario {
   canvas;
@@ -10,6 +10,24 @@ export default class FirstMonthScenario {
   pixelRatio;
   airport;
   index = 0;
+
+  Markers = [
+    new Marker('nh54-nh55', 705, 498, 703, 498),
+    new Marker('nh55-nh56', 703, 498, 706, 504),
+    new Marker('nh56-nh57', 706, 504, 714, 503)
+  ];
+
+  Waves = [
+    new Coordinate(705, 498),
+    new Coordinate(703, 498),
+    new Coordinate(706, 504),
+    new Coordinate(714, 503),
+    new Coordinate(715, 506),
+    new Coordinate(703, 507),
+    new Coordinate(699, 496),
+    new Coordinate(705, 496),
+    new Coordinate(705, 498)
+  ];
 
   steps = [
     // first step
@@ -64,6 +82,13 @@ export default class FirstMonthScenario {
         keepPrevious: false
       };
       this.actualPointSubject.next(fourthPoint);
+      new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
+        .draw(this.canvas, this.pixelRatio, this.Waves)
+        .animate(2000);
+      this.Markers.forEach((marker) => {
+        const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
+        path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
+      }, this);
     }
   ];
 

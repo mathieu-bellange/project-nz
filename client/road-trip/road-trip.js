@@ -10,7 +10,7 @@ import * as Boxes from './boxes';
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;
-  pixelRatio = 10;
+  pixelRatio = 20;
   canvasId = 'roadTrip-canvas';
   actualPointSubject;
   firstMonthScenario;
