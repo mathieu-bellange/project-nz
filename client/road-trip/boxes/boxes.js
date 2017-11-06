@@ -1,6 +1,13 @@
 import TypeBox from './type-box';
 
 const boxes = [
+  // between step
+  {
+    id: -1,
+    circle: false,
+    keepPrevious: false,
+    boxes: []
+  },
   // launch
   {
     id: 0,

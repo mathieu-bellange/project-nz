@@ -10,6 +10,7 @@ import { Marker, Coordinate, Path } from '../tools';
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
+  actualBoxesSubject;
   pixelRatio;
   airport;
   index = 0;
@@ -38,58 +39,41 @@ export default class FirstMonthScenario {
 
   // TODO supprimer la référence au point courrant trello:#63
   steps = [
-    // first step
+    // launch step
     this.launch,
+    // first step
     () => {
-      const firstPoint = {
-        x: 708 * this.pixelRatio + (window.innerWidth / 2),
-        y: 502 * this.pixelRatio - (window.innerHeight / 2),
-        id: 1,
-        drawCircle: false,
-        keepPrevious: true
-      };
-      this.actualPointSubject.next(firstPoint);
+      this.actualBoxesSubject.next(1);
     },
     // second step
     () => {
-      const secondPoint = {
-        x: 708 * this.pixelRatio + (window.innerWidth / 2),
-        y: 502 * this.pixelRatio - (window.innerHeight / 2),
-        drawCircle: false,
-        id: 2,
-        keepPrevious: true
-      };
-      this.actualPointSubject.next(secondPoint);
+      this.actualBoxesSubject.next(2);
     },
     // third step
     () => {
-      const thirdPoint = {
+      const endPoint = {
         x: 708 * this.pixelRatio,
-        y: 502 * this.pixelRatio,
-        drawCircle: false,
-        id: 3,
-        keepPrevious: false
+        y: 502 * this.pixelRatio
       };
       this.sky.stop();
       this.airport.landing(this.canvas, {
-        x: thirdPoint.x - window.innerWidth/2,
-        y: thirdPoint.y + window.innerHeight/2
+        x: endPoint.x - (window.innerWidth / 2),
+        y: endPoint.y + (window.innerHeight / 2)
       });
       this.lineDeplacementAnimation({
         x: 708 * this.pixelRatio + (window.innerWidth / 2),
         y: 502 * this.pixelRatio - (window.innerHeight / 2)
-      }, thirdPoint, this.nextStep);
+      }, endPoint, this.nextStep);
+      this.actualBoxesSubject.next(3);
     },
     // fourth step
     () => {
       const fourthPoint = {
         x: 708 * this.pixelRatio,
-        y: 502 * this.pixelRatio,
-        drawCircle: true,
-        id: 4,
-        keepPrevious: false
+        y: 502 * this.pixelRatio
       };
       this.actualPointSubject.next(fourthPoint);
+      this.actualBoxesSubject.next(4);
       new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
         .draw(this.canvas, this.pixelRatio, this.Waves)
         .animate(2000);
@@ -107,6 +91,7 @@ export default class FirstMonthScenario {
         keepPrevious: false
       };
       this.actualPointSubject.next(fifthPoint);
+      this.actualBoxesSubject.next(-1);
       const road = this.Roads[0];
       const deltaX = Math.abs((road.begin.x * this.pixelRatio) - (road.end.x * this.pixelRatio)) / 5;
       const deltaY = Math.abs((road.begin.y * this.pixelRatio) - (road.end.y * this.pixelRatio)) / 5;
@@ -137,10 +122,11 @@ export default class FirstMonthScenario {
     }
   ];
 
-  constructor(canvas, pixelRatio, actualPointSubject) {
+  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
     this.canvas = canvas;
     this.pixelRatio = pixelRatio;
     this.actualPointSubject = actualPointSubject;
+    this.actualBoxesSubject = actualBoxesSubject;
     this.airport = new Airport();
   }
 
@@ -149,11 +135,10 @@ export default class FirstMonthScenario {
   launch() {
     const actualPoint = {
       x: 708 * this.pixelRatio + (window.innerWidth / 2),
-      y: 502 * this.pixelRatio - (window.innerHeight / 2),
-      drawCircle: false,
-      id: 0
+      y: 502 * this.pixelRatio - (window.innerHeight / 2)
     };
     this.actualPointSubject.next(actualPoint);
+    this.actualBoxesSubject.next(0);
     this.airport.fliing(this.canvas, actualPoint);
     this.sky = new Sky(this.canvas, actualPoint);
     this.sky.launch();
@@ -177,10 +162,7 @@ export default class FirstMonthScenario {
     const orthogonalY = add(multiply(newX, alpha), k);
     this.actualPointSubject.next({
       x: newX,
-      y: unaryMinus(orthogonalY),
-      drawCircle: false,
-      id: 3,
-      keepPrevious: false
+      y: unaryMinus(orthogonalY)
     });
     if (newX > exitX) {
       setTimeout(() => {

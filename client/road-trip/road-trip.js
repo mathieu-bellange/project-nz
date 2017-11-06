@@ -16,6 +16,7 @@ export default class RoadTrip extends React.Component {
   pixelRatio = 20;
   canvasId = 'roadTrip-canvas';
   actualPointSubject;
+  actualBoxesSubject;
   firstMonthScenario;
 
   // TODO initialiser le point de départ du road trip trello:#63
@@ -32,7 +33,7 @@ export default class RoadTrip extends React.Component {
       drawCircle: false
     };
     this.actualPointSubject = new Subject();
-    // NOTE revoir l'utilité de combiné les deux
+    this.actualBoxesSubject = new Subject();
     const theOne = Observable.combineLatest(
       Observable
         .fromEvent(window, 'resize')
@@ -41,10 +42,11 @@ export default class RoadTrip extends React.Component {
       this.actualPointSubject
     );
     theOne.subscribe((values) => {
-      // DOING Vérifier si l'on peut faire un traitement séparer de ses trois actions
       const [windowSize, actualPoint] = values;
       self.centerCanvas(actualPoint, windowSize);
-      self.defineBoxes(actualPoint.id);
+    });
+    this.actualBoxesSubject.subscribe((id) => {
+      self.defineBoxes(id);
     });
     // NOTE Faut-il conserver le key press enter ?
     Observable.fromEvent(window, 'keypress')
@@ -98,7 +100,7 @@ export default class RoadTrip extends React.Component {
     // BACKLOG récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario
     // BACKLOG récupérer le bon scenario suivant le point de sauvegarde
     // TODO Récupérer le scénario depuis une liste de scénario trello:#64
-    this.firstMonthScenario = new NorthIsland.FirstMonthScenario(canvas, this.pixelRatio, this.actualPointSubject);
+    this.firstMonthScenario = new NorthIsland.FirstMonthScenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject);
     this.firstMonthScenario.launch();
   }
 
