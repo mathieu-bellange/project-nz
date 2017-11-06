@@ -15,6 +15,7 @@ export default class PopinWrapper extends React.Component {
   center;
   containerSize;
   lineStyle = { stroke: '#BEBCBC', 'stroke-width': 2 };
+  animations = [];
   mapPopinComponents = function mapPopinComponents(box) {
     let component = '';
     switch (box.type) {
@@ -82,20 +83,32 @@ export default class PopinWrapper extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!isequal(prevProps.drawCircle, this.props.drawCircle) && this.props.drawCircle) {
-      this.circleAnimation(0);
+    if (!isequal(prevProps.drawCircle, this.props.drawCircle)) {
+      if (this.props.drawCircle) {
+        this.circleAnimation(0);
+      } else {
+        this.removeCircle();
+      }
     }
+  }
+
+  removeCircle() {
+    this.animations.forEach((animation) => {
+      animation.remove();
+    });
   }
 
   circleAnimation(x) {
     if (x < 360) {
-      const circle = this.paper.path().attr({ stroke: '#BEBCBC', 'stroke-width': 2, arc: [this.center.x, this.center.y, 0, x, 10] });
+      const animatedCircle = this.paper.path().attr({ stroke: '#BEBCBC', 'stroke-width': 2, arc: [this.center.x, this.center.y, 0, x, 10] });
       const animRotation = Raphael.animation({ transform: `r5,${this.center.x},${this.center.y}` }, 1, () => {
         this.circleAnimation(x + 5);
       });
-      circle.animate(animRotation);
+      animatedCircle.animate(animRotation);
+      this.animations.push(animatedCircle);
     } else {
-      this.paper.circle(this.center.x, this.center.y, 10).attr(this.lineStyle);
+      const circle = this.paper.circle(this.center.x, this.center.y, 10).attr(this.lineStyle);
+      this.animations.push(circle);
       this.drawingLines();
     }
   }
@@ -162,6 +175,8 @@ export default class PopinWrapper extends React.Component {
     lines.forEach((line) => {
       const firstLine = this.paper.path(`M${line.begin.x} ${line.begin.y}`).attr(this.lineStyle);
       const secondLine = this.paper.path(`M${line.firstStop.x} ${line.firstStop.y}`).attr(this.lineStyle);
+      this.animations.push(firstLine);
+      this.animations.push(secondLine);
       firstLine.animate({ path: `M${line.begin.x} ${line.begin.y} L${line.firstStop.x} ${line.firstStop.y}` }, 1000, () => {
         secondLine.animate({ path: `M${line.firstStop.x} ${line.firstStop.y} L${line.end.x} ${line.end.y}` }, 1000);
       });
