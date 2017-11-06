@@ -10,6 +10,7 @@ import Popin from './popin';
 import PopinText from './popin-text';
 import * as Boxes from '../boxes';
 
+// BACKLOG redraw circle + lines sur un resize de window
 export default class PopinWrapper extends React.Component {
   paper;
   center;
