@@ -1,4 +1,5 @@
-import { add, divide, subtract, multiply, unaryMinus } from 'mathjs';
+import { add, divide, subtract, multiply, unaryMinus, square, sqrt, ceil } from 'mathjs';
+import { Observable } from 'rxjs/Observable';
 
 import Airport from './airport';
 import Sky from './sky';
@@ -19,6 +20,10 @@ export default class FirstMonthScenario {
     new Marker('nh55-nh56', 703, 498, 706, 504),
     new Marker('nh56-nh57', 706, 504, 714, 503)
   ];
+
+  Roads = [
+    new Marker('rnh1-rnh2', 708, 502, 705, 485)
+  ]
 
   Waves = [
     new Coordinate(705, 498),
@@ -93,6 +98,43 @@ export default class FirstMonthScenario {
         const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
         path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
       }, this);
+    },
+    // fifth step
+    () => {
+      const fifthPoint = {
+        x: 708 * this.pixelRatio,
+        y: 502 * this.pixelRatio,
+        drawCircle: false,
+        keepPrevious: false
+      };
+      this.actualPointSubject.next(fifthPoint);
+      const road = this.Roads[0];
+      const deltaX = Math.abs((road.begin.x * this.pixelRatio) - (road.end.x * this.pixelRatio)) / 5;
+      const deltaY = Math.abs((road.begin.y * this.pixelRatio) - (road.end.y * this.pixelRatio)) / 5;
+      const path = this.canvas.path(`M${road.begin.x * this.pixelRatio} ${road.begin.y * this.pixelRatio} L${road.end.x * this.pixelRatio} ${road.end.y * this.pixelRatio}`);
+      const init = ceil(sqrt(add(
+        square(subtract(road.end.x * this.pixelRatio, road.begin.x * this.pixelRatio)),
+        square(subtract(road.end.y * this.pixelRatio, road.begin.y * this.pixelRatio))
+      )));
+      const interval = init / 5;
+      let index = init;
+      path.node.setAttribute('style', `stroke-dasharray: ${init}; stroke-dashoffset: ${init};`);
+      Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY))
+        .map(delta => ({
+          dashArray: index + (delta * interval),
+          delta
+        }))
+        .filter(o => o.dashArray >= init && o.dashArray <= init * 2)
+        .do((o) => { index = o.dashArray; })
+        .do((o) => {
+          fifthPoint.x -= deltaX * o.delta;
+          fifthPoint.y -= deltaY * o.delta;
+        })
+        .subscribe((o) => {
+          this.actualPointSubject.next(fifthPoint);
+          path.node.setAttribute('style', `stroke-dasharray: ${o.dashArray}; stroke-dashoffset: ${init};`);
+        });
     }
   ];
 
