@@ -37,7 +37,6 @@ export default class FirstMonthScenario {
     new Coordinate(705, 498)
   ];
 
-  // TODO supprimer la référence au point courrant trello:#63
   steps = [
     // launch step
     this.launch,
@@ -60,6 +59,7 @@ export default class FirstMonthScenario {
         x: endPoint.x - (window.innerWidth / 2),
         y: endPoint.y + (window.innerHeight / 2)
       });
+      // TODO voir où conserver le point d'entrée qui est le point courant
       this.lineDeplacementAnimation({
         x: 708 * this.pixelRatio + (window.innerWidth / 2),
         y: 502 * this.pixelRatio - (window.innerHeight / 2)
@@ -131,7 +131,7 @@ export default class FirstMonthScenario {
   }
 
   // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param
-  // TODO lance le scénario depuis une étape donnée param trello:#65
+  // DOING lance le scénario depuis une étape donnée param trello:#65
   launch() {
     const actualPoint = {
       x: 708 * this.pixelRatio + (window.innerWidth / 2),

@@ -9,7 +9,6 @@ import * as Boxes from './boxes';
 
 // BACKLOG initialiser le tutorial au lancement du premier road trip
 // BACKLOG ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point
-// TODO exposé le current point de l'affichage trello:#63
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;
@@ -19,7 +18,6 @@ export default class RoadTrip extends React.Component {
   actualBoxesSubject;
   firstMonthScenario;
 
-  // TODO initialiser le point de départ du road trip trello:#63
   constructor(props) {
     super(props);
     const self = this;
