@@ -9,7 +9,7 @@ import * as Boxes from './boxes';
 
 // BACKLOG initialiser le tutorial au lancement du premier road trip
 // BACKLOG ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point
-// TODO exposé le current point de l'affichage
+// TODO exposé le current point de l'affichage trello:#63
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;
@@ -18,7 +18,7 @@ export default class RoadTrip extends React.Component {
   actualPointSubject;
   firstMonthScenario;
 
-  // DOING initialiser le point de départ du road trip
+  // TODO initialiser le point de départ du road trip trello:#63
   constructor(props) {
     super(props);
     const self = this;
@@ -97,7 +97,7 @@ export default class RoadTrip extends React.Component {
     rniLayer.draw(); */
     // BACKLOG récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario
     // BACKLOG récupérer le bon scenario suivant le point de sauvegarde
-    // TODO Récupérer le scénario depuis une liste de scénario
+    // TODO Récupérer le scénario depuis une liste de scénario trello:#64
     this.firstMonthScenario = new NorthIsland.FirstMonthScenario(canvas, this.pixelRatio, this.actualPointSubject);
     this.firstMonthScenario.launch();
   }
