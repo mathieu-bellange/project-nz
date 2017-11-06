@@ -4,6 +4,9 @@ import Airport from './airport';
 import Sky from './sky';
 import { Marker, Coordinate, Path } from '../tools';
 
+// TODO extraire la logique de déplacement dans une autre class
+// TODO initialiser la class avec un point de départ
+// BACKLOG ajouter un système de déplacement automatique
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -29,6 +32,7 @@ export default class FirstMonthScenario {
     new Coordinate(705, 498)
   ];
 
+  // TODO supprimer la référence au point courrant
   steps = [
     // first step
     this.launch,
@@ -99,6 +103,8 @@ export default class FirstMonthScenario {
     this.airport = new Airport();
   }
 
+  // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param
+  // TODO lance le scénario depuis une étape donnée param
   launch() {
     const actualPoint = {
       x: 708 * this.pixelRatio + (window.innerWidth / 2),
