@@ -4,6 +4,8 @@ const boxes = [
   // launch
   {
     id: 0,
+    circle: false,
+    keepPrevious: false,
     boxes: [
       {
         id: 0,
@@ -17,6 +19,8 @@ const boxes = [
   // firstStep
   {
     id: 1,
+    circle: false,
+    keepPrevious: true,
     boxes: [
       {
         id: 10,
@@ -95,6 +99,8 @@ const boxes = [
   // secondStep
   {
     id: 2,
+    circle: false,
+    keepPrevious: true,
     boxes: [
       {
         id: 2,
@@ -157,11 +163,15 @@ const boxes = [
   // thirdStep
   {
     id: 3,
+    keepPrevious: false,
+    circle: false,
     boxes: []
   },
   // fourthStep
   {
     id: 4,
+    circle: true,
+    keepPrevious: false,
     boxes: [
       {
         id: 40,

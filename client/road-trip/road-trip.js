@@ -41,11 +41,10 @@ export default class RoadTrip extends React.Component {
       this.actualPointSubject
     );
     theOne.subscribe((values) => {
-      // NOTE Vérifier si l'on peut faire un traitement séparer de ses trois actions
+      // DOING Vérifier si l'on peut faire un traitement séparer de ses trois actions
       const [windowSize, actualPoint] = values;
       self.centerCanvas(actualPoint, windowSize);
-      self.defineBoxes(actualPoint.id, actualPoint.keepPrevious);
-      self.defineCircle(actualPoint.drawCircle);
+      self.defineBoxes(actualPoint.id);
     });
     // NOTE Faut-il conserver le key press enter ?
     Observable.fromEvent(window, 'keypress')
@@ -53,7 +52,6 @@ export default class RoadTrip extends React.Component {
       .subscribe(() => self.firstMonthScenario.nextStep());
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
-    this.defineCircle = this.defineCircle.bind(this);
     this.defineBoxes = this.defineBoxes.bind(this);
   }
 
@@ -65,19 +63,15 @@ export default class RoadTrip extends React.Component {
     });
   }
 
-  defineBoxes(id, keepPrevious) {
-    let boxes = Boxes.find(id);
-    if (keepPrevious) {
+  defineBoxes(id) {
+    const currentBox = Boxes.find(id);
+    let { boxes } = currentBox;
+    if (currentBox.keepPrevious) {
       boxes = this.state.boxes.filter(box => box.type).concat(boxes);
     }
     this.setState({
+      drawCircle: currentBox.circle,
       boxes: [...boxes]
-    });
-  }
-
-  defineCircle(drawCircle) {
-    this.setState({
-      drawCircle
     });
   }
 
