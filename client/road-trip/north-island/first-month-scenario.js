@@ -13,7 +13,7 @@ export default class FirstMonthScenario {
   actualBoxesSubject;
   pixelRatio;
   airport;
-  index = 0;
+  index;
 
   Markers = [
     new Marker('nh54-nh55', 705, 498, 703, 498),
@@ -39,7 +39,17 @@ export default class FirstMonthScenario {
 
   steps = [
     // launch step
-    this.launch,
+    () => {
+      const initPoint = {
+        x: (708 * this.pixelRatio) + (window.innerWidth / 2),
+        y: (502 * this.pixelRatio) - (window.innerHeight / 2)
+      };
+      this.actualPointSubject.next(initPoint);
+      this.actualBoxesSubject.next(0);
+      this.airport.fliing(this.canvas, initPoint);
+      this.sky = new Sky(this.canvas, initPoint);
+      this.sky.launch();
+    },
     // first step
     () => {
       this.actualBoxesSubject.next(1);
@@ -59,7 +69,7 @@ export default class FirstMonthScenario {
         x: endPoint.x - (window.innerWidth / 2),
         y: endPoint.y + (window.innerHeight / 2)
       });
-      // TODO voir où conserver le point d'entrée qui est le point courant
+      // TODO voir où conserver le point d'entrée qui est le point courant trello:#66
       this.lineDeplacementAnimation({
         x: 708 * this.pixelRatio + (window.innerWidth / 2),
         y: 502 * this.pixelRatio - (window.innerHeight / 2)
@@ -131,17 +141,9 @@ export default class FirstMonthScenario {
   }
 
   // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param
-  // DOING lance le scénario depuis une étape donnée param trello:#65
-  launch() {
-    const actualPoint = {
-      x: 708 * this.pixelRatio + (window.innerWidth / 2),
-      y: 502 * this.pixelRatio - (window.innerHeight / 2)
-    };
-    this.actualPointSubject.next(actualPoint);
-    this.actualBoxesSubject.next(0);
-    this.airport.fliing(this.canvas, actualPoint);
-    this.sky = new Sky(this.canvas, actualPoint);
-    this.sky.launch();
+  launch(index) {
+    this.index = index;
+    this.steps[index]();
   }
 
   nextStep() {

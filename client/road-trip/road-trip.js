@@ -99,7 +99,7 @@ export default class RoadTrip extends React.Component {
     // BACKLOG récupérer le bon scenario suivant le point de sauvegarde
     // TODO Récupérer le scénario depuis une liste de scénario trello:#64
     this.firstMonthScenario = new NorthIsland.FirstMonthScenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject);
-    this.firstMonthScenario.launch();
+    this.firstMonthScenario.launch(0);
   }
 
   componentDidMount() {
