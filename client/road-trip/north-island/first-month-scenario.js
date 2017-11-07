@@ -1,11 +1,10 @@
-import { add, divide, subtract, multiply, unaryMinus, square, sqrt, ceil } from 'mathjs';
 import { Observable } from 'rxjs/Observable';
 
 import Airport from './airport';
 import Sky from './sky';
-import { Marker, Coordinate, Path } from '../tools';
+import { Marker, Coordinate, Path, lineDeplacementAnimation, AnimatedLine } from '../tools';
 
-// DOING extraire la logique de déplacement dans une autre class trello:#66
+// DONE extraire la logique de déplacement dans une autre class trello:#66
 // BACKLOG ajouter un système de déplacement automatique
 export default class FirstMonthScenario {
   canvas;
@@ -70,11 +69,11 @@ export default class FirstMonthScenario {
         x: endPoint.x - (window.innerWidth / 2),
         y: endPoint.y + (window.innerHeight / 2)
       });
-      // TODO voir où conserver le point d'entrée qui est le point courant trello:#66
-      this.lineDeplacementAnimation({
+      // TODO voir où conserver le point d'entrée qui est le point courant trello:#67
+      lineDeplacementAnimation({
         x: 708 * this.pixelRatio + (window.innerWidth / 2),
         y: 502 * this.pixelRatio - (window.innerHeight / 2)
-      }, endPoint, this.nextStep);
+      }, endPoint, (point) => { this.actualPointSubject.next(point); }, () => { this.nextStep(); });
       this.actualBoxesSubject.next(3);
     },
     // fourth step
@@ -104,34 +103,23 @@ export default class FirstMonthScenario {
       };
       this.actualPointSubject.next(fifthPoint);
       this.actualBoxesSubject.next(-1);
+      const sensObservable = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road = this.Roads[0];
-      // TODO déplacer la gestion de la ligne dans tools/line-animation ? trello:#66
-      const deltaX = Math.abs((road.begin.x * this.pixelRatio) - (road.end.x * this.pixelRatio)) / 5;
-      const deltaY = Math.abs((road.begin.y * this.pixelRatio) - (road.end.y * this.pixelRatio)) / 5;
-      const path = this.canvas.path(`M${road.begin.x * this.pixelRatio} ${road.begin.y * this.pixelRatio} L${road.end.x * this.pixelRatio} ${road.end.y * this.pixelRatio}`);
-      const init = ceil(sqrt(add(
-        square(subtract(road.end.x * this.pixelRatio, road.begin.x * this.pixelRatio)),
-        square(subtract(road.end.y * this.pixelRatio, road.begin.y * this.pixelRatio))
-      )));
-      const interval = init / 5;
-      let index = init;
-      path.node.setAttribute('style', `stroke-dasharray: ${init}; stroke-dashoffset: ${init};`);
-      Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY))
-        .map(delta => ({
-          dashArray: index + (delta * interval),
-          delta
-        }))
-        .filter(o => o.dashArray >= init && o.dashArray <= init * 2)
-        .do((o) => { index = o.dashArray; })
-        .do((o) => {
-          fifthPoint.x -= deltaX * o.delta;
-          fifthPoint.y -= deltaY * o.delta;
-        })
-        .subscribe((o) => {
-          this.actualPointSubject.next(fifthPoint);
-          path.node.setAttribute('style', `stroke-dasharray: ${o.dashArray}; stroke-dashoffset: ${init};`);
-        });
+      const animatedLine = new AnimatedLine({
+        begin: {
+          x: road.begin.x * this.pixelRatio,
+          y: road.begin.y * this.pixelRatio
+        },
+        end: {
+          x: road.end.x * this.pixelRatio,
+          y: road.end.y * this.pixelRatio
+        }
+      }, 5, sensObservable).draw(this.canvas, this.pixelRatio)
+        .animate();
+      animatedLine.subscribe((o) => {
+        this.actualPointSubject.next(o.point);
+      });
     }
   ];
 
@@ -152,31 +140,5 @@ export default class FirstMonthScenario {
   nextStep() {
     this.index += 1;
     this.steps[this.index]();
-  }
-
-  // TODO déplacer dans tools/line-animation trello:#66
-  lineDeplacementAnimation(pointA, pointB) {
-    const alpha = divide(subtract(-pointA.y, -pointB.y), subtract(pointA.x, pointB.x));
-    const k = subtract(-pointA.y, multiply(alpha, pointA.x));
-    const delta = Math.abs(divide(subtract(pointB.x, pointA.x), 400));
-    const func = pointA.x < pointB.x ? add : subtract;
-    this.movePointTo(delta, alpha, k, pointA.x, pointB.x, func);
-  }
-
-  // TODO déplacer dans tools/line-animation trello:#66
-  movePointTo(delta, alpha, k, x, exitX, exec) {
-    const newX = exec(x, delta);
-    const orthogonalY = add(multiply(newX, alpha), k);
-    this.actualPointSubject.next({
-      x: newX,
-      y: unaryMinus(orthogonalY)
-    });
-    if (newX > exitX) {
-      setTimeout(() => {
-        this.movePointTo(delta, alpha, k, newX, exitX, exec);
-      }, 5);
-    } else {
-      this.nextStep();
-    }
   }
 }
