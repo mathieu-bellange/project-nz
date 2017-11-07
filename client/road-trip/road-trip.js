@@ -16,7 +16,7 @@ export default class RoadTrip extends React.Component {
   canvasId = 'roadTrip-canvas';
   actualPointSubject;
   actualBoxesSubject;
-  firstMonthScenario;
+  scenario;
 
   constructor(props) {
     super(props);
@@ -49,7 +49,7 @@ export default class RoadTrip extends React.Component {
     // NOTE Faut-il conserver le key press enter ?
     Observable.fromEvent(window, 'keypress')
       .filter(event => event.keyCode === 13)
-      .subscribe(() => self.firstMonthScenario.nextStep());
+      .subscribe(() => self.scenario.nextStep());
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
     this.defineBoxes = this.defineBoxes.bind(this);
