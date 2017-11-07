@@ -7,6 +7,7 @@ export default class Scenario {
     this.listScenario.push(new NorthIsland.FirstMonthScenario(canvas, pixelRatio, actualPointSubject, actualBoxesSubject));
   }
 
+// BACKLOG jouer tous les scénario entre l'index 0 du tableau et l'index demandé par l'appelant
   launch(step) {
     this.listScenario[0].launch(step);
   }

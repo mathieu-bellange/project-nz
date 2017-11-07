@@ -5,7 +5,7 @@ import Airport from './airport';
 import Sky from './sky';
 import { Marker, Coordinate, Path } from '../tools';
 
-// TODO extraire la logique de déplacement dans une autre class trello:#66
+// DOING extraire la logique de déplacement dans une autre class trello:#66
 // BACKLOG ajouter un système de déplacement automatique
 export default class FirstMonthScenario {
   canvas;
@@ -15,6 +15,7 @@ export default class FirstMonthScenario {
   airport;
   index;
 
+  // FIXME changer le nom de la variable pour être moins générique
   Markers = [
     new Marker('nh54-nh55', 705, 498, 703, 498),
     new Marker('nh55-nh56', 703, 498, 706, 504),
@@ -94,6 +95,7 @@ export default class FirstMonthScenario {
     },
     // fifth step
     () => {
+      // FIXME suppression référence drawCircle et keepPrevious
       const fifthPoint = {
         x: 708 * this.pixelRatio,
         y: 502 * this.pixelRatio,
@@ -103,6 +105,7 @@ export default class FirstMonthScenario {
       this.actualPointSubject.next(fifthPoint);
       this.actualBoxesSubject.next(-1);
       const road = this.Roads[0];
+      // TODO déplacer la gestion de la ligne dans tools/line-animation ? trello:#66
       const deltaX = Math.abs((road.begin.x * this.pixelRatio) - (road.end.x * this.pixelRatio)) / 5;
       const deltaY = Math.abs((road.begin.y * this.pixelRatio) - (road.end.y * this.pixelRatio)) / 5;
       const path = this.canvas.path(`M${road.begin.x * this.pixelRatio} ${road.begin.y * this.pixelRatio} L${road.end.x * this.pixelRatio} ${road.end.y * this.pixelRatio}`);
@@ -151,6 +154,7 @@ export default class FirstMonthScenario {
     this.steps[this.index]();
   }
 
+  // TODO déplacer dans tools/line-animation trello:#66
   lineDeplacementAnimation(pointA, pointB) {
     const alpha = divide(subtract(-pointA.y, -pointB.y), subtract(pointA.x, pointB.x));
     const k = subtract(-pointA.y, multiply(alpha, pointA.x));
@@ -159,6 +163,7 @@ export default class FirstMonthScenario {
     this.movePointTo(delta, alpha, k, pointA.x, pointB.x, func);
   }
 
+  // TODO déplacer dans tools/line-animation trello:#66
   movePointTo(delta, alpha, k, x, exitX, exec) {
     const newX = exec(x, delta);
     const orthogonalY = add(multiply(newX, alpha), k);
