@@ -3,7 +3,7 @@ import Raphael from 'raphael';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
-import * as NorthIsland from './north-island';
+import Scenario from './scenario';
 import RoadTripCanvas from './canvas';
 import * as Boxes from './boxes';
 
@@ -97,9 +97,9 @@ export default class RoadTrip extends React.Component {
     rniLayer.draw(); */
     // BACKLOG récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario
     // BACKLOG récupérer le bon scenario suivant le point de sauvegarde
-    // TODO Récupérer le scénario depuis une liste de scénario trello:#64
-    this.firstMonthScenario = new NorthIsland.FirstMonthScenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject);
-    this.firstMonthScenario.launch(0);
+    // DONE Récupérer le scénario depuis une liste de scénario trello:#64
+    this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject);
+    this.scenario.launch(0);
   }
 
   componentDidMount() {
