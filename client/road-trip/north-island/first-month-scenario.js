@@ -92,11 +92,6 @@ export default class FirstMonthScenario {
     },
     // fourth step
     () => {
-      const fourthPoint = {
-        x: 708 * this.pixelRatio,
-        y: 502 * this.pixelRatio
-      };
-      this.actualPointSubject.next(fourthPoint);
       this.actualBoxesSubject.next(4);
       new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
         .draw(this.canvas, this.pixelRatio, this.Waves)
@@ -108,14 +103,6 @@ export default class FirstMonthScenario {
     },
     // fifth step
     () => {
-      // FIXME suppression référence drawCircle et keepPrevious
-      const fifthPoint = {
-        x: 708 * this.pixelRatio,
-        y: 502 * this.pixelRatio,
-        drawCircle: false,
-        keepPrevious: false
-      };
-      this.actualPointSubject.next(fifthPoint);
       this.actualBoxesSubject.next(-1);
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
