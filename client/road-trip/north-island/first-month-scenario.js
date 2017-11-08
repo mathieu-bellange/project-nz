@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 
 import Airport from './airport';
 import Sky from './sky';
-import { Marker, Coordinate, Path, lineDeplacementAnimation, AnimatedLine } from '../tools';
+import { Marker, Coordinate, Path, AnimatedLine } from '../tools';
 
 // DONE extraire la logique de déplacement dans une autre class trello:#66
 // BACKLOG ajouter un système de déplacement automatique
@@ -69,11 +69,27 @@ export default class FirstMonthScenario {
         x: endPoint.x - (window.innerWidth / 2),
         y: endPoint.y + (window.innerHeight / 2)
       });
+      // DONE merger tout dans tools/animated-line trello:#67
       // TODO voir où conserver le point d'entrée qui est le point courant trello:#67
-      lineDeplacementAnimation({
-        x: 708 * this.pixelRatio + (window.innerWidth / 2),
-        y: 502 * this.pixelRatio - (window.innerHeight / 2)
-      }, endPoint, (point) => { this.actualPointSubject.next(point); }, () => { this.nextStep(); });
+      const sensObservable = Observable.timer(0, 5).filter(value => value < 400).map(() => 1);
+      const animatedLine = new AnimatedLine({
+        begin: {
+          x: (708 * this.pixelRatio) + (window.innerWidth / 2),
+          y: (502 * this.pixelRatio) - (window.innerHeight / 2)
+        },
+        end: {
+          x: 708 * this.pixelRatio,
+          y: 502 * this.pixelRatio
+        }
+      }, 400, sensObservable)
+        .animate();
+      animatedLine.subscribe((point) => {
+        this.actualPointSubject.next(point);
+        if (point.x === endPoint.x) {
+          this.nextStep();
+          animatedLine.unsubscribe();
+        }
+      });
       this.actualBoxesSubject.next(3);
     },
     // fourth step
@@ -115,10 +131,11 @@ export default class FirstMonthScenario {
           x: road.end.x * this.pixelRatio,
           y: road.end.y * this.pixelRatio
         }
-      }, 5, sensObservable).draw(this.canvas, this.pixelRatio)
+      }, 5, sensObservable)
+        .draw(this.canvas)
         .animate();
-      animatedLine.subscribe((o) => {
-        this.actualPointSubject.next(o.point);
+      animatedLine.subscribe((point) => {
+        this.actualPointSubject.next(point);
       });
     }
   ];

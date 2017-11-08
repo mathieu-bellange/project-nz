@@ -10,6 +10,7 @@ export default class AnimatedLine {
   subject;
   sensObservable;
   observable;
+  sensSubscribe;
 
   constructor(line, delta, sensObservable) {
     this.line = line;
@@ -33,7 +34,7 @@ export default class AnimatedLine {
   animate() {
     this.currentLength = this.initLength;
     const currentPoint = this.line.begin;
-    this.sensObservable.subscribe((sens) => {
+    this.sensSubscribe = this.sensObservable.subscribe((sens) => {
       this.subject.next(sens);
     });
     this.observable = this.subject
@@ -41,7 +42,7 @@ export default class AnimatedLine {
         newLength: this.currentLength + (sens * this.interval),
         sens
       }))
-      .filter(o => o.newLength >= this.initLength && o.newLength <= this.initLength * 2)
+      .filter(o => Math.trunc(o.newLength) >= this.initLength && Math.trunc(o.newLength) <= this.initLength * 2)
       .do((o) => { this.currentLength = o.newLength; })
       .do(() => {
         // DONE permettre l'animation de l'écran sans dessiner de ligne trello:#67
@@ -53,14 +54,20 @@ export default class AnimatedLine {
         // DONE déterminer le sens du déplacement x et y
         currentPoint.x += this.deltaX * o.sens;
         currentPoint.y += this.deltaY * o.sens;
-        return {
-          point: currentPoint
-        };
-      });
+        return currentPoint;
+      })
+      .map(point => ({
+        x: Math.trunc(point.x),
+        y: Math.trunc(point.y)
+      }));
     return this;
   }
 
   subscribe(callback) {
     return this.observable.subscribe(callback);
+  }
+
+  unsubscribe() {
+    this.sensSubscribe.unsubscribe();
   }
 }

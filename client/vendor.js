@@ -8,6 +8,7 @@ import { add, divide, subtract, multiply } from 'mathjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
