@@ -2,7 +2,6 @@ import { add, subtract, square, sqrt, ceil } from 'mathjs';
 import { Subject } from 'rxjs/Subject';
 
 // DONE déplacer la gestion de la ligne dans tools/animated-line trello:#66
-// TODO permettre l'animation de l'écran sans dessiner de ligne trello:#67
 export default class AnimatedLine {
   initLength;
   currentLength;
@@ -45,7 +44,10 @@ export default class AnimatedLine {
       .filter(o => o.newLength >= this.initLength && o.newLength <= this.initLength * 2)
       .do((o) => { this.currentLength = o.newLength; })
       .do(() => {
-        this.path.node.setAttribute('style', `stroke-dasharray: ${this.currentLength}; stroke-dashoffset: ${this.initLength};`);
+        // DONE permettre l'animation de l'écran sans dessiner de ligne trello:#67
+        if (this.path) {
+          this.path.node.setAttribute('style', `stroke-dasharray: ${this.currentLength}; stroke-dashoffset: ${this.initLength};`);
+        }
       })
       .map((o) => {
         // FIXME déterminer le sens du déplacement x et y
