@@ -38,7 +38,7 @@ export default class FirstMonthScenario {
     new Coordinate(705, 498)
   ];
 
-  // PLANNING gérer le passage d'une étape à l'autre avec le scroll de la souris trello:#20
+  // TODO gérer le passage d'une étape à l'autre avec le scroll de la souris trello:#20
   steps = [
     // launch step
     () => {
@@ -92,22 +92,8 @@ export default class FirstMonthScenario {
       this.actualBoxesSubject.next(3);
     },
     // fourth step
-    // TODO ajouter la création de la route du step 4 au 5 ici trello:#20
+    // DOING ajouter la création de la route du step 4 au 5 ici trello:#20
     () => {
-      this.actualBoxesSubject.next(4);
-      // BACKLOG afficher des images unique et non un path
-      new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
-        .draw(this.canvas, this.pixelRatio, this.Waves)
-        .animate(2000);
-      this.Markers.forEach((marker) => {
-        const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
-        path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
-      }, this);
-    },
-    // fifth step
-    // PLANNING réaliser le step 5 trello:#40
-    () => {
-      this.actualBoxesSubject.next(-1);
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
       const road = this.Roads[0];
@@ -124,8 +110,24 @@ export default class FirstMonthScenario {
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {
-        this.actualPointSubject.next(point);
+        if (road.isOn(point, this.pixelRatio)) {
+          this.actualPointSubject.next(point);
+        }
       });
+      this.actualBoxesSubject.next(4);
+      // BACKLOG afficher des images unique et non un path
+      new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
+        .draw(this.canvas, this.pixelRatio, this.Waves)
+        .animate(2000);
+      this.Markers.forEach((marker) => {
+        const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
+        path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
+      }, this);
+    },
+    // fifth step
+    // PLANNING réaliser le step 5 trello:#40
+    () => {
+      this.actualBoxesSubject.next(-1);
     }
     // BACKLOG ajouter la sixième étape trello:#41
   ];
