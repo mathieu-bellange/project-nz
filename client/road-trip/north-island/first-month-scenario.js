@@ -13,6 +13,7 @@ export default class FirstMonthScenario {
   pixelRatio;
   airport;
   index;
+  currentPoint;
 
   // FIXME changer le nom de la variable pour être moins générique
   Markers = [
@@ -70,13 +71,10 @@ export default class FirstMonthScenario {
         y: endPoint.y + (window.innerHeight / 2)
       });
       // DONE merger tout dans tools/animated-line trello:#67
-      // TODO voir où conserver le point d'entrée qui est le point courant trello:#67
+      // DONE voir où conserver le point d'entrée qui est le point courant trello:#67
       const sensObservable = Observable.timer(0, 5).filter(value => value < 400).map(() => 1);
       const animatedLine = new AnimatedLine({
-        begin: {
-          x: (708 * this.pixelRatio) + (window.innerWidth / 2),
-          y: (502 * this.pixelRatio) - (window.innerHeight / 2)
-        },
+        begin: this.currentPoint,
         end: {
           x: 708 * this.pixelRatio,
           y: 502 * this.pixelRatio
@@ -146,6 +144,9 @@ export default class FirstMonthScenario {
     this.actualPointSubject = actualPointSubject;
     this.actualBoxesSubject = actualBoxesSubject;
     this.airport = new Airport();
+    this.actualPointSubject.subscribe((point) => {
+      this.currentPoint = point;
+    });
   }
 
   // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param
