@@ -17,8 +17,8 @@ export default class AnimatedLine {
       square(subtract(line.end.x, line.begin.x)),
       square(subtract(line.end.y, line.begin.y))
     )));
-    this.deltaX = Math.abs(line.begin.x - (line.end.x)) / delta;
-    this.deltaY = Math.abs(line.begin.y - (line.end.y)) / delta;
+    this.deltaX = (line.end.x - line.begin.x) / delta;
+    this.deltaY = (line.end.y - line.begin.y) / delta;
     this.interval = this.initLength / delta;
     this.sensObservable = sensObservable;
     this.subject = new Subject();
@@ -50,9 +50,9 @@ export default class AnimatedLine {
         }
       })
       .map((o) => {
-        // FIXME déterminer le sens du déplacement x et y
-        currentPoint.x -= this.deltaX * o.sens;
-        currentPoint.y -= this.deltaY * o.sens;
+        // DONE déterminer le sens du déplacement x et y
+        currentPoint.x += this.deltaX * o.sens;
+        currentPoint.y += this.deltaY * o.sens;
         return {
           point: currentPoint
         };
