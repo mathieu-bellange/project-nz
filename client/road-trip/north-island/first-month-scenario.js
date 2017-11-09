@@ -118,6 +118,8 @@ export default class FirstMonthScenario {
       this.actualPointSubject.subscribe((point) => {
         if (road.begin.isEqual(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(4);
+        } else if (road.end.isEqual(point, this.pixelRatio)) {
+          this.nextStep();
         } else if (road.isOn(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(-1);
         }
@@ -133,8 +135,9 @@ export default class FirstMonthScenario {
       }, this);
     },
     // fifth step
-    // TODO réaliser le step 5 trello:#40
+    // DOING réaliser le step 5 trello:#40
     () => {
+      this.actualBoxesSubject.next(5);
     }
     // BACKLOG ajouter la sixième étape trello:#41
   ];
