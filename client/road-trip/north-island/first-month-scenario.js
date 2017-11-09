@@ -92,7 +92,7 @@ export default class FirstMonthScenario {
       this.actualBoxesSubject.next(3);
     },
     // fourth step
-    // DOING ajouter la création de la route du step 4 au 5 ici trello:#20
+    // DONE ajouter la création de la route du step 4 au 5 ici trello:#20
     () => {
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
@@ -114,6 +114,13 @@ export default class FirstMonthScenario {
           this.actualPointSubject.next(point);
         }
       });
+      this.actualPointSubject.subscribe((point) => {
+        if (road.begin.isEqual(point, this.pixelRatio)) {
+          this.actualBoxesSubject.next(4);
+        } else if (road.isOn(point, this.pixelRatio)) {
+          this.actualBoxesSubject.next(-1);
+        }
+      });
       this.actualBoxesSubject.next(4);
       // BACKLOG afficher des images unique et non un path
       new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
@@ -127,7 +134,6 @@ export default class FirstMonthScenario {
     // fifth step
     // PLANNING réaliser le step 5 trello:#40
     () => {
-      this.actualBoxesSubject.next(-1);
     }
     // BACKLOG ajouter la sixième étape trello:#41
   ];
