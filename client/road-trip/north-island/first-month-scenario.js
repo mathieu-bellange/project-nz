@@ -6,6 +6,7 @@ import { Marker, Coordinate, Path, AnimatedLine } from '../tools';
 
 // DONE extraire la logique de déplacement dans une autre class trello:#66
 // BACKLOG ajouter un système de déplacement automatique trello:#20
+// NOTE réflexion sur le stockage du pixel ratio
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -132,7 +133,7 @@ export default class FirstMonthScenario {
       }, this);
     },
     // fifth step
-    // PLANNING réaliser le step 5 trello:#40
+    // TODO réaliser le step 5 trello:#40
     () => {
     }
     // BACKLOG ajouter la sixième étape trello:#41
