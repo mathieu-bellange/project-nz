@@ -1,6 +1,7 @@
 import React from 'react';
 import Raphael from 'raphael';
 import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 
 import Scenario from './scenario';
@@ -30,7 +31,7 @@ export default class RoadTrip extends React.Component {
       boxes: [],
       drawCircle: false
     };
-    this.actualPointSubject = new Subject();
+    this.actualPointSubject = new ReplaySubject(1);
     this.actualBoxesSubject = new Subject();
     const theOne = Observable.combineLatest(
       Observable

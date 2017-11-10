@@ -24,7 +24,8 @@ export default class FirstMonthScenario {
   ];
 
   Roads = [
-    new Marker('rnh1-rnh2', 708, 502, 705, 485)
+    new Marker('rnh1-rnh2', 708, 502, 705, 485),
+    new Marker('rnh2-rnh3', 705, 485, 743, 548)
   ]
 
   Waves = [
@@ -75,14 +76,10 @@ export default class FirstMonthScenario {
       // DONE merger tout dans tools/animated-line trello:#67
       // DONE voir où conserver le point d'entrée qui est le point courant trello:#67
       const sensObservable = Observable.timer(0, 5).filter(value => value < 400).map(() => 1);
-      const animatedLine = new AnimatedLine({
-        begin: this.currentPoint,
-        end: {
-          x: 708 * this.pixelRatio,
-          y: 502 * this.pixelRatio
-        }
-      }, 400, sensObservable)
-        .animate();
+      const animatedLine = new AnimatedLine(
+        new Marker('airplaneLine', this.currentPoint.x, this.currentPoint.y, 708 * this.pixelRatio, 502 * this.pixelRatio),
+        400, sensObservable, this.actualPointSubject
+      ).animate();
       animatedLine.subscribe((point) => {
         this.actualPointSubject.next(point);
         if (point.x === endPoint.x) {
@@ -98,16 +95,10 @@ export default class FirstMonthScenario {
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
       const road = this.Roads[0];
-      const animatedLine = new AnimatedLine({
-        begin: {
-          x: road.begin.x * this.pixelRatio,
-          y: road.begin.y * this.pixelRatio
-        },
-        end: {
-          x: road.end.x * this.pixelRatio,
-          y: road.end.y * this.pixelRatio
-        }
-      }, 5, sensObservable)
+      const animatedLine = new AnimatedLine(
+        new Marker('road1', road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
+        5, sensObservable, this.actualPointSubject
+      )
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {

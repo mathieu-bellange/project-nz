@@ -11,8 +11,9 @@ export default class AnimatedLine {
   sensObservable;
   observable;
   sensSubscribe;
+  actualPoint;
 
-  constructor(line, delta, sensObservable) {
+  constructor(line, delta, sensObservable, actualPointSubject) {
     this.line = line;
     this.initLength = ceil(sqrt(add(
       square(subtract(line.end.x, line.begin.x)),
@@ -23,6 +24,9 @@ export default class AnimatedLine {
     this.interval = this.initLength / delta;
     this.sensObservable = sensObservable;
     this.subject = new Subject();
+    actualPointSubject.subscribe((point) => {
+      this.actualPoint = point;
+    });
   }
 
   draw(canvas) {
@@ -38,6 +42,7 @@ export default class AnimatedLine {
       this.subject.next(sens);
     });
     this.observable = this.subject
+      .filter(() => this.line.isOn(this.actualPoint))
       .map(sens => ({
         newLength: this.currentLength + (sens * this.interval),
         sens
