@@ -20,6 +20,7 @@ export default class Marker {
   // TODO ajouter un check que le point se trouve bien dans la zone x-y défini par la droite trello:#20
   isOn(point, pixelRatio) {
     const ratio = pixelRatio || 1;
-    return Math.trunc(point.y / ratio) === Math.trunc(add(multiply(this.alpha, point.x / ratio), this.k));
+    const calculY = Math.trunc(add(multiply(this.alpha, point.x / ratio), this.k));
+    return Math.trunc(point.y / ratio) - 1 <= calculY && calculY <= Math.trunc(point.y / ratio) + 1;
   }
 }
