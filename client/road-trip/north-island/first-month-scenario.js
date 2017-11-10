@@ -137,6 +137,29 @@ export default class FirstMonthScenario {
     // fifth step
     // DOING réaliser le step 5 trello:#40
     () => {
+      const sensObservable = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road = this.Roads[1];
+      const animatedLine = new AnimatedLine(
+        new Marker('road1', road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
+        5, sensObservable, this.actualPointSubject
+      )
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        if (road.isOn(point, this.pixelRatio)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.actualPointSubject.subscribe((point) => {
+        if (road.begin.isEqual(point, this.pixelRatio)) {
+          this.actualBoxesSubject.next(5);
+        } else if (road.end.isEqual(point, this.pixelRatio)) {
+          this.nextStep();
+        } else if (road.isOn(point, this.pixelRatio)) {
+          this.actualBoxesSubject.next(-1);
+        }
+      });
       this.actualBoxesSubject.next(5);
     }
     // BACKLOG ajouter la sixième étape trello:#41
