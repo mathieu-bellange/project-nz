@@ -9,6 +9,9 @@ export default class Coordinate {
 
   isEqual(point, pixelRatio) {
     const ratio = pixelRatio || 1;
-    return this.x === point.x / ratio && this.y === point.y / ratio;
+    const calculX = point.x / ratio;
+    const calculY = point.y / ratio;
+    return (this.x - 1 <= calculX && calculX <= this.x + 1) &&
+      (this.y - 1 <= calculY && calculY <= this.y + 1);
   }
 }

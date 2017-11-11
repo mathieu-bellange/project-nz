@@ -60,10 +60,7 @@ export default class FirstMonthScenario {
     },
     // third step
     () => {
-      const endPoint = {
-        x: 708 * this.pixelRatio,
-        y: 502 * this.pixelRatio
-      };
+      const endPoint = new Coordinate(708 * this.pixelRatio, 502 * this.pixelRatio);
       this.sky.stop();
       this.airport.landing(this.canvas, {
         x: endPoint.x - (window.innerWidth / 2),
@@ -78,7 +75,7 @@ export default class FirstMonthScenario {
       ).animate();
       animatedLine.subscribe((point) => {
         this.actualPointSubject.next(point);
-        if (point.x === endPoint.x) {
+        if (endPoint.isEqual(point)) {
           this.launchScenario();
           animatedLine.unsubscribe();
         }
