@@ -17,7 +17,7 @@ export default class Marker {
   }
 
   // DONE ajouter une méthode permettant de savoir si un point est sur la route trello:#20
-  // TODO ajouter un check que le point se trouve bien dans la zone x-y défini par la droite trello:#20
+  // BACKLOG ajouter un check que le point se trouve bien dans la zone x-y défini par la droite
   isOn(point, pixelRatio) {
     const ratio = pixelRatio || 1;
     const calculY = Math.trunc(add(multiply(this.alpha, point.x / ratio), this.k));

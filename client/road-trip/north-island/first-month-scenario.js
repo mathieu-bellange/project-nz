@@ -40,7 +40,9 @@ export default class FirstMonthScenario {
     new Coordinate(705, 498)
   ];
 
-  // TODO gérer le passage d'une étape à l'autre avec le scroll de la souris trello:#20
+  animatedRoads = [];
+
+  // DONE gérer le passage d'une étape à l'autre avec le scroll de la souris trello:#20
   steps = [
     // launch step
     () => {
@@ -72,12 +74,12 @@ export default class FirstMonthScenario {
       const animatedLine = new AnimatedLine(
         new Marker('airplaneLine', this.initPoint.x, this.initPoint.y, 708 * this.pixelRatio, 502 * this.pixelRatio),
         400, sensObservable, true
-      ).animate();
+      ).animate(true);
       animatedLine.subscribe((point) => {
         this.actualPointSubject.next(point);
         if (endPoint.isEqual(point)) {
           this.launchScenario();
-          animatedLine.unsubscribe();
+          animatedLine.unsubscribeSens();
         }
       });
       this.actualBoxesSubject.next(3);
@@ -99,11 +101,14 @@ export default class FirstMonthScenario {
           this.actualPointSubject.next(point);
         }
       });
+      this.animatedRoads.push(animatedLine);
       this.actualPointSubject.subscribe((point) => {
         if (road.begin.isEqual(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(4);
+          this.animatedRoads[0].subscribeSens();
         } else if (road.isOn(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(-1);
+          this.animatedRoads[1].unsubscribeSens();
         }
       });
       // BACKLOG afficher des images unique et non un path
@@ -135,10 +140,17 @@ export default class FirstMonthScenario {
       this.actualPointSubject.subscribe((point) => {
         if (road.begin.isEqual(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(5);
+          this.animatedRoads[0].subscribeSens();
+          this.animatedRoads[1].subscribeSens();
         } else if (road.isOn(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(-1);
+          this.animatedRoads[0].unsubscribeSens();
+          // BACKLOG réaliser la déconnexion avec le step 6 trello:#41
+        } else if (road.end.isEqual(point, this.pixelRatio)) {
+          // BACKLOG réaliser la connexion avec le step 6 trello:#41
         }
       });
+      this.animatedRoads.push(animatedLine);
     }
     // BACKLOG ajouter la sixième étape trello:#41
   ];

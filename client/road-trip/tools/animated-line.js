@@ -31,14 +31,14 @@ export default class AnimatedLine {
     return this;
   }
 
-  animate() {
+  animate(autoSensSubscribe) {
+    if (autoSensSubscribe) {
+      this.subscribeSens();
+    }
     this.currentLength = this.initLength;
     const currentPoint = this.line.begin;
-    this.sensSubscribe = this.sensObservable.subscribe((sens) => {
-      this.subject.next(sens);
-    });
     this.observable = this.subject
-      .do(() => console.log(this.line.id))
+
       .map(sens => ({
         newLength: this.currentLength + (sens * this.interval),
         sens
@@ -68,7 +68,20 @@ export default class AnimatedLine {
     return this.observable.subscribe(callback);
   }
 
-  unsubscribe() {
-    this.sensSubscribe.unsubscribe();
+  unsubscribeSens() {
+    if (this.sensSubscribe) {
+      this.sensSubscribe.unsubscribe();
+    }
+    this.hasSubscribe = false;
+  }
+
+  subscribeSens() {
+    if (this.hasSubscribe) {
+      return;
+    }
+    this.sensSubscribe = this.sensObservable.subscribe((sens) => {
+      this.subject.next(sens);
+    });
+    this.hasSubscribe = true;
   }
 }
