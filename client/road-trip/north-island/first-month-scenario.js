@@ -14,7 +14,7 @@ export default class FirstMonthScenario {
   pixelRatio;
   airport;
   index;
-  currentPoint;
+  initPoint;
 
   // FIXME changer le nom de la variable pour être moins générique
   Markers = [
@@ -44,14 +44,10 @@ export default class FirstMonthScenario {
   steps = [
     // launch step
     () => {
-      const initPoint = {
-        x: (708 * this.pixelRatio) + (window.innerWidth / 2),
-        y: (502 * this.pixelRatio) - (window.innerHeight / 2)
-      };
-      this.actualPointSubject.next(initPoint);
+      this.actualPointSubject.next(this.initPoint);
       this.actualBoxesSubject.next(0);
-      this.airport.fliing(this.canvas, initPoint);
-      this.sky = new Sky(this.canvas, initPoint);
+      this.airport.fliing(this.canvas, this.initPoint);
+      this.sky = new Sky(this.canvas, this.initPoint);
       this.sky.launch();
     },
     // first step
@@ -77,13 +73,13 @@ export default class FirstMonthScenario {
       // DONE voir où conserver le point d'entrée qui est le point courant trello:#67
       const sensObservable = Observable.timer(0, 5).filter(value => value < 400).map(() => 1);
       const animatedLine = new AnimatedLine(
-        new Marker('airplaneLine', this.currentPoint.x, this.currentPoint.y, 708 * this.pixelRatio, 502 * this.pixelRatio),
-        400, sensObservable, this.actualPointSubject
+        new Marker('airplaneLine', this.initPoint.x, this.initPoint.y, 708 * this.pixelRatio, 502 * this.pixelRatio),
+        400, sensObservable, true
       ).animate();
       animatedLine.subscribe((point) => {
         this.actualPointSubject.next(point);
         if (point.x === endPoint.x) {
-          this.nextStep();
+          this.launchScenario();
           animatedLine.unsubscribe();
         }
       });
@@ -97,7 +93,7 @@ export default class FirstMonthScenario {
       const road = this.Roads[0];
       const animatedLine = new AnimatedLine(
         new Marker('road1', road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
-        5, sensObservable, this.actualPointSubject
+        5, sensObservable
       )
         .draw(this.canvas)
         .animate();
@@ -109,13 +105,10 @@ export default class FirstMonthScenario {
       this.actualPointSubject.subscribe((point) => {
         if (road.begin.isEqual(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(4);
-        } else if (road.end.isEqual(point, this.pixelRatio)) {
-          this.nextStep();
         } else if (road.isOn(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(-1);
         }
       });
-      this.actualBoxesSubject.next(4);
       // BACKLOG afficher des images unique et non un path
       new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
         .draw(this.canvas, this.pixelRatio, this.Waves)
@@ -132,8 +125,8 @@ export default class FirstMonthScenario {
         .map(event => event.deltaY / Math.abs(event.deltaY));
       const road = this.Roads[1];
       const animatedLine = new AnimatedLine(
-        new Marker('road1', road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
-        5, sensObservable, this.actualPointSubject
+        new Marker('road2', road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
+        5, sensObservable
       )
         .draw(this.canvas)
         .animate();
@@ -145,13 +138,10 @@ export default class FirstMonthScenario {
       this.actualPointSubject.subscribe((point) => {
         if (road.begin.isEqual(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(5);
-        } else if (road.end.isEqual(point, this.pixelRatio)) {
-          this.nextStep();
         } else if (road.isOn(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(-1);
         }
       });
-      this.actualBoxesSubject.next(5);
     }
     // BACKLOG ajouter la sixième étape trello:#41
   ];
@@ -162,15 +152,21 @@ export default class FirstMonthScenario {
     this.actualPointSubject = actualPointSubject;
     this.actualBoxesSubject = actualBoxesSubject;
     this.airport = new Airport();
-    this.actualPointSubject.subscribe((point) => {
-      this.currentPoint = point;
-    });
+    this.initPoint = {
+      x: (708 * pixelRatio) + (window.innerWidth / 2),
+      y: (502 * pixelRatio) - (window.innerHeight / 2)
+    };
   }
 
   // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param
   launch(index) {
     this.index = index;
     this.steps[index]();
+  }
+
+  launchScenario() {
+    this.steps[4]();
+    this.steps[5]();
   }
 
   nextStep() {
