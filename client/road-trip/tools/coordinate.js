@@ -7,6 +7,7 @@ export default class Coordinate {
     this.y = y;
   }
 
+  // TODO supprimer la notion de pixel ratio trello:#68
   isEqual(point, pixelRatio) {
     const ratio = pixelRatio || 1;
     const calculX = point.x / ratio;

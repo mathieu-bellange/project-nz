@@ -98,7 +98,6 @@ export default class RoadTrip extends React.Component {
     rniLayer.draw(); */
     // BACKLOG récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario
     // BACKLOG récupérer le bon scenario suivant le point de sauvegarde
-    // DONE Récupérer le scénario depuis une liste de scénario trello:#64
     this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject);
     this.scenario.launch(0);
   }

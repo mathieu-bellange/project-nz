@@ -16,8 +16,16 @@ export default class Marker {
     this.k = subtract(by, multiply(this.alpha, bx));
   }
 
-  // DONE ajouter une méthode permettant de savoir si un point est sur la route trello:#20
   // BACKLOG ajouter un check que le point se trouve bien dans la zone x-y défini par la droite
+  // TODO supprimer le notion de pixelRatio trello:#68
+  /**
+   * Méthode permettant de savoir si un point est présent sur la droite correspondante
+   * Une tolérance de +ou- 1 est ajouté du fait de la trop grande précision des calculs
+   * par rapports aux coordonnées affichées
+   * @param  {@Coordinate}  point  la coordonnée du point à tester
+   * @param  {number}  pixelRatio A supprimer, ratio entre les coordonnées de la carte et l'affichage
+   * @return {Boolean}            oui si la route, non en dehors
+   */
   isOn(point, pixelRatio) {
     const ratio = pixelRatio || 1;
     const calculY = Math.trunc(add(multiply(this.alpha, point.x / ratio), this.k));

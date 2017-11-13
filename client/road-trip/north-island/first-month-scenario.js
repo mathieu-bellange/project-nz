@@ -4,9 +4,9 @@ import Airport from './airport';
 import Sky from './sky';
 import { Marker, Coordinate, Path, AnimatedLine } from '../tools';
 
-// DONE extraire la logique de déplacement dans une autre class trello:#66
 // BACKLOG ajouter un système de déplacement automatique trello:#20
-// NOTE réflexion sur le stockage du pixel ratio
+// PLANNING Ajouter l'affichage du van lors du déplacement de la route trello:#69
+// TODO réflexion sur le stockage du pixel ratio trello:68
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -42,7 +42,7 @@ export default class FirstMonthScenario {
 
   animatedRoads = [];
 
-  // DONE gérer le passage d'une étape à l'autre avec le scroll de la souris trello:#20
+  // TODO limiter l'usage du pixel ratio aux constructeurs de point, ligne... trello:#68
   steps = [
     // launch step
     () => {
@@ -68,8 +68,6 @@ export default class FirstMonthScenario {
         x: endPoint.x - (window.innerWidth / 2),
         y: endPoint.y + (window.innerHeight / 2)
       });
-      // DONE merger tout dans tools/animated-line trello:#67
-      // DONE voir où conserver le point d'entrée qui est le point courant trello:#67
       const sensObservable = Observable.timer(0, 5).filter(value => value < 400).map(() => 1);
       const animatedLine = new AnimatedLine(
         new Marker('airplaneLine', this.initPoint.x, this.initPoint.y, 708 * this.pixelRatio, 502 * this.pixelRatio),
@@ -85,7 +83,7 @@ export default class FirstMonthScenario {
       this.actualBoxesSubject.next(3);
     },
     // fourth step
-    // DONE ajouter la création de la route du step 4 au 5 ici trello:#20
+    // TODO gestion de la route plus générique entre les steps
     () => {
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
@@ -152,7 +150,10 @@ export default class FirstMonthScenario {
       });
       this.animatedRoads.push(animatedLine);
     }
-    // BACKLOG ajouter la sixième étape trello:#41
+    // TODO ajouter la sixième étape trello:#41
+    // PLANNING ajouter la septième étape trello:#42
+    // PLANNING ajouter la huitième étape trello:#43
+    // PLANNING ajouter la neuvième étape trello:#44
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {

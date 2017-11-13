@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './canvas.css';
 import * as Popin from '../popin';
 
+// TODO supprimer la notion de pixel ratio
 export default class RoadTripCanvas extends React.Component {
   static propTypes = {
     canvasId: PropTypes.string.isRequired,
