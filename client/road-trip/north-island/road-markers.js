@@ -1,10 +1,7 @@
 import { Marker } from '../tools';
 
 const markers = [
-  new Marker('rnh1-rnh2', 708, 502, 705, 485),
-  new Marker('rnh2-rnh3', 705, 485, 743, 548),
-  new Marker('rnh3-rnh4', 743, 548, 752, 592),
-  new Marker('rnh4-rnh5', 752, 592, 759, 622),
+  
   new Marker('rnh5-rnh6', 759, 622, 797, 660),
   new Marker('rnh6-rnh7', 797, 660, 819, 661),
   new Marker('rnh7-rnh8', 819, 661, 827, 699),

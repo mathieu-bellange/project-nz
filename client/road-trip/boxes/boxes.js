@@ -612,6 +612,25 @@ const boxes = [
       }
     ]
   },
+  // seventhStep
+  {
+    id: 7,
+    circle: false,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 70,
+        left: false,
+        title: 'Hamilton',
+        text: 'seventh text',
+        type: TypeBox.Text
+      },
+      {
+        id: 71,
+        left: false
+      }
+    ]
+  }
 ];
 
 export default boxes;

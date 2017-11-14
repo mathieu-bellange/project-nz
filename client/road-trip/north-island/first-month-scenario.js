@@ -46,13 +46,26 @@ export default class FirstMonthScenario {
       new Marker('nh61-nh62', 695, 504, 682, 508),
       new Marker('nh62-nh63', 682, 508, 683, 517),
       new Marker('nh63-nh90', 683, 517, 709, 589)
+    ],
+    [
+      new Marker('nh90-nh91', 709, 589, 705, 604),
+      new Marker('nh91-nh92', 705, 604, 705, 625),
+      new Marker('nh92-nh93', 705, 625, 709, 626),
+      new Marker('nh93-nh94', 709, 626, 716, 622),
+      new Marker('nh94-nh95', 716, 622, 720, 627),
+      new Marker('nh95-nh96', 720, 627, 711, 632),
+      new Marker('nh96-nh97', 711, 632, 705, 629),
+      new Marker('nh97-nh98', 705, 629, 698, 629),
+      new Marker('nh98-nh99', 698, 629, 700, 653),
+      new Marker('nh99-nh100', 700, 653, 693, 662)
     ]
   ];
 
   Roads = [
     new Marker('rnh1-rnh2', 708, 502, 705, 485),
     new Marker('rnh2-rnh3', 705, 485, 743, 548),
-    new Marker('rnh3-rnh4', 743, 548, 752, 592)
+    new Marker('rnh3-rnh4', 743, 548, 752, 592),
+    new Marker('rnh4-rnh5', 752, 592, 759, 622)
   ]
 
   Waves = [
@@ -229,11 +242,13 @@ export default class FirstMonthScenario {
           this.animatedRoads[1].subscribeSens();
           this.animatedRoads[2].subscribeSens();
         } else if (road.end.isEqual(point, this.pixelRatio)) {
-          // PLANNING réaliser la connexion avec le step 7 trello:#42
+          // DONE réaliser la connexion avec le step 7 trello:#42
+          this.nextStepSubject.next(7);
         } else if (road.isOn(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(-1);
           this.animatedRoads[1].unsubscribeSens();
-          // PLANNING réaliser la déconnexion avec le step 7 trello:#42
+          // DONE réaliser la déconnexion avec le step 7 trello:#42
+          this.animatedRoads[3].unsubscribeSens();
         }
       });
       const sub = this.nextStepSubject.filter(step => step === 6).subscribe(() => {
@@ -244,8 +259,46 @@ export default class FirstMonthScenario {
         }, this);
         sub.unsubscribe();
       });
+    },
+    // DONE ajouter la septième étape trello:#42
+    // Seventh step
+    () => {
+      const sensObservable = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road = this.Roads[3];
+      const animatedLine = new AnimatedLine(
+        new Marker(road.id, road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
+        5, sensObservable
+      )
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        if (road.isOn(point, this.pixelRatio)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine);
+      this.actualPointSubject.subscribe((point) => {
+        if (road.begin.isEqual(point, this.pixelRatio)) {
+          this.actualBoxesSubject.next(7);
+          this.animatedRoads[2].subscribeSens();
+          this.animatedRoads[3].subscribeSens();
+        } else if (road.end.isEqual(point, this.pixelRatio)) {
+          // PLANNING réaliser la connexion avec le step 8 trello:#43
+        } else if (road.isOn(point, this.pixelRatio)) {
+          this.actualBoxesSubject.next(-1);
+          this.animatedRoads[2].unsubscribeSens();
+          // PLANNING réaliser la déconnexion avec le step 8 trello:#43
+        }
+      });
+      const sub = this.nextStepSubject.filter(step => step === 7).subscribe(() => {
+        this.COASTLINES[3].forEach((marker) => {
+          const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
+          path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
+        }, this);
+        sub.unsubscribe();
+      });
     }
-    // PLANNING ajouter la septième étape trello:#42
     // PLANNING ajouter la huitième étape trello:#43
     // PLANNING ajouter la neuvième étape trello:#44
   ];
