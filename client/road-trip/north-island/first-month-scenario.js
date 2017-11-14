@@ -36,12 +36,23 @@ export default class FirstMonthScenario {
       new Marker('nh25-nh26', 714, 478, 695, 482),
       new Marker('nh26-nh27', 695, 482, 717, 484),
       new Marker('nh27-nh28', 717, 484, 755, 499)
+    ],
+    [
+      new Marker('nh28-nh29', 755, 499, 760, 525),
+      new Marker('nh29-nh30', 760, 525, 771, 524),
+      new Marker('nh58-nh59', 717, 508, 699, 516),
+      new Marker('nh59-nh60', 699, 516, 697, 512),
+      new Marker('nh60-nh61', 697, 512, 695, 504),
+      new Marker('nh61-nh62', 695, 504, 682, 508),
+      new Marker('nh62-nh63', 682, 508, 683, 517),
+      new Marker('nh63-nh90', 683, 517, 709, 589)
     ]
   ];
 
   Roads = [
     new Marker('rnh1-rnh2', 708, 502, 705, 485),
-    new Marker('rnh2-rnh3', 705, 485, 743, 548)
+    new Marker('rnh2-rnh3', 705, 485, 743, 548),
+    new Marker('rnh3-rnh4', 743, 548, 752, 592)
   ]
 
   Waves = [
@@ -176,12 +187,14 @@ export default class FirstMonthScenario {
           this.actualBoxesSubject.next(5);
           this.animatedRoads[0].subscribeSens();
           this.animatedRoads[1].subscribeSens();
+        } else if (road.end.isEqual(point, this.pixelRatio)) {
+          // DONE réaliser la connexion avec le step 6 trello:#41
+          this.nextStepSubject.next(6);
         } else if (road.isOn(point, this.pixelRatio)) {
           this.actualBoxesSubject.next(-1);
           this.animatedRoads[0].unsubscribeSens();
-          // BACKLOG réaliser la déconnexion avec le step 6 trello:#41
-        } else if (road.end.isEqual(point, this.pixelRatio)) {
-          // BACKLOG réaliser la connexion avec le step 6 trello:#41
+          // DONE réaliser la déconnexion avec le step 6 trello:#41
+          this.animatedRoads[2].unsubscribeSens();
         }
       });
       const sub = this.nextStepSubject.filter(step => step === 5).subscribe(() => {
@@ -191,8 +204,47 @@ export default class FirstMonthScenario {
         }, this);
         sub.unsubscribe();
       });
+    },
+    // DONE ajouter la sixième étape trello:#41
+    // sixth step
+    () => {
+      const sensObservable = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road = this.Roads[2];
+      const animatedLine = new AnimatedLine(
+        new Marker(road.id, road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
+        5, sensObservable
+      )
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        if (road.isOn(point, this.pixelRatio)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine);
+      this.actualPointSubject.subscribe((point) => {
+        if (road.begin.isEqual(point, this.pixelRatio)) {
+          this.actualBoxesSubject.next(6);
+          this.animatedRoads[1].subscribeSens();
+          this.animatedRoads[2].subscribeSens();
+        } else if (road.end.isEqual(point, this.pixelRatio)) {
+          // PLANNING réaliser la connexion avec le step 7 trello:#42
+        } else if (road.isOn(point, this.pixelRatio)) {
+          this.actualBoxesSubject.next(-1);
+          this.animatedRoads[1].unsubscribeSens();
+          // PLANNING réaliser la déconnexion avec le step 7 trello:#42
+        }
+      });
+      const sub = this.nextStepSubject.filter(step => step === 6).subscribe(() => {
+        // DONE réaliser les coastlines à afficher trello:#41
+        this.COASTLINES[2].forEach((marker) => {
+          const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
+          path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
+        }, this);
+        sub.unsubscribe();
+      });
     }
-    // TODO ajouter la sixième étape trello:#41
     // PLANNING ajouter la septième étape trello:#42
     // PLANNING ajouter la huitième étape trello:#43
     // PLANNING ajouter la neuvième étape trello:#44

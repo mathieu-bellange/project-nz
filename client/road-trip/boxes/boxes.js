@@ -595,7 +595,23 @@ const boxes = [
         type: TypeBox.Picture
       }
     ]
-  }
+  },
+  // sixthStep
+  {
+    id: 6,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 60,
+        left: false,
+        position: 1,
+        title: 'Te Kauwhata',
+        text: 'sixth text',
+        type: TypeBox.Text
+      }
+    ]
+  },
 ];
 
 export default boxes;
