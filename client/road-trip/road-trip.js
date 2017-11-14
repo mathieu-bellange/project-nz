@@ -23,7 +23,6 @@ export default class RoadTrip extends React.Component {
     super(props);
     const self = this;
     this.state = {
-      pixelRatio: this.pixelRatio,
       canvasCenter: {
         x: 0,
         y: 0
@@ -112,7 +111,6 @@ export default class RoadTrip extends React.Component {
         <RoadTripCanvas
           canvasId={this.canvasId}
           canvasCenter={this.state.canvasCenter}
-          pixelRatio={this.state.pixelRatio}
           popinBoxes={this.state.boxes}
           drawCircle={this.state.drawCircle}
         ></RoadTripCanvas>

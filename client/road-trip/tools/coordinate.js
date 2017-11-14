@@ -8,12 +8,9 @@ export default class Coordinate {
     this.y = y * ratio;
   }
 
-  // TODO supprimer la notion de pixel ratio trello:#68
-  isEqual(point, pixelRatio) {
-    const ratio = pixelRatio || 1;
-    const calculX = point.x / ratio;
-    const calculY = point.y / ratio;
-    return (this.x - 1 <= calculX && calculX <= this.x + 1) &&
-      (this.y - 1 <= calculY && calculY <= this.y + 1);
+  // DONE supprimer la notion de pixel ratio trello:#68
+  isEqual(point) {
+    return (this.x - 1 <= point.x && point.x <= this.x + 1) &&
+      (this.y - 1 <= point.y && point.y <= this.y + 1);
   }
 }

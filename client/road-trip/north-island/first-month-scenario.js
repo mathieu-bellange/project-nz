@@ -7,82 +7,25 @@ import { Marker, Coordinate, Path, AnimatedLine, SVGImage } from '../tools';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#20
 // PLANNING Ajouter l'affichage du van lors du déplacement de la route trello:#69
-// TODO réflexion sur le stockage du pixel ratio trello:68
+// DONE réflexion sur le stockage du pixel ratio trello:#68
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
   actualBoxesSubject;
   nextStepSubject;
-  pixelRatio;
   airport;
   index;
   initPoint;
+  airportPoint;
 
-  // FIXME changer le nom de la variable pour être moins générique
-  COASTLINES = [
-    [
-      new Marker('nh54-nh55', 705, 498, 703, 498),
-      new Marker('nh55-nh56', 703, 498, 706, 504),
-      new Marker('nh56-nh57', 706, 504, 714, 503)
-    ],
-    [
-      new Marker('nh49-nh50', 648, 441, 681, 506),
-      new Marker('nh50-nh51', 681, 506, 690, 502),
-      new Marker('nh51-nh52', 690, 502, 695, 497),
-      new Marker('nh52-nh53', 695, 497, 705, 495),
-      new Marker('nh53-nh54', 705, 495, 705, 498),
-      new Marker('nh57-nh58', 714, 503, 717, 508),
-      new Marker('nh24-nh25', 701, 455, 714, 478),
-      new Marker('nh25-nh26', 714, 478, 695, 482),
-      new Marker('nh26-nh27', 695, 482, 717, 484),
-      new Marker('nh27-nh28', 717, 484, 755, 499)
-    ],
-    [
-      new Marker('nh28-nh29', 755, 499, 760, 525),
-      new Marker('nh29-nh30', 760, 525, 771, 524),
-      new Marker('nh58-nh59', 717, 508, 699, 516),
-      new Marker('nh59-nh60', 699, 516, 697, 512),
-      new Marker('nh60-nh61', 697, 512, 695, 504),
-      new Marker('nh61-nh62', 695, 504, 682, 508),
-      new Marker('nh62-nh63', 682, 508, 683, 517),
-      new Marker('nh63-nh90', 683, 517, 709, 589)
-    ],
-    [
-      new Marker('nh90-nh91', 709, 589, 705, 604),
-      new Marker('nh91-nh92', 705, 604, 705, 625),
-      new Marker('nh92-nh93', 705, 625, 709, 626),
-      new Marker('nh93-nh94', 709, 626, 716, 622),
-      new Marker('nh94-nh95', 716, 622, 720, 627),
-      new Marker('nh95-nh96', 720, 627, 711, 632),
-      new Marker('nh96-nh97', 711, 632, 705, 629),
-      new Marker('nh97-nh98', 705, 629, 698, 629),
-      new Marker('nh98-nh99', 698, 629, 700, 653),
-      new Marker('nh99-nh100', 700, 653, 693, 662)
-    ]
-  ];
+  // DONE changer le nom de la variable pour être moins générique
+  COASTLINES = [];
 
-  Roads = [
-    new Marker('rnh1-rnh2', 708, 502, 705, 485),
-    new Marker('rnh2-rnh3', 705, 485, 743, 548),
-    new Marker('rnh3-rnh4', 743, 548, 752, 592),
-    new Marker('rnh4-rnh5', 752, 592, 759, 622)
-  ]
-
-  Waves = [
-    new Coordinate(705, 498),
-    new Coordinate(703, 498),
-    new Coordinate(706, 504),
-    new Coordinate(714, 503),
-    new Coordinate(715, 506),
-    new Coordinate(703, 507),
-    new Coordinate(699, 496),
-    new Coordinate(705, 496),
-    new Coordinate(705, 498)
-  ];
+  ROADS = [];
 
   animatedRoads = [];
 
-  // TODO limiter l'usage du pixel ratio aux constructeurs de point, ligne... trello:#68
+  // DONE limiter l'usage du pixel ratio aux constructeurs de point, ligne... trello:#68
   steps = [
     // launch step
     () => {
@@ -111,23 +54,22 @@ export default class FirstMonthScenario {
     },
     // third step
     () => {
-      const endPoint = new Coordinate(708 * this.pixelRatio, 502 * this.pixelRatio);
       const sensObservable = Observable.timer(0, 5).filter(value => value < 400).map(() => 1);
       const animatedLine = new AnimatedLine(
-        new Marker('airplaneLine', this.initPoint.x, this.initPoint.y, 708 * this.pixelRatio, 502 * this.pixelRatio),
+        new Marker('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y),
         400, sensObservable, true
       );
       const sub = this.nextStepSubject.filter(step => step === 3).subscribe(() => {
         this.sky.stop();
         this.airport.landing(this.canvas, {
-          x: endPoint.x - (window.innerWidth / 2),
-          y: endPoint.y + (window.innerHeight / 2)
+          x: this.airportPoint.x - (window.innerWidth / 2),
+          y: this.airportPoint.y + (window.innerHeight / 2)
         });
         animatedLine
           .animate(true)
           .subscribe((point) => {
             this.actualPointSubject.next(point);
-            if (endPoint.isEqual(point)) {
+            if (this.airportPoint.isEqual(point)) {
               this.nextStepSubject.next(4);
               animatedLine.unsubscribeSens();
             }
@@ -141,26 +83,23 @@ export default class FirstMonthScenario {
     () => {
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
-      const road = this.Roads[0];
-      const animatedLine = new AnimatedLine(
-        new Marker('road1', road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
-        5, sensObservable
-      )
+      const road = this.ROADS[0];
+      const animatedLine = new AnimatedLine(road, 5, sensObservable)
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {
-        if (road.isOn(point, this.pixelRatio)) {
+        if (road.isOn(point)) {
           this.actualPointSubject.next(point);
         }
       });
       this.animatedRoads.push(animatedLine);
       this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point, this.pixelRatio)) {
+        if (road.begin.isEqual(point)) {
           this.actualBoxesSubject.next(4);
           this.animatedRoads[0].subscribeSens();
-        } else if (road.end.isEqual(point, this.pixelRatio)) {
+        } else if (road.end.isEqual(point)) {
           this.nextStepSubject.next(5);
-        } else if (road.isOn(point, this.pixelRatio)) {
+        } else if (road.isOn(point)) {
           this.actualBoxesSubject.next(-1);
           this.animatedRoads[1].unsubscribeSens();
         }
@@ -171,8 +110,8 @@ export default class FirstMonthScenario {
           .draw(this.canvas, this.pixelRatio, this.Waves)
           .animate(2000); */
         this.COASTLINES[0].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
-          path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
+          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
+          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
         }, this);
         sub.unsubscribe();
       });
@@ -182,28 +121,25 @@ export default class FirstMonthScenario {
     () => {
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
-      const road = this.Roads[1];
-      const animatedLine = new AnimatedLine(
-        new Marker('road2', road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
-        5, sensObservable
-      )
+      const road = this.ROADS[1];
+      const animatedLine = new AnimatedLine(road, 5, sensObservable)
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {
-        if (road.isOn(point, this.pixelRatio)) {
+        if (road.isOn(point)) {
           this.actualPointSubject.next(point);
         }
       });
       this.animatedRoads.push(animatedLine);
       this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point, this.pixelRatio)) {
+        if (road.begin.isEqual(point)) {
           this.actualBoxesSubject.next(5);
           this.animatedRoads[0].subscribeSens();
           this.animatedRoads[1].subscribeSens();
-        } else if (road.end.isEqual(point, this.pixelRatio)) {
+        } else if (road.end.isEqual(point)) {
           // DONE réaliser la connexion avec le step 6 trello:#41
           this.nextStepSubject.next(6);
-        } else if (road.isOn(point, this.pixelRatio)) {
+        } else if (road.isOn(point)) {
           this.actualBoxesSubject.next(-1);
           this.animatedRoads[0].unsubscribeSens();
           // DONE réaliser la déconnexion avec le step 6 trello:#41
@@ -212,8 +148,8 @@ export default class FirstMonthScenario {
       });
       const sub = this.nextStepSubject.filter(step => step === 5).subscribe(() => {
         this.COASTLINES[1].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
-          path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
+          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
+          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
         }, this);
         sub.unsubscribe();
       });
@@ -223,28 +159,25 @@ export default class FirstMonthScenario {
     () => {
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
-      const road = this.Roads[2];
-      const animatedLine = new AnimatedLine(
-        new Marker(road.id, road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
-        5, sensObservable
-      )
+      const road = this.ROADS[2];
+      const animatedLine = new AnimatedLine(road, 5, sensObservable)
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {
-        if (road.isOn(point, this.pixelRatio)) {
+        if (road.isOn(point)) {
           this.actualPointSubject.next(point);
         }
       });
       this.animatedRoads.push(animatedLine);
       this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point, this.pixelRatio)) {
+        if (road.begin.isEqual(point)) {
           this.actualBoxesSubject.next(6);
           this.animatedRoads[1].subscribeSens();
           this.animatedRoads[2].subscribeSens();
-        } else if (road.end.isEqual(point, this.pixelRatio)) {
+        } else if (road.end.isEqual(point)) {
           // DONE réaliser la connexion avec le step 7 trello:#42
           this.nextStepSubject.next(7);
-        } else if (road.isOn(point, this.pixelRatio)) {
+        } else if (road.isOn(point)) {
           this.actualBoxesSubject.next(-1);
           this.animatedRoads[1].unsubscribeSens();
           // DONE réaliser la déconnexion avec le step 7 trello:#42
@@ -254,8 +187,8 @@ export default class FirstMonthScenario {
       const sub = this.nextStepSubject.filter(step => step === 6).subscribe(() => {
         // DONE réaliser les coastlines à afficher trello:#41
         this.COASTLINES[2].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
-          path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
+          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
+          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
         }, this);
         sub.unsubscribe();
       });
@@ -265,27 +198,24 @@ export default class FirstMonthScenario {
     () => {
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
-      const road = this.Roads[3];
-      const animatedLine = new AnimatedLine(
-        new Marker(road.id, road.begin.x * this.pixelRatio, road.begin.y * this.pixelRatio, road.end.x * this.pixelRatio, road.end.y * this.pixelRatio),
-        5, sensObservable
-      )
+      const road = this.ROADS[3];
+      const animatedLine = new AnimatedLine(road, 5, sensObservable)
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {
-        if (road.isOn(point, this.pixelRatio)) {
+        if (road.isOn(point)) {
           this.actualPointSubject.next(point);
         }
       });
       this.animatedRoads.push(animatedLine);
       this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point, this.pixelRatio)) {
+        if (road.begin.isEqual(point)) {
           this.actualBoxesSubject.next(7);
           this.animatedRoads[2].subscribeSens();
           this.animatedRoads[3].subscribeSens();
-        } else if (road.end.isEqual(point, this.pixelRatio)) {
+        } else if (road.end.isEqual(point)) {
           // PLANNING réaliser la connexion avec le step 8 trello:#43
-        } else if (road.isOn(point, this.pixelRatio)) {
+        } else if (road.isOn(point)) {
           this.actualBoxesSubject.next(-1);
           this.animatedRoads[2].unsubscribeSens();
           // PLANNING réaliser la déconnexion avec le step 8 trello:#43
@@ -293,8 +223,8 @@ export default class FirstMonthScenario {
       });
       const sub = this.nextStepSubject.filter(step => step === 7).subscribe(() => {
         this.COASTLINES[3].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
-          path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
+          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
+          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
         }, this);
         sub.unsubscribe();
       });
@@ -305,15 +235,17 @@ export default class FirstMonthScenario {
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
     this.canvas = canvas;
-    this.pixelRatio = pixelRatio;
     this.actualPointSubject = actualPointSubject;
     this.actualBoxesSubject = actualBoxesSubject;
     this.nextStepSubject = new Subject();
     this.airport = new Airport();
-    this.initPoint = {
-      x: (708 * pixelRatio) + (window.innerWidth / 2),
-      y: (502 * pixelRatio) - (window.innerHeight / 2)
-    };
+    this.airportPoint = new Coordinate(708, 502, pixelRatio);
+    this.initPoint = new Coordinate(
+      this.airportPoint.x + (window.innerWidth / 2),
+      this.airportPoint.y - (window.innerHeight / 2)
+    );
+    this.buildRoads(pixelRatio);
+    this.buildCoastlines(pixelRatio);
   }
 
   // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param
@@ -326,5 +258,58 @@ export default class FirstMonthScenario {
   nextStep() {
     this.index += 1;
     this.nextStepSubject.next(this.index);
+  }
+
+  buildRoads(pixelRatio) {
+    this.ROADS = [
+      new Marker('rnh1-rnh2', 708, 502, 705, 485, pixelRatio),
+      new Marker('rnh2-rnh3', 705, 485, 743, 548, pixelRatio),
+      new Marker('rnh3-rnh4', 743, 548, 752, 592, pixelRatio),
+      new Marker('rnh4-rnh5', 752, 592, 759, 622, pixelRatio)
+    ];
+  }
+
+  buildCoastlines(pixelRatio) {
+    this.COASTLINES = [
+      [
+        new Marker('nh54-nh55', 705, 498, 703, 498, pixelRatio),
+        new Marker('nh55-nh56', 703, 498, 706, 504, pixelRatio),
+        new Marker('nh56-nh57', 706, 504, 714, 503, pixelRatio)
+      ],
+      [
+        new Marker('nh49-nh50', 648, 441, 681, 506, pixelRatio),
+        new Marker('nh50-nh51', 681, 506, 690, 502, pixelRatio),
+        new Marker('nh51-nh52', 690, 502, 695, 497, pixelRatio),
+        new Marker('nh52-nh53', 695, 497, 705, 495, pixelRatio),
+        new Marker('nh53-nh54', 705, 495, 705, 498, pixelRatio),
+        new Marker('nh57-nh58', 714, 503, 717, 508, pixelRatio),
+        new Marker('nh24-nh25', 701, 455, 714, 478, pixelRatio),
+        new Marker('nh25-nh26', 714, 478, 695, 482, pixelRatio),
+        new Marker('nh26-nh27', 695, 482, 717, 484, pixelRatio),
+        new Marker('nh27-nh28', 717, 484, 755, 499, pixelRatio)
+      ],
+      [
+        new Marker('nh28-nh29', 755, 499, 760, 525, pixelRatio),
+        new Marker('nh29-nh30', 760, 525, 771, 524, pixelRatio),
+        new Marker('nh58-nh59', 717, 508, 699, 516, pixelRatio),
+        new Marker('nh59-nh60', 699, 516, 697, 512, pixelRatio),
+        new Marker('nh60-nh61', 697, 512, 695, 504, pixelRatio),
+        new Marker('nh61-nh62', 695, 504, 682, 508, pixelRatio),
+        new Marker('nh62-nh63', 682, 508, 683, 517, pixelRatio),
+        new Marker('nh63-nh90', 683, 517, 709, 589, pixelRatio)
+      ],
+      [
+        new Marker('nh90-nh91', 709, 589, 705, 604, pixelRatio),
+        new Marker('nh91-nh92', 705, 604, 705, 625, pixelRatio),
+        new Marker('nh92-nh93', 705, 625, 709, 626, pixelRatio),
+        new Marker('nh93-nh94', 709, 626, 716, 622, pixelRatio),
+        new Marker('nh94-nh95', 716, 622, 720, 627, pixelRatio),
+        new Marker('nh95-nh96', 720, 627, 711, 632, pixelRatio),
+        new Marker('nh96-nh97', 711, 632, 705, 629, pixelRatio),
+        new Marker('nh97-nh98', 705, 629, 698, 629, pixelRatio),
+        new Marker('nh98-nh99', 698, 629, 700, 653, pixelRatio),
+        new Marker('nh99-nh100', 700, 653, 693, 662, pixelRatio)
+      ]
+    ];
   }
 }

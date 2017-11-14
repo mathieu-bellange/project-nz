@@ -1,5 +1,6 @@
 import { add, subtract, square, sqrt, ceil } from 'mathjs';
 import { Subject } from 'rxjs/Subject';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default class AnimatedLine {
   initLength;
@@ -35,9 +36,8 @@ export default class AnimatedLine {
       this.subscribeSens();
     }
     this.currentLength = this.initLength;
-    const currentPoint = this.line.begin;
+    const currentPoint = cloneDeep(this.line.begin);
     this.observable = this.subject
-
       .map(sens => ({
         newLength: this.currentLength + (sens * this.interval),
         sens

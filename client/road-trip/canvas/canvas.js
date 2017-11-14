@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import './canvas.css';
 import * as Popin from '../popin';
 
-// TODO supprimer la notion de pixel ratio
+// DONE supprimer la notion de pixel ratio trello:#68
 export default class RoadTripCanvas extends React.Component {
   static propTypes = {
     canvasId: PropTypes.string.isRequired,
     canvasCenter: PropTypes.object.isRequired,
-    pixelRatio: PropTypes.number.isRequired,
     drawCircle: PropTypes.bool,
     popinBoxes: PropTypes.array
   };
