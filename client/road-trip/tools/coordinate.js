@@ -2,9 +2,10 @@ export default class Coordinate {
   x;
   y;
 
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  constructor(x, y, pixelRatio) {
+    const ratio = pixelRatio || 1;
+    this.x = x * ratio;
+    this.y = y * ratio;
   }
 
   // TODO supprimer la notion de pixel ratio trello:#68

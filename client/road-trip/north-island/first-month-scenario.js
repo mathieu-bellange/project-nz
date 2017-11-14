@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 import Airport from './airport';
 import Sky from './sky';
-import { Marker, Coordinate, Path, AnimatedLine } from '../tools';
+import { Marker, Coordinate, Path, AnimatedLine, SVGImage } from '../tools';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#20
 // PLANNING Ajouter l'affichage du van lors du déplacement de la route trello:#69
@@ -143,9 +143,9 @@ export default class FirstMonthScenario {
       });
       const sub = this.nextStepSubject.filter(step => step === 4).subscribe(() => {
         // BACKLOG afficher des images unique et non un path
-        new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
+        /* new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
           .draw(this.canvas, this.pixelRatio, this.Waves)
-          .animate(2000);
+          .animate(2000); */
         this.COASTLINES[0].forEach((marker) => {
           const path = this.canvas.path(`M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio}`);
           path.animate({ path: `M${marker.begin.x * this.pixelRatio} ${marker.begin.y * this.pixelRatio} L${marker.end.x * this.pixelRatio} ${marker.end.y * this.pixelRatio}` }, 2000);
@@ -154,7 +154,7 @@ export default class FirstMonthScenario {
       });
     },
     // fifth step
-    // DOING réaliser le step 5 trello:#40
+    // DONE réaliser le step 5 trello:#40
     () => {
       const sensObservable = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
