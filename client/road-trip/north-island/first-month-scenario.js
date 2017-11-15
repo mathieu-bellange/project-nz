@@ -49,6 +49,15 @@ export default class FirstMonthScenario {
       }
     });
   };
+  declareCoastlineGenerator = (indexCoastline, indexStep) => {
+    const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
+      this.COASTLINES[indexCoastline].forEach((marker) => {
+        const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
+        path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
+      }, this);
+      sub.unsubscribe();
+    });
+  };
 
   // DONE changer le nom de la variable pour être moins générique
   COASTLINES = [];
@@ -113,68 +122,33 @@ export default class FirstMonthScenario {
     // fourth step
     () => {
       this.declareAnimatedRoad(0, 4, true);
-      const sub = this.nextStepSubject.filter(step => step === 4).subscribe(() => {
-        // BACKLOG afficher des images unique et non un path
-        /* new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
-          .draw(this.canvas, this.pixelRatio, this.Waves)
-          .animate(2000); */
-        this.COASTLINES[0].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
-          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
-        }, this);
-        sub.unsubscribe();
-      });
+      this.declareCoastlineGenerator(0, 4);
     },
     // fifth step
     // DONE réaliser le step 5 trello:#40
     () => {
       this.declareAnimatedRoad(1, 5, true);
-      const sub = this.nextStepSubject.filter(step => step === 5).subscribe(() => {
-        this.COASTLINES[1].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
-          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
-        }, this);
-        sub.unsubscribe();
-      });
+      this.declareCoastlineGenerator(1, 5);
     },
     // DONE ajouter la sixième étape trello:#41
     // sixth step
     () => {
       this.declareAnimatedRoad(2, 6, true);
-      const sub = this.nextStepSubject.filter(step => step === 6).subscribe(() => {
-        // DONE réaliser les coastlines à afficher trello:#41
-        this.COASTLINES[2].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
-          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
-        }, this);
-        sub.unsubscribe();
-      });
+      this.declareCoastlineGenerator(2, 6);
     },
     // DONE ajouter la septième étape trello:#42
     // Seventh step
     () => {
       this.declareAnimatedRoad(3, 7, false, false, true);
       this.declareAnimatedRoad(4, 7, true, false, true);
-      const sub = this.nextStepSubject.filter(step => step === 7).subscribe(() => {
-        this.COASTLINES[3].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
-          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
-        }, this);
-        sub.unsubscribe();
-      });
+      this.declareCoastlineGenerator(3, 7);
     },
     // DONE ajouter la huitième étape trello:#43
     // Eigth step
     () => {
       this.declareAnimatedRoad(5, 8, false);
       this.declareAnimatedRoad(6, 8, true, true);
-      const sub = this.nextStepSubject.filter(step => step === 8).subscribe(() => {
-        this.COASTLINES[4].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
-          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
-        }, this);
-        sub.unsubscribe();
-      });
+      this.declareCoastlineGenerator(4, 8);
     },
     // DONE ajouter la neuvième étape trello:#44
     () => {
@@ -201,13 +175,7 @@ export default class FirstMonthScenario {
           // BACKLOG réaliser la déconnexion avec le step 10 trello:#45
         }
       });
-      const sub = this.nextStepSubject.filter(step => step === 9).subscribe(() => {
-        this.COASTLINES[5].forEach((marker) => {
-          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
-          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
-        }, this);
-        sub.unsubscribe();
-      });
+      this.declareCoastlineGenerator(5, 9);
     }
     // BACKLOG ajouter le step 10 trello:#45
     // BACKLOG ajouter le step 11 trello:#46
