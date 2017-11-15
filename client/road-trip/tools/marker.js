@@ -32,8 +32,14 @@ export default class Marker {
    * @return {Boolean}            oui si la route, non en dehors
    */
   isOn(point) {
-    const calculY = Math.trunc(add(multiply(this.alpha, point.x), this.k));
-    return this.isBetween(point) && Math.trunc(point.y) - 1 <= calculY && calculY <= Math.trunc(point.y) + 1;
+    let isOn;
+    if (Number.isFinite(this.alpha)) {
+      const calculY = Math.trunc(add(multiply(this.alpha, point.x), this.k));
+      isOn = Math.trunc(point.y) - 1 <= calculY && calculY <= Math.trunc(point.y) + 1;
+    } else {
+      isOn = point.x === this.begin.x;
+    }
+    return this.isBetween(point) && isOn;
   }
 
   // DONE ajouter un check que le point se trouve bien dans la zone x-y défini par la droite
