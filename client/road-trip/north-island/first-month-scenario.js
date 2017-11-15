@@ -8,7 +8,7 @@ import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#20
-// PLANNING Ajouter l'affichage du van lors du déplacement de la route trello:#69
+// TODO Ajouter l'affichage du van lors du déplacement de la route trello:#69
 // DONE réflexion sur le stockage du pixel ratio trello:#68
 export default class FirstMonthScenario {
   canvas;
@@ -21,7 +21,7 @@ export default class FirstMonthScenario {
   airportPoint;
   wheelObservable = Observable.fromEvent(window, 'wheel')
     .map(event => event.deltaY / Math.abs(event.deltaY));
-  // DOING gestion de la route plus générique entre les steps
+  // DONE gestion de la route plus générique entre les steps
   declareAnimatedRoad = (indexRoad, indexStep, launchNextStep, hideBoxes, keepBoxes) => {
     const road = this.ROADS[indexRoad];
     const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
