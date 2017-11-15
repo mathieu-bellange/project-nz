@@ -389,6 +389,22 @@ export default class FirstMonthScenario {
         sub.unsubscribe();
       });
     }
+    // BACKLOG ajouter le step 10 trello:#45
+    // BACKLOG ajouter le step 11 trello:#46
+    // BACKLOG ajouter le step 12 trello:#47
+    // BACKLOG ajouter le step 13 trello:#48
+    // BACKLOG ajouter le step 14 trello:#49
+    // BACKLOG ajouter le step 15 trello:#50
+    // BACKLOG ajouter le step 16 trello:#51
+    // BACKLOG ajouter le step 17 trello:#52
+    // BACKLOG ajouter le step 18 trello:#53
+    // BACKLOG ajouter le step 19 trello:#54
+    // BACKLOG ajouter le step 20 trello:#55
+    // BACKLOG ajouter le step 21 trello:#56
+    // BACKLOG ajouter le step 22 trello:#57
+    // BACKLOG ajouter le step 23 trello:#58
+    // BACKLOG ajouter le step 24 trello:#59
+    // BACKLOG ajouter le step 25 trello:#60
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
