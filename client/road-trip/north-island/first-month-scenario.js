@@ -19,6 +19,36 @@ export default class FirstMonthScenario {
   airportPoint;
   wheelObservable = Observable.fromEvent(window, 'wheel')
     .map(event => event.deltaY / Math.abs(event.deltaY));
+  // DOING gestion de la route plus générique entre les steps
+  declareAnimatedRoad = (indexRoad, indexStep, launchNextStep, hideBoxes, keepBoxes) => {
+    const road = this.ROADS[indexRoad];
+    const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
+      .draw(this.canvas)
+      .animate();
+    animatedLine.subscribe((point) => {
+      if (road.isOn(point)) {
+        this.actualPointSubject.next(point);
+      }
+    });
+    this.animatedRoads.push(animatedLine);
+    this.actualPointSubject.subscribe((point) => {
+      if (road.begin.isEqual(point)) {
+        if (!hideBoxes) this.actualBoxesSubject.next(indexStep);
+        if (indexRoad > 0) this.animatedRoads[indexRoad - 1].subscribeSens();
+        this.animatedRoads[indexRoad].subscribeSens();
+      } else if (road.end.isEqual(point)) {
+        if (launchNextStep) this.nextStepSubject.next(indexStep + 1);
+      } else if (road.isOn(point)) {
+        if (keepBoxes) {
+          this.actualBoxesSubject.next(indexStep);
+        } else {
+          this.actualBoxesSubject.next(-1);
+        }
+        if (indexRoad > 0) this.animatedRoads[indexRoad - 1].unsubscribeSens();
+        this.animatedRoads[indexRoad + 1].unsubscribeSens();
+      }
+    });
+  };
 
   // DONE changer le nom de la variable pour être moins générique
   COASTLINES = [];
@@ -81,29 +111,8 @@ export default class FirstMonthScenario {
       });
     },
     // fourth step
-    // DOING gestion de la route plus générique entre les steps
     () => {
-      const road = this.ROADS[0];
-      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine.subscribe((point) => {
-        if (road.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine);
-      this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point)) {
-          this.actualBoxesSubject.next(4);
-          this.animatedRoads[0].subscribeSens();
-        } else if (road.end.isEqual(point)) {
-          this.nextStepSubject.next(5);
-        } else if (road.isOn(point)) {
-          this.actualBoxesSubject.next(-1);
-          this.animatedRoads[1].unsubscribeSens();
-        }
-      });
+      this.declareAnimatedRoad(0, 4, true);
       const sub = this.nextStepSubject.filter(step => step === 4).subscribe(() => {
         // BACKLOG afficher des images unique et non un path
         /* new Path({ fill: 'url(/images/wave.png)', 'stroke-width': 0, opacity: 0 })
@@ -119,31 +128,7 @@ export default class FirstMonthScenario {
     // fifth step
     // DONE réaliser le step 5 trello:#40
     () => {
-      const road = this.ROADS[1];
-      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine.subscribe((point) => {
-        if (road.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine);
-      this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point)) {
-          this.actualBoxesSubject.next(5);
-          this.animatedRoads[0].subscribeSens();
-          this.animatedRoads[1].subscribeSens();
-        } else if (road.end.isEqual(point)) {
-          // DONE réaliser la connexion avec le step 6 trello:#41
-          this.nextStepSubject.next(6);
-        } else if (road.isOn(point)) {
-          this.actualBoxesSubject.next(-1);
-          this.animatedRoads[0].unsubscribeSens();
-          // DONE réaliser la déconnexion avec le step 6 trello:#41
-          this.animatedRoads[2].unsubscribeSens();
-        }
-      });
+      this.declareAnimatedRoad(1, 5, true);
       const sub = this.nextStepSubject.filter(step => step === 5).subscribe(() => {
         this.COASTLINES[1].forEach((marker) => {
           const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
@@ -155,31 +140,7 @@ export default class FirstMonthScenario {
     // DONE ajouter la sixième étape trello:#41
     // sixth step
     () => {
-      const road = this.ROADS[2];
-      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine.subscribe((point) => {
-        if (road.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine);
-      this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point)) {
-          this.actualBoxesSubject.next(6);
-          this.animatedRoads[1].subscribeSens();
-          this.animatedRoads[2].subscribeSens();
-        } else if (road.end.isEqual(point)) {
-          // DONE réaliser la connexion avec le step 7 trello:#42
-          this.nextStepSubject.next(7);
-        } else if (road.isOn(point)) {
-          this.actualBoxesSubject.next(-1);
-          this.animatedRoads[1].unsubscribeSens();
-          // DONE réaliser la déconnexion avec le step 7 trello:#42
-          this.animatedRoads[3].unsubscribeSens();
-        }
-      });
+      this.declareAnimatedRoad(2, 6, true);
       const sub = this.nextStepSubject.filter(step => step === 6).subscribe(() => {
         // DONE réaliser les coastlines à afficher trello:#41
         this.COASTLINES[2].forEach((marker) => {
@@ -192,50 +153,8 @@ export default class FirstMonthScenario {
     // DONE ajouter la septième étape trello:#42
     // Seventh step
     () => {
-      const road1 = this.ROADS[3];
-      const animatedLine1 = new AnimatedLine(road1, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine1.subscribe((point) => {
-        if (road1.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine1);
-      this.actualPointSubject.subscribe((point) => {
-        if (road1.begin.isEqual(point)) {
-          this.actualBoxesSubject.next(7);
-          this.animatedRoads[2].subscribeSens();
-          this.animatedRoads[3].subscribeSens();
-        } else if (road1.isOn(point)) {
-          this.animatedRoads[2].unsubscribeSens();
-          this.animatedRoads[4].unsubscribeSens();
-        }
-      });
-      const road2 = this.ROADS[4];
-      const animatedLine2 = new AnimatedLine(road2, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine2.subscribe((point) => {
-        if (road2.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine2);
-      this.actualPointSubject.subscribe((point) => {
-        if (road2.begin.isEqual(point)) {
-          this.animatedRoads[3].subscribeSens();
-          this.animatedRoads[4].subscribeSens();
-        } else if (road2.end.isEqual(point)) {
-          // DONE réaliser la connexion avec le step 8 trello:#43
-          this.nextStepSubject.next(8);
-        } else if (road2.isOn(point)) {
-          this.actualBoxesSubject.next(7);
-          this.animatedRoads[3].unsubscribeSens();
-          // DONE réaliser la déconnexion avec le step 8 trello:#43
-          this.animatedRoads[5].unsubscribeSens();
-        }
-      });
+      this.declareAnimatedRoad(3, 7, false, false, true);
+      this.declareAnimatedRoad(4, 7, true, false, true);
       const sub = this.nextStepSubject.filter(step => step === 7).subscribe(() => {
         this.COASTLINES[3].forEach((marker) => {
           const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
@@ -247,51 +166,8 @@ export default class FirstMonthScenario {
     // DONE ajouter la huitième étape trello:#43
     // Eigth step
     () => {
-      const road1 = this.ROADS[5];
-      const animatedLine1 = new AnimatedLine(road1, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine1.subscribe((point) => {
-        if (road1.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine1);
-      this.actualPointSubject.subscribe((point) => {
-        if (road1.begin.isEqual(point)) {
-          this.actualBoxesSubject.next(8);
-          this.animatedRoads[4].subscribeSens();
-          this.animatedRoads[5].subscribeSens();
-        } else if (road1.isOn(point)) {
-          this.actualBoxesSubject.next(-1);
-          this.animatedRoads[4].unsubscribeSens();
-          this.animatedRoads[6].unsubscribeSens();
-        }
-      });
-      const road2 = this.ROADS[6];
-      const animatedLine2 = new AnimatedLine(road2, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine2.subscribe((point) => {
-        if (road2.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine2);
-      this.actualPointSubject.subscribe((point) => {
-        if (road2.begin.isEqual(point)) {
-          this.animatedRoads[5].subscribeSens();
-          this.animatedRoads[6].subscribeSens();
-        } else if (road2.end.isEqual(point)) {
-          // DONE réaliser la connexion avec le step 9 trello:#44
-          this.nextStepSubject.next(9);
-        } else if (road2.isOn(point)) {
-          this.actualBoxesSubject.next(-1);
-          this.animatedRoads[5].unsubscribeSens();
-          // DONE réaliser la déconnexion avec le step 9 trello:#44
-          this.animatedRoads[7].unsubscribeSens();
-        }
-      });
+      this.declareAnimatedRoad(5, 8, false);
+      this.declareAnimatedRoad(6, 8, true, true);
       const sub = this.nextStepSubject.filter(step => step === 8).subscribe(() => {
         this.COASTLINES[4].forEach((marker) => {
           const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
@@ -302,46 +178,8 @@ export default class FirstMonthScenario {
     },
     // DONE ajouter la neuvième étape trello:#44
     () => {
-      const road1 = this.ROADS[7];
-      const animatedLine1 = new AnimatedLine(road1, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine1.subscribe((point) => {
-        if (road1.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine1);
-      this.actualPointSubject.subscribe((point) => {
-        if (road1.begin.isEqual(point)) {
-          this.actualBoxesSubject.next(9);
-          this.animatedRoads[6].subscribeSens();
-          this.animatedRoads[7].subscribeSens();
-        } else if (road1.isOn(point)) {
-          this.actualBoxesSubject.next(-1);
-          this.animatedRoads[6].unsubscribeSens();
-          this.animatedRoads[8].unsubscribeSens();
-        }
-      });
-      const road2 = this.ROADS[8];
-      const animatedLine2 = new AnimatedLine(road2, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine2.subscribe((point) => {
-        if (road2.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine2);
-      this.actualPointSubject.subscribe((point) => {
-        if (road2.begin.isEqual(point)) {
-          this.animatedRoads[7].subscribeSens();
-          this.animatedRoads[8].subscribeSens();
-        } else if (road2.isOn(point)) {
-          this.animatedRoads[7].unsubscribeSens();
-          this.animatedRoads[9].unsubscribeSens();
-        }
-      });
+      this.declareAnimatedRoad(7, 9, false);
+      this.declareAnimatedRoad(8, 9, false, true);
       const road3 = this.ROADS[9];
       const animatedLine3 = new AnimatedLine(road3, 5, this.wheelObservable)
         .draw(this.canvas)
