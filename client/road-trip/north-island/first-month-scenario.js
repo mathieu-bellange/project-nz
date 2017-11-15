@@ -17,6 +17,8 @@ export default class FirstMonthScenario {
   index;
   initPoint;
   airportPoint;
+  wheelObservable = Observable.fromEvent(window, 'wheel')
+    .map(event => event.deltaY / Math.abs(event.deltaY));
 
   // DONE changer le nom de la variable pour être moins générique
   COASTLINES = [];
@@ -79,12 +81,10 @@ export default class FirstMonthScenario {
       });
     },
     // fourth step
-    // TODO gestion de la route plus générique entre les steps
+    // DOING gestion de la route plus générique entre les steps
     () => {
-      const sensObservable = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road = this.ROADS[0];
-      const animatedLine = new AnimatedLine(road, 5, sensObservable)
+      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {
@@ -119,10 +119,8 @@ export default class FirstMonthScenario {
     // fifth step
     // DONE réaliser le step 5 trello:#40
     () => {
-      const sensObservable = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road = this.ROADS[1];
-      const animatedLine = new AnimatedLine(road, 5, sensObservable)
+      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {
@@ -157,10 +155,8 @@ export default class FirstMonthScenario {
     // DONE ajouter la sixième étape trello:#41
     // sixth step
     () => {
-      const sensObservable = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road = this.ROADS[2];
-      const animatedLine = new AnimatedLine(road, 5, sensObservable)
+      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine.subscribe((point) => {
@@ -196,10 +192,8 @@ export default class FirstMonthScenario {
     // DONE ajouter la septième étape trello:#42
     // Seventh step
     () => {
-      const sensObservable1 = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road1 = this.ROADS[3];
-      const animatedLine1 = new AnimatedLine(road1, 5, sensObservable1)
+      const animatedLine1 = new AnimatedLine(road1, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine1.subscribe((point) => {
@@ -218,10 +212,8 @@ export default class FirstMonthScenario {
           this.animatedRoads[4].unsubscribeSens();
         }
       });
-      const sensObservable2 = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road2 = this.ROADS[4];
-      const animatedLine2 = new AnimatedLine(road2, 5, sensObservable2)
+      const animatedLine2 = new AnimatedLine(road2, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine2.subscribe((point) => {
@@ -255,10 +247,8 @@ export default class FirstMonthScenario {
     // DONE ajouter la huitième étape trello:#43
     // Eigth step
     () => {
-      const sensObservable1 = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road1 = this.ROADS[5];
-      const animatedLine1 = new AnimatedLine(road1, 5, sensObservable1)
+      const animatedLine1 = new AnimatedLine(road1, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine1.subscribe((point) => {
@@ -278,10 +268,8 @@ export default class FirstMonthScenario {
           this.animatedRoads[6].unsubscribeSens();
         }
       });
-      const sensObservable2 = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road2 = this.ROADS[6];
-      const animatedLine2 = new AnimatedLine(road2, 5, sensObservable2)
+      const animatedLine2 = new AnimatedLine(road2, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine2.subscribe((point) => {
@@ -314,10 +302,8 @@ export default class FirstMonthScenario {
     },
     // DONE ajouter la neuvième étape trello:#44
     () => {
-      const sensObservable1 = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road1 = this.ROADS[7];
-      const animatedLine1 = new AnimatedLine(road1, 5, sensObservable1)
+      const animatedLine1 = new AnimatedLine(road1, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine1.subscribe((point) => {
@@ -337,10 +323,8 @@ export default class FirstMonthScenario {
           this.animatedRoads[8].unsubscribeSens();
         }
       });
-      const sensObservable2 = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road2 = this.ROADS[8];
-      const animatedLine2 = new AnimatedLine(road2, 5, sensObservable2)
+      const animatedLine2 = new AnimatedLine(road2, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine2.subscribe((point) => {
@@ -358,10 +342,8 @@ export default class FirstMonthScenario {
           this.animatedRoads[9].unsubscribeSens();
         }
       });
-      const sensObservable3 = Observable.fromEvent(window, 'wheel')
-        .map(event => event.deltaY / Math.abs(event.deltaY));
       const road3 = this.ROADS[9];
-      const animatedLine3 = new AnimatedLine(road3, 5, sensObservable3)
+      const animatedLine3 = new AnimatedLine(road3, 5, this.wheelObservable)
         .draw(this.canvas)
         .animate();
       animatedLine3.subscribe((point) => {
