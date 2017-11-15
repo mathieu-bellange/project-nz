@@ -630,6 +630,222 @@ const boxes = [
         left: false
       }
     ]
+  },
+  // eigthStep
+  {
+    id: 8,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 80,
+        left: true
+      },
+      {
+        id: 81,
+        left: true,
+        position: 2,
+        title: 'Lac Maraetai',
+        text: 'eigth text',
+        type: TypeBox.Text
+      },
+      {
+        id: 82,
+        left: false,
+        position: 0,
+        pictures: [
+          {
+            id: 800,
+            prin: {
+              src: '/images/maraetai/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 801,
+                    src: '/images/maraetai/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 802,
+                    src: '/images/maraetai/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 803,
+                    src: '/images/maraetai/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 804,
+                    src: '/images/maraetai/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 805,
+            prin: {
+              src: '/images/maraetai/06.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 806,
+                    src: '/images/maraetai/07.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 807,
+                    src: '/images/maraetai/08.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                []
+              ]
+            }
+          },
+          {
+            id: 808,
+            prin: {
+              src: '/images/maraetai/09.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 809,
+                    src: '/images/maraetai/10.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 810,
+                    src: '/images/maraetai/11.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 811,
+                    src: '/images/maraetai/12.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 812,
+                    src: '/images/maraetai/13.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 813,
+            prin: {
+              src: '/images/maraetai/14.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 814,
+                    src: '/images/maraetai/15.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 815,
+                    src: '/images/maraetai/16.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 816,
+                    src: '/images/maraetai/17.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 817,
+                    src: '/images/maraetai/18.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 818,
+            prin: {
+              src: '/images/maraetai/19.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 819,
+                    src: '/images/maraetai/20.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 820,
+                    src: '/images/maraetai/21.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 821,
+                    src: '/images/maraetai/22.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 822,
+                    src: '/images/maraetai/23.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 823,
+            prin: {
+              src: '/images/maraetai/24.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 824,
+                    src: '/images/maraetai/25.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 825,
+                    src: '/images/maraetai/26.jpg',
+                    wide: false
+                  }
+                ],
+                []
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
+      },
+      {
+        id: 83,
+        left: false
+      }
+    ]
   }
 ];
 

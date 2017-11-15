@@ -196,29 +196,52 @@ export default class FirstMonthScenario {
     // DONE ajouter la septième étape trello:#42
     // Seventh step
     () => {
-      const sensObservable = Observable.fromEvent(window, 'wheel')
+      const sensObservable1 = Observable.fromEvent(window, 'wheel')
         .map(event => event.deltaY / Math.abs(event.deltaY));
-      const road = this.ROADS[3];
-      const animatedLine = new AnimatedLine(road, 5, sensObservable)
+      const road1 = this.ROADS[3];
+      const animatedLine1 = new AnimatedLine(road1, 5, sensObservable1)
         .draw(this.canvas)
         .animate();
-      animatedLine.subscribe((point) => {
-        if (road.isOn(point)) {
+      animatedLine1.subscribe((point) => {
+        if (road1.isOn(point)) {
           this.actualPointSubject.next(point);
         }
       });
-      this.animatedRoads.push(animatedLine);
+      this.animatedRoads.push(animatedLine1);
       this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point)) {
+        if (road1.begin.isEqual(point)) {
           this.actualBoxesSubject.next(7);
           this.animatedRoads[2].subscribeSens();
           this.animatedRoads[3].subscribeSens();
-        } else if (road.end.isEqual(point)) {
-          // PLANNING réaliser la connexion avec le step 8 trello:#43
-        } else if (road.isOn(point)) {
-          this.actualBoxesSubject.next(-1);
+        } else if (road1.isOn(point)) {
           this.animatedRoads[2].unsubscribeSens();
-          // PLANNING réaliser la déconnexion avec le step 8 trello:#43
+          this.animatedRoads[4].unsubscribeSens();
+        }
+      });
+      const sensObservable2 = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road2 = this.ROADS[4];
+      const animatedLine2 = new AnimatedLine(road2, 5, sensObservable2)
+        .draw(this.canvas)
+        .animate();
+      animatedLine2.subscribe((point) => {
+        if (road2.isOn(point)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine2);
+      this.actualPointSubject.subscribe((point) => {
+        if (road2.begin.isEqual(point)) {
+          this.animatedRoads[3].subscribeSens();
+          this.animatedRoads[4].subscribeSens();
+        } else if (road2.end.isEqual(point)) {
+          // DONE réaliser la connexion avec le step 8 trello:#43
+          this.nextStepSubject.next(8);
+        } else if (road2.isOn(point)) {
+          this.actualBoxesSubject.next(7);
+          this.animatedRoads[3].unsubscribeSens();
+          // DONE réaliser la déconnexion avec le step 8 trello:#43
+          this.animatedRoads[5].unsubscribeSens();
         }
       });
       const sub = this.nextStepSubject.filter(step => step === 7).subscribe(() => {
@@ -228,9 +251,66 @@ export default class FirstMonthScenario {
         }, this);
         sub.unsubscribe();
       });
+    },
+    // DONE ajouter la huitième étape trello:#43
+    // Eigth step
+    () => {
+      const sensObservable1 = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road1 = this.ROADS[5];
+      const animatedLine1 = new AnimatedLine(road1, 5, sensObservable1)
+        .draw(this.canvas)
+        .animate();
+      animatedLine1.subscribe((point) => {
+        if (road1.isOn(point)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine1);
+      this.actualPointSubject.subscribe((point) => {
+        if (road1.begin.isEqual(point)) {
+          this.actualBoxesSubject.next(8);
+          this.animatedRoads[4].subscribeSens();
+          this.animatedRoads[5].subscribeSens();
+        } else if (road1.isOn(point)) {
+          this.actualBoxesSubject.next(-1);
+          this.animatedRoads[4].unsubscribeSens();
+          this.animatedRoads[6].unsubscribeSens();
+        }
+      });
+      const sensObservable2 = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road2 = this.ROADS[6];
+      const animatedLine2 = new AnimatedLine(road2, 5, sensObservable2)
+        .draw(this.canvas)
+        .animate();
+      animatedLine2.subscribe((point) => {
+        if (road2.isOn(point)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine2);
+      this.actualPointSubject.subscribe((point) => {
+        if (road2.begin.isEqual(point)) {
+          this.animatedRoads[5].subscribeSens();
+          this.animatedRoads[6].subscribeSens();
+        } else if (road2.end.isEqual(point)) {
+          // TODO réaliser la connexion avec le step 9 trello:#44
+        } else if (road2.isOn(point)) {
+          this.actualBoxesSubject.next(-1);
+          this.animatedRoads[5].unsubscribeSens();
+          // TODO réaliser la déconnexion avec le step 9 trello:#44
+        }
+      });
+      const sub = this.nextStepSubject.filter(step => step === 8).subscribe(() => {
+        this.COASTLINES[4].forEach((marker) => {
+          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
+          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
+        }, this);
+        sub.unsubscribe();
+      });
     }
-    // PLANNING ajouter la huitième étape trello:#43
-    // PLANNING ajouter la neuvième étape trello:#44
+    // TODO ajouter la neuvième étape trello:#44
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
@@ -265,7 +345,10 @@ export default class FirstMonthScenario {
       new Marker('rnh1-rnh2', 708, 502, 705, 485, pixelRatio),
       new Marker('rnh2-rnh3', 705, 485, 743, 548, pixelRatio),
       new Marker('rnh3-rnh4', 743, 548, 752, 592, pixelRatio),
-      new Marker('rnh4-rnh5', 752, 592, 759, 622, pixelRatio)
+      new Marker('rnh4-rnh5', 752, 592, 759, 622, pixelRatio),
+      new Marker('rnh5-rnh6', 759, 622, 797, 660, pixelRatio),
+      new Marker('rnh6-rnh7', 797, 660, 819, 661, pixelRatio),
+      new Marker('rnh7-rnh8', 819, 661, 827, 699, pixelRatio)
     ];
   }
 
@@ -309,7 +392,8 @@ export default class FirstMonthScenario {
         new Marker('nh97-nh98', 705, 629, 698, 629, pixelRatio),
         new Marker('nh98-nh99', 698, 629, 700, 653, pixelRatio),
         new Marker('nh99-nh100', 700, 653, 693, 662, pixelRatio)
-      ]
+      ],
+      []
     ];
   }
 }
