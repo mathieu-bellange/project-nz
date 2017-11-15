@@ -1,9 +1,6 @@
 import { Marker } from '../tools';
 
 const markers = [
-  new Marker('rnh8-rnh9', 827, 699, 827, 708),
-  new Marker('rnh9-rnh10', 827, 708, 802, 731),
-  new Marker('rnh10-rnh11', 802, 731, 802, 747),
   new Marker('rnh11-rnh12', 802, 747, 783, 738),
   new Marker('rnh12-rnh13', 783, 738, 775, 751),
   new Marker('rnh13-rnh14', 775, 751, 764, 753),

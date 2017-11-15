@@ -846,6 +846,95 @@ const boxes = [
         left: false
       }
     ]
+  },
+  // ninthStep
+  {
+    id: 9,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 90,
+        left: false,
+        position: 1,
+        title: 'Lac Taupo',
+        text: 'ninth text',
+        type: TypeBox.Text
+      },
+      {
+        id: 91,
+        left: true
+      },
+      {
+        id: 92,
+        left: true,
+        position: 2,
+        pictures: [
+          {
+            id: 900,
+            prin: {
+              src: '/images/taupo/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 901,
+                    src: '/images/taupo/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 902,
+                    src: '/images/taupo/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 903,
+                    src: '/images/taupo/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 904,
+                    src: '/images/taupo/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 905,
+            prin: {
+              src: '/images/taupo/06.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 906,
+                    src: '/images/taupo/07.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 907,
+                    src: '/images/taupo/08.jpg',
+                    wide: false
+                  }
+                ],
+                []
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
+      },
+      {
+        id: 83,
+        left: false
+      }
+    ]
   }
 ];
 

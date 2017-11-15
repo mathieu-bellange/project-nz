@@ -295,11 +295,13 @@ export default class FirstMonthScenario {
           this.animatedRoads[5].subscribeSens();
           this.animatedRoads[6].subscribeSens();
         } else if (road2.end.isEqual(point)) {
-          // TODO réaliser la connexion avec le step 9 trello:#44
+          // DONE réaliser la connexion avec le step 9 trello:#44
+          this.nextStepSubject.next(9);
         } else if (road2.isOn(point)) {
           this.actualBoxesSubject.next(-1);
           this.animatedRoads[5].unsubscribeSens();
-          // TODO réaliser la déconnexion avec le step 9 trello:#44
+          // DONE réaliser la déconnexion avec le step 9 trello:#44
+          this.animatedRoads[7].unsubscribeSens();
         }
       });
       const sub = this.nextStepSubject.filter(step => step === 8).subscribe(() => {
@@ -309,8 +311,84 @@ export default class FirstMonthScenario {
         }, this);
         sub.unsubscribe();
       });
+    },
+    // DONE ajouter la neuvième étape trello:#44
+    () => {
+      const sensObservable1 = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road1 = this.ROADS[7];
+      const animatedLine1 = new AnimatedLine(road1, 5, sensObservable1)
+        .draw(this.canvas)
+        .animate();
+      animatedLine1.subscribe((point) => {
+        if (road1.isOn(point)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine1);
+      this.actualPointSubject.subscribe((point) => {
+        if (road1.begin.isEqual(point)) {
+          this.actualBoxesSubject.next(9);
+          this.animatedRoads[6].subscribeSens();
+          this.animatedRoads[7].subscribeSens();
+        } else if (road1.isOn(point)) {
+          this.actualBoxesSubject.next(-1);
+          this.animatedRoads[6].unsubscribeSens();
+          this.animatedRoads[8].unsubscribeSens();
+        }
+      });
+      const sensObservable2 = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road2 = this.ROADS[8];
+      const animatedLine2 = new AnimatedLine(road2, 5, sensObservable2)
+        .draw(this.canvas)
+        .animate();
+      animatedLine2.subscribe((point) => {
+        if (road2.isOn(point)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine2);
+      this.actualPointSubject.subscribe((point) => {
+        if (road2.begin.isEqual(point)) {
+          this.animatedRoads[7].subscribeSens();
+          this.animatedRoads[8].subscribeSens();
+        } else if (road2.isOn(point)) {
+          this.animatedRoads[7].unsubscribeSens();
+          this.animatedRoads[9].unsubscribeSens();
+        }
+      });
+      const sensObservable3 = Observable.fromEvent(window, 'wheel')
+        .map(event => event.deltaY / Math.abs(event.deltaY));
+      const road3 = this.ROADS[9];
+      const animatedLine3 = new AnimatedLine(road3, 5, sensObservable3)
+        .draw(this.canvas)
+        .animate();
+      animatedLine3.subscribe((point) => {
+        if (road3.isOn(point)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine3);
+      this.actualPointSubject.subscribe((point) => {
+        if (road3.begin.isEqual(point)) {
+          this.animatedRoads[8].subscribeSens();
+          this.animatedRoads[9].subscribeSens();
+        } else if (road3.end.isEqual(point)) {
+          // BACKLOG réaliser la connexion avec le step 10 trello:#45
+        } else if (road3.isOn(point)) {
+          this.animatedRoads[8].unsubscribeSens();
+          // BACKLOG réaliser la déconnexion avec le step 10 trello:#45
+        }
+      });
+      const sub = this.nextStepSubject.filter(step => step === 9).subscribe(() => {
+        this.COASTLINES[5].forEach((marker) => {
+          const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
+          path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
+        }, this);
+        sub.unsubscribe();
+      });
     }
-    // TODO ajouter la neuvième étape trello:#44
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
@@ -348,7 +426,10 @@ export default class FirstMonthScenario {
       new Marker('rnh4-rnh5', 752, 592, 759, 622, pixelRatio),
       new Marker('rnh5-rnh6', 759, 622, 797, 660, pixelRatio),
       new Marker('rnh6-rnh7', 797, 660, 819, 661, pixelRatio),
-      new Marker('rnh7-rnh8', 819, 661, 827, 699, pixelRatio)
+      new Marker('rnh7-rnh8', 819, 661, 827, 699, pixelRatio),
+      new Marker('rnh8-rnh9', 827, 699, 827, 708, pixelRatio),
+      new Marker('rnh9-rnh10', 827, 708, 802, 731, pixelRatio),
+      new Marker('rnh10-rnh11', 802, 731, 802, 747, pixelRatio)
     ];
   }
 
@@ -393,7 +474,13 @@ export default class FirstMonthScenario {
         new Marker('nh98-nh99', 698, 629, 700, 653, pixelRatio),
         new Marker('nh99-nh100', 700, 653, 693, 662, pixelRatio)
       ],
-      []
+      [],
+      [
+        new Marker('lt1-lt2', 799, 696, 824, 698, pixelRatio),
+        new Marker('lt2-lt3', 824, 698, 824, 708, pixelRatio),
+        new Marker('lt3-lt4', 824, 708, 800, 728, pixelRatio),
+        new Marker('lt4-lt1', 800, 728, 799, 696, pixelRatio)
+      ]
     ];
   }
 }
