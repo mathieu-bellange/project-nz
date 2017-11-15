@@ -28,4 +28,19 @@ const markers = [
   new Marker('rnh35-rnh36', 712, 991, 713, 994)
 ];
 
-export default markers;
+const buildRoads = (pixelRatio) => {
+  return [
+    new Marker('rnh1-rnh2', 708, 502, 705, 485, pixelRatio),
+    new Marker('rnh2-rnh3', 705, 485, 743, 548, pixelRatio),
+    new Marker('rnh3-rnh4', 743, 548, 752, 592, pixelRatio),
+    new Marker('rnh4-rnh5', 752, 592, 759, 622, pixelRatio),
+    new Marker('rnh5-rnh6', 759, 622, 797, 660, pixelRatio),
+    new Marker('rnh6-rnh7', 797, 660, 819, 661, pixelRatio),
+    new Marker('rnh7-rnh8', 819, 661, 827, 699, pixelRatio),
+    new Marker('rnh8-rnh9', 827, 699, 827, 708, pixelRatio),
+    new Marker('rnh9-rnh10', 827, 708, 802, 731, pixelRatio),
+    new Marker('rnh10-rnh11', 802, 731, 802, 747, pixelRatio)
+  ];
+};
+
+export default buildRoads;
