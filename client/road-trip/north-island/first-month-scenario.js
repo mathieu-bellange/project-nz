@@ -3,12 +3,13 @@ import { Subject } from 'rxjs/Subject';
 
 import Airport from './airport';
 import Sky from './sky';
+import Van from './van';
 import { Marker, Coordinate, Path, AnimatedLine, SVGImage } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#20
-// TODO Ajouter l'affichage du van lors du déplacement de la route trello:#69
+// DONE Ajouter l'affichage du van lors du déplacement de la route trello:#69
 // DONE réflexion sur le stockage du pixel ratio trello:#68
 export default class FirstMonthScenario {
   canvas;
@@ -58,6 +59,19 @@ export default class FirstMonthScenario {
         path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
       }, this);
       sub.unsubscribe();
+    });
+  };
+  declareAnimatedVan = (indexRoad, hideEnd) => {
+    const road = this.ROADS[indexRoad];
+    const van = new Van();
+    this.actualPointSubject.subscribe((point) => {
+      if (road.begin.isEqual(point) || (road.end.isEqual(point) && hideEnd)) {
+        van.remove();
+      } else if (road.isOn(point)) {
+        van.draw(this.canvas, point).animate();
+      } else {
+        van.remove();
+      }
     });
   };
 
@@ -131,12 +145,14 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(1, 5, true);
       this.declareCoastlineGenerator(1, 5);
+      this.declareAnimatedVan(1, true);
     },
     // DONE ajouter la sixième étape trello:#41
     // sixth step
     () => {
       this.declareAnimatedRoad(2, 6, true);
       this.declareCoastlineGenerator(2, 6);
+      this.declareAnimatedVan(2, false);
     },
     // DONE ajouter la septième étape trello:#42
     // Seventh step
@@ -144,6 +160,8 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(3, 7, false, false, true);
       this.declareAnimatedRoad(4, 7, true, false, true);
       this.declareCoastlineGenerator(3, 7);
+      this.declareAnimatedVan(3, false);
+      this.declareAnimatedVan(4, true);
     },
     // DONE ajouter la huitième étape trello:#43
     // Eigth step
@@ -151,6 +169,8 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(5, 8, false);
       this.declareAnimatedRoad(6, 8, true, true);
       this.declareCoastlineGenerator(4, 8);
+      this.declareAnimatedVan(5, false);
+      this.declareAnimatedVan(6, true);
     },
     // DONE ajouter la neuvième étape trello:#44
     () => {
@@ -178,6 +198,9 @@ export default class FirstMonthScenario {
         }
       });
       this.declareCoastlineGenerator(5, 9);
+      this.declareAnimatedVan(7, false);
+      this.declareAnimatedVan(8, false);
+      this.declareAnimatedVan(9, true);
     }
     // BACKLOG ajouter le step 10 trello:#45
     // BACKLOG ajouter le step 11 trello:#46
