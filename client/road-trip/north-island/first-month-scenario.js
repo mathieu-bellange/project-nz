@@ -176,35 +176,39 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(7, 9, false);
       this.declareAnimatedRoad(8, 9, false, true);
-      const road3 = this.ROADS[9];
-      const animatedLine3 = new AnimatedLine(road3, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine3.subscribe((point) => {
-        if (road3.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine3);
-      this.actualPointSubject.subscribe((point) => {
-        if (road3.begin.isEqual(point)) {
-          this.animatedRoads[8].subscribeSens();
-          this.animatedRoads[9].subscribeSens();
-        } else if (road3.end.isEqual(point)) {
-          // BACKLOG réaliser la connexion avec le step 10 trello:#45
-        } else if (road3.isOn(point)) {
-          this.animatedRoads[8].unsubscribeSens();
-          // BACKLOG réaliser la déconnexion avec le step 10 trello:#45
-        }
-      });
+      this.declareAnimatedRoad(9, 9, true, true);
       this.declareCoastlineGenerator(5, 9);
       this.declareAnimatedVan(7, false);
       this.declareAnimatedVan(8, false);
       this.declareAnimatedVan(9, true);
+    },
+    // DONE ajouter le step 10 trello:#45
+    () => {
+      this.declareAnimatedRoad(10, 10, false);
+      const road = this.ROADS[11];
+      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        if (road.isOn(point)) {
+          this.actualPointSubject.next(point);
+        }
+      });
+      this.animatedRoads.push(animatedLine);
+      this.actualPointSubject.subscribe((point) => {
+        if (road.begin.isEqual(point)) {
+          this.animatedRoads[10].subscribeSens();
+          this.animatedRoads[11].subscribeSens();
+        } else if (road.isOn(point)) {
+          this.animatedRoads[10].unsubscribeSens();
+        }
+      });
+      this.declareCoastlineGenerator(6, 10);
+      this.declareAnimatedVan(10, false);
+      this.declareAnimatedVan(11, true);
     }
-    // BACKLOG ajouter le step 10 trello:#45
-    // BACKLOG ajouter le step 11 trello:#46
-    // BACKLOG ajouter le step 12 trello:#47
+    // TODO ajouter le step 11 trello:#46
+    // TODO ajouter le step 12 trello:#47
     // BACKLOG ajouter le step 13 trello:#48
     // BACKLOG ajouter le step 14 trello:#49
     // BACKLOG ajouter le step 15 trello:#50

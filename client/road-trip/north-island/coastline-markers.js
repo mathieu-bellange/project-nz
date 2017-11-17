@@ -151,7 +151,8 @@ const buildCoastlines = pixelRatio => ([
     new Marker('lt2-lt3', 824, 698, 824, 708, pixelRatio),
     new Marker('lt3-lt4', 824, 708, 800, 728, pixelRatio),
     new Marker('lt4-lt1', 800, 728, 799, 696, pixelRatio)
-  ]
+  ],
+  []
 ]);
 
 export default buildCoastlines;

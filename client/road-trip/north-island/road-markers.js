@@ -1,8 +1,6 @@
 import { Marker } from '../tools';
 
 const markers = [
-  new Marker('rnh11-rnh12', 802, 747, 783, 738),
-  new Marker('rnh12-rnh13', 783, 738, 775, 751),
   new Marker('rnh13-rnh14', 775, 751, 764, 753),
   new Marker('rnh14-rnh15', 764, 753, 759, 774),
   new Marker('rnh15-rnh16', 759, 774, 747, 770),
@@ -39,7 +37,9 @@ const buildRoads = (pixelRatio) => {
     new Marker('rnh7-rnh8', 819, 661, 827, 699, pixelRatio),
     new Marker('rnh8-rnh9', 827, 699, 827, 708, pixelRatio),
     new Marker('rnh9-rnh10', 827, 708, 802, 731, pixelRatio),
-    new Marker('rnh10-rnh11', 802, 731, 802, 747, pixelRatio)
+    new Marker('rnh10-rnh11', 802, 731, 802, 747, pixelRatio),
+    new Marker('rnh11-rnh12', 802, 747, 783, 738, pixelRatio),
+    new Marker('rnh12-rnh13', 783, 738, 775, 751, pixelRatio)
   ];
 };
 

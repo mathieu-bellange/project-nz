@@ -935,6 +935,112 @@ const boxes = [
         left: false
       }
     ]
+  },
+  // tenthStep
+  {
+    id: 10,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 100,
+        left: true,
+        position: 1,
+        title: 'Forêt',
+        text: 'tenth text',
+        type: TypeBox.Text
+      },
+      {
+        id: 101,
+        left: false,
+        position: 1,
+        pictures: [
+          {
+            id: 1000,
+            prin: {
+              src: '/images/kaimanawa/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1001,
+                    src: '/images/kaimanawa/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1002,
+                    src: '/images/kaimanawa/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 1003,
+                    src: '/images/kaimanawa/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1004,
+                    src: '/images/kaimanawa/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 1005,
+            prin: {
+              src: '/images/kaimanawa/06.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1006,
+                    src: '/images/kaimanawa/07.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 1007,
+                    src: '/images/kaimanawa/08.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                []
+              ]
+            }
+          },
+          {
+            id: 1008,
+            prin: {
+              src: '/images/kaimanawa/09.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1009,
+                    src: '/images/kaimanawa/10.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1010,
+                    src: '/images/kaimanawa/11.jpg',
+                    wide: false
+                  }
+                ],
+                []
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
+      }
+    ]
   }
 ];
 
