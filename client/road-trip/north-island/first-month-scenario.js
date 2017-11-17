@@ -185,29 +185,17 @@ export default class FirstMonthScenario {
     // DONE ajouter le step 10 trello:#45
     () => {
       this.declareAnimatedRoad(10, 10, false);
-      const road = this.ROADS[11];
-      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
-        .draw(this.canvas)
-        .animate();
-      animatedLine.subscribe((point) => {
-        if (road.isOn(point)) {
-          this.actualPointSubject.next(point);
-        }
-      });
-      this.animatedRoads.push(animatedLine);
-      this.actualPointSubject.subscribe((point) => {
-        if (road.begin.isEqual(point)) {
-          this.animatedRoads[10].subscribeSens();
-          this.animatedRoads[11].subscribeSens();
-        } else if (road.isOn(point)) {
-          this.animatedRoads[10].unsubscribeSens();
-        }
-      });
+      this.declareAnimatedRoad(11, 10, true, true);
       this.declareCoastlineGenerator(6, 10);
       this.declareAnimatedVan(10, false);
       this.declareAnimatedVan(11, true);
+    },
+    // DONE ajouter le step 11 trello:#46
+    () => {
+      this.declareAnimatedRoad(12, 11, false);
+      this.declareCoastlineGenerator(7, 11);
+      this.declareAnimatedVan(12, true);
     }
-    // TODO ajouter le step 11 trello:#46
     // TODO ajouter le step 12 trello:#47
     // BACKLOG ajouter le step 13 trello:#48
     // BACKLOG ajouter le step 14 trello:#49

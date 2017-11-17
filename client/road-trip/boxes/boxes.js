@@ -1041,6 +1041,161 @@ const boxes = [
         type: TypeBox.Picture
       }
     ]
+  },
+  // eleventhStep
+  {
+    id: 11,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 110,
+        left: true,
+        position: 0,
+        title: 'Forêt',
+        text: 'tenth text',
+        type: TypeBox.Text
+      },
+      {
+        id: 111,
+        left: true,
+        position: 2,
+        pictures: [
+          {
+            id: 1100,
+            prin: {
+              src: '/images/gollum/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1101,
+                    src: '/images/gollum/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1102,
+                    src: '/images/gollum/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 1103,
+                    src: '/images/gollum/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1104,
+                    src: '/images/gollum/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 1105,
+            prin: {
+              src: '/images/gollum/06.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1106,
+                    src: '/images/gollum/07.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 1107,
+                    src: '/images/gollum/08.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                [
+                  {
+                    id: 1108,
+                    src: '/images/gollum/09.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 1109,
+                    src: '/images/gollum/10.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 1110,
+            prin: {
+              src: '/images/gollum/11.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1111,
+                    src: '/images/gollum/12.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 1112,
+                    src: '/images/gollum/13.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                []
+              ]
+            }
+          },
+          {
+            id: 1113,
+            prin: {
+              src: '/images/gollum/14.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1114,
+                    src: '/images/gollum/15.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1115,
+                    src: '/images/gollum/16.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 1116,
+                    src: '/images/gollum/17.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1117,
+                    src: '/images/gollum/18.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
+      }
+    ]
   }
 ];
 
