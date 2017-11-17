@@ -23,7 +23,7 @@ export default class FirstMonthScenario {
   wheelObservable = Observable.fromEvent(window, 'wheel')
     .map(event => event.deltaY / Math.abs(event.deltaY));
   // DONE gestion de la route plus générique entre les steps
-  declareAnimatedRoad = (indexRoad, indexStep, launchNextStep, hideBoxes, keepBoxes) => {
+  declareAnimatedRoad = (indexRoad, indexStep, launchNextStep) => {
     const road = this.ROADS[indexRoad];
     const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
       .draw(this.canvas)
@@ -36,19 +36,23 @@ export default class FirstMonthScenario {
     this.animatedRoads.push(animatedLine);
     this.actualPointSubject.subscribe((point) => {
       if (road.begin.isEqual(point)) {
-        if (!hideBoxes) this.actualBoxesSubject.next(indexStep);
         if (indexRoad > 0) this.animatedRoads[indexRoad - 1].subscribeSens();
         this.animatedRoads[indexRoad].subscribeSens();
-      } else if (road.end.isEqual(point)) {
-        if (launchNextStep) this.nextStepSubject.next(indexStep + 1);
+      } else if (launchNextStep && road.end.isEqual(point)) {
+        this.nextStepSubject.next(indexStep + 1);
       } else if (road.isOn(point)) {
-        if (keepBoxes) {
-          this.actualBoxesSubject.next(indexStep);
-        } else {
-          this.actualBoxesSubject.next(-1);
-        }
         if (indexRoad > 0) this.animatedRoads[indexRoad - 1].unsubscribeSens();
         this.animatedRoads[indexRoad + 1].unsubscribeSens();
+      }
+    });
+  };
+  declareBoxes = (indexRoad, indexBoxes) => {
+    const road = this.ROADS[indexRoad];
+    this.actualPointSubject.subscribe((point) => {
+      if (road.begin.isEqual(point)) {
+        this.actualBoxesSubject.next(indexBoxes);
+      } else if (road.isOn(point)) {
+        this.actualBoxesSubject.next(-1);
       }
     });
   };
@@ -139,6 +143,7 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(0, 4, true);
       this.declareCoastlineGenerator(0, 4);
+      this.declareBoxes(0, 4);
     },
     // fifth step
     // DONE réaliser le step 5 trello:#40
@@ -146,6 +151,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(1, 5, true);
       this.declareCoastlineGenerator(1, 5);
       this.declareAnimatedVan(1, true);
+      this.declareBoxes(1, 5);
     },
     // DONE ajouter la sixième étape trello:#41
     // sixth step
@@ -153,58 +159,61 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(2, 6, true);
       this.declareCoastlineGenerator(2, 6);
       this.declareAnimatedVan(2, false);
+      this.declareBoxes(2, 6);
     },
     // DONE ajouter la septième étape trello:#42
     // Seventh step
     () => {
-      this.declareAnimatedRoad(3, 7, false, false, true);
-      this.declareAnimatedRoad(4, 7, true, false, true);
+      this.declareAnimatedRoad(3, 7);
+      this.declareAnimatedRoad(4, 7, true);
       this.declareCoastlineGenerator(3, 7);
       this.declareAnimatedVan(3, false);
       this.declareAnimatedVan(4, true);
+      this.declareBoxes(3, 7, true);
     },
     // DONE ajouter la huitième étape trello:#43
     // Eigth step
     () => {
       this.declareAnimatedRoad(5, 8);
-      this.declareAnimatedRoad(6, 8, true, true);
+      this.declareAnimatedRoad(6, 8, true);
       this.declareCoastlineGenerator(4, 8);
       this.declareAnimatedVan(5, false);
       this.declareAnimatedVan(6, true);
+      this.declareBoxes(5, 8);
     },
     // DONE ajouter la neuvième étape trello:#44
     () => {
       this.declareAnimatedRoad(7, 9);
-      this.declareAnimatedRoad(8, 9, false, true);
-      this.declareAnimatedRoad(9, 9, true, true);
+      this.declareAnimatedRoad(8, 9);
+      this.declareAnimatedRoad(9, 9, true);
       this.declareCoastlineGenerator(5, 9);
       this.declareAnimatedVan(7, false);
       this.declareAnimatedVan(8, false);
       this.declareAnimatedVan(9, true);
+      this.declareBoxes(7, 9);
     },
     // DONE ajouter le step 10 trello:#45
     () => {
       this.declareAnimatedRoad(10, 10);
-      this.declareAnimatedRoad(11, 10, true, true);
+      this.declareAnimatedRoad(11, 10, true);
       this.declareCoastlineGenerator(6, 10);
       this.declareAnimatedVan(10, false);
       this.declareAnimatedVan(11, true);
+      this.declareBoxes(10, 10);
     },
     // DONE ajouter le step 11 trello:#46
     () => {
-      this.declareAnimatedRoad(12, 11);
+      this.declareAnimatedRoad(12, 11, true);
       this.declareCoastlineGenerator(7, 11);
       this.declareAnimatedVan(12, true);
+      this.declareBoxes(12, 11);
     },
     // DONE ajouter le step 12 trello:#47
     () => {
-      this.declareAnimatedRoad(13, 12, false, true);
-      this.declareAnimatedRoad(14, 12, false, true);
-      this.declareAnimatedRoad(15, 12, true);
+      this.declareAnimatedRoad(13, 12);
       this.declareCoastlineGenerator(8, 12);
       this.declareAnimatedVan(13, false);
-      this.declareAnimatedVan(14, false);
-      this.declareAnimatedVan(15, true);
+      this.declareBoxes(13, 12);
     }
     // TODO ajouter le step 13 trello:#48
     // TODO ajouter le step 14 trello:#49
