@@ -1196,6 +1196,46 @@ const boxes = [
         type: TypeBox.Picture
       }
     ]
+  },
+  // twelvethStep
+  {
+    id: 12,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 120,
+        left: true,
+        position: 1,
+        pictures: [
+          {
+            id: 1200,
+            prin: {
+              title: 'Mangahuia',
+              text: 'un texte sur Mangahuia'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1201,
+                    src: '/images/mangahuia/01.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1202,
+                    src: '/images/mangahuia/02.jpg',
+                    wide: false
+                  }
+                ],
+                []
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Mixed
+      }
+    ]
   }
 ];
 

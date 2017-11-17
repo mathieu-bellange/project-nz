@@ -166,7 +166,7 @@ export default class FirstMonthScenario {
     // DONE ajouter la huitième étape trello:#43
     // Eigth step
     () => {
-      this.declareAnimatedRoad(5, 8, false);
+      this.declareAnimatedRoad(5, 8);
       this.declareAnimatedRoad(6, 8, true, true);
       this.declareCoastlineGenerator(4, 8);
       this.declareAnimatedVan(5, false);
@@ -174,7 +174,7 @@ export default class FirstMonthScenario {
     },
     // DONE ajouter la neuvième étape trello:#44
     () => {
-      this.declareAnimatedRoad(7, 9, false);
+      this.declareAnimatedRoad(7, 9);
       this.declareAnimatedRoad(8, 9, false, true);
       this.declareAnimatedRoad(9, 9, true, true);
       this.declareCoastlineGenerator(5, 9);
@@ -184,7 +184,7 @@ export default class FirstMonthScenario {
     },
     // DONE ajouter le step 10 trello:#45
     () => {
-      this.declareAnimatedRoad(10, 10, false);
+      this.declareAnimatedRoad(10, 10);
       this.declareAnimatedRoad(11, 10, true, true);
       this.declareCoastlineGenerator(6, 10);
       this.declareAnimatedVan(10, false);
@@ -192,14 +192,23 @@ export default class FirstMonthScenario {
     },
     // DONE ajouter le step 11 trello:#46
     () => {
-      this.declareAnimatedRoad(12, 11, false);
+      this.declareAnimatedRoad(12, 11);
       this.declareCoastlineGenerator(7, 11);
       this.declareAnimatedVan(12, true);
+    },
+    // DONE ajouter le step 12 trello:#47
+    () => {
+      this.declareAnimatedRoad(13, 12, false, true);
+      this.declareAnimatedRoad(14, 12, false, true);
+      this.declareAnimatedRoad(15, 12, true);
+      this.declareCoastlineGenerator(8, 12);
+      this.declareAnimatedVan(13, false);
+      this.declareAnimatedVan(14, false);
+      this.declareAnimatedVan(15, true);
     }
-    // TODO ajouter le step 12 trello:#47
-    // BACKLOG ajouter le step 13 trello:#48
-    // BACKLOG ajouter le step 14 trello:#49
-    // BACKLOG ajouter le step 15 trello:#50
+    // TODO ajouter le step 13 trello:#48
+    // TODO ajouter le step 14 trello:#49
+    // TODO ajouter le step 15 trello:#50
     // BACKLOG ajouter le step 16 trello:#51
     // BACKLOG ajouter le step 17 trello:#52
     // BACKLOG ajouter le step 18 trello:#53
