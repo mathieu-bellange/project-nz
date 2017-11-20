@@ -1236,6 +1236,159 @@ const boxes = [
         type: TypeBox.Mixed
       }
     ]
+  },
+  // thirteenthStep
+  {
+    id: 13,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 130,
+        left: true,
+        position: 2,
+        title: 'Ruatihi domain',
+        text: 'text',
+        type: TypeBox.Text
+      },
+      {
+        id: 131,
+        left: true,
+        position: 0,
+        pictures: [
+          {
+            id: 1300,
+            prin: {
+              src: '/images/ruatihi/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1301,
+                    src: '/images/ruatihi/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1302,
+                    src: '/images/ruatihi/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 1303,
+                    src: '/images/ruatihi/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1304,
+                    src: '/images/ruatihi/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 1305,
+            prin: {
+              src: '/images/ruatihi/06.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1306,
+                    src: '/images/ruatihi/07.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 1307,
+                    src: '/images/ruatihi/08.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                [
+                  {
+                    id: 1308,
+                    src: '/images/ruatihi/09.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 1309,
+                    src: '/images/ruatihi/10.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 1310,
+            prin: {
+              src: '/images/ruatihi/11.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1311,
+                    src: '/images/ruatihi/12.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1312,
+                    src: '/images/ruatihi/13.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 1313,
+                    src: '/images/ruatihi/14.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1314,
+                    src: '/images/ruatihi/15.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 1315,
+            prin: {
+              src: '/images/ruatihi/16.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1316,
+                    src: '/images/ruatihi/17.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1317,
+                    src: '/images/ruatihi/18.jpg',
+                    wide: false
+                  }
+                ],
+                []
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
+      }
+    ]
   }
 ];
 

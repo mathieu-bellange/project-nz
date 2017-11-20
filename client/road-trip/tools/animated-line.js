@@ -37,6 +37,7 @@ export default class AnimatedLine {
     }
     this.currentLength = this.initLength;
     const currentPoint = cloneDeep(this.line.begin);
+    currentPoint.isBackward = this.line.isBackward;
     this.observable = this.subject
       .map(sens => ({
         newLength: this.currentLength + (sens * this.interval),
@@ -57,7 +58,8 @@ export default class AnimatedLine {
       })
       .map(point => ({
         x: Math.trunc(point.x),
-        y: Math.trunc(point.y)
+        y: Math.trunc(point.y),
+        isBackward: point.isBackward
       }));
     return this;
   }
@@ -81,5 +83,9 @@ export default class AnimatedLine {
       this.subject.next(sens);
     });
     this.hasSubscribe = true;
+  }
+
+  resetLength() {
+    this.currentLength = this.initLength;
   }
 }

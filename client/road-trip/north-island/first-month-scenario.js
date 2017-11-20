@@ -35,6 +35,7 @@ export default class FirstMonthScenario {
     });
     this.animatedRoads.push(animatedLine);
     this.actualPointSubject.subscribe((point) => {
+      if (point.isBackward) return;
       if (road.begin.isEqual(point)) {
         if (indexRoad > 0) this.animatedRoads[indexRoad - 1].subscribeSens();
         this.animatedRoads[indexRoad].subscribeSens();
@@ -42,10 +43,11 @@ export default class FirstMonthScenario {
         this.nextStepSubject.next(indexStep + 1);
       } else if (road.isOn(point)) {
         if (indexRoad > 0) this.animatedRoads[indexRoad - 1].unsubscribeSens();
-        this.animatedRoads[indexRoad + 1].unsubscribeSens();
+        if (this.animatedRoads[indexRoad + 1]) this.animatedRoads[indexRoad + 1].unsubscribeSens();
       }
     });
   };
+  // FIXME affichage des boxes en retour
   declareBoxes = (indexRoad, indexBoxes) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject.subscribe((point) => {
@@ -211,11 +213,84 @@ export default class FirstMonthScenario {
     // DONE ajouter le step 12 trello:#47
     () => {
       this.declareAnimatedRoad(13, 12);
+      this.declareAnimatedRoad(14, 13);
+      this.declareAnimatedRoad(15, 13, true);
       this.declareCoastlineGenerator(8, 12);
       this.declareAnimatedVan(13, false);
+      this.declareAnimatedVan(14, false);
+      this.declareAnimatedVan(15, true);
       this.declareBoxes(13, 12);
+    },
+    // DONE ajouter le step 13 trello:#48
+    () => {
+      const road = this.ROADS[16];
+      road.isBackward = true;
+      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        if (road.begin.isEqual(point)) {
+          this.actualPointSubject.next(point);
+        } else if (road.isOn(point)) {
+          this.actualPointSubject.next({ ...point, isBackward: true });
+        }
+      });
+      this.animatedRoads.push(animatedLine);
+      this.actualPointSubject.subscribe((point) => {
+        if (road.begin.isEqual(point)) {
+          this.animatedRoads[15].subscribeSens();
+          this.animatedRoads[16].subscribeSens();
+        } else if (road.isOn(point) && point.isBackward) {
+          this.animatedRoads[15].unsubscribeSens();
+          this.animatedRoads[17].unsubscribeSens();
+        }
+      });
+      const road1 = this.ROADS[17];
+      road1.isBackward = true;
+      const animatedLine1 = new AnimatedLine(road1, 5, this.wheelObservable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine1.subscribe((point) => {
+        if (road1.isOn(point) && point.isBackward) {
+          this.actualPointSubject.next({ ...point, isBackward: true });
+        }
+      });
+      this.animatedRoads.push(animatedLine1);
+      this.actualPointSubject.subscribe((point) => {
+        if (road1.begin.isEqual(point) && point.isBackward) {
+          this.animatedRoads[16].subscribeSens();
+          this.animatedRoads[17].subscribeSens();
+          this.animatedRoads[17].resetLength();
+        } else if (road1.isOn(point) && point.isBackward) {
+          this.animatedRoads[16].unsubscribeSens();
+          this.animatedRoads[18].unsubscribeSens();
+        }
+      });
+      const road2 = this.ROADS[18];
+      road2.isBackward = true;
+      const animatedLine2 = new AnimatedLine(road2, 5, this.wheelObservable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine2.subscribe((point) => {
+        if (road2.isOn(point) && point.isBackward) {
+          this.actualPointSubject.next({ ...point, isBackward: true });
+        }
+      });
+      this.animatedRoads.push(animatedLine2);
+      this.actualPointSubject.subscribe((point) => {
+        if (road2.begin.isEqual(point) && point.isBackward) {
+          this.animatedRoads[17].subscribeSens();
+          this.animatedRoads[18].subscribeSens();
+        } else if (road2.isOn(point)) {
+          this.animatedRoads[17].unsubscribeSens();
+        }
+      });
+      this.declareCoastlineGenerator(9, 13);
+      this.declareAnimatedVan(16, false);
+      this.declareAnimatedVan(17, false);
+      this.declareAnimatedVan(18, false);
+      this.declareBoxes(16, 13);
     }
-    // TODO ajouter le step 13 trello:#48
     // TODO ajouter le step 14 trello:#49
     // TODO ajouter le step 15 trello:#50
     // BACKLOG ajouter le step 16 trello:#51
