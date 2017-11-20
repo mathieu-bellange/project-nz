@@ -293,11 +293,11 @@ export default class FirstMonthScenario {
     }
     // TODO ajouter le step 14 trello:#49
     // TODO ajouter le step 15 trello:#50
-    // BACKLOG ajouter le step 16 trello:#51
-    // BACKLOG ajouter le step 17 trello:#52
-    // BACKLOG ajouter le step 18 trello:#53
-    // BACKLOG ajouter le step 19 trello:#54
-    // BACKLOG ajouter le step 20 trello:#55
+    // PLANNING ajouter le step 16 trello:#51
+    // PLANNING ajouter le step 17 trello:#52
+    // PLANNING ajouter le step 18 trello:#53
+    // PLANNING ajouter le step 19 trello:#54
+    // PLANNING ajouter le step 20 trello:#55
     // BACKLOG ajouter le step 21 trello:#56
     // BACKLOG ajouter le step 22 trello:#57
     // BACKLOG ajouter le step 23 trello:#58
