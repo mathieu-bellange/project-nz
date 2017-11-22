@@ -23,7 +23,6 @@ export default class Marker {
     this.deltaY = this.begin.y - this.end.y;
   }
 
-  // DONE supprimer le notion de pixelRatio trello:#68
   /**
    * Méthode permettant de savoir si un point est présent sur la droite correspondante
    * Une tolérance de +ou- 1 est ajouté du fait de la trop grande précision des calculs
@@ -42,7 +41,13 @@ export default class Marker {
     return this.isBetween(point) && isOn;
   }
 
-  // DONE ajouter un check que le point se trouve bien dans la zone x-y défini par la droite
+  /**
+   * Vérifie si un point est bien sur le vecteur défini par begin et end
+   * On vérifie que le vecteur begin - point est bien dans le meme sens que begin - end
+   * Et ensuite que begin - point est plus petit ou égale que begin - end
+   * @param  {Coordinate}  point le point a testé
+   * @return {Boolean}       true si sur le vecteur begin-end, faux sinon
+   */
   isBetween(point) {
     const deltaX = this.begin.x - point.x;
     const deltaY = this.begin.y - point.y;

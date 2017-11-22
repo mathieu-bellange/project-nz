@@ -9,8 +9,7 @@ import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#20
-// DONE Ajouter l'affichage du van lors du déplacement de la route trello:#69
-// DONE réflexion sur le stockage du pixel ratio trello:#68
+// BACKLOG Refactorer le système d'actualPointSubject pour quelque chose de plus ramifié
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -22,7 +21,6 @@ export default class FirstMonthScenario {
   airportPoint;
   wheelObservable = Observable.fromEvent(window, 'wheel')
     .map(event => event.deltaY / Math.abs(event.deltaY));
-  // DONE gestion de la route plus générique entre les steps
   declareAnimatedRoad = (indexRoad, indexStep, launchNextStep) => {
     const road = this.ROADS[indexRoad];
     const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
@@ -81,14 +79,12 @@ export default class FirstMonthScenario {
     });
   };
 
-  // DONE changer le nom de la variable pour être moins générique
   COASTLINES = [];
 
   ROADS = [];
 
   animatedRoads = [];
 
-  // DONE limiter l'usage du pixel ratio aux constructeurs de point, ligne... trello:#68
   steps = [
     // launch step
     () => {
@@ -148,14 +144,12 @@ export default class FirstMonthScenario {
       this.declareBoxes(0, 4);
     },
     // fifth step
-    // DONE réaliser le step 5 trello:#40
     () => {
       this.declareAnimatedRoad(1, 5, true);
       this.declareCoastlineGenerator(1, 5);
       this.declareAnimatedVan(1, true);
       this.declareBoxes(1, 5);
     },
-    // DONE ajouter la sixième étape trello:#41
     // sixth step
     () => {
       this.declareAnimatedRoad(2, 6, true);
@@ -163,7 +157,6 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(2, false);
       this.declareBoxes(2, 6);
     },
-    // DONE ajouter la septième étape trello:#42
     // Seventh step
     () => {
       this.declareAnimatedRoad(3, 7);
@@ -173,7 +166,6 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(4, true);
       this.declareBoxes(3, 7, true);
     },
-    // DONE ajouter la huitième étape trello:#43
     // Eigth step
     () => {
       this.declareAnimatedRoad(5, 8);
@@ -183,7 +175,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(6, true);
       this.declareBoxes(5, 8);
     },
-    // DONE ajouter la neuvième étape trello:#44
+    // ninth step
     () => {
       this.declareAnimatedRoad(7, 9);
       this.declareAnimatedRoad(8, 9);
@@ -194,7 +186,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(9, true);
       this.declareBoxes(7, 9);
     },
-    // DONE ajouter le step 10 trello:#45
+    // tenth step
     () => {
       this.declareAnimatedRoad(10, 10);
       this.declareAnimatedRoad(11, 10, true);
@@ -203,14 +195,14 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(11, true);
       this.declareBoxes(10, 10);
     },
-    // DONE ajouter le step 11 trello:#46
+    // eleventh step
     () => {
       this.declareAnimatedRoad(12, 11, true);
       this.declareCoastlineGenerator(7, 11);
       this.declareAnimatedVan(12, true);
       this.declareBoxes(12, 11);
     },
-    // DONE ajouter le step 12 trello:#47
+    // twelveth step
     () => {
       this.declareAnimatedRoad(13, 12);
       this.declareAnimatedRoad(14, 13);
@@ -221,7 +213,8 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(15, true);
       this.declareBoxes(13, 12);
     },
-    // DONE ajouter le step 13 trello:#48
+    // Backlog refacto pour rendre générique les retour
+    // voir avec la refacto possible du actualPointSubject
     () => {
       const road = this.ROADS[16];
       road.isBackward = true;
