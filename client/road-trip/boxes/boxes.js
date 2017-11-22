@@ -1389,6 +1389,21 @@ const boxes = [
         type: TypeBox.Picture
       }
     ]
+  },
+  // fourteenthStep
+  {
+    id: 14,
+    circle: false,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 140,
+        left: false,
+        title: 'Road to Wanganui',
+        text: 'text',
+        type: TypeBox.Text
+      }
+    ]
   }
 ];
 

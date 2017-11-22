@@ -105,6 +105,7 @@ const markers = [
   new Marker('nh134-nh131', 716, 950, 721, 942)
 ];
 
+// BACKLOG supprimer la création de coastline vide
 const buildCoastlines = pixelRatio => ([
   [
     new Marker('nh54-nh55', 705, 498, 703, 498, pixelRatio),
@@ -152,6 +153,7 @@ const buildCoastlines = pixelRatio => ([
     new Marker('lt3-lt4', 824, 708, 800, 728, pixelRatio),
     new Marker('lt4-lt1', 800, 728, 799, 696, pixelRatio)
   ],
+  [],
   [],
   [],
   [],
