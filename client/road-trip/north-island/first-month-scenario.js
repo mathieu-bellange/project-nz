@@ -376,16 +376,48 @@ export default class FirstMonthScenario {
         if (road2.begin.isEqual(point) && point.isBackward) {
           this.animatedRoads[27].subscribeSens();
           this.animatedRoads[28].subscribeSens();
+        } else if (road2.end.isEqual(point)) {
+          this.nextStepSubject.next(18);
         } else if (road2.isOn(point)) {
           this.animatedRoads[27].unsubscribeSens();
+          this.animatedRoads[29].unsubscribeSens();
         }
       });
       this.declareAnimatedVan(27, false);
       this.declareAnimatedVan(28, false);
       this.declareCoastlineGenerator(13, 17);
       this.declareBoxes(27, 17);
+    },
+    // DONE ajouter le step 18 trello:#53
+    () => {
+      const road = this.ROADS[29];
+      road.isBackward = true;
+      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        if (road.begin.isEqual(point)) {
+          this.actualPointSubject.next({ ...point, isBackward: true });
+        } else if (road.isOn(point)) {
+          this.actualPointSubject.next({ ...point, isBackward: false });
+        }
+      });
+      this.animatedRoads.push(animatedLine);
+      this.actualPointSubject.subscribe((point) => {
+        if (road.begin.isEqual(point)) {
+          this.animatedRoads[28].subscribeSens();
+          this.animatedRoads[29].subscribeSens();
+        } else if (road.isOn(point)) {
+          this.animatedRoads[28].unsubscribeSens();
+          this.animatedRoads[30].unsubscribeSens();
+        }
+      });
+      this.declareAnimatedRoad(30, 18, true);
+      this.declareCoastlineGenerator(14, 18);
+      this.declareAnimatedVan(29, false);
+      this.declareAnimatedVan(30, true);
+      this.declareBoxes(29, 18);
     }
-    // TODO ajouter le step 18 trello:#53
     // TODO ajouter le step 19 trello:#54
     // TODO ajouter le step 20 trello:#55
     // BACKLOG ajouter le step 21 trello:#56

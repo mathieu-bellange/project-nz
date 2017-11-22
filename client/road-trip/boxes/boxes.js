@@ -1595,6 +1595,22 @@ const boxes = [
         type: TypeBox.Text
       }
     ]
+  },
+  // eighteenthStep
+  {
+    id: 18,
+    circle: false,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 160,
+        left: false,
+        position: 0,
+        title: 'Road to paraparamu',
+        text: 'text',
+        type: TypeBox.Text
+      }
+    ]
   }
 ];
 

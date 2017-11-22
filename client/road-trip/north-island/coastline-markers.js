@@ -77,7 +77,6 @@ const markers = [
   new Marker('nh117-nh118', 758, 1035, 747, 1036),
   new Marker('nh118-nh119', 747, 1036, 742, 1013),
   new Marker('nh119-nh120', 742, 1013, 719, 1014),
-  new Marker('nh123-nh124', 741, 923, 719, 965),
   new Marker('nh124-nh125', 719, 965, 694, 1000),
   new Marker('nh125-nh126', 694, 1000, 705, 1008),
   new Marker('nh126-nh127', 705, 1008, 714, 1001),
@@ -162,7 +161,10 @@ const buildCoastlines = pixelRatio => ([
     new Marker('nh121-nh122', 740, 862, 746, 877, pixelRatio),
     new Marker('nh122-nh123', 746, 877, 741, 923, pixelRatio)
   ],
-  []
+  [],
+  [
+    new Marker('nh123-nh124', 741, 923, 719, 965, pixelRatio)
+  ]
 ]);
 
 export default buildCoastlines;
