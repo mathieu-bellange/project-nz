@@ -336,8 +336,55 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(25, false);
       this.declareAnimatedVan(26, true);
       this.declareBoxes(24, 16);
+    },
+    // DONE ajouter le step 17 trello:#52
+    () => {
+      const road = this.ROADS[27];
+      road.isBackward = true;
+      const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        if (road.begin.isEqual(point)) {
+          this.actualPointSubject.next(point);
+        } else if (road.isOn(point)) {
+          this.actualPointSubject.next({ ...point, isBackward: true });
+        }
+      });
+      this.animatedRoads.push(animatedLine);
+      this.actualPointSubject.subscribe((point) => {
+        if (road.begin.isEqual(point)) {
+          this.animatedRoads[26].subscribeSens();
+          this.animatedRoads[27].subscribeSens();
+        } else if (road.isOn(point) && point.isBackward) {
+          this.animatedRoads[26].unsubscribeSens();
+          this.animatedRoads[28].unsubscribeSens();
+        }
+      });
+      const road2 = this.ROADS[28];
+      road2.isBackward = true;
+      const animatedLine2 = new AnimatedLine(road2, 5, this.wheelObservable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine2.subscribe((point) => {
+        if (road2.isOn(point) && point.isBackward) {
+          this.actualPointSubject.next({ ...point, isBackward: true });
+        }
+      });
+      this.animatedRoads.push(animatedLine2);
+      this.actualPointSubject.subscribe((point) => {
+        if (road2.begin.isEqual(point) && point.isBackward) {
+          this.animatedRoads[27].subscribeSens();
+          this.animatedRoads[28].subscribeSens();
+        } else if (road2.isOn(point)) {
+          this.animatedRoads[27].unsubscribeSens();
+        }
+      });
+      this.declareAnimatedVan(27, false);
+      this.declareAnimatedVan(28, false);
+      this.declareCoastlineGenerator(13, 17);
+      this.declareBoxes(27, 17);
     }
-    // TODO ajouter le step 17 trello:#52
     // PLANNING ajouter le step 18 trello:#53
     // PLANNING ajouter le step 19 trello:#54
     // PLANNING ajouter le step 20 trello:#55

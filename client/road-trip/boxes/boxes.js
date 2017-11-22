@@ -1579,6 +1579,22 @@ const boxes = [
         type: TypeBox.Picture
       }
     ]
+  },
+  // seventeenthStep
+  {
+    id: 17,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 160,
+        left: false,
+        position: 1,
+        title: 'Minatangi Beach',
+        text: 'text',
+        type: TypeBox.Text
+      }
+    ]
   }
 ];
 
