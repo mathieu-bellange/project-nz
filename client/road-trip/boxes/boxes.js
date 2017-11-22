@@ -1301,28 +1301,24 @@ const boxes = [
                   {
                     id: 1306,
                     src: '/images/ruatihi/07.jpg',
-                    wide: false,
-                    turn: true
+                    wide: false
                   },
                   {
                     id: 1307,
                     src: '/images/ruatihi/08.jpg',
-                    wide: false,
-                    turn: true
+                    wide: false
                   }
                 ],
                 [
                   {
                     id: 1308,
                     src: '/images/ruatihi/09.jpg',
-                    wide: false,
-                    turn: true
+                    wide: false
                   },
                   {
                     id: 1309,
                     src: '/images/ruatihi/10.jpg',
-                    wide: false,
-                    turn: true
+                    wide: false
                   }
                 ]
               ]
