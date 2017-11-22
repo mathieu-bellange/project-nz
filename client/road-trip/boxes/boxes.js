@@ -1404,6 +1404,127 @@ const boxes = [
         type: TypeBox.Text
       }
     ]
+  },
+  // thirteenthStep
+  {
+    id: 15,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 150,
+        left: false,
+        position: 1,
+        title: 'Wanganui',
+        text: 'text',
+        type: TypeBox.Text
+      },
+      {
+        id: 151,
+        left: true,
+        position: 0,
+        pictures: [
+          {
+            id: 1500,
+            prin: {
+              src: '/images/wanganui/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1501,
+                    src: '/images/wanganui/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1502,
+                    src: '/images/wanganui/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 1503,
+                    src: '/images/wanganui/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1504,
+                    src: '/images/wanganui/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 1505,
+            prin: {
+              src: '/images/wanganui/06.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1506,
+                    src: '/images/wanganui/07.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 1507,
+                    src: '/images/wanganui/08.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                []
+              ]
+            }
+          },
+          {
+            id: 1508,
+            prin: {
+              src: '/images/wanganui/09.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1509,
+                    src: '/images/wanganui/10.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1510,
+                    src: '/images/wanganui/11.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 1511,
+                    src: '/images/wanganui/12.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1512,
+                    src: '/images/wanganui/13.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
+      },
+      {
+        id: 152,
+        left: true
+      }
+    ]
   }
 ];
 

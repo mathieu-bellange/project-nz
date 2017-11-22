@@ -68,17 +68,6 @@ const markers = [
   new Marker('nh86-nh87', 903, 804, 918, 808),
   new Marker('nh87-nh88', 918, 808, 910, 817),
   new Marker('nh88-nh89', 910, 817, 907, 831),
-  new Marker('nh100-nh101', 693, 662, 689, 711),
-  new Marker('nh101-nh102', 689, 711, 673, 729),
-  new Marker('nh102-nh103', 673, 729, 659, 730),
-  new Marker('nh103-nh104', 659, 730, 640, 738),
-  new Marker('nh104-nh105', 640, 738, 615, 758),
-  new Marker('nh105-nh106', 615, 758, 615, 777),
-  new Marker('nh106-nh107', 615, 777, 631, 795),
-  new Marker('nh107-nh108', 631, 795, 664, 807),
-  new Marker('nh108-nh109', 664, 807, 678, 823),
-  new Marker('nh109-nh110', 678, 823, 702, 834),
-  new Marker('nh110-nh111', 702, 834, 717, 835),
   new Marker('nh89-nh112', 907, 831, 896, 857),
   new Marker('nh112-nh113', 896, 857, 866, 907),
   new Marker('nh113-nh114', 866, 907, 851, 922),
@@ -88,7 +77,6 @@ const markers = [
   new Marker('nh117-nh118', 758, 1035, 747, 1036),
   new Marker('nh118-nh119', 747, 1036, 742, 1013),
   new Marker('nh119-nh120', 742, 1013, 719, 1014),
-  new Marker('nh111-nh121', 717, 835, 740, 862),
   new Marker('nh121-nh122', 740, 862, 746, 877),
   new Marker('nh122-nh123', 746, 877, 741, 923),
   new Marker('nh123-nh124', 741, 923, 719, 965),
@@ -157,7 +145,21 @@ const buildCoastlines = pixelRatio => ([
   [],
   [],
   [],
-  []
+  [],
+  [
+    new Marker('nh100-nh101', 693, 662, 689, 711, pixelRatio),
+    new Marker('nh101-nh102', 689, 711, 673, 729, pixelRatio),
+    new Marker('nh102-nh103', 673, 729, 659, 730, pixelRatio),
+    new Marker('nh103-nh104', 659, 730, 640, 738, pixelRatio),
+    new Marker('nh104-nh105', 640, 738, 615, 758, pixelRatio),
+    new Marker('nh105-nh106', 615, 758, 615, 777, pixelRatio),
+    new Marker('nh106-nh107', 615, 777, 631, 795, pixelRatio),
+    new Marker('nh107-nh108', 631, 795, 664, 807, pixelRatio),
+    new Marker('nh108-nh109', 664, 807, 678, 823, pixelRatio),
+    new Marker('nh109-nh110', 678, 823, 702, 834, pixelRatio),
+    new Marker('nh110-nh111', 702, 834, 717, 835, pixelRatio),
+    new Marker('nh111-nh121', 717, 835, 740, 862, pixelRatio)
+  ]
 ]);
 
 export default buildCoastlines;

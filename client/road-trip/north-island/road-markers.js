@@ -40,7 +40,9 @@ const buildRoads = pixelRatio => ([
   new Marker('rnh15-rnh18', 759, 774, 765, 782, pixelRatio),
   new Marker('rnh18-rnh19', 765, 782, 752, 782, pixelRatio),
   new Marker('rnh19-rnh20', 752, 782, 756, 820, pixelRatio),
-  new Marker('rnh20-rnh21', 756, 820, 733, 842, pixelRatio)
+  new Marker('rnh20-rnh21', 756, 820, 733, 842, pixelRatio),
+  new Marker('rnh21-rnh22', 733, 842, 762, 867, pixelRatio),
+  new Marker('rnh22-rnh23', 762, 867, 778, 874, pixelRatio)
 ]);
 
 export default buildRoads;
