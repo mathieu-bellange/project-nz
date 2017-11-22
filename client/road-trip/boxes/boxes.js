@@ -1401,7 +1401,7 @@ const boxes = [
       }
     ]
   },
-  // thirteenthStep
+  // fifteenthStep
   {
     id: 15,
     circle: true,
@@ -1519,6 +1519,64 @@ const boxes = [
       {
         id: 152,
         left: true
+      }
+    ]
+  },
+  // sixteenthStep
+  {
+    id: 16,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 160,
+        left: false,
+        position: 1,
+        title: 'Feilding',
+        text: 'text',
+        type: TypeBox.Text
+      },
+      {
+        id: 161,
+        left: true,
+        position: 1,
+        pictures: [
+          {
+            id: 1600,
+            prin: {
+              src: '/images/feilding/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 1601,
+                    src: '/images/feilding/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1602,
+                    src: '/images/feilding/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 1603,
+                    src: '/images/feilding/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 1604,
+                    src: '/images/feilding/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
       }
     ]
   }

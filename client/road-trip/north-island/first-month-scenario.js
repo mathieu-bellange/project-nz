@@ -325,8 +325,18 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(22, false);
       this.declareAnimatedVan(23, true);
       this.declareBoxes(22, 15);
+    },
+    // DONE ajouter le step 16 trello:#51
+    () => {
+      this.declareAnimatedRoad(24, 16);
+      this.declareAnimatedRoad(25, 16);
+      this.declareAnimatedRoad(26, 16, true);
+      this.declareCoastlineGenerator(12, 16);
+      this.declareAnimatedVan(24, false);
+      this.declareAnimatedVan(25, false);
+      this.declareAnimatedVan(26, true);
+      this.declareBoxes(24, 16);
     }
-    // TODO ajouter le step 16 trello:#51
     // TODO ajouter le step 17 trello:#52
     // PLANNING ajouter le step 18 trello:#53
     // PLANNING ajouter le step 19 trello:#54
