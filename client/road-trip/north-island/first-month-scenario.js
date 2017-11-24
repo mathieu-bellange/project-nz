@@ -23,6 +23,7 @@ export default class FirstMonthScenario {
   actualRoadSubject;
   wheelObservable = Observable.fromEvent(window, 'wheel')
     .map(event => event.deltaY / Math.abs(event.deltaY));
+  // TODO refacto avec le nouveau système d'animation trello:#71
   declareAnimatedRoad = (indexRoad, indexStep, launchNextStep) => {
     const road = this.ROADS[indexRoad];
     const animatedLine = new AnimatedLine(road, 5, this.wheelObservable)
@@ -58,6 +59,7 @@ export default class FirstMonthScenario {
       }
     });
   };
+  // NOTE supprimer les déclarations inutiles
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
     const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
       this.COASTLINES[indexCoastline].forEach((marker) => {
@@ -87,6 +89,7 @@ export default class FirstMonthScenario {
 
   animatedRoads = [];
 
+  // TODO corriger tous le ssteps avec le nouveau système d'animation trello:#71
   steps = [
     // launch step
     () => {
