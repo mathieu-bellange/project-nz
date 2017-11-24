@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import Airport from './airport';
 import Sky from './sky';
@@ -9,7 +10,7 @@ import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#20
-// BACKLOG Refactorer le système d'actualPointSubject pour quelque chose de plus ramifié
+// DOING Refactorer le système d'actualPointSubject pour quelque chose de plus ramifié trello:#71
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -19,6 +20,7 @@ export default class FirstMonthScenario {
   index;
   initPoint;
   airportPoint;
+  actualRoadSubject;
   wheelObservable = Observable.fromEvent(window, 'wheel')
     .map(event => event.deltaY / Math.abs(event.deltaY));
   declareAnimatedRoad = (indexRoad, indexStep, launchNextStep) => {
@@ -113,10 +115,16 @@ export default class FirstMonthScenario {
     },
     // third step
     () => {
-      const sensObservable = Observable.timer(0, 5).filter(value => value < 400).map(() => 1);
+      const sensObservable = Observable.combineLatest(
+        Observable.of(1),
+        this.actualPointSubject
+      ).map(values => ({
+        sens: 1,
+        currentPoint: values[1]
+      })).delay(5);
       const animatedLine = new AnimatedLine(
         new Marker('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y),
-        400, sensObservable, true
+        400, sensObservable
       );
       const sub = this.nextStepSubject.filter(step => step === 3).subscribe(() => {
         this.sky.stop();
@@ -125,12 +133,12 @@ export default class FirstMonthScenario {
           y: this.airportPoint.y + (window.innerHeight / 2)
         });
         animatedLine
-          .animate(true)
+          .animate()
           .subscribe((point) => {
             this.actualPointSubject.next(point);
             if (this.airportPoint.isEqual(point)) {
               this.nextStepSubject.next(4);
-              animatedLine.unsubscribeSens();
+              animatedLine.unsubscribe();
             }
           });
         this.actualBoxesSubject.next(3);
@@ -139,13 +147,67 @@ export default class FirstMonthScenario {
     },
     // fourth step
     () => {
-      this.declareAnimatedRoad(0, 4, true);
+      const road = this.ROADS[0];
+      const observable = Observable.combineLatest(
+        this.wheelObservable,
+        this.actualRoadSubject
+      ).withLatestFrom(this.actualPointSubject)
+        .map(values => ({
+          sens: values[0][0],
+          currentPoint: values[1],
+          roadId: values[0][1]
+        }))
+        .filter(o => o.roadId === road.id)
+        .do((o) => {
+          if (o.sens === 1 && road.end.isEqual(o.currentPoint)) {
+            this.actualRoadSubject.next(this.ROADS[1].id);
+          }
+          if (o.sens === -1 && road.begin.isEqual(o.currentPoint)) {
+            // do nothing
+          }
+        })
+        .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
+          (o.sens === -1 && !road.begin.isEqual(o.currentPoint)))
+        .debounceTime(20);
+      const animatedLine = new AnimatedLine(road, 5, observable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        this.actualPointSubject.next(point);
+      });
       this.declareCoastlineGenerator(0, 4);
       this.declareBoxes(0, 4);
     },
     // fifth step
     () => {
-      this.declareAnimatedRoad(1, 5, true);
+      const road = this.ROADS[1];
+      const observable = Observable.combineLatest(
+        this.wheelObservable,
+        this.actualRoadSubject
+      ).withLatestFrom(this.actualPointSubject)
+        .map(values => ({
+          sens: values[0][0],
+          currentPoint: values[1],
+          roadId: values[0][1]
+        }))
+        .filter(o => o.roadId === road.id)
+        .do((o) => {
+          if (o.sens === 1 && road.end.isEqual(o.currentPoint)) {
+            this.actualRoadSubject.next(this.ROADS[2].id);
+          }
+          if (o.sens === -1 && road.begin.isEqual(o.currentPoint)) {
+            this.actualRoadSubject.next(this.ROADS[0].id);
+          }
+        })
+        .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
+          (o.sens === -1 && !road.begin.isEqual(o.currentPoint)))
+        .debounceTime(20);
+      const animatedLine = new AnimatedLine(road, 5, observable)
+        .draw(this.canvas)
+        .animate();
+      animatedLine.subscribe((point) => {
+        this.actualPointSubject.next(point);
+      });
       this.declareCoastlineGenerator(1, 5);
       this.declareAnimatedVan(1, true);
       this.declareBoxes(1, 5);
@@ -440,6 +502,7 @@ export default class FirstMonthScenario {
     );
     this.ROADS = buildRoads(pixelRatio);
     this.COASTLINES = buildCoastlines(pixelRatio);
+    this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
   }
 
   // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param

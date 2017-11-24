@@ -1,6 +1,4 @@
 import { add, subtract, square, sqrt, ceil } from 'mathjs';
-import { Subject } from 'rxjs/Subject';
-import cloneDeep from 'lodash/cloneDeep';
 
 export default class AnimatedLine {
   initLength;
@@ -22,7 +20,6 @@ export default class AnimatedLine {
     this.deltaY = (line.end.y - line.begin.y) / delta;
     this.interval = this.initLength / delta;
     this.sensObservable = sensObservable;
-    this.subject = new Subject();
   }
 
   draw(canvas) {
@@ -31,58 +28,30 @@ export default class AnimatedLine {
     return this;
   }
 
-  animate(autoSensSubscribe) {
-    if (autoSensSubscribe) {
-      this.subscribeSens();
-    }
+  animate() {
     this.currentLength = this.initLength;
-    const currentPoint = cloneDeep(this.line.begin);
-    currentPoint.isBackward = this.line.isBackward;
-    this.observable = this.subject
-      .map(sens => ({
-        newLength: this.currentLength + (sens * this.interval),
-        sens
-      }))
-      .filter(o => Math.trunc(o.newLength) >= this.initLength && Math.trunc(o.newLength) <= this.initLength * 2)
-      .do((o) => { this.currentLength = o.newLength; })
+    this.sensObservable = this.sensObservable
+      .do((o) => { this.currentLength = this.currentLength + (o.sens * this.interval); })
       .do(() => {
         // permet l'animation de l'écran sans dessiner de ligne
         if (this.path) {
           this.path.node.setAttribute('style', `stroke-dasharray: ${this.currentLength}; stroke-dashoffset: ${this.initLength};`);
         }
       })
-      .map((o) => {
-        currentPoint.x += this.deltaX * o.sens;
-        currentPoint.y += this.deltaY * o.sens;
-        return currentPoint;
-      })
-      .map(point => ({
-        x: Math.trunc(point.x),
-        y: Math.trunc(point.y),
-        isBackward: point.isBackward
+      .map(o => ({
+        x: o.currentPoint.x + (this.deltaX * o.sens),
+        y: o.currentPoint.y + (this.deltaY * o.sens)
       }));
     return this;
   }
 
   subscribe(callback) {
-    return this.observable.subscribe(callback);
+    this.sensSubscribe = this.sensObservable.subscribe(callback);
+    return this.sensSubscribe;
   }
 
-  unsubscribeSens() {
-    if (this.sensSubscribe) {
-      this.sensSubscribe.unsubscribe();
-    }
-    this.hasSubscribe = false;
-  }
-
-  subscribeSens() {
-    if (this.hasSubscribe) {
-      return;
-    }
-    this.sensSubscribe = this.sensObservable.subscribe((sens) => {
-      this.subject.next(sens);
-    });
-    this.hasSubscribe = true;
+  unsubscribe() {
+    if (this.sensSubscribe) this.sensSubscribe.unsubscribe();
   }
 
   resetLength() {
