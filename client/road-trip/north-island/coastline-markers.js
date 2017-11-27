@@ -131,18 +131,12 @@ const buildCoastlines = pixelRatio => ([
     new Marker('nh98-nh99', 698, 629, 700, 653, pixelRatio),
     new Marker('nh99-nh100', 700, 653, 693, 662, pixelRatio)
   ],
-  [],
   [
     new Marker('lt1-lt2', 799, 696, 824, 698, pixelRatio),
     new Marker('lt2-lt3', 824, 698, 824, 708, pixelRatio),
     new Marker('lt3-lt4', 824, 708, 800, 728, pixelRatio),
     new Marker('lt4-lt1', 800, 728, 799, 696, pixelRatio)
   ],
-  [],
-  [],
-  [],
-  [],
-  [],
   [
     new Marker('nh100-nh101', 693, 662, 689, 711, pixelRatio),
     new Marker('nh101-nh102', 689, 711, 673, 729, pixelRatio),
@@ -161,7 +155,6 @@ const buildCoastlines = pixelRatio => ([
     new Marker('nh121-nh122', 740, 862, 746, 877, pixelRatio),
     new Marker('nh122-nh123', 746, 877, 741, 923, pixelRatio)
   ],
-  [],
   [
     new Marker('nh123-nh124', 741, 923, 719, 965, pixelRatio)
   ]
