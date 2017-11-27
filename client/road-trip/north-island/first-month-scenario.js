@@ -350,7 +350,6 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(18, false);
       this.declareBoxes(16, 13);
     },
-    // DONE ajouter le step 14 trello:#49
     () => {
       const road = this.ROADS[19];
       road.isBackward = true;
@@ -382,7 +381,6 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(21, true);
       this.declareBoxes(20, 14);
     },
-    // DONE ajouter le step 15 trello:#50
     () => {
       this.declareAnimatedRoad(22, 15);
       this.declareAnimatedRoad(23, 15, true);
@@ -391,7 +389,6 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(23, true);
       this.declareBoxes(22, 15);
     },
-    // DONE ajouter le step 16 trello:#51
     () => {
       this.declareAnimatedRoad(24, 16);
       this.declareAnimatedRoad(25, 16);
@@ -402,7 +399,6 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(26, true);
       this.declareBoxes(24, 16);
     },
-    // DONE ajouter le step 17 trello:#52
     () => {
       const road = this.ROADS[27];
       road.isBackward = true;
@@ -453,7 +449,6 @@ export default class FirstMonthScenario {
       this.declareCoastlineGenerator(13, 17);
       this.declareBoxes(27, 17);
     },
-    // DONE ajouter le step 18 trello:#53
     () => {
       const road = this.ROADS[29];
       road.isBackward = true;
@@ -485,11 +480,11 @@ export default class FirstMonthScenario {
     }
     // TODO ajouter le step 19 trello:#54
     // TODO ajouter le step 20 trello:#55
-    // BACKLOG ajouter le step 21 trello:#56
-    // BACKLOG ajouter le step 22 trello:#57
-    // BACKLOG ajouter le step 23 trello:#58
-    // BACKLOG ajouter le step 24 trello:#59
-    // BACKLOG ajouter le step 25 trello:#60
+    // PLANNING ajouter le step 21 trello:#56
+    // PLANNING ajouter le step 22 trello:#57
+    // PLANNING ajouter le step 23 trello:#58
+    // PLANNING ajouter le step 24 trello:#59
+    // PLANNING ajouter le step 25 trello:#60
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
