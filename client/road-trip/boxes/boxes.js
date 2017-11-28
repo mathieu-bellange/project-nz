@@ -1587,7 +1587,7 @@ const boxes = [
     keepPrevious: false,
     boxes: [
       {
-        id: 160,
+        id: 170,
         left: false,
         position: 1,
         title: 'Minatangi Beach',
@@ -1603,10 +1603,25 @@ const boxes = [
     keepPrevious: false,
     boxes: [
       {
-        id: 160,
+        id: 180,
         left: false,
         position: 0,
         title: 'Road to paraparamu',
+        text: 'text',
+        type: TypeBox.Text
+      }
+    ]
+  },
+  // nineteenthStep
+  {
+    id: 19,
+    circle: false,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 190,
+        left: true,
+        title: 'Paraparamu',
         text: 'text',
         type: TypeBox.Text
       }
