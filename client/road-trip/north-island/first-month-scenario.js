@@ -55,17 +55,25 @@ export default class FirstMonthScenario {
       this.actualPointSubject.next(point);
     });
   };
-  // PLANNING affichage des boxes en retour
-  declareSteps = (indexRoad, indexStep) => {
+  // DONE affichage des boxes en retour
+  // BACKLOG conservé l'affichage des boxes sur certaines routes
+  declareSteps = (indexRoad, indexStep, showBegin, showEnd) => {
     const road = this.ROADS[indexRoad];
-    this.actualPointSubject.subscribe((point) => {
-      if (road.begin.isEqual(point)) {
-        this.actualBoxesSubject.next(indexStep);
-        this.nextStepSubject.next(indexStep);
-      } else if (road.isOn(point)) {
-        this.actualBoxesSubject.next(-1);
-      }
-    });
+    this.actualPointSubject
+      .withLatestFrom(this.actualRoadSubject)
+      .filter(values => values[1] === road.id)
+      .map(values => values[0])
+      .subscribe((point) => {
+        if (road.begin.isEqual(point) && showBegin) {
+          this.actualBoxesSubject.next(indexStep);
+          this.nextStepSubject.next(indexStep);
+        } else if (road.end.isEqual(point) && showEnd) {
+          this.actualBoxesSubject.next(indexStep + 1);
+          this.nextStepSubject.next(indexStep + 1);
+        } else {
+          this.actualBoxesSubject.next(-1);
+        }
+      });
   };
   // DONE supprimer les déclarations inutiles
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
@@ -160,22 +168,22 @@ export default class FirstMonthScenario {
     // fourth step
     () => {
       this.declareAnimatedRoad(0);
+      this.declareSteps(0, 4, true, true);
       this.declareCoastlineGenerator(0, 4);
-      this.declareSteps(0, 4);
     },
     // fifth step
     () => {
       this.declareAnimatedRoad(1);
       this.declareAnimatedVan(1, true, true);
+      this.declareSteps(1, 5, true, true);
       this.declareCoastlineGenerator(1, 5);
-      this.declareSteps(1, 5);
     },
     // sixth step
     () => {
       this.declareAnimatedRoad(2);
       this.declareAnimatedVan(2, true, false);
+      this.declareSteps(2, 6, true, true);
       this.declareCoastlineGenerator(2, 6);
-      this.declareSteps(2, 6);
     },
     // Seventh step
     () => {
@@ -183,8 +191,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(4);
       this.declareAnimatedVan(3, false, false);
       this.declareAnimatedVan(4, false, true);
+      this.declareSteps(3, 7, true, false);
+      this.declareSteps(4, 7, false, true);
       this.declareCoastlineGenerator(3, 7);
-      this.declareSteps(3, 7, true);
     },
     // Eigth step
     () => {
@@ -192,7 +201,8 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(6);
       this.declareAnimatedVan(5, true, false);
       this.declareAnimatedVan(6, false, true);
-      this.declareSteps(5, 8);
+      this.declareSteps(5, 8, true, false);
+      this.declareSteps(6, 8, false, true);
     },
     // ninth step
     () => {
@@ -202,7 +212,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(7, true, false);
       this.declareAnimatedVan(8, false, false);
       this.declareAnimatedVan(9, false, true);
-      this.declareSteps(7, 9);
+      this.declareSteps(7, 9, true, false);
+      this.declareSteps(8, 9, false, false);
+      this.declareSteps(9, 9, false, true);
       this.declareCoastlineGenerator(4, 9);
     },
     // tenth step
@@ -211,13 +223,14 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(11);
       this.declareAnimatedVan(10, true, false);
       this.declareAnimatedVan(11, false, true);
-      this.declareSteps(10, 10);
+      this.declareSteps(10, 10, true, false);
+      this.declareSteps(11, 10, false, true);
     },
     // eleventh step
     () => {
       this.declareAnimatedRoad(12);
       this.declareAnimatedVan(12, true, true);
-      this.declareSteps(12, 11);
+      this.declareSteps(12, 11, true, true);
     },
     // twelveth step
     () => {
@@ -227,7 +240,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(13, true, false);
       this.declareAnimatedVan(14, false, false);
       this.declareAnimatedVan(15, false, true);
-      this.declareSteps(13, 12);
+      this.declareSteps(13, 12, true, false);
+      this.declareSteps(14, 12, false, false);
+      this.declareSteps(15, 12, false, true);
     },
     // DONE refacto pour rendre générique les retour trello:#71
     // voir avec la refacto possible du actualPointSubject
@@ -236,20 +251,24 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(16);
       this.declareAnimatedRoad(17);
       this.declareAnimatedRoad(18);
+      this.declareAnimatedRoad(19);
       this.declareAnimatedVan(16, true, false);
       this.declareAnimatedVan(17, false, false);
       this.declareAnimatedVan(18, false, false);
-      this.declareSteps(16, 13);
+      this.declareAnimatedVan(19, false, false);
+      this.declareSteps(16, 13, true, false);
+      this.declareSteps(17, 13, false, false);
+      this.declareSteps(18, 13, false, false);
+      this.declareSteps(19, 13, false, true);
     },
     // Fourteenth step
     () => {
-      this.declareAnimatedRoad(19);
       this.declareAnimatedRoad(20);
       this.declareAnimatedRoad(21);
-      this.declareAnimatedVan(19, false, false);
       this.declareAnimatedVan(20, false, false);
       this.declareAnimatedVan(21, false, true);
-      this.declareSteps(20, 14);
+      this.declareSteps(20, 14, true, false);
+      this.declareSteps(21, 14, false, true);
     },
     // fifteenth step
     () => {
@@ -257,8 +276,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(23);
       this.declareAnimatedVan(22, true, false);
       this.declareAnimatedVan(23, false, true);
+      this.declareSteps(22, 15, true, false);
+      this.declareSteps(23, 15, false, true);
       this.declareCoastlineGenerator(5, 15);
-      this.declareSteps(22, 15);
     },
     // sixteenth step
     () => {
@@ -268,8 +288,10 @@ export default class FirstMonthScenario {
       this.declareAnimatedVan(24, true, false);
       this.declareAnimatedVan(25, false, false);
       this.declareAnimatedVan(26, false, true);
+      this.declareSteps(24, 16, true, false);
+      this.declareSteps(25, 16, false, false);
+      this.declareSteps(26, 16, false, true);
       this.declareCoastlineGenerator(6, 16);
-      this.declareSteps(24, 16);
     },
     // seventeenth step
     () => {
@@ -277,7 +299,8 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(28);
       this.declareAnimatedVan(27, true, false);
       this.declareAnimatedVan(28, false, false);
-      this.declareSteps(27, 17);
+      this.declareSteps(27, 17, true, false);
+      this.declareSteps(28, 17, false, true);
     },
     // eighteenth step
     () => {
@@ -285,8 +308,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(30);
       this.declareAnimatedVan(29, false, false);
       this.declareAnimatedVan(30, false, true);
+      this.declareSteps(29, 18, true, false);
+      this.declareSteps(30, 18, false, true);
       this.declareCoastlineGenerator(7, 18);
-      this.declareSteps(29, 18);
     }
     // TODO ajouter le step 19 trello:#54
     // TODO ajouter le step 20 trello:#55
