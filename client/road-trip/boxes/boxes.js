@@ -1626,6 +1626,26 @@ const boxes = [
         type: TypeBox.Text
       }
     ]
+  },
+  // twentiethStep
+  {
+    id: 20,
+    circle: false,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 200,
+        left: false,
+        position: 0,
+        title: 'Wellington',
+        text: 'text',
+        type: TypeBox.Text
+      },
+      {
+        id: 201,
+        left: false
+      }
+    ]
   }
 ];
 

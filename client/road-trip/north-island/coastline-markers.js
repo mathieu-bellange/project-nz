@@ -75,15 +75,7 @@ const markers = [
   new Marker('nh115-nh116', 835, 958, 805, 1002),
   new Marker('nh116-nh117', 805, 1002, 758, 1035),
   new Marker('nh117-nh118', 758, 1035, 747, 1036),
-  new Marker('nh118-nh119', 747, 1036, 742, 1013),
-  new Marker('nh119-nh120', 742, 1013, 719, 1014),
-  new Marker('nh124-nh125', 719, 965, 694, 1000),
-  new Marker('nh125-nh126', 694, 1000, 705, 1008),
-  new Marker('nh126-nh127', 705, 1008, 714, 1001),
-  new Marker('nh127-nh128', 714, 1001, 713, 994),
-  new Marker('nh128-nh129', 713, 994, 719, 993),
-  new Marker('nh129-nh130', 719, 993, 715, 1006),
-  new Marker('nh130-nh120', 715, 1006, 719, 1014)
+  new Marker('nh118-nh119', 747, 1036, 742, 1013)
 ];
 
 // BACKLOG supprimer la création de coastline vide
@@ -158,7 +150,17 @@ const buildCoastlines = pixelRatio => ([
     new Marker('nh131-nh132', 721, 942, 724, 942, pixelRatio),
     new Marker('nh132-nh133', 724, 942, 717, 952, pixelRatio),
     new Marker('nh133-nh134', 717, 952, 716, 950, pixelRatio),
-    new Marker('nh134-nh131', 716, 950, 721, 942, pixelRatio)
+    new Marker('nh134-nh131', 716, 950, 721, 942, pixelRatio),
+    new Marker('nh124-nh125', 719, 965, 694, 1000, pixelRatio)
+  ],
+  [
+    new Marker('nh125-nh126', 694, 1000, 705, 1008, pixelRatio),
+    new Marker('nh126-nh127', 705, 1008, 714, 1001, pixelRatio),
+    new Marker('nh127-nh128', 714, 1001, 713, 994, pixelRatio),
+    new Marker('nh128-nh129', 713, 994, 719, 993, pixelRatio),
+    new Marker('nh129-nh130', 719, 993, 715, 1006, pixelRatio),
+    new Marker('nh130-nh120', 715, 1006, 719, 1014, pixelRatio),
+    new Marker('nh119-nh120', 742, 1013, 719, 1014, pixelRatio)
   ]
 ]);
 
