@@ -334,11 +334,11 @@ export default class FirstMonthScenario {
       this.declareSteps(34, 20, false, true);
       this.declareCoastlineGenerator(9, 20);
     }
-    // PLANNING ajouter le step 21 trello:#56
-    // PLANNING ajouter le step 22 trello:#57
-    // PLANNING ajouter le step 23 trello:#58
-    // PLANNING ajouter le step 24 trello:#59
-    // PLANNING ajouter le step 25 trello:#60
+    // DOING ajouter le step 21 trello:#56
+    // TODO ajouter le step 22 trello:#57
+    // TODO ajouter le step 23 trello:#58
+    // TODO ajouter le step 24 trello:#59
+    // TODO ajouter le step 25 trello:#60
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
