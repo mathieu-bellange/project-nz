@@ -390,15 +390,34 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(38);
       this.declareAnimatedRoad(39);
       this.declareAnimatedKapitiBoat(37, true);
-      this.declareAnimatedVan(39, true, true);
+      this.declareAnimatedVan(39, true, false);
       this.declareSteps(37, 21, true, false);
       this.declareSteps(38, 21, false, false);
-      this.declareSteps(39, 21, false, false);
+      this.declareSteps(39, 21, false, true);
+    },
+    // DONE ajouter le step 22 trello:#57
+    // twenty second step
+    () => {
+      this.declareAnimatedRoad(40);
+      this.declareAnimatedRoad(41);
+      this.declareAnimatedVan(40, false, false);
+      this.declareAnimatedVan(41, false, true);
+      this.declareSteps(40, 22, true, false);
+      this.declareSteps(41, 22, false, true);
+    },
+    // DONE ajouter le step 23 trello:#58
+    () => {
+      this.declareAnimatedRoad(42);
+      this.declareAnimatedRoad(43);
+      this.declareAnimatedRoad(44);
+      this.declareAnimatedVan(42, true, false);
+      this.declareAnimatedVan(43, false, false);
+      this.declareAnimatedVan(44, false, true);
+      this.declareSteps(42, 23, true, false);
+      this.declareSteps(43, 23, false, false);
+      this.declareSteps(44, 23, false, true);
     }
-    // TODO ajouter le step 22 trello:#57
-    // TODO ajouter le step 23 trello:#58
     // TODO ajouter le step 24 trello:#59
-    // TODO ajouter le step 25 trello:#60
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {

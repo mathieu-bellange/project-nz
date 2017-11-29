@@ -1825,6 +1825,170 @@ const boxes = [
         type: TypeBox.Picture
       }
     ]
+  },
+  // twenty second Step
+  {
+    id: 22,
+    circle: false,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 220,
+        left: false,
+        position: 0,
+        title: 'Road To Rivendell',
+        text: 'text',
+        type: TypeBox.Text
+      },
+      {
+        id: 221,
+        left: false
+      }
+    ]
+  },
+  // twenty third Step
+  {
+    id: 23,
+    circle: true,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 230,
+        left: true
+      },
+      {
+        id: 231,
+        left: true,
+        position: 2,
+        title: 'Rivendell',
+        text: 'text',
+        type: TypeBox.Text
+      },
+      {
+        id: 232,
+        left: false,
+        position: 1,
+        pictures: [
+          {
+            id: 2300,
+            prin: {
+              src: '/images/rivendell/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2301,
+                    src: '/images/rivendell/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2302,
+                    src: '/images/rivendell/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 2303,
+                    src: '/images/rivendell/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2304,
+                    src: '/images/rivendell/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 2305,
+            prin: {
+              src: '/images/rivendell/06.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2306,
+                    src: '/images/rivendell/07.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2307,
+                    src: '/images/rivendell/08.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 2308,
+                    src: '/images/rivendell/09.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2309,
+                    src: '/images/rivendell/10.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 2310,
+            prin: {
+              src: '/images/rivendell/11.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2311,
+                    src: '/images/rivendell/12.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 2312,
+                    src: '/images/rivendell/13.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                []
+              ]
+            }
+          },
+          {
+            id: 2313,
+            prin: {
+              src: '/images/rivendell/14.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2314,
+                    src: '/images/rivendell/15.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2315,
+                    src: '/images/rivendell/16.jpg',
+                    wide: false
+                  }
+                ],
+                []
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
+      }
+    ]
   }
 ];
 
