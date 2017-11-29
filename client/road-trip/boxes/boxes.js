@@ -1646,6 +1646,185 @@ const boxes = [
         left: false
       }
     ]
+  },
+  // twenty first Step
+  {
+    id: 21,
+    circle: false,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 210,
+        left: true,
+        title: 'Kapiti island',
+        text: 'text',
+        type: TypeBox.Text
+      },
+      {
+        id: 211,
+        left: false
+      },
+      {
+        id: 212,
+        left: false,
+        position: 2,
+        pictures: [
+          {
+            id: 2100,
+            prin: {
+              src: '/images/kapiti-island/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2101,
+                    src: '/images/kapiti-island/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2102,
+                    src: '/images/kapiti-island/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 2103,
+                    src: '/images/kapiti-island/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2104,
+                    src: '/images/kapiti-island/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 2105,
+            prin: {
+              src: '/images/kapiti-island/06.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2106,
+                    src: '/images/kapiti-island/07.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 2107,
+                    src: '/images/kapiti-island/08.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                []
+              ]
+            }
+          },
+          {
+            id: 2108,
+            prin: {
+              src: '/images/kapiti-island/09.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2109,
+                    src: '/images/kapiti-island/10.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2110,
+                    src: '/images/kapiti-island/11.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 2111,
+                    src: '/images/kapiti-island/12.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2112,
+                    src: '/images/kapiti-island/13.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          },
+          {
+            id: 2113,
+            prin: {
+              src: '/images/kapiti-island/14.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2114,
+                    src: '/images/kapiti-island/15.jpg',
+                    wide: false,
+                    turn: true
+                  },
+                  {
+                    id: 2115,
+                    src: '/images/kapiti-island/16.jpg',
+                    wide: false,
+                    turn: true
+                  }
+                ],
+                []
+              ]
+            }
+          },
+          {
+            id: 2116,
+            prin: {
+              src: '/images/kapiti-island/17.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 2117,
+                    src: '/images/kapiti-island/18.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2118,
+                    src: '/images/kapiti-island/19.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 2119,
+                    src: '/images/kapiti-island/20.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 2120,
+                    src: '/images/kapiti-island/21.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
+      }
+    ]
   }
 ];
 

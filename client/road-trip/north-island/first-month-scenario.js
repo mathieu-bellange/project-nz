@@ -5,7 +5,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import Airport from './airport';
 import Sky from './sky';
 import Van from './van';
-import { Marker, Coordinate, Path, AnimatedLine, SVGImage } from '../tools';
+import KapitiBoat from './kapiti-boat';
+import { Marker, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
@@ -18,6 +19,7 @@ export default class FirstMonthScenario {
   nextStepSubject;
   airport;
   van;
+  kapitiBoat;
   index;
   initPoint;
   airportPoint;
@@ -100,12 +102,54 @@ export default class FirstMonthScenario {
         }
       });
   };
+  // NOTE réflexion sur le merge avec animatedRoad
+  declareAnimatedScreen = (indexRoad) => {
+    const road = this.ROADS[indexRoad];
+    const observable = Observable.combineLatest(
+      this.wheelObservable,
+      this.actualRoadSubject
+    ).withLatestFrom(this.actualPointSubject)
+      .map(values => ({
+        sens: values[0][0],
+        currentPoint: values[1],
+        roadId: values[0][1]
+      }))
+      .filter(o => o.roadId === road.id)
+      .do((o) => {
+        if (o.sens === 1 && road.end.isEqual(o.currentPoint)) {
+          this.actualRoadSubject.next(this.ROADS[indexRoad + 1].id);
+        }
+        if (o.sens === -1 && road.begin.isEqual(o.currentPoint)) {
+          if (indexRoad !== 0) this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
+        }
+      })
+      .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
+        (o.sens === -1 && !road.begin.isEqual(o.currentPoint)))
+      .debounceTime(20);
+    const animatedLine = new AnimatedLine(road, 5, observable)
+      .animate();
+    animatedLine.subscribe((point) => {
+      this.actualPointSubject.next(point);
+    });
+  };
+  declareAnimatedKapitiBoat = (indexRoad, revert) => {
+    const road = this.ROADS[indexRoad];
+    this.actualPointSubject
+      .withLatestFrom(this.actualRoadSubject)
+      .filter(values => values[1] === road.id)
+      .map(values => values[0])
+      .subscribe((point) => {
+        if (road.begin.isEqual(point) || road.end.isEqual(point)) {
+          this.kapitiBoat.remove();
+        } else {
+          this.kapitiBoat.draw(this.canvas, point, revert).animate();
+        }
+      });
+  };
 
   COASTLINES = [];
 
   ROADS = [];
-
-  animatedRoads = [];
 
   // DONE corriger tous le steps avec le nouveau système d'animation trello:#71
   steps = [
@@ -323,18 +367,34 @@ export default class FirstMonthScenario {
       this.declareSteps(32, 19, false, true);
       this.declareCoastlineGenerator(8, 19);
     },
-    // DOING ajouter le step 20 trello:#55
+    // DONE ajouter le step 20 trello:#55
     // twentieth step
     () => {
       this.declareAnimatedRoad(33);
       this.declareAnimatedRoad(34);
+      this.declareAnimatedRoad(35);
+      this.declareAnimatedScreen(36);
       this.declareAnimatedVan(33, true, false);
       this.declareAnimatedVan(34, false, true);
+      this.declareAnimatedKapitiBoat(36);
       this.declareSteps(33, 20, true, false);
-      this.declareSteps(34, 20, false, true);
+      this.declareSteps(34, 20, false, false);
+      this.declareSteps(35, 20, false, false);
+      this.declareSteps(36, 20, false, true);
       this.declareCoastlineGenerator(9, 20);
+    },
+    // DONE ajouter le step 21 trello:#56
+    // twenty first step
+    () => {
+      this.declareAnimatedScreen(37);
+      this.declareAnimatedRoad(38);
+      this.declareAnimatedRoad(39);
+      this.declareAnimatedKapitiBoat(37, true);
+      this.declareAnimatedVan(39, true, true);
+      this.declareSteps(37, 21, true, false);
+      this.declareSteps(38, 21, false, false);
+      this.declareSteps(39, 21, false, false);
     }
-    // DOING ajouter le step 21 trello:#56
     // TODO ajouter le step 22 trello:#57
     // TODO ajouter le step 23 trello:#58
     // TODO ajouter le step 24 trello:#59
@@ -349,6 +409,7 @@ export default class FirstMonthScenario {
     this.airport = new Airport();
     this.airportPoint = new Coordinate(708, 502, pixelRatio);
     this.van = new Van();
+    this.kapitiBoat = new KapitiBoat();
     this.initPoint = new Coordinate(
       this.airportPoint.x + (window.innerWidth / 2),
       this.airportPoint.y - (window.innerHeight / 2)
