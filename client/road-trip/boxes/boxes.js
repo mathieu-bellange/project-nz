@@ -1989,6 +1989,26 @@ const boxes = [
         type: TypeBox.Picture
       }
     ]
+  },
+  // twenty fourth Step
+  {
+    id: 24,
+    circle: false,
+    keepPrevious: false,
+    boxes: [
+      {
+        id: 240,
+        left: false,
+        position: 0,
+        title: 'Ferry',
+        text: 'text',
+        type: TypeBox.Text
+      },
+      {
+        id: 241,
+        left: false
+      }
+    ]
   }
 ];
 

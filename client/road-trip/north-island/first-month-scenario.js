@@ -40,11 +40,11 @@ export default class FirstMonthScenario {
       }))
       .filter(o => o.roadId === road.id)
       .do((o) => {
-        if (o.sens === 1 && road.end.isEqual(o.currentPoint)) {
+        if (o.sens === 1 && road.end.isEqual(o.currentPoint) && indexRoad + 1 < this.ROADS.length) {
           this.actualRoadSubject.next(this.ROADS[indexRoad + 1].id);
         }
-        if (o.sens === -1 && road.begin.isEqual(o.currentPoint)) {
-          if (indexRoad !== 0) this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
+        if (o.sens === -1 && road.begin.isEqual(o.currentPoint) && indexRoad > 0) {
+          this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
         }
       })
       .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
@@ -116,11 +116,11 @@ export default class FirstMonthScenario {
       }))
       .filter(o => o.roadId === road.id)
       .do((o) => {
-        if (o.sens === 1 && road.end.isEqual(o.currentPoint)) {
+        if (o.sens === 1 && road.end.isEqual(o.currentPoint) && indexRoad + 1 < this.ROADS.length) {
           this.actualRoadSubject.next(this.ROADS[indexRoad + 1].id);
         }
-        if (o.sens === -1 && road.begin.isEqual(o.currentPoint)) {
-          if (indexRoad !== 0) this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
+        if (o.sens === -1 && road.begin.isEqual(o.currentPoint) && indexRoad > 0) {
+          this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
         }
       })
       .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
@@ -416,8 +416,9 @@ export default class FirstMonthScenario {
       this.declareSteps(42, 23, true, false);
       this.declareSteps(43, 23, false, false);
       this.declareSteps(44, 23, false, true);
-    }
-    // TODO ajouter le step 24 trello:#59
+    },
+    // DONE ajouter le step 24 trello:#59
+    () => {}
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
