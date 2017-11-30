@@ -102,7 +102,7 @@ export default class FirstMonthScenario {
         }
       });
   };
-  // NOTE réflexion sur le merge avec animatedRoad
+  // PLANNING réflexion sur le merge avec animatedRoad
   declareAnimatedScreen = (indexRoad) => {
     const road = this.ROADS[indexRoad];
     const observable = Observable.combineLatest(

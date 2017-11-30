@@ -2,7 +2,7 @@ import { add, divide, subtract, multiply, sign } from 'mathjs';
 
 import Coordinate from './coordinate';
 
-// NOTE refacto le nom de la class
+// PLANNING refacto le nom de la class
 export default class Marker {
   id;
   begin: {};

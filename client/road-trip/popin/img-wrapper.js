@@ -4,7 +4,7 @@ import loadImage from 'blueimp-load-image';
 
 import './img-wrapper.css';
 
-// NOTE ajouter un chargement asynchrone des images
+// BACKLOG ajouter un chargement asynchrone des images
 export default class ImgWrapper extends React.Component {
   component;
   static propTypes = {
@@ -20,7 +20,7 @@ export default class ImgWrapper extends React.Component {
     this.onLoad = this.onLoad.bind(this);
   }
 
-  // FIXME supprimer les console.log
+  // PLANNING supprimer les console.log
   componentDidMount() {
     if (this.props.img.turn) {
       loadImage(
