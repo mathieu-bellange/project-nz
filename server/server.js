@@ -1,3 +1,4 @@
+// BACKLOG mise en place du serveur distribuant les images gzip, cache...
 const express = require('express');
 
 const app = express();

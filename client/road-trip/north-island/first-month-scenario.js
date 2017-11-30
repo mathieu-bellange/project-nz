@@ -13,6 +13,7 @@ import buildCoastlines from './coastline-markers';
 // BACKLOG ajouter un système de déplacement automatique trello:#20
 // DONE Refactorer le système d'actualPointSubject pour quelque chose de plus ramifié trello:#71
 // DONE subscribe les events de wheel uniquement après l'atterissage de l'avion
+// BACKLOG stopper la route le temps que les popins chargent
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
