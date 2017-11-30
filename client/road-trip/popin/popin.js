@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Observable } from 'rxjs/Observable';
 
 import PrinFlexBox from './prin-flexbox';
 import SecondaryFlexBox from './secondary-flexbox';
 import * as Boxes from '../boxes';
 import './popin.css';
 
+// BACKLOG conserver toujours visible la croix de fermeture de la popin
+// DONE stopper la propagation de la molette pour empêcher le déplacement de la route
 export default class Popin extends React.Component {
   elem;
   clazz;
@@ -61,6 +64,13 @@ export default class Popin extends React.Component {
         left: `calc(${this.elem.offsetLeft}px)`
       }
     });
+    this.wheelSub = Observable.fromEvent(document.getElementById(this.props.box.id), 'wheel').subscribe((event) => {
+      event.stopPropagation();
+    });
+  }
+
+  componentWillUnmount() {
+    this.wheelSub.unsubscribe();
   }
 
   prinLoaded() {
@@ -146,6 +156,7 @@ export default class Popin extends React.Component {
           <SecondaryFlexBox images={this.props.box.pictures[0].secondary.sources}/>
         </div>
         <div
+          id={this.props.box.id}
           style={this.state.style}
           className={`popin ${this.clazz} doppleganger
             ${this.state.begin ? ' full-screen' : ' '}
