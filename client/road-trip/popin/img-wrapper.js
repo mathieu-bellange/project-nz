@@ -4,7 +4,7 @@ import loadImage from 'blueimp-load-image';
 
 import './img-wrapper.css';
 
-// BACKLOG ajouter un chargement asynchrone des images
+// PLANNING ajouter un chargement asynchrone des images
 export default class ImgWrapper extends React.Component {
   component;
   static propTypes = {
@@ -20,16 +20,14 @@ export default class ImgWrapper extends React.Component {
     this.onLoad = this.onLoad.bind(this);
   }
 
-  // PLANNING supprimer les console.log
+  // DONE supprimer les console.log
+  // DONE gestion des images alors que le document a été retiré par react
   componentDidMount() {
     if (this.props.img.turn) {
       loadImage(
         this.props.img.src,
         (img) => {
-          if (img.type === 'error') {
-            console.log('Error loading image');
-          } else {
-            console.log('Error loading image');
+          if (img.type !== 'error' && document.getElementById(`canvas${this.props.img.id}`)) {
             document.getElementById(`canvas${this.props.img.id}`).appendChild(img);
           }
         },
