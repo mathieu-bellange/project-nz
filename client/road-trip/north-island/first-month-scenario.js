@@ -6,7 +6,7 @@ import Airport from './airport';
 import Sky from './sky';
 import Van from './van';
 import KapitiBoat from './kapiti-boat';
-import { Marker, Coordinate, AnimatedLine } from '../tools';
+import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
@@ -80,9 +80,9 @@ export default class FirstMonthScenario {
   // DONE supprimer les déclarations inutiles
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
     const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
-      this.COASTLINES[indexCoastline].forEach((marker) => {
-        const path = this.canvas.path(`M${marker.begin.x} ${marker.begin.y}`);
-        path.animate({ path: `M${marker.begin.x} ${marker.begin.y} L${marker.end.x} ${marker.end.y}` }, 2000);
+      this.COASTLINES[indexCoastline].forEach((orientedVector) => {
+        const path = this.canvas.path(`M${orientedVector.begin.x} ${orientedVector.begin.y}`);
+        path.animate({ path: `M${orientedVector.begin.x} ${orientedVector.begin.y} L${orientedVector.end.x} ${orientedVector.end.y}` }, 2000);
       }, this);
       sub.unsubscribe();
     });
@@ -188,7 +188,7 @@ export default class FirstMonthScenario {
         currentPoint: values[1]
       })).delay(5);
       const animatedLine = new AnimatedLine(
-        new Marker('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y),
+        new OrientedVector('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y),
         400, sensObservable
       );
       const sub = this.nextStepSubject.filter(step => step === 3).subscribe(() => {

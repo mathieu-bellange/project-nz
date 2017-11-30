@@ -2,8 +2,9 @@ import { add, divide, subtract, multiply, sign } from 'mathjs';
 
 import Coordinate from './coordinate';
 
-// PLANNING refacto le nom de la class
-export default class Marker {
+// DONE refacto le nom de la class
+// TODO suppression des méthodes inutiles
+export default class OrientedVector {
   id;
   begin: {};
   end: {};

@@ -10,9 +10,9 @@ export default class Line {
     };
   }
 
-  draw(paper, size, marker) {
+  draw(paper, size, orientedVector) {
     return paper
-      .path(['M', marker.begin.x * size, marker.begin.y * size, 'L', marker.end.x * size, marker.end.y * size])
+      .path(['M', orientedVector.begin.x * size, orientedVector.begin.y * size, 'L', orientedVector.end.x * size, orientedVector.end.y * size])
       .attr(this.options);
   }
 }
