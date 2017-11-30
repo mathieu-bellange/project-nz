@@ -89,12 +89,7 @@ export default class RoadTrip extends React.Component {
       this.height * this.pixelRatio
     );
 
-    // FIXME code mort
-    // drawing on the canvas
-    /* const niLayer = new NorthIsland.Layer(canvas, this.pixelRatio);
-    niLayer.draw();
-    const rniLayer = new NorthIsland.RoadLayer(canvas, this.pixelRatio);
-    rniLayer.draw(); */
+    // DONE code mort
     // BACKLOG récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario
     // BACKLOG récupérer le bon scenario suivant le point de sauvegarde
     this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject);
