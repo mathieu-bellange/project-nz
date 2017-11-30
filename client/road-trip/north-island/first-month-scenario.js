@@ -12,6 +12,7 @@ import buildCoastlines from './coastline-markers';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#20
 // DONE Refactorer le système d'actualPointSubject pour quelque chose de plus ramifié trello:#71
+// DONE subscribe les events de wheel uniquement après l'atterissage de l'avion
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -21,10 +22,12 @@ export default class FirstMonthScenario {
   van;
   kapitiBoat;
   index;
+  roadIsOn = false;
   initPoint;
   airportPoint;
   actualRoadSubject;
   wheelObservable = Observable.fromEvent(window, 'wheel')
+    .filter(() => this.roadIsOn)
     .map(event => event.deltaY / Math.abs(event.deltaY));
   // DONE refacto avec le nouveau système d'animation trello:#71
   declareAnimatedRoad = (indexRoad) => {
@@ -203,6 +206,7 @@ export default class FirstMonthScenario {
             this.actualPointSubject.next(point);
             if (this.airportPoint.isEqual(point)) {
               animatedLine.unsubscribe();
+              this.roadIsOn = true;
             }
           });
         this.actualBoxesSubject.next(3);
