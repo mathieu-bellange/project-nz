@@ -1,4 +1,4 @@
-// PLANNING offrir la posibilité de retourner le van
+// DONE offrir la posibilité de retourner le van
 export default class Van {
   svg;
   vanSize = {
@@ -6,9 +6,13 @@ export default class Van {
     h: 62
   };
 
-  draw(canvas, position) {
+  draw(canvas, position, reverse) {
     if (this.svg) this.svg.remove();
-    this.svg = canvas.image('/images/van.svg', position.x, position.y - (this.vanSize.h / 2), this.vanSize.w, this.vanSize.h);
+    let srcImage = '/images/van.svg';
+    if (reverse) {
+      srcImage = '/images/van-reverse.svg';
+    }
+    this.svg = canvas.image(srcImage, position.x - (this.vanSize.w / 2), position.y - (this.vanSize.h / 2), this.vanSize.w, this.vanSize.h);
     return this;
   }
 

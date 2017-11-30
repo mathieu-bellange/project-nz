@@ -88,7 +88,7 @@ export default class FirstMonthScenario {
     });
   };
   // DONE corrigé l'affichage du van en fin de route
-  declareAnimatedVan = (indexRoad, hideBegin, hideEnd) => {
+  declareAnimatedVan = (indexRoad, reverse, hideBegin, hideEnd) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject
       .withLatestFrom(this.actualRoadSubject)
@@ -98,7 +98,7 @@ export default class FirstMonthScenario {
         if ((road.begin.isEqual(point) && hideBegin) || (road.end.isEqual(point) && hideEnd)) {
           this.van.remove();
         } else {
-          this.van.draw(this.canvas, point).animate();
+          this.van.draw(this.canvas, point, reverse).animate();
         }
       });
   };
@@ -218,14 +218,14 @@ export default class FirstMonthScenario {
     // fifth step
     () => {
       this.declareAnimatedRoad(1);
-      this.declareAnimatedVan(1, true, true);
+      this.declareAnimatedVan(1, false, true, true);
       this.declareSteps(1, 5, true, true);
       this.declareCoastlineGenerator(1, 5);
     },
     // sixth step
     () => {
       this.declareAnimatedRoad(2);
-      this.declareAnimatedVan(2, true, false);
+      this.declareAnimatedVan(2, false, true, false);
       this.declareSteps(2, 6, true, true);
       this.declareCoastlineGenerator(2, 6);
     },
@@ -233,8 +233,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(3);
       this.declareAnimatedRoad(4);
-      this.declareAnimatedVan(3, false, false);
-      this.declareAnimatedVan(4, false, true);
+      this.declareAnimatedVan(3, false, false, false);
+      this.declareAnimatedVan(4, false, false, true);
       this.declareSteps(3, 7, true, false);
       this.declareSteps(4, 7, false, true);
       this.declareCoastlineGenerator(3, 7);
@@ -243,8 +243,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(5);
       this.declareAnimatedRoad(6);
-      this.declareAnimatedVan(5, true, false);
-      this.declareAnimatedVan(6, false, true);
+      this.declareAnimatedVan(5, false, true, false);
+      this.declareAnimatedVan(6, false, false, true);
       this.declareSteps(5, 8, true, false);
       this.declareSteps(6, 8, false, true);
     },
@@ -253,9 +253,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(7);
       this.declareAnimatedRoad(8);
       this.declareAnimatedRoad(9);
-      this.declareAnimatedVan(7, true, false);
-      this.declareAnimatedVan(8, false, false);
-      this.declareAnimatedVan(9, false, true);
+      this.declareAnimatedVan(7, true, true, false);
+      this.declareAnimatedVan(8, true, false, false);
+      this.declareAnimatedVan(9, true, false, true);
       this.declareSteps(7, 9, true, false);
       this.declareSteps(8, 9, false, false);
       this.declareSteps(9, 9, false, true);
@@ -265,15 +265,15 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(10);
       this.declareAnimatedRoad(11);
-      this.declareAnimatedVan(10, true, false);
-      this.declareAnimatedVan(11, false, true);
+      this.declareAnimatedVan(10, true, true, false);
+      this.declareAnimatedVan(11, true, false, true);
       this.declareSteps(10, 10, true, false);
       this.declareSteps(11, 10, false, true);
     },
     // eleventh step
     () => {
       this.declareAnimatedRoad(12);
-      this.declareAnimatedVan(12, true, true);
+      this.declareAnimatedVan(12, true, true, true);
       this.declareSteps(12, 11, true, true);
     },
     // twelveth step
@@ -281,9 +281,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(13);
       this.declareAnimatedRoad(14);
       this.declareAnimatedRoad(15);
-      this.declareAnimatedVan(13, true, false);
-      this.declareAnimatedVan(14, false, false);
-      this.declareAnimatedVan(15, false, true);
+      this.declareAnimatedVan(13, true, true, false);
+      this.declareAnimatedVan(14, true, false, false);
+      this.declareAnimatedVan(15, true, false, true);
       this.declareSteps(13, 12, true, false);
       this.declareSteps(14, 12, false, false);
       this.declareSteps(15, 12, false, true);
@@ -296,10 +296,10 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(17);
       this.declareAnimatedRoad(18);
       this.declareAnimatedRoad(19);
-      this.declareAnimatedVan(16, true, false);
-      this.declareAnimatedVan(17, false, false);
-      this.declareAnimatedVan(18, false, false);
-      this.declareAnimatedVan(19, false, false);
+      this.declareAnimatedVan(16, false, true, false);
+      this.declareAnimatedVan(17, false, false, false);
+      this.declareAnimatedVan(18, false, false, false);
+      this.declareAnimatedVan(19, true, false, false);
       this.declareSteps(16, 13, true, false);
       this.declareSteps(17, 13, false, false);
       this.declareSteps(18, 13, false, false);
@@ -309,8 +309,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(20);
       this.declareAnimatedRoad(21);
-      this.declareAnimatedVan(20, false, false);
-      this.declareAnimatedVan(21, false, true);
+      this.declareAnimatedVan(20, true, false, false);
+      this.declareAnimatedVan(21, true, false, true);
       this.declareSteps(20, 14, true, false);
       this.declareSteps(21, 14, false, true);
     },
@@ -318,8 +318,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(22);
       this.declareAnimatedRoad(23);
-      this.declareAnimatedVan(22, true, false);
-      this.declareAnimatedVan(23, false, true);
+      this.declareAnimatedVan(22, false, true, false);
+      this.declareAnimatedVan(23, false, false, true);
       this.declareSteps(22, 15, true, false);
       this.declareSteps(23, 15, false, true);
       this.declareCoastlineGenerator(5, 15);
@@ -329,9 +329,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(24);
       this.declareAnimatedRoad(25);
       this.declareAnimatedRoad(26);
-      this.declareAnimatedVan(24, true, false);
-      this.declareAnimatedVan(25, false, false);
-      this.declareAnimatedVan(26, false, true);
+      this.declareAnimatedVan(24, true, true, false);
+      this.declareAnimatedVan(25, true, false, false);
+      this.declareAnimatedVan(26, true, false, true);
       this.declareSteps(24, 16, true, false);
       this.declareSteps(25, 16, false, false);
       this.declareSteps(26, 16, false, true);
@@ -341,8 +341,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(27);
       this.declareAnimatedRoad(28);
-      this.declareAnimatedVan(27, true, false);
-      this.declareAnimatedVan(28, false, false);
+      this.declareAnimatedVan(27, false, true, false);
+      this.declareAnimatedVan(28, true, false, false);
       this.declareSteps(27, 17, true, false);
       this.declareSteps(28, 17, false, true);
     },
@@ -350,8 +350,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(29);
       this.declareAnimatedRoad(30);
-      this.declareAnimatedVan(29, false, false);
-      this.declareAnimatedVan(30, false, true);
+      this.declareAnimatedVan(29, true, false, false);
+      this.declareAnimatedVan(30, true, false, true);
       this.declareSteps(29, 18, true, false);
       this.declareSteps(30, 18, false, true);
       this.declareCoastlineGenerator(7, 18);
@@ -361,8 +361,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(31);
       this.declareAnimatedRoad(32);
-      this.declareAnimatedVan(31, true, false);
-      this.declareAnimatedVan(32, false, true);
+      this.declareAnimatedVan(31, true, true, false);
+      this.declareAnimatedVan(32, true, false, true);
       this.declareSteps(31, 19, true, false);
       this.declareSteps(32, 19, false, true);
       this.declareCoastlineGenerator(8, 19);
@@ -374,8 +374,8 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(34);
       this.declareAnimatedRoad(35);
       this.declareAnimatedScreen(36);
-      this.declareAnimatedVan(33, true, false);
-      this.declareAnimatedVan(34, false, true);
+      this.declareAnimatedVan(33, false, true, false);
+      this.declareAnimatedVan(34, false, false, true);
       this.declareAnimatedKapitiBoat(36);
       this.declareSteps(33, 20, true, false);
       this.declareSteps(34, 20, false, false);
@@ -390,7 +390,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(38);
       this.declareAnimatedRoad(39);
       this.declareAnimatedKapitiBoat(37, true);
-      this.declareAnimatedVan(39, true, false);
+      this.declareAnimatedVan(39, false, true, false);
       this.declareSteps(37, 21, true, false);
       this.declareSteps(38, 21, false, false);
       this.declareSteps(39, 21, false, true);
@@ -400,8 +400,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedRoad(40);
       this.declareAnimatedRoad(41);
-      this.declareAnimatedVan(40, false, false);
-      this.declareAnimatedVan(41, false, true);
+      this.declareAnimatedVan(40, false, false, false);
+      this.declareAnimatedVan(41, false, false, true);
       this.declareSteps(40, 22, true, false);
       this.declareSteps(41, 22, false, true);
     },
@@ -410,9 +410,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedRoad(42);
       this.declareAnimatedRoad(43);
       this.declareAnimatedRoad(44);
-      this.declareAnimatedVan(42, true, false);
-      this.declareAnimatedVan(43, false, false);
-      this.declareAnimatedVan(44, false, true);
+      this.declareAnimatedVan(42, true, true, false);
+      this.declareAnimatedVan(43, true, false, false);
+      this.declareAnimatedVan(44, true, false, true);
       this.declareSteps(42, 23, true, false);
       this.declareSteps(43, 23, false, false);
       this.declareSteps(44, 23, false, true);
