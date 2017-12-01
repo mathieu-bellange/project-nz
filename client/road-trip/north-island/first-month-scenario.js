@@ -95,8 +95,8 @@ export default class FirstMonthScenario {
     });
   };
   // DONE corrigé l'affichage du van en fin de route
-  // PLANNING merge l'animation du van et du bateau
-  declareAnimatedVan = (indexRoad, reverse, hideBegin, hideEnd) => {
+  // DONE merge l'animation du van et du bateau
+  declareAnimatedSVG = (indexRoad, svg, reverse, hideBegin, hideEnd) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject
       .withLatestFrom(this.actualRoadSubject)
@@ -104,23 +104,9 @@ export default class FirstMonthScenario {
       .map(values => values[0])
       .subscribe((point) => {
         if ((road.begin.isEqual(point) && hideBegin) || (road.end.isEqual(point) && hideEnd)) {
-          this.van.remove();
+          svg.remove();
         } else {
-          this.van.draw(this.canvas, point, reverse).animate();
-        }
-      });
-  };
-  declareAnimatedKapitiBoat = (indexRoad, reverse) => {
-    const road = this.ROADS[indexRoad];
-    this.actualPointSubject
-      .withLatestFrom(this.actualRoadSubject)
-      .filter(values => values[1] === road.id)
-      .map(values => values[0])
-      .subscribe((point) => {
-        if (road.begin.isEqual(point) || road.end.isEqual(point)) {
-          this.kapitiBoat.remove();
-        } else {
-          this.kapitiBoat.draw(this.canvas, point, reverse).animate();
+          svg.draw(this.canvas, point, reverse).animate();
         }
       });
   };
@@ -197,14 +183,14 @@ export default class FirstMonthScenario {
     // fifth step
     () => {
       this.declareAnimatedLine(1);
-      this.declareAnimatedVan(1, false, true, true);
+      this.declareAnimatedSVG(1, this.van, false, true, true);
       this.declareSteps(1, 5, true, true);
       this.declareCoastlineGenerator(1, 5);
     },
     // sixth step
     () => {
       this.declareAnimatedLine(2);
-      this.declareAnimatedVan(2, false, true, false);
+      this.declareAnimatedSVG(2, this.van, false, true, false);
       this.declareSteps(2, 6, true, true);
       this.declareCoastlineGenerator(2, 6);
     },
@@ -212,8 +198,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(3);
       this.declareAnimatedLine(4);
-      this.declareAnimatedVan(3, false, false, false);
-      this.declareAnimatedVan(4, false, false, true);
+      this.declareAnimatedSVG(3, this.van, false, false, false);
+      this.declareAnimatedSVG(4, this.van, false, false, true);
       this.declareSteps(3, 7, true, false);
       this.declareSteps(4, 7, false, true);
       this.declareCoastlineGenerator(3, 7);
@@ -222,8 +208,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(5);
       this.declareAnimatedLine(6);
-      this.declareAnimatedVan(5, false, true, false);
-      this.declareAnimatedVan(6, false, false, true);
+      this.declareAnimatedSVG(5, this.van, false, true, false);
+      this.declareAnimatedSVG(6, this.van, false, false, true);
       this.declareSteps(5, 8, true, false);
       this.declareSteps(6, 8, false, true);
     },
@@ -232,9 +218,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(7);
       this.declareAnimatedLine(8);
       this.declareAnimatedLine(9);
-      this.declareAnimatedVan(7, true, true, false);
-      this.declareAnimatedVan(8, true, false, false);
-      this.declareAnimatedVan(9, true, false, true);
+      this.declareAnimatedSVG(7, this.van, true, true, false);
+      this.declareAnimatedSVG(8, this.van, true, false, false);
+      this.declareAnimatedSVG(9, this.van, true, false, true);
       this.declareSteps(7, 9, true, false);
       this.declareSteps(8, 9, false, false);
       this.declareSteps(9, 9, false, true);
@@ -244,15 +230,15 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(10);
       this.declareAnimatedLine(11);
-      this.declareAnimatedVan(10, true, true, false);
-      this.declareAnimatedVan(11, true, false, true);
+      this.declareAnimatedSVG(10, this.van, true, true, false);
+      this.declareAnimatedSVG(11, this.van, true, false, true);
       this.declareSteps(10, 10, true, false);
       this.declareSteps(11, 10, false, true);
     },
     // eleventh step
     () => {
       this.declareAnimatedLine(12);
-      this.declareAnimatedVan(12, true, true, true);
+      this.declareAnimatedSVG(12, this.van, true, true, true);
       this.declareSteps(12, 11, true, true);
     },
     // twelveth step
@@ -260,9 +246,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(13);
       this.declareAnimatedLine(14);
       this.declareAnimatedLine(15);
-      this.declareAnimatedVan(13, true, true, false);
-      this.declareAnimatedVan(14, true, false, false);
-      this.declareAnimatedVan(15, true, false, true);
+      this.declareAnimatedSVG(13, this.van, true, true, false);
+      this.declareAnimatedSVG(14, this.van, true, false, false);
+      this.declareAnimatedSVG(15, this.van, true, false, true);
       this.declareSteps(13, 12, true, false);
       this.declareSteps(14, 12, false, false);
       this.declareSteps(15, 12, false, true);
@@ -275,10 +261,10 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(17);
       this.declareAnimatedLine(18);
       this.declareAnimatedLine(19);
-      this.declareAnimatedVan(16, false, true, false);
-      this.declareAnimatedVan(17, false, false, false);
-      this.declareAnimatedVan(18, false, false, false);
-      this.declareAnimatedVan(19, true, false, false);
+      this.declareAnimatedSVG(16, this.van, false, true, false);
+      this.declareAnimatedSVG(17, this.van, false, false, false);
+      this.declareAnimatedSVG(18, this.van, false, false, false);
+      this.declareAnimatedSVG(19, this.van, true, false, false);
       this.declareSteps(16, 13, true, false);
       this.declareSteps(17, 13, false, false);
       this.declareSteps(18, 13, false, false);
@@ -288,8 +274,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(20);
       this.declareAnimatedLine(21);
-      this.declareAnimatedVan(20, true, false, false);
-      this.declareAnimatedVan(21, true, false, true);
+      this.declareAnimatedSVG(20, this.van, true, false, false);
+      this.declareAnimatedSVG(21, this.van, true, false, true);
       this.declareSteps(20, 14, true, false);
       this.declareSteps(21, 14, false, true);
     },
@@ -297,8 +283,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(22);
       this.declareAnimatedLine(23);
-      this.declareAnimatedVan(22, false, true, false);
-      this.declareAnimatedVan(23, false, false, true);
+      this.declareAnimatedSVG(22, this.van, false, true, false);
+      this.declareAnimatedSVG(23, this.van, false, false, true);
       this.declareSteps(22, 15, true, false);
       this.declareSteps(23, 15, false, true);
       this.declareCoastlineGenerator(5, 15);
@@ -308,9 +294,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(24);
       this.declareAnimatedLine(25);
       this.declareAnimatedLine(26);
-      this.declareAnimatedVan(24, true, true, false);
-      this.declareAnimatedVan(25, true, false, false);
-      this.declareAnimatedVan(26, true, false, true);
+      this.declareAnimatedSVG(24, this.van, true, true, false);
+      this.declareAnimatedSVG(25, this.van, true, false, false);
+      this.declareAnimatedSVG(26, this.van, true, false, true);
       this.declareSteps(24, 16, true, false);
       this.declareSteps(25, 16, false, false);
       this.declareSteps(26, 16, false, true);
@@ -320,8 +306,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(27);
       this.declareAnimatedLine(28);
-      this.declareAnimatedVan(27, false, true, false);
-      this.declareAnimatedVan(28, true, false, false);
+      this.declareAnimatedSVG(27, this.van, false, true, false);
+      this.declareAnimatedSVG(28, this.van, true, false, false);
       this.declareSteps(27, 17, true, false);
       this.declareSteps(28, 17, false, true);
     },
@@ -329,8 +315,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(29);
       this.declareAnimatedLine(30);
-      this.declareAnimatedVan(29, true, false, false);
-      this.declareAnimatedVan(30, true, false, true);
+      this.declareAnimatedSVG(29, this.van, true, false, false);
+      this.declareAnimatedSVG(30, this.van, true, false, true);
       this.declareSteps(29, 18, true, false);
       this.declareSteps(30, 18, false, true);
       this.declareCoastlineGenerator(7, 18);
@@ -340,8 +326,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(31);
       this.declareAnimatedLine(32);
-      this.declareAnimatedVan(31, true, true, false);
-      this.declareAnimatedVan(32, true, false, true);
+      this.declareAnimatedSVG(31, this.van, true, true, false);
+      this.declareAnimatedSVG(32, this.van, true, false, true);
       this.declareSteps(31, 19, true, false);
       this.declareSteps(32, 19, false, true);
       this.declareCoastlineGenerator(8, 19);
@@ -353,9 +339,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(34);
       this.declareAnimatedLine(35);
       this.declareAnimatedLine(36, true);
-      this.declareAnimatedVan(33, false, true, false);
-      this.declareAnimatedVan(34, false, false, true);
-      this.declareAnimatedKapitiBoat(36);
+      this.declareAnimatedSVG(33, this.van, false, true, false);
+      this.declareAnimatedSVG(34, this.van, false, false, true);
+      this.declareAnimatedSVG(36, this.kapitiBoat, false, true, true);
       this.declareSteps(33, 20, true, false);
       this.declareSteps(34, 20, false, false);
       this.declareSteps(35, 20, false, false);
@@ -368,8 +354,8 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(37, true);
       this.declareAnimatedLine(38);
       this.declareAnimatedLine(39);
-      this.declareAnimatedKapitiBoat(37, true);
-      this.declareAnimatedVan(39, false, true, false);
+      this.declareAnimatedSVG(37, this.kapitiBoat, true, true, true);
+      this.declareAnimatedSVG(39, this.van, false, true, false);
       this.declareSteps(37, 21, true, false);
       this.declareSteps(38, 21, false, false);
       this.declareSteps(39, 21, false, true);
@@ -379,8 +365,8 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(40);
       this.declareAnimatedLine(41);
-      this.declareAnimatedVan(40, false, false, false);
-      this.declareAnimatedVan(41, false, false, true);
+      this.declareAnimatedSVG(40, this.van, false, false, false);
+      this.declareAnimatedSVG(41, this.van, false, false, true);
       this.declareSteps(40, 22, true, false);
       this.declareSteps(41, 22, false, true);
     },
@@ -389,9 +375,9 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(42);
       this.declareAnimatedLine(43);
       this.declareAnimatedLine(44);
-      this.declareAnimatedVan(42, true, true, false);
-      this.declareAnimatedVan(43, true, false, false);
-      this.declareAnimatedVan(44, true, false, true);
+      this.declareAnimatedSVG(42, this.van, true, true, false);
+      this.declareAnimatedSVG(43, this.van, true, false, false);
+      this.declareAnimatedSVG(44, this.van, true, false, true);
       this.declareSteps(42, 23, true, false);
       this.declareSteps(43, 23, false, false);
       this.declareSteps(44, 23, false, true);
