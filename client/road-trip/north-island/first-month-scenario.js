@@ -31,7 +31,8 @@ export default class FirstMonthScenario {
     .filter(() => this.roadIsOn)
     .map(event => event.deltaY / Math.abs(event.deltaY));
   // DONE refacto avec le nouveau système d'animation trello:#71
-  declareAnimatedRoad = (indexRoad) => {
+  // DONE réflexion sur le merge avec animatedRoad
+  declareAnimatedLine = (indexRoad, hideRoad) => {
     const road = this.ROADS[indexRoad];
     const observable = Observable.combineLatest(
       this.wheelObservable,
@@ -54,15 +55,17 @@ export default class FirstMonthScenario {
       .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
         (o.sens === -1 && !road.begin.isEqual(o.currentPoint)))
       .debounceTime(20);
-    const animatedLine = new AnimatedLine(road, 5, observable)
-      .draw(this.canvas)
-      .animate();
+    let animatedLine = new AnimatedLine(road, 5, observable);
+    if (!hideRoad) {
+      animatedLine = animatedLine.draw(this.canvas);
+    }
+    animatedLine.animate();
     animatedLine.subscribe((point) => {
       this.actualPointSubject.next(point);
     });
   };
   // DONE affichage des boxes en retour
-  // BACKLOG conservé l'affichage des boxes sur certaines routes
+  // PLANNING conservé l'affichage des boxes sur certaines routes
   declareSteps = (indexRoad, indexStep, showBegin, showEnd) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject
@@ -92,6 +95,7 @@ export default class FirstMonthScenario {
     });
   };
   // DONE corrigé l'affichage du van en fin de route
+  // PLANNING merge l'animation du van et du bateau
   declareAnimatedVan = (indexRoad, reverse, hideBegin, hideEnd) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject
@@ -106,37 +110,7 @@ export default class FirstMonthScenario {
         }
       });
   };
-  // PLANNING réflexion sur le merge avec animatedRoad
-  declareAnimatedScreen = (indexRoad) => {
-    const road = this.ROADS[indexRoad];
-    const observable = Observable.combineLatest(
-      this.wheelObservable,
-      this.actualRoadSubject
-    ).withLatestFrom(this.actualPointSubject)
-      .map(values => ({
-        sens: values[0][0],
-        currentPoint: values[1],
-        roadId: values[0][1]
-      }))
-      .filter(o => o.roadId === road.id)
-      .do((o) => {
-        if (o.sens === 1 && road.end.isEqual(o.currentPoint) && indexRoad + 1 < this.ROADS.length) {
-          this.actualRoadSubject.next(this.ROADS[indexRoad + 1].id);
-        }
-        if (o.sens === -1 && road.begin.isEqual(o.currentPoint) && indexRoad > 0) {
-          this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
-        }
-      })
-      .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
-        (o.sens === -1 && !road.begin.isEqual(o.currentPoint)))
-      .debounceTime(20);
-    const animatedLine = new AnimatedLine(road, 5, observable)
-      .animate();
-    animatedLine.subscribe((point) => {
-      this.actualPointSubject.next(point);
-    });
-  };
-  declareAnimatedKapitiBoat = (indexRoad, revert) => {
+  declareAnimatedKapitiBoat = (indexRoad, reverse) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject
       .withLatestFrom(this.actualRoadSubject)
@@ -146,7 +120,7 @@ export default class FirstMonthScenario {
         if (road.begin.isEqual(point) || road.end.isEqual(point)) {
           this.kapitiBoat.remove();
         } else {
-          this.kapitiBoat.draw(this.canvas, point, revert).animate();
+          this.kapitiBoat.draw(this.canvas, point, reverse).animate();
         }
       });
   };
@@ -216,28 +190,28 @@ export default class FirstMonthScenario {
     },
     // fourth step
     () => {
-      this.declareAnimatedRoad(0);
+      this.declareAnimatedLine(0);
       this.declareSteps(0, 4, true, true);
       this.declareCoastlineGenerator(0, 4);
     },
     // fifth step
     () => {
-      this.declareAnimatedRoad(1);
+      this.declareAnimatedLine(1);
       this.declareAnimatedVan(1, false, true, true);
       this.declareSteps(1, 5, true, true);
       this.declareCoastlineGenerator(1, 5);
     },
     // sixth step
     () => {
-      this.declareAnimatedRoad(2);
+      this.declareAnimatedLine(2);
       this.declareAnimatedVan(2, false, true, false);
       this.declareSteps(2, 6, true, true);
       this.declareCoastlineGenerator(2, 6);
     },
     // Seventh step
     () => {
-      this.declareAnimatedRoad(3);
-      this.declareAnimatedRoad(4);
+      this.declareAnimatedLine(3);
+      this.declareAnimatedLine(4);
       this.declareAnimatedVan(3, false, false, false);
       this.declareAnimatedVan(4, false, false, true);
       this.declareSteps(3, 7, true, false);
@@ -246,8 +220,8 @@ export default class FirstMonthScenario {
     },
     // Eigth step
     () => {
-      this.declareAnimatedRoad(5);
-      this.declareAnimatedRoad(6);
+      this.declareAnimatedLine(5);
+      this.declareAnimatedLine(6);
       this.declareAnimatedVan(5, false, true, false);
       this.declareAnimatedVan(6, false, false, true);
       this.declareSteps(5, 8, true, false);
@@ -255,9 +229,9 @@ export default class FirstMonthScenario {
     },
     // ninth step
     () => {
-      this.declareAnimatedRoad(7);
-      this.declareAnimatedRoad(8);
-      this.declareAnimatedRoad(9);
+      this.declareAnimatedLine(7);
+      this.declareAnimatedLine(8);
+      this.declareAnimatedLine(9);
       this.declareAnimatedVan(7, true, true, false);
       this.declareAnimatedVan(8, true, false, false);
       this.declareAnimatedVan(9, true, false, true);
@@ -268,8 +242,8 @@ export default class FirstMonthScenario {
     },
     // tenth step
     () => {
-      this.declareAnimatedRoad(10);
-      this.declareAnimatedRoad(11);
+      this.declareAnimatedLine(10);
+      this.declareAnimatedLine(11);
       this.declareAnimatedVan(10, true, true, false);
       this.declareAnimatedVan(11, true, false, true);
       this.declareSteps(10, 10, true, false);
@@ -277,15 +251,15 @@ export default class FirstMonthScenario {
     },
     // eleventh step
     () => {
-      this.declareAnimatedRoad(12);
+      this.declareAnimatedLine(12);
       this.declareAnimatedVan(12, true, true, true);
       this.declareSteps(12, 11, true, true);
     },
     // twelveth step
     () => {
-      this.declareAnimatedRoad(13);
-      this.declareAnimatedRoad(14);
-      this.declareAnimatedRoad(15);
+      this.declareAnimatedLine(13);
+      this.declareAnimatedLine(14);
+      this.declareAnimatedLine(15);
       this.declareAnimatedVan(13, true, true, false);
       this.declareAnimatedVan(14, true, false, false);
       this.declareAnimatedVan(15, true, false, true);
@@ -297,10 +271,10 @@ export default class FirstMonthScenario {
     // voir avec la refacto possible du actualPointSubject
     // Thirteenth step
     () => {
-      this.declareAnimatedRoad(16);
-      this.declareAnimatedRoad(17);
-      this.declareAnimatedRoad(18);
-      this.declareAnimatedRoad(19);
+      this.declareAnimatedLine(16);
+      this.declareAnimatedLine(17);
+      this.declareAnimatedLine(18);
+      this.declareAnimatedLine(19);
       this.declareAnimatedVan(16, false, true, false);
       this.declareAnimatedVan(17, false, false, false);
       this.declareAnimatedVan(18, false, false, false);
@@ -312,8 +286,8 @@ export default class FirstMonthScenario {
     },
     // Fourteenth step
     () => {
-      this.declareAnimatedRoad(20);
-      this.declareAnimatedRoad(21);
+      this.declareAnimatedLine(20);
+      this.declareAnimatedLine(21);
       this.declareAnimatedVan(20, true, false, false);
       this.declareAnimatedVan(21, true, false, true);
       this.declareSteps(20, 14, true, false);
@@ -321,8 +295,8 @@ export default class FirstMonthScenario {
     },
     // fifteenth step
     () => {
-      this.declareAnimatedRoad(22);
-      this.declareAnimatedRoad(23);
+      this.declareAnimatedLine(22);
+      this.declareAnimatedLine(23);
       this.declareAnimatedVan(22, false, true, false);
       this.declareAnimatedVan(23, false, false, true);
       this.declareSteps(22, 15, true, false);
@@ -331,9 +305,9 @@ export default class FirstMonthScenario {
     },
     // sixteenth step
     () => {
-      this.declareAnimatedRoad(24);
-      this.declareAnimatedRoad(25);
-      this.declareAnimatedRoad(26);
+      this.declareAnimatedLine(24);
+      this.declareAnimatedLine(25);
+      this.declareAnimatedLine(26);
       this.declareAnimatedVan(24, true, true, false);
       this.declareAnimatedVan(25, true, false, false);
       this.declareAnimatedVan(26, true, false, true);
@@ -344,8 +318,8 @@ export default class FirstMonthScenario {
     },
     // seventeenth step
     () => {
-      this.declareAnimatedRoad(27);
-      this.declareAnimatedRoad(28);
+      this.declareAnimatedLine(27);
+      this.declareAnimatedLine(28);
       this.declareAnimatedVan(27, false, true, false);
       this.declareAnimatedVan(28, true, false, false);
       this.declareSteps(27, 17, true, false);
@@ -353,8 +327,8 @@ export default class FirstMonthScenario {
     },
     // eighteenth step
     () => {
-      this.declareAnimatedRoad(29);
-      this.declareAnimatedRoad(30);
+      this.declareAnimatedLine(29);
+      this.declareAnimatedLine(30);
       this.declareAnimatedVan(29, true, false, false);
       this.declareAnimatedVan(30, true, false, true);
       this.declareSteps(29, 18, true, false);
@@ -364,8 +338,8 @@ export default class FirstMonthScenario {
     // DONE ajouter le step 19 trello:#54
     // nineteenth step
     () => {
-      this.declareAnimatedRoad(31);
-      this.declareAnimatedRoad(32);
+      this.declareAnimatedLine(31);
+      this.declareAnimatedLine(32);
       this.declareAnimatedVan(31, true, true, false);
       this.declareAnimatedVan(32, true, false, true);
       this.declareSteps(31, 19, true, false);
@@ -375,10 +349,10 @@ export default class FirstMonthScenario {
     // DONE ajouter le step 20 trello:#55
     // twentieth step
     () => {
-      this.declareAnimatedRoad(33);
-      this.declareAnimatedRoad(34);
-      this.declareAnimatedRoad(35);
-      this.declareAnimatedScreen(36);
+      this.declareAnimatedLine(33);
+      this.declareAnimatedLine(34);
+      this.declareAnimatedLine(35);
+      this.declareAnimatedLine(36, true);
       this.declareAnimatedVan(33, false, true, false);
       this.declareAnimatedVan(34, false, false, true);
       this.declareAnimatedKapitiBoat(36);
@@ -391,9 +365,9 @@ export default class FirstMonthScenario {
     // DONE ajouter le step 21 trello:#56
     // twenty first step
     () => {
-      this.declareAnimatedScreen(37);
-      this.declareAnimatedRoad(38);
-      this.declareAnimatedRoad(39);
+      this.declareAnimatedLine(37, true);
+      this.declareAnimatedLine(38);
+      this.declareAnimatedLine(39);
       this.declareAnimatedKapitiBoat(37, true);
       this.declareAnimatedVan(39, false, true, false);
       this.declareSteps(37, 21, true, false);
@@ -403,8 +377,8 @@ export default class FirstMonthScenario {
     // DONE ajouter le step 22 trello:#57
     // twenty second step
     () => {
-      this.declareAnimatedRoad(40);
-      this.declareAnimatedRoad(41);
+      this.declareAnimatedLine(40);
+      this.declareAnimatedLine(41);
       this.declareAnimatedVan(40, false, false, false);
       this.declareAnimatedVan(41, false, false, true);
       this.declareSteps(40, 22, true, false);
@@ -412,9 +386,9 @@ export default class FirstMonthScenario {
     },
     // DONE ajouter le step 23 trello:#58
     () => {
-      this.declareAnimatedRoad(42);
-      this.declareAnimatedRoad(43);
-      this.declareAnimatedRoad(44);
+      this.declareAnimatedLine(42);
+      this.declareAnimatedLine(43);
+      this.declareAnimatedLine(44);
       this.declareAnimatedVan(42, true, true, false);
       this.declareAnimatedVan(43, true, false, false);
       this.declareAnimatedVan(44, true, false, true);
