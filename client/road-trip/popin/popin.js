@@ -147,6 +147,8 @@ export default class Popin extends React.Component {
       end: false,
       fixedCloseIcon: false
     });
+    // PLANNING faire un scroll top moins brutal
+    this.doppleganger.scrollTo(0, 0);
   }
 
   render() {
@@ -168,6 +170,7 @@ export default class Popin extends React.Component {
             ${this.state.end ? ' end' : ' '}
           `}
           onTransitionEnd={this.finishAnimation}
+          ref={(el) => { this.doppleganger = el; }}
         >
           <i className={`fa fa-times ${this.state.fixedCloseIcon ? 'fixed' : ''}`} onClick={this.closeFullScreen}></i>
           {

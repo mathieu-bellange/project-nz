@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import PrinFlexBox from './prin-flexbox';
 
+// PLANNING reproduire les modifs de popin
 export default class PopinText extends React.Component {
   elem;
   animationState = {
