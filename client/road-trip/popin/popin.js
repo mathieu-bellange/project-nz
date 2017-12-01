@@ -7,7 +7,7 @@ import SecondaryFlexBox from './secondary-flexbox';
 import * as Boxes from '../boxes';
 import './popin.css';
 
-// BACKLOG conserver toujours visible la croix de fermeture de la popin
+// PLANNING conserver toujours visible la croix de fermeture de la popin
 // DONE remonter le composant popin full-srceen au dessus du popin-wrapper
 // DONE stopper la propagation de la molette pour empêcher le déplacement de la route
 export default class Popin extends React.Component {
