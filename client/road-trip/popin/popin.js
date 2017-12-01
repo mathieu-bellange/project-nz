@@ -101,36 +101,39 @@ export default class Popin extends React.Component {
   }
 
   finishAnimation(e) {
-    switch (this.state.animationState) {
-      case this.animationState.open.begin:
-        this.setState({
-          style: {},
-          end: true,
-          animationState: this.animationState.open.end
-        });
-        break;
-      case this.animationState.open.end:
-        break;
-      case this.animationState.close.begin:
-        this.setState({
-          style: {
-            width: this.state.width,
-            height: this.state.height,
-            top: this.state.offsetTop,
-            left: this.state.offsetLeft
-          },
-          animationState: this.animationState.close.end
-        });
-        break;
-      case this.animationState.close.end:
-        if (e.propertyName === 'top') {
+    if (e.propertyName === 'top' || e.propertyName === 'width') {
+      switch (this.state.animationState) {
+        case this.animationState.open.begin:
+          this.setState({
+            style: {},
+            end: true,
+            animationState: this.animationState.open.end
+          });
+          break;
+        case this.animationState.open.end:
+          this.setState({
+            fixedCloseIcon: true
+          });
+          break;
+        case this.animationState.close.begin:
+          this.setState({
+            style: {
+              width: this.state.width,
+              height: this.state.height,
+              top: this.state.offsetTop,
+              left: this.state.offsetLeft
+            },
+            animationState: this.animationState.close.end
+          });
+          break;
+        case this.animationState.close.end:
           this.setState({
             begin: false
           });
-        }
-        break;
-      default:
-        break;
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -141,7 +144,8 @@ export default class Popin extends React.Component {
         height: this.state.height
       },
       animationState: this.animationState.close.begin,
-      end: false
+      end: false,
+      fixedCloseIcon: false
     });
   }
 
@@ -165,11 +169,11 @@ export default class Popin extends React.Component {
           `}
           onTransitionEnd={this.finishAnimation}
         >
-          <i className="fa fa-times" onClick={this.closeFullScreen}></i>
+          <i className={`fa fa-times ${this.state.fixedCloseIcon ? 'fixed' : ''}`} onClick={this.closeFullScreen}></i>
           {
             this.props.box.pictures
               .map(picture =>
-                  <div key={picture.id}>
+                  <div key={picture.id} onTransitionEnd={e => e.stopPropagation()}>
                     <PrinFlexBox box={picture.prin} />
                     <SecondaryFlexBox images={picture.secondary.sources}/>
                   </div>)
