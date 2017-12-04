@@ -4,21 +4,13 @@ import loadImage from 'blueimp-load-image';
 
 import './img-wrapper.css';
 
-// PLANNING ajouter un chargement asynchrone des images
+// DONE ajouter un chargement asynchrone des images
 export default class ImgWrapper extends React.Component {
-  component;
+  img;
   static propTypes = {
     img: PropTypes.object.isRequired,
     onLoad: PropTypes.func
   };
-
-  constructor(props) {
-    super(props);
-    if (!props.img.turn) {
-      this.component = <img onLoad={props.onLoad} src={props.img.src}></img>;
-    }
-    this.onLoad = this.onLoad.bind(this);
-  }
 
   componentDidMount() {
     if (this.props.img.turn) {
@@ -33,19 +25,18 @@ export default class ImgWrapper extends React.Component {
           orientation: true
         }
       );
-    }
-  }
-
-  onLoad() {
-    if (this.props.onLoad) {
-      this.props.onLoad();
+    } else {
+      this.img.onload = () => {
+        if (this.props.onLoad) this.props.onLoad();
+      };
+      this.img.src = this.props.img.src;
     }
   }
 
   render() {
     return (
       <div id={`canvas${this.props.img.id}`} className={`img-wrapper ${this.props.img.wide ? 'wide' : ''} `}>
-        {this.component}
+        <img ref={(el) => { this.img = el; }}></img>
       </div>
     );
   }
