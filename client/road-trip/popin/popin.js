@@ -171,8 +171,7 @@ export default class Popin extends React.Component {
           style={this.state.style}
           className={`popin ${this.clazz} doppleganger
             ${this.state.begin ? ' full-screen' : ' '}
-            ${this.state.end ? ' end' : ' '}
-          `}
+            ${this.state.end ? ' end' : ' '}`}
           onTransitionEnd={this.finishAnimation}
           ref={(el) => { this.doppleganger = el; }}
         >
