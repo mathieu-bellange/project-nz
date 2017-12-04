@@ -8,8 +8,8 @@ import Scenario from './scenario';
 import RoadTripCanvas from './canvas';
 import * as Boxes from './boxes';
 
-// BACKLOG initialiser le tutorial au lancement du premier road trip
-// BACKLOG ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point
+// BACKLOG initialiser le tutorial au lancement du premier road trip trello:#70
+// BACKLOG ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point trello:#73
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;
@@ -89,9 +89,8 @@ export default class RoadTrip extends React.Component {
       this.height * this.pixelRatio
     );
 
-    // DONE code mort
-    // BACKLOG récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario
-    // BACKLOG récupérer le bon scenario suivant le point de sauvegarde
+    // BACKLOG récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario trello:#73
+    // BACKLOG récupérer le bon scenario suivant le point de sauvegarde trello:#73
     this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject);
     this.scenario.launch(0);
   }

@@ -78,7 +78,6 @@ const OrientedVectors = [
   new OrientedVector('nh118-nh119', 747, 1036, 742, 1013)
 ];
 
-// DONE supprimer la création de coastline vide
 const buildCoastlines = pixelRatio => ([
   [
     new OrientedVector('nh54-nh55', 705, 498, 703, 498, pixelRatio),

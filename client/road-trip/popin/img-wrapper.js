@@ -20,8 +20,6 @@ export default class ImgWrapper extends React.Component {
     this.onLoad = this.onLoad.bind(this);
   }
 
-  // DONE supprimer les console.log
-  // DONE gestion des images alors que le document a été retiré par react
   componentDidMount() {
     if (this.props.img.turn) {
       loadImage(

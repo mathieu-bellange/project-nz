@@ -10,9 +10,7 @@ import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
-// BACKLOG ajouter un système de déplacement automatique trello:#20
-// DONE Refactorer le système d'actualPointSubject pour quelque chose de plus ramifié trello:#71
-// DONE subscribe les events de wheel uniquement après l'atterissage de l'avion
+// BACKLOG ajouter un système de déplacement automatique trello:#72
 // PLANNING stopper la route le temps que les popins chargent
 export default class FirstMonthScenario {
   canvas;
@@ -30,8 +28,6 @@ export default class FirstMonthScenario {
   wheelObservable = Observable.fromEvent(window, 'wheel')
     .filter(() => this.roadIsOn)
     .map(event => event.deltaY / Math.abs(event.deltaY));
-  // DONE refacto avec le nouveau système d'animation trello:#71
-  // DONE réflexion sur le merge avec animatedRoad
   declareAnimatedLine = (indexRoad, hideRoad) => {
     const road = this.ROADS[indexRoad];
     const observable = Observable.combineLatest(
@@ -64,8 +60,6 @@ export default class FirstMonthScenario {
       this.actualPointSubject.next(point);
     });
   };
-  // DONE affichage des boxes en retour
-  // DONE conserver l'affichage des boxes sur certaines routes
   declareSteps = (indexRoad, indexStep, showBegin, showEnd, keepShowing) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject
@@ -86,7 +80,6 @@ export default class FirstMonthScenario {
         }
       });
   };
-  // DONE supprimer les déclarations inutiles
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
     const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
       this.COASTLINES[indexCoastline].forEach((orientedVector) => {
@@ -96,8 +89,6 @@ export default class FirstMonthScenario {
       sub.unsubscribe();
     });
   };
-  // DONE corrigé l'affichage du van en fin de route
-  // DONE merge l'animation du van et du bateau
   declareAnimatedSVG = (indexRoad, svg, reverse, hideBegin, hideEnd) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject
@@ -117,7 +108,6 @@ export default class FirstMonthScenario {
 
   ROADS = [];
 
-  // DONE corriger tous le steps avec le nouveau système d'animation trello:#71
   steps = [
     // launch step
     () => {
@@ -255,8 +245,6 @@ export default class FirstMonthScenario {
       this.declareSteps(14, 12, false, false);
       this.declareSteps(15, 12, false, true);
     },
-    // DONE refacto pour rendre générique les retour trello:#71
-    // voir avec la refacto possible du actualPointSubject
     // Thirteenth step
     () => {
       this.declareAnimatedLine(16);
@@ -323,7 +311,6 @@ export default class FirstMonthScenario {
       this.declareSteps(30, 18, false, true, true);
       this.declareCoastlineGenerator(7, 18);
     },
-    // DONE ajouter le step 19 trello:#54
     // nineteenth step
     () => {
       this.declareAnimatedLine(31);
@@ -334,7 +321,6 @@ export default class FirstMonthScenario {
       this.declareSteps(32, 19, false, true);
       this.declareCoastlineGenerator(8, 19);
     },
-    // DONE ajouter le step 20 trello:#55
     // twentieth step
     () => {
       this.declareAnimatedLine(33);
@@ -350,7 +336,6 @@ export default class FirstMonthScenario {
       this.declareSteps(36, 20, false, true);
       this.declareCoastlineGenerator(9, 20);
     },
-    // DONE ajouter le step 21 trello:#56
     // twenty first step
     () => {
       this.declareAnimatedLine(37, true);
@@ -362,7 +347,6 @@ export default class FirstMonthScenario {
       this.declareSteps(38, 21, false, false);
       this.declareSteps(39, 21, false, true);
     },
-    // DONE ajouter le step 22 trello:#57
     // twenty second step
     () => {
       this.declareAnimatedLine(40);
@@ -372,7 +356,7 @@ export default class FirstMonthScenario {
       this.declareSteps(40, 22, true, false, true);
       this.declareSteps(41, 22, false, true, true);
     },
-    // DONE ajouter le step 23 trello:#58
+    // twenty third step
     () => {
       this.declareAnimatedLine(42);
       this.declareAnimatedLine(43);
@@ -384,7 +368,7 @@ export default class FirstMonthScenario {
       this.declareSteps(43, 23, false, false);
       this.declareSteps(44, 23, false, true);
     },
-    // DONE ajouter le step 24 trello:#59
+    // twenty fourth step
     () => {}
   ];
 
@@ -406,7 +390,7 @@ export default class FirstMonthScenario {
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
   }
 
-  // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param
+  // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
   launch(index) {
     this.index = index;
     this.steps.forEach(step => step());

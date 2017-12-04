@@ -1,10 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-
 import './nav.css';
 
-// DONE remonter tout en haut du DOM le menu de navigation
 export default class Nav extends React.Component {
   constructor() {
     super();

@@ -1,4 +1,3 @@
-// DONE offrir la posibilité de retourner le van
 export default class Van {
   svg;
   vanSize = {

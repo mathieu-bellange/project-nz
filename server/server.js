@@ -1,4 +1,4 @@
-// BACKLOG mise en place du serveur distribuant les images gzip, cache...
+// BACKLOG mise en place du serveur distribuant les images gzip, cache... trello:#74
 const express = require('express');
 
 const app = express();

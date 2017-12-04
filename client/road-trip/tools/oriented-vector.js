@@ -1,7 +1,5 @@
 import Coordinate from './coordinate';
 
-// DONE refacto le nom de la class
-// DONE suppression des méthodes inutiles
 export default class OrientedVector {
   id;
   begin: {};
