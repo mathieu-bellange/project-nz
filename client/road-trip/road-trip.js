@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import Scenario from './scenario';
 import RoadTripCanvas from './canvas';
 import * as Boxes from './boxes';
+import * as Popin from './popin';
 
 // BACKLOG initialiser le tutorial au lancement du premier road trip trello:#70
 // BACKLOG ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point trello:#73
@@ -99,16 +100,18 @@ export default class RoadTrip extends React.Component {
     this.initRaphael();
   }
 
-  // TODO remonter le composant popin
+  // DONE remonter le composant popin
   render() {
     return (
       <main id="roadTrip">
         <RoadTripCanvas
           canvasId={this.canvasId}
           canvasCenter={this.state.canvasCenter}
-          popinBoxes={this.state.boxes}
-          drawCircle={this.state.drawCircle}
         ></RoadTripCanvas>
+        <Popin.Wrapper
+          drawCircle={this.state.drawCircle}
+          popinBoxes={this.state.boxes}
+        ></Popin.Wrapper>
       </main>
     );
   }

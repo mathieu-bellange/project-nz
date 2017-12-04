@@ -2,14 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './canvas.css';
-import * as Popin from '../popin';
 
 export default class RoadTripCanvas extends React.Component {
   static propTypes = {
     canvasId: PropTypes.string.isRequired,
-    canvasCenter: PropTypes.object.isRequired,
-    drawCircle: PropTypes.bool,
-    popinBoxes: PropTypes.array
+    canvasCenter: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -41,10 +38,6 @@ export default class RoadTripCanvas extends React.Component {
           <div id={this.props.canvasId} style={this.state.canvasStyle}>
 
           </div>
-          <Popin.Wrapper
-            drawCircle={this.props.drawCircle}
-            popinBoxes={this.props.popinBoxes}
-          ></Popin.Wrapper>
         </div>
     );
   }
