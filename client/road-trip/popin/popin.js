@@ -10,6 +10,7 @@ import './popin.css';
 export default class Popin extends React.Component {
   elem;
   clazz;
+  doppleganger;
   animationState = {
     open: {
       begin: 'openBegin',
@@ -144,8 +145,14 @@ export default class Popin extends React.Component {
       end: false,
       fixedCloseIcon: false
     });
-    // PLANNING faire un scroll top moins brutal
-    this.doppleganger.scrollTo(0, 0);
+    // DONE faire un scroll top moins brutal
+    if (this.doppleganger.scroll) {
+      this.doppleganger.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
   }
 
   render() {
