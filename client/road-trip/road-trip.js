@@ -99,7 +99,7 @@ export default class RoadTrip extends React.Component {
     this.initRaphael();
   }
 
-  // PLANNING remonter le composant popin
+  // TODO remonter le composant popin
   render() {
     return (
       <main id="roadTrip">
