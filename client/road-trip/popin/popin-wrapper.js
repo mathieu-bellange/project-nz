@@ -4,13 +4,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Raphael from 'raphael';
 import { add, subtract } from 'mathjs';
 import isequal from 'lodash/isEqual';
+import { Observable } from 'rxjs/Observable';
 
 import './popin-wrapper.css';
 import Popin from './popin';
 import PopinText from './popin-text';
 import * as Boxes from '../boxes';
 
-// TODO redraw circle + lines sur un resize de window
+// DONE redraw circle + lines sur un resize de window
 export default class PopinWrapper extends React.Component {
   paper;
   center;
@@ -38,26 +39,13 @@ export default class PopinWrapper extends React.Component {
       {component}
     </div>;
   };
-
-  static propTypes = {
-    popinBoxes: PropTypes.array,
-    drawCircle: PropTypes.bool
-  };
-
-  constructor(props) {
-    super(props);
-    this.drawingLines = this.drawingLines.bind(this);
-    this.circleAnimation = this.circleAnimation.bind(this);
-    this.defineBeginPoint = this.defineBeginPoint.bind(this);
-    this.defineEndPoint = this.defineEndPoint.bind(this);
-  }
-
-  componentDidMount() {
+  defineMiddleComponent = () => {
     const container = document.getElementById('middle-container');
     this.containerSize = {
       width: container.clientWidth,
       height: container.clientHeight
     };
+    if (this.paper) this.paper.remove();
     this.paper = Raphael('middle-container', container.clientWidth, container.clientHeight);
     this.paper.customAttributes.arc = (centerX, centerY, startAngle, endAngle, arcEdge) => {
       const radians = Math.PI / 180;
@@ -81,6 +69,32 @@ export default class PopinWrapper extends React.Component {
       x: container.clientWidth / 2,
       y: container.clientHeight / 2
     };
+  }
+
+  static propTypes = {
+    popinBoxes: PropTypes.array,
+    drawCircle: PropTypes.bool
+  };
+
+  constructor(props) {
+    super(props);
+    this.drawingLines = this.drawingLines.bind(this);
+    this.circleAnimation = this.circleAnimation.bind(this);
+    this.defineBeginPoint = this.defineBeginPoint.bind(this);
+    this.defineEndPoint = this.defineEndPoint.bind(this);
+  }
+
+  componentDidMount() {
+    this.defineMiddleComponent();
+    Observable
+      .fromEvent(window, 'resize')
+      .subscribe(() => {
+        this.removeCircle();
+        this.defineMiddleComponent();
+        if (this.props.drawCircle) {
+          this.circleAnimation(0);
+        }
+      });
   }
 
   componentDidUpdate(prevProps) {
