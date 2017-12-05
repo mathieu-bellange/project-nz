@@ -2,6 +2,7 @@ import React from 'react';
 import Raphael from 'raphael';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import Scenario from './scenario';
@@ -18,6 +19,7 @@ export default class RoadTrip extends React.Component {
   canvasId = 'roadTrip-canvas';
   actualPointSubject;
   actualBoxesSubject;
+  onRoadAgainSubject;
   scenario;
 
   constructor(props) {
@@ -33,6 +35,7 @@ export default class RoadTrip extends React.Component {
     };
     this.actualPointSubject = new ReplaySubject(1);
     this.actualBoxesSubject = new Subject();
+    this.onRoadAgainSubject = new BehaviorSubject(false);
     const theOne = Observable.combineLatest(
       Observable
         .fromEvent(window, 'resize')
@@ -54,6 +57,7 @@ export default class RoadTrip extends React.Component {
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
     this.defineBoxes = this.defineBoxes.bind(this);
+    this.onRoadAgain = this.onRoadAgain.bind(this);
   }
 
   centerCanvas(actualPoint, windowSize) {
@@ -76,6 +80,10 @@ export default class RoadTrip extends React.Component {
     });
   }
 
+  onRoadAgain() {
+    this.onRoadAgainSubject.next(true);
+  }
+
   initRaphael() {
     // init Rapahael
     const canvas = Raphael(
@@ -92,7 +100,7 @@ export default class RoadTrip extends React.Component {
 
     // BACKLOG récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario trello:#73
     // BACKLOG récupérer le bon scenario suivant le point de sauvegarde trello:#73
-    this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject);
+    this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject);
     this.scenario.launch(0);
   }
 
@@ -111,6 +119,7 @@ export default class RoadTrip extends React.Component {
         <Popin.Wrapper
           drawCircle={this.state.drawCircle}
           popinBoxes={this.state.boxes}
+          onRoadAgain={this.onRoadAgain}
         ></Popin.Wrapper>
       </main>
     );

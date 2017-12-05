@@ -11,7 +11,7 @@ import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#72
-// PLANNING stopper la route le temps que les popins chargent
+// DONE stopper la route le temps que les popins chargent
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -21,13 +21,10 @@ export default class FirstMonthScenario {
   van;
   kapitiBoat;
   index;
-  roadIsOn = false;
   initPoint;
   airportPoint;
   actualRoadSubject;
-  wheelObservable = Observable.fromEvent(window, 'wheel')
-    .filter(() => this.roadIsOn)
-    .map(event => event.deltaY / Math.abs(event.deltaY));
+  wheelObservable;
   declareAnimatedLine = (indexRoad, hideRoad) => {
     const road = this.ROADS[indexRoad];
     const observable = Observable.combineLatest(
@@ -70,9 +67,11 @@ export default class FirstMonthScenario {
         if (road.begin.isEqual(point) && showBegin) {
           this.actualBoxesSubject.next(indexStep);
           this.nextStepSubject.next(indexStep);
+          this.onRoadAgainSubject.next(false);
         } else if (road.end.isEqual(point) && showEnd) {
           this.actualBoxesSubject.next(indexStep + 1);
           this.nextStepSubject.next(indexStep + 1);
+          this.onRoadAgainSubject.next(false);
         } else if (keepShowing) {
           this.actualBoxesSubject.next(indexStep);
         } else {
@@ -159,7 +158,6 @@ export default class FirstMonthScenario {
             this.actualPointSubject.next(point);
             if (this.airportPoint.isEqual(point)) {
               animatedLine.unsubscribe();
-              this.roadIsOn = true;
             }
           });
         this.actualBoxesSubject.next(3);
@@ -372,10 +370,11 @@ export default class FirstMonthScenario {
     () => {}
   ];
 
-  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject) {
+  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject) {
     this.canvas = canvas;
     this.actualPointSubject = actualPointSubject;
     this.actualBoxesSubject = actualBoxesSubject;
+    this.onRoadAgainSubject = onRoadAgainSubject;
     this.nextStepSubject = new Subject();
     this.airport = new Airport();
     this.airportPoint = new Coordinate(708, 502, pixelRatio);
@@ -388,6 +387,10 @@ export default class FirstMonthScenario {
     this.ROADS = buildRoads(pixelRatio);
     this.COASTLINES = buildCoastlines(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
+    this.wheelObservable = Observable.fromEvent(window, 'wheel')
+      .withLatestFrom(this.onRoadAgainSubject)
+      .filter(values => values[1])
+      .map(values => values[0].deltaY / Math.abs(values[0].deltaY));
   }
 
   // BACKLOG joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
