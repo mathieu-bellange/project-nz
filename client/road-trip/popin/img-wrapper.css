@@ -3,5 +3,5 @@
   padding: 4px
   max-height: calc(100% - 8px)
   img, canvas
-    max-width: 100%
+    width: 100%
     display: block
