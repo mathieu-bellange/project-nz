@@ -57,7 +57,6 @@ export default class RoadTrip extends React.Component {
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
     this.defineBoxes = this.defineBoxes.bind(this);
-    this.onRoadAgain = this.onRoadAgain.bind(this);
   }
 
   centerCanvas(actualPoint, windowSize) {
@@ -78,10 +77,6 @@ export default class RoadTrip extends React.Component {
       drawCircle: currentBox.circle,
       boxes: [...boxes]
     });
-  }
-
-  onRoadAgain() {
-    this.onRoadAgainSubject.next(true);
   }
 
   initRaphael() {
@@ -119,7 +114,6 @@ export default class RoadTrip extends React.Component {
         <Popin.Wrapper
           drawCircle={this.state.drawCircle}
           popinBoxes={this.state.boxes}
-          onRoadAgain={this.onRoadAgain}
         ></Popin.Wrapper>
       </main>
     );

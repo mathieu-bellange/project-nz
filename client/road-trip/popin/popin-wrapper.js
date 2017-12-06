@@ -73,8 +73,7 @@ export default class PopinWrapper extends React.Component {
 
   static propTypes = {
     popinBoxes: PropTypes.array,
-    drawCircle: PropTypes.bool,
-    onRoadAgain: PropTypes.func
+    drawCircle: PropTypes.bool
   };
 
   constructor(props) {
@@ -194,9 +193,7 @@ export default class PopinWrapper extends React.Component {
       this.animations.push(firstLine);
       this.animations.push(secondLine);
       firstLine.animate({ path: `M${line.begin.x} ${line.begin.y} L${line.firstStop.x} ${line.firstStop.y}` }, 1000, () => {
-        secondLine.animate({ path: `M${line.firstStop.x} ${line.firstStop.y} L${line.end.x} ${line.end.y}` }, 1000, () => {
-          this.props.onRoadAgain();
-        });
+        secondLine.animate({ path: `M${line.firstStop.x} ${line.firstStop.y} L${line.end.x} ${line.end.y}` }, 1000);
       });
     }, this);
   }

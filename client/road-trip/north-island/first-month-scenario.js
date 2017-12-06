@@ -68,10 +68,22 @@ export default class FirstMonthScenario {
           this.actualBoxesSubject.next(indexStep);
           this.nextStepSubject.next(indexStep);
           this.onRoadAgainSubject.next(false);
+          const sub = Observable.timer(1000)
+            .filter(value => value < 1)
+            .subscribe(() => {
+              this.onRoadAgainSubject.next(true);
+              sub.unsubscribe();
+            });
         } else if (road.end.isEqual(point) && showEnd) {
           this.actualBoxesSubject.next(indexStep + 1);
           this.nextStepSubject.next(indexStep + 1);
           this.onRoadAgainSubject.next(false);
+          const sub = Observable.timer(1000)
+            .filter(value => value < 1)
+            .subscribe(() => {
+              this.onRoadAgainSubject.next(true);
+              sub.unsubscribe();
+            });
         } else if (keepShowing) {
           this.actualBoxesSubject.next(indexStep);
         } else {
@@ -158,6 +170,7 @@ export default class FirstMonthScenario {
             this.actualPointSubject.next(point);
             if (this.airportPoint.isEqual(point)) {
               animatedLine.unsubscribe();
+              this.onRoadAgainSubject.next(true);
             }
           });
         this.actualBoxesSubject.next(3);
