@@ -11,7 +11,11 @@ import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
 // BACKLOG ajouter un système de déplacement automatique trello:#72
+// BACKLOG ajouter une liste de marker avec la position des villes principales trello:#76
+// BACKLOG ajouter avec la position des villes principales, leur nom trello:#76
+// BACKLOG ajouter avec les décors avoisinant la route trello:#77
 // DONE stopper la route le temps que les popins chargent
+// PLANNING voir pour utiliser l'event de défilement pour mobile comme pour le wheel sous desktop trello:#21
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
