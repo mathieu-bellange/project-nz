@@ -11,18 +11,18 @@
       display: inline-block
       vertical-align: top
       img
-        max-width: 100%
+        width: 100%
       &.about-us
         float: left
 
 @media (max-width: 980px)
   #about
     padding: 2.5em 0.5em
+    .container
+      .inner-container
+        width: calc(100% - 4em)
+        display: block
 
 @media (max-width: 640px)
   #about
     padding: 0
-    .container
-      .inner-container
-        width: auto
-        display: block
