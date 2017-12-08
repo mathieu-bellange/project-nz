@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Raphael from 'raphael';
-import { add, subtract } from 'mathjs';
 import isequal from 'lodash/isEqual';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,6 +9,13 @@ import './popin-wrapper.css';
 import Popin from './popin';
 import PopinText from './popin-text';
 import * as Boxes from '../boxes';
+
+function add(a1, a2) {
+  return a1 + a2;
+}
+function subtract(a1, a2) {
+  return a1 - a2;
+}
 
 // DONE redraw circle + lines sur un resize de window
 export default class PopinWrapper extends React.Component {

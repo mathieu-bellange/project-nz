@@ -1,5 +1,3 @@
-import { add, subtract, square, sqrt, ceil } from 'mathjs';
-
 export default class AnimatedLine {
   initLength;
   currentLength;
@@ -12,10 +10,9 @@ export default class AnimatedLine {
 
   constructor(line, delta, sensObservable) {
     this.line = line;
-    this.initLength = ceil(sqrt(add(
-      square(subtract(line.end.x, line.begin.x)),
-      square(subtract(line.end.y, line.begin.y))
-    )));
+    this.initLength = Math.ceil(Math.sqrt(
+      ((line.end.x - line.begin.x) ** 2) + ((line.end.y - line.begin.y) ** 2)
+    ));
     this.deltaX = (line.end.x - line.begin.x) / delta;
     this.deltaY = (line.end.y - line.begin.y) / delta;
     this.interval = this.initLength / delta;
