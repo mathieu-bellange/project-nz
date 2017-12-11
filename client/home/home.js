@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './home.css';
 
 // PLANNING revoir le positionnement des composants sous mobiles trello:#34
-// PLANNING revoir le positionnement de l'image de fond sous mobiles trello:#34
+// TODO revoir le positionnement de l'image de fond sous mobiles trello:#34
 export default class Home extends React.Component {
   render() {
     return (

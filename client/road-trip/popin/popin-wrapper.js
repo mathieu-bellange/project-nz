@@ -17,7 +17,6 @@ function subtract(a1, a2) {
   return a1 - a2;
 }
 
-// DONE redraw circle + lines sur un resize de window
 // PLANNING modifier l'affichage du wrapper sous mobile trello:#34
 export default class PopinWrapper extends React.Component {
   paper;

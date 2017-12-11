@@ -4,7 +4,6 @@ import loadImage from 'blueimp-load-image';
 
 import './img-wrapper.css';
 
-// DONE ajouter un chargement asynchrone des images
 // FIXME corriger l'orientation des images sous firefox trello:#78
 export default class ImgWrapper extends React.Component {
   img;

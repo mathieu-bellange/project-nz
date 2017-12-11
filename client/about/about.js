@@ -2,7 +2,6 @@ import React from 'react';
 
 import './about.css';
 
-// DONE Revoir l'affichage en double colonne sur des écrans plus importants trello:#34
 export default class About extends React.Component {
   render() {
     return (
