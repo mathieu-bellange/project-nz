@@ -43,7 +43,7 @@
           &.selected
             border-bottom: solid 0.07em #0093DE
 
-@media (max-width: 640px)
+@media (max-width: 1024px)
   #nav-wrapper
     transition: height 1s ease-in-out, background 1s ease-in-out
     height: 0%
@@ -68,15 +68,3 @@
             padding: 2em 3em
             a
               margin: 0
-@media (max-width: 980px)
-  #nav-wrapper
-    width: calc(100% - 1em)
-    padding: 0.5em
-    nav
-      #menu
-        #int
-          i
-            font-size: 1em
-          span
-            a
-              font-size: 1em
