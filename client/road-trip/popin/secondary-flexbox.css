@@ -10,3 +10,9 @@
         max-width: none
       &.down
         padding-top: 2px
+
+@media (max-width: 980px)
+  .secondary
+    width: 100%
+    & > div
+      justify-content: center
