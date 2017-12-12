@@ -7,8 +7,8 @@ import SecondaryFlexBox from './secondary-flexbox';
 import * as Boxes from '../boxes';
 import './popin.css';
 
-// PLANNING modifier l'affichage d'une popin sous mobile trello:#34
-// PLANNING afficher les photos sur une seule colone trello:#34
+// TODO modifier l'affichage d'une popin sous mobile trello:#34
+// DOING afficher les photos sur une seule colone trello:#34
 export default class Popin extends React.Component {
   elem;
   clazz;
