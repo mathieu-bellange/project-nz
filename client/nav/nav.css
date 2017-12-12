@@ -11,7 +11,9 @@
     width: 100%
     display: inline-block
     color: #FFFFFF
+    height: 0
     #menu
+      height: 0
       width: 100%
       white-space: nowrap
       display: inline-block
