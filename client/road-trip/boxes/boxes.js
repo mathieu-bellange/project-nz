@@ -33,6 +33,7 @@ const boxes = [
         id: 10,
         left: false,
         position: 1,
+        title: 'Airplane',
         pictures: [
           {
             id: 10,
@@ -113,6 +114,7 @@ const boxes = [
         id: 2,
         left: false,
         position: 2,
+        title: 'Singapour',
         pictures: [
           {
             id: 20,

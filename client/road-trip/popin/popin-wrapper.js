@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import './popin-wrapper.css';
 import Popin from './popin';
 import PopinText from './popin-text';
+import IconWrapper from './icon-wrapper';
 import * as Boxes from '../boxes';
 
 function add(a1, a2) {
@@ -17,7 +18,7 @@ function subtract(a1, a2) {
   return a1 - a2;
 }
 
-// TODO modifier l'affichage du wrapper sous mobile trello:#34
+// DONE modifier l'affichage du wrapper sous mobile trello:#34
 export default class PopinWrapper extends React.Component {
   paper;
   center;
@@ -45,13 +46,20 @@ export default class PopinWrapper extends React.Component {
       {component}
     </div>;
   };
+  mapIconsComponents = (box) => {
+    if (!box.type) return '';
+    return <div key={box.id} className="content">
+      <IconWrapper box={box}></IconWrapper>
+    </div>;
+  };
   defineMiddleComponent = () => {
+    if (this.paper) this.paper.remove();
+    if (window.innerWidth < 1024) return;
     const container = document.getElementById('middle-container');
     this.containerSize = {
       width: container.clientWidth,
       height: container.clientHeight
     };
-    if (this.paper) this.paper.remove();
     this.paper = Raphael('middle-container', container.clientWidth, container.clientHeight);
     this.paper.customAttributes.arc = (centerX, centerY, startAngle, endAngle, arcEdge) => {
       const radians = Math.PI / 180;
@@ -97,6 +105,7 @@ export default class PopinWrapper extends React.Component {
       .subscribe(() => {
         this.removeCircle();
         this.defineMiddleComponent();
+        this.forceUpdate();
         if (this.props.drawCircle) {
           this.circleAnimation(0);
         }
@@ -120,6 +129,7 @@ export default class PopinWrapper extends React.Component {
   }
 
   circleAnimation(x) {
+    if (window.innerWidth < 1024) return;
     if (x < 360) {
       const animatedCircle = this.paper.path().attr({ stroke: '#BEBCBC', 'stroke-width': 2, arc: [this.center.x, this.center.y, 0, x, 10] });
       const animRotation = Raphael.animation({ transform: `r5,${this.center.x},${this.center.y}` }, 1, () => {
@@ -214,13 +224,20 @@ export default class PopinWrapper extends React.Component {
               transitionLeaveTimeout={500}>
               {
                 this.props.popinBoxes
+                  .filter(() => window.innerWidth >= 1024)
                   .filter(popinBox => popinBox.left)
                   .map(this.mapPopinComponents)
                 }
               </ReactCSSTransitionGroup>
             </div>
           <div id="middle-container">
-
+            <div className="icons-wrapper">
+                {
+                  this.props.popinBoxes
+                    .filter(() => window.innerWidth < 1024)
+                    .map(this.mapIconsComponents)
+                }
+            </div>
           </div>
           <div id="right-container">
             <ReactCSSTransitionGroup
@@ -229,6 +246,7 @@ export default class PopinWrapper extends React.Component {
               transitionLeaveTimeout={500}>
               {
                 this.props.popinBoxes
+                  .filter(() => window.innerWidth >= 1024)
                   .filter(popinBox => !popinBox.left)
                   .map(this.mapPopinComponents)
               }
