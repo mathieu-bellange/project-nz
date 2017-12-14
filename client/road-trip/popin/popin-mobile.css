@@ -1,0 +1,22 @@
+.popin-mobile
+  display: none
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 1000
+  background-color: #fff
+  overflow-y: auto
+  &.txt
+    background-color: #bebcbc
+  &.show
+    display: block
+  i
+    right: 0
+    position: fixed
+    cursor: pointer
+    margin: 0.5em
+    font-size: 2em
+  .text-wrapper
+    padding: 4em

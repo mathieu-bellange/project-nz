@@ -1,0 +1,16 @@
+.icons-wrapper
+  display: none
+
+@media (max-width: 980px)
+  .icons-wrapper
+    height: 100%
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    .content
+      display: flex
+      height: calc(50% - 10em)
+      padding: 5em 0
+      align-items: center
+      justify-content: center
+      width: 50%

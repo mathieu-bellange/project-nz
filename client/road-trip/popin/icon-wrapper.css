@@ -9,3 +9,14 @@
     overflow-wrap: break-word
   img
     width: 100px
+
+@media (max-width: 680px)
+  .icon-wrapper
+    padding: 0.5em 1em
+    img
+      width: 70px
+
+@media (max-width: 480px)
+  .icon-wrapper
+    img
+      width: 50px

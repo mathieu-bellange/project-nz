@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import './popin-wrapper.css';
 import Popin from './popin';
 import PopinText from './popin-text';
-import IconWrapper from './icon-wrapper';
+import IconsWrapper from './icons-wrapper';
 import * as Boxes from '../boxes';
 
 function add(a1, a2) {
@@ -44,12 +44,6 @@ export default class PopinWrapper extends React.Component {
     }
     return <div key={box.id} className={`popin-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'}`}>
       {component}
-    </div>;
-  };
-  mapIconsComponents = (box) => {
-    if (!box.type) return '';
-    return <div key={box.id} className="content">
-      <IconWrapper box={box}></IconWrapper>
     </div>;
   };
   defineMiddleComponent = () => {
@@ -231,13 +225,9 @@ export default class PopinWrapper extends React.Component {
               </ReactCSSTransitionGroup>
             </div>
           <div id="middle-container">
-            <div className="icons-wrapper">
-                {
-                  this.props.popinBoxes
-                    .filter(() => window.innerWidth < 1024)
-                    .map(this.mapIconsComponents)
-                }
-            </div>
+            <IconsWrapper popinBoxes={this.props.popinBoxes
+              .filter(() => window.innerWidth < 1024)}>
+            </IconsWrapper>
           </div>
           <div id="right-container">
             <ReactCSSTransitionGroup

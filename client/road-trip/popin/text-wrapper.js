@@ -9,7 +9,7 @@ export default class ImgWrapper extends React.Component {
 
   render() {
     return (
-      <div className="text-wrapper">
+      <div id={this.props.box.id} className="text-wrapper">
         <h2>{this.props.box.title}</h2>
         <p>{this.props.box.text}</p>
       </div>
