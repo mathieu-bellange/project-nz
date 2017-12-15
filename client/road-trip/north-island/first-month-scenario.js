@@ -14,7 +14,7 @@ import buildCoastlines from './coastline-markers';
 // BACKLOG ajouter une liste de marker avec la position des villes principales trello:#76
 // BACKLOG ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
-// PLANNING voir pour utiliser l'event de défilement pour mobile comme pour le wheel sous desktop trello:#21
+// BACKLOG voir pour utiliser l'event de défilement pour mobile comme pour le wheel sous desktop trello:#21
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -26,6 +26,7 @@ export default class FirstMonthScenario {
   index;
   initPoint;
   airportPoint;
+  landingPoint;
   actualRoadSubject;
   wheelObservable;
   declareAnimatedLine = (indexRoad, hideRoad) => {
@@ -163,10 +164,7 @@ export default class FirstMonthScenario {
       );
       const sub = this.nextStepSubject.filter(step => step === 3).subscribe(() => {
         this.sky.stop();
-        this.airport.landing(this.canvas, {
-          x: this.airportPoint.x - (window.innerWidth / 2),
-          y: this.airportPoint.y + (window.innerHeight / 2)
-        });
+        this.airport.landing(this.canvas, this.landingPoint);
         animatedLine
           .animate()
           .subscribe((point) => {
@@ -393,13 +391,11 @@ export default class FirstMonthScenario {
     this.onRoadAgainSubject = onRoadAgainSubject;
     this.nextStepSubject = new Subject();
     this.airport = new Airport();
+    this.initPoint = new Coordinate(754, 476, pixelRatio);
     this.airportPoint = new Coordinate(708, 502, pixelRatio);
+    this.landingPoint = new Coordinate(675, 521, pixelRatio);
     this.van = new Van();
     this.kapitiBoat = new KapitiBoat();
-    this.initPoint = new Coordinate(
-      this.airportPoint.x + (window.innerWidth / 2),
-      this.airportPoint.y - (window.innerHeight / 2)
-    );
     this.ROADS = buildRoads(pixelRatio);
     this.COASTLINES = buildCoastlines(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);

@@ -55,6 +55,9 @@ export default class RoadTrip extends React.Component {
     Observable.fromEvent(window, 'keypress')
       .filter(event => event.keyCode === 13)
       .subscribe(() => self.scenario.nextStep());
+    if (window.innerWidth < 680) {
+      this.pixelRatio = 15;
+    }
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
     this.defineBoxes = this.defineBoxes.bind(this);

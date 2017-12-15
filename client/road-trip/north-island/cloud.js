@@ -4,6 +4,15 @@ export default class Cloud {
     h: 64
   };
 
+  constructor() {
+    if (window.innerWidth < 680) {
+      this.cloudSize = {
+        w: 125,
+        h: 48
+      };
+    }
+  }
+
   draw(canvas, position, sizeRatio, cloudIndexImg) {
     this.svg = canvas.image(`/images/nuage_${cloudIndexImg}.svg`, position.x - this.cloudSize.w, position.y, this.cloudSize.w * sizeRatio, this.cloudSize.h * sizeRatio);
   }

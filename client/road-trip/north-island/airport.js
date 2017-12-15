@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 
 import Airplane from './airplane';
 
-// TODO modifier les fonctions d'animations des nuages, atterrisage... sous petites résolutions trello:#34
+// DONE modifier les fonctions d'animations des nuages, atterrisage... sous petites résolutions trello:#34
 export default class Airport {
   runway;
   airplane;
@@ -17,13 +17,19 @@ export default class Airport {
     this.airplaneLandingSubject.subscribe(() => {
       this.removeRunway();
     });
+    if (window.innerWidth < 680) {
+      this.runwaySize = {
+        w: 334,
+        h: 64
+      };
+    }
     this.airplane = new Airplane(this.airplaneLandingSubject);
   }
 
   landing(canvas, position) {
-    this.runway = canvas.image('/images/runway.svg', position.x - this.runwaySize.w / 6, position.y - this.runwaySize.h, this.runwaySize.w, this.runwaySize.h);
+    this.runway = canvas.image('/images/runway.svg', position.x - (this.runwaySize.w / 2), position.y, this.runwaySize.w, this.runwaySize.h);
     this.airplane.stopAnimation();
-    this.airplane.landing();
+    this.airplane.landing(position);
   }
 
   fliing(canvas, position) {
