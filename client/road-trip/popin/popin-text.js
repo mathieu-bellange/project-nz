@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 import PrinFlexBox from './prin-flexbox';
 
-// DONE modifier l'affichage d'une popin sous mobile trello:#34
 export default class PopinText extends React.Component {
   elem;
   doppleganger;

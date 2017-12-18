@@ -2,7 +2,6 @@ import { Subject } from 'rxjs/Subject';
 
 import Airplane from './airplane';
 
-// DONE modifier les fonctions d'animations des nuages, atterrisage... sous petites résolutions trello:#34
 export default class Airport {
   runway;
   airplane;

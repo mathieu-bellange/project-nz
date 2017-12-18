@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 import './nav.css';
 
-// DONE modifier l'affichage du menu sous mobile pour ne pas afficher le menu en grand en mode paysage trello:#34
 export default class Nav extends React.Component {
   constructor() {
     super();

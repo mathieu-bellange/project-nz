@@ -10,7 +10,7 @@ import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
-// PLANNING ajouter un système de déplacement automatique trello:#72
+// TODO ajouter un système de déplacement automatique trello:#72
 // BACKLOG ajouter une liste de marker avec la position des villes principales trello:#76
 // BACKLOG ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
