@@ -3,9 +3,11 @@
   top: 0
   left: 0
   padding: 1em
-  width: calc(100%-2em)
   z-index: 1
+  transition: width 1s ease-in-out
+  width: 100px
   &.show
+    width: calc(100%-2em)
     z-index: 100
   nav
     width: 100%

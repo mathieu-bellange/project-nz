@@ -7,12 +7,13 @@ import { Observable } from 'rxjs/Observable';
 
 import Scenario from './scenario';
 import RoadTripCanvas from './canvas';
+import RoadController from './road-controller';
 import * as Boxes from './boxes';
 import * as Popin from './popin';
 
 // BACKLOG initialiser le tutorial au lancement du premier road trip trello:#70
 // PLANNING ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point trello:#73
-// TODO ajouter un composant permettant de lancer la route trello:#72
+// DONE ajouter un composant permettant de lancer la route trello:#72
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;
@@ -51,16 +52,14 @@ export default class RoadTrip extends React.Component {
     this.actualBoxesSubject.subscribe((id) => {
       self.defineBoxes(id);
     });
-    // NOTE Faut-il conserver le key press enter ?
-    Observable.fromEvent(window, 'keypress')
-      .filter(event => event.keyCode === 13)
-      .subscribe(() => self.scenario.nextStep());
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
     }
     this.centerCanvas = this.centerCanvas.bind(this);
     this.initRaphael = this.initRaphael.bind(this);
     this.defineBoxes = this.defineBoxes.bind(this);
+    this.onNextStep = this.onNextStep.bind(this);
+    this.onPreviousStep = this.onPreviousStep.bind(this);
   }
 
   centerCanvas(actualPoint, windowSize) {
@@ -107,6 +106,13 @@ export default class RoadTrip extends React.Component {
     this.initRaphael();
   }
 
+  onNextStep() {
+    this.scenario.nextStep();
+  }
+
+  onPreviousStep() {
+  }
+
   render() {
     return (
       <main id="roadTrip">
@@ -118,6 +124,12 @@ export default class RoadTrip extends React.Component {
           drawCircle={this.state.drawCircle}
           popinBoxes={this.state.boxes}
         ></Popin.Wrapper>
+        <RoadController
+          hasNext={true}
+          hasPrevious={false}
+          hasClickedNext={this.onNextStep}
+          hasClickedPrevious={this.onPreviousStep}
+        ></RoadController>
       </main>
     );
   }

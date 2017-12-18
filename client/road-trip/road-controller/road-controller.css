@@ -1,0 +1,26 @@
+.road-controller
+  position: absolute
+  top: 0
+  right: 0
+  text-align: end
+  z-index: 1
+  a
+    text-align: start
+    display: inline-block
+    cursor: pointer
+    padding: 0.75em 1em
+    border: 2px solid #000
+    background-color: rgb(255 255 255)
+    &.disabled
+      pointer-events: none
+      cursor: default
+      border-color: grey
+      color: grey
+    &.next
+      margin: 2em 2em 2em 0
+    &.previous
+      margin: 2em 0.5em 2em 2em
+    i
+      font-size: 1.5em
+    &.next i
+      padding-left: 1em
