@@ -3,19 +3,14 @@ export default class AnimatedLine {
   currentLength;
   line;
   path;
-  subject;
   sensObservable;
-  observable;
   sensSubscribe;
 
-  constructor(line, delta, sensObservable) {
+  constructor(line, sensObservable) {
     this.line = line;
     this.initLength = Math.ceil(Math.sqrt(
       ((line.end.x - line.begin.x) ** 2) + ((line.end.y - line.begin.y) ** 2)
     ));
-    this.deltaX = (line.end.x - line.begin.x) / delta;
-    this.deltaY = (line.end.y - line.begin.y) / delta;
-    this.interval = this.initLength / delta;
     this.sensObservable = sensObservable;
   }
 
@@ -28,7 +23,7 @@ export default class AnimatedLine {
   animate() {
     this.currentLength = this.initLength;
     this.sensObservable = this.sensObservable
-      .do((o) => { this.currentLength = this.currentLength + (o.sens * this.interval); })
+      .do((o) => { this.currentLength = this.currentLength + (o.sens * (this.initLength / o.interval)); })
       .do(() => {
         // permet l'animation de l'écran sans dessiner de ligne
         if (this.path) {
@@ -36,8 +31,8 @@ export default class AnimatedLine {
         }
       })
       .map(o => ({
-        x: o.currentPoint.x + (this.deltaX * o.sens),
-        y: o.currentPoint.y + (this.deltaY * o.sens)
+        x: o.currentPoint.x + (((this.line.end.x - this.line.begin.x) / o.interval) * o.sens),
+        y: o.currentPoint.y + (((this.line.end.y - this.line.begin.y) / o.interval) * o.sens)
       }));
     return this;
   }

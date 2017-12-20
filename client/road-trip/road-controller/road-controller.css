@@ -24,3 +24,10 @@
       font-size: 1.5em
     &.next i
       padding-left: 1em
+
+@media (max-width: 960px)
+  .road-controller
+    top: auto
+    bottom: 0
+    width: 100%
+    text-align: center

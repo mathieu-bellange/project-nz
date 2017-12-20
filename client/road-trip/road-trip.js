@@ -32,11 +32,15 @@ export default class RoadTrip extends React.Component {
         x: 0,
         y: 0
       },
+      hasNext: true,
+      hasPrevious: false,
       boxes: [],
       drawCircle: false
     };
     this.actualPointSubject = new ReplaySubject(1);
     this.actualBoxesSubject = new Subject();
+    this.hasNextSubject = new Subject();
+    this.hasPreviousSubject = new Subject();
     this.onRoadAgainSubject = new BehaviorSubject(false);
     const theOne = Observable.combineLatest(
       Observable
@@ -51,6 +55,12 @@ export default class RoadTrip extends React.Component {
     });
     this.actualBoxesSubject.subscribe((id) => {
       self.defineBoxes(id);
+    });
+    this.hasNextSubject.subscribe(value => {
+      this.setState({ hasNext: value });
+    });
+    this.hasPreviousSubject.subscribe(value => {
+      this.setState({ hasPrevious: value });
     });
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
@@ -98,7 +108,7 @@ export default class RoadTrip extends React.Component {
 
     // PLANNING récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario trello:#73
     // PLANNING récupérer le bon scenario suivant le point de sauvegarde trello:#73
-    this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject);
+    this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject, this.hasPreviousSubject, this.hasNextSubject);
     this.scenario.launch(0);
   }
 
@@ -111,6 +121,7 @@ export default class RoadTrip extends React.Component {
   }
 
   onPreviousStep() {
+    this.scenario.previousStep();
   }
 
   render() {
@@ -125,8 +136,8 @@ export default class RoadTrip extends React.Component {
           popinBoxes={this.state.boxes}
         ></Popin.Wrapper>
         <RoadController
-          hasNext={true}
-          hasPrevious={false}
+          hasNext={this.state.hasNext}
+          hasPrevious={this.state.hasPrevious}
           hasClickedNext={this.onNextStep}
           hasClickedPrevious={this.onPreviousStep}
         ></RoadController>

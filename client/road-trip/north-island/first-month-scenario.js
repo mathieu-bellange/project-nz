@@ -10,7 +10,7 @@ import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
-// DOING ajouter un système de déplacement automatique trello:#72
+// DONE ajouter un système de déplacement automatique trello:#72
 // BACKLOG ajouter une liste de marker avec la position des villes principales trello:#76
 // BACKLOG ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
@@ -30,16 +30,19 @@ export default class FirstMonthScenario {
   landingPoint;
   actualRoadSubject;
   wheelObservable;
-  declareAnimatedLine = (indexRoad, hideRoad) => {
+  automatedObservable;
+  airplaneObservable;
+  declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
     const road = this.ROADS[indexRoad];
     const observable = Observable.combineLatest(
-      this.wheelObservable,
+      this.automatedObservable,
       this.actualRoadSubject
     ).withLatestFrom(this.actualPointSubject)
       .map(values => ({
-        sens: values[0][0],
+        sens: values[0][0].sens,
         currentPoint: values[1],
-        roadId: values[0][1]
+        roadId: values[0][1],
+        interval: values[0][0].interval
       }))
       .filter(o => o.roadId === road.id)
       .do((o) => {
@@ -52,13 +55,16 @@ export default class FirstMonthScenario {
       })
       .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
         (o.sens === -1 && !road.begin.isEqual(o.currentPoint)))
-      .debounceTime(20);
-    let animatedLine = new AnimatedLine(road, 5, observable);
+      .debounceTime(5);
+    let animatedLine = new AnimatedLine(road, observable);
     if (!hideRoad) {
       animatedLine = animatedLine.draw(this.canvas);
     }
     animatedLine.animate();
     animatedLine.subscribe((point) => {
+      if ((road.begin.isEqual(point) && showBegin) || (road.end.isEqual(point) && showEnd)) {
+        this.automatedRoadOn = false;
+      }
       this.actualPointSubject.next(point);
     });
   };
@@ -152,16 +158,9 @@ export default class FirstMonthScenario {
     },
     // third step
     () => {
-      const sensObservable = Observable.combineLatest(
-        Observable.of(1),
-        this.actualPointSubject
-      ).map(values => ({
-        sens: 1,
-        currentPoint: values[1]
-      })).delay(5);
       const animatedLine = new AnimatedLine(
         new OrientedVector('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y),
-        400, sensObservable
+        this.airplaneObservable
       );
       const sub = this.nextStepSubject.filter(step => step === 3).subscribe(() => {
         this.sky.stop();
@@ -181,28 +180,28 @@ export default class FirstMonthScenario {
     },
     // fourth step
     () => {
-      this.declareAnimatedLine(0);
+      this.declareAnimatedLine(0, true, true);
       this.declareSteps(0, 4, true, true);
       this.declareCoastlineGenerator(0, 4);
     },
     // fifth step
     () => {
-      this.declareAnimatedLine(1);
+      this.declareAnimatedLine(1, true, true);
       this.declareAnimatedSVG(1, this.van, false, true, true);
       this.declareSteps(1, 5, true, true);
       this.declareCoastlineGenerator(1, 5);
     },
     // sixth step
     () => {
-      this.declareAnimatedLine(2);
+      this.declareAnimatedLine(2, true, true);
       this.declareAnimatedSVG(2, this.van, false, true, false);
       this.declareSteps(2, 6, true, true);
       this.declareCoastlineGenerator(2, 6);
     },
     // Seventh step
     () => {
-      this.declareAnimatedLine(3);
-      this.declareAnimatedLine(4);
+      this.declareAnimatedLine(3, true, false);
+      this.declareAnimatedLine(4, false, true);
       this.declareAnimatedSVG(3, this.van, false, false, false);
       this.declareAnimatedSVG(4, this.van, false, false, true);
       this.declareSteps(3, 7, true, false, true);
@@ -211,8 +210,8 @@ export default class FirstMonthScenario {
     },
     // Eigth step
     () => {
-      this.declareAnimatedLine(5);
-      this.declareAnimatedLine(6);
+      this.declareAnimatedLine(5, true, false);
+      this.declareAnimatedLine(6, false, true);
       this.declareAnimatedSVG(5, this.van, false, true, false);
       this.declareAnimatedSVG(6, this.van, false, false, true);
       this.declareSteps(5, 8, true, false);
@@ -220,9 +219,9 @@ export default class FirstMonthScenario {
     },
     // ninth step
     () => {
-      this.declareAnimatedLine(7);
-      this.declareAnimatedLine(8);
-      this.declareAnimatedLine(9);
+      this.declareAnimatedLine(7, true, false);
+      this.declareAnimatedLine(8, false, false);
+      this.declareAnimatedLine(9, false, true);
       this.declareAnimatedSVG(7, this.van, true, true, false);
       this.declareAnimatedSVG(8, this.van, true, false, false);
       this.declareAnimatedSVG(9, this.van, true, false, true);
@@ -233,8 +232,8 @@ export default class FirstMonthScenario {
     },
     // tenth step
     () => {
-      this.declareAnimatedLine(10);
-      this.declareAnimatedLine(11);
+      this.declareAnimatedLine(10, true, false);
+      this.declareAnimatedLine(11, false, true);
       this.declareAnimatedSVG(10, this.van, true, true, false);
       this.declareAnimatedSVG(11, this.van, true, false, true);
       this.declareSteps(10, 10, true, false);
@@ -242,15 +241,15 @@ export default class FirstMonthScenario {
     },
     // eleventh step
     () => {
-      this.declareAnimatedLine(12);
+      this.declareAnimatedLine(12, true, true);
       this.declareAnimatedSVG(12, this.van, true, true, true);
       this.declareSteps(12, 11, true, true);
     },
     // twelveth step
     () => {
-      this.declareAnimatedLine(13);
-      this.declareAnimatedLine(14);
-      this.declareAnimatedLine(15);
+      this.declareAnimatedLine(13, true, false);
+      this.declareAnimatedLine(14, false, false);
+      this.declareAnimatedLine(15, false, true);
       this.declareAnimatedSVG(13, this.van, true, true, false);
       this.declareAnimatedSVG(14, this.van, true, false, false);
       this.declareAnimatedSVG(15, this.van, true, false, true);
@@ -260,10 +259,10 @@ export default class FirstMonthScenario {
     },
     // Thirteenth step
     () => {
-      this.declareAnimatedLine(16);
-      this.declareAnimatedLine(17);
-      this.declareAnimatedLine(18);
-      this.declareAnimatedLine(19);
+      this.declareAnimatedLine(16, true, false);
+      this.declareAnimatedLine(17, false, false);
+      this.declareAnimatedLine(18, false, false);
+      this.declareAnimatedLine(19, false, true);
       this.declareAnimatedSVG(16, this.van, false, true, false);
       this.declareAnimatedSVG(17, this.van, false, false, false);
       this.declareAnimatedSVG(18, this.van, false, false, false);
@@ -275,8 +274,8 @@ export default class FirstMonthScenario {
     },
     // Fourteenth step
     () => {
-      this.declareAnimatedLine(20);
-      this.declareAnimatedLine(21);
+      this.declareAnimatedLine(20, true, false);
+      this.declareAnimatedLine(21, false, true);
       this.declareAnimatedSVG(20, this.van, true, false, false);
       this.declareAnimatedSVG(21, this.van, true, false, true);
       this.declareSteps(20, 14, true, false, true);
@@ -284,8 +283,8 @@ export default class FirstMonthScenario {
     },
     // fifteenth step
     () => {
-      this.declareAnimatedLine(22);
-      this.declareAnimatedLine(23);
+      this.declareAnimatedLine(22, true, false);
+      this.declareAnimatedLine(23, false, true);
       this.declareAnimatedSVG(22, this.van, false, true, false);
       this.declareAnimatedSVG(23, this.van, false, false, true);
       this.declareSteps(22, 15, true, false);
@@ -294,9 +293,9 @@ export default class FirstMonthScenario {
     },
     // sixteenth step
     () => {
-      this.declareAnimatedLine(24);
-      this.declareAnimatedLine(25);
-      this.declareAnimatedLine(26);
+      this.declareAnimatedLine(24, true, false);
+      this.declareAnimatedLine(25, false, false);
+      this.declareAnimatedLine(26, false, true);
       this.declareAnimatedSVG(24, this.van, true, true, false);
       this.declareAnimatedSVG(25, this.van, true, false, false);
       this.declareAnimatedSVG(26, this.van, true, false, true);
@@ -307,8 +306,8 @@ export default class FirstMonthScenario {
     },
     // seventeenth step
     () => {
-      this.declareAnimatedLine(27);
-      this.declareAnimatedLine(28);
+      this.declareAnimatedLine(27, true, false);
+      this.declareAnimatedLine(28, false, true);
       this.declareAnimatedSVG(27, this.van, false, true, false);
       this.declareAnimatedSVG(28, this.van, true, false, false);
       this.declareSteps(27, 17, true, false);
@@ -316,8 +315,8 @@ export default class FirstMonthScenario {
     },
     // eighteenth step
     () => {
-      this.declareAnimatedLine(29);
-      this.declareAnimatedLine(30);
+      this.declareAnimatedLine(29, true, false);
+      this.declareAnimatedLine(30, false, true);
       this.declareAnimatedSVG(29, this.van, true, false, false);
       this.declareAnimatedSVG(30, this.van, true, false, true);
       this.declareSteps(29, 18, true, false, true);
@@ -326,8 +325,8 @@ export default class FirstMonthScenario {
     },
     // nineteenth step
     () => {
-      this.declareAnimatedLine(31);
-      this.declareAnimatedLine(32);
+      this.declareAnimatedLine(31, true, false);
+      this.declareAnimatedLine(32, false, true);
       this.declareAnimatedSVG(31, this.van, true, true, false);
       this.declareAnimatedSVG(32, this.van, true, false, true);
       this.declareSteps(31, 19, true, false);
@@ -336,10 +335,10 @@ export default class FirstMonthScenario {
     },
     // twentieth step
     () => {
-      this.declareAnimatedLine(33);
-      this.declareAnimatedLine(34);
-      this.declareAnimatedLine(35);
-      this.declareAnimatedLine(36, true);
+      this.declareAnimatedLine(33, true, false);
+      this.declareAnimatedLine(34, false, false);
+      this.declareAnimatedLine(35, false, false);
+      this.declareAnimatedLine(36, false, true, true);
       this.declareAnimatedSVG(33, this.van, false, true, false);
       this.declareAnimatedSVG(34, this.van, false, false, true);
       this.declareAnimatedSVG(36, this.kapitiBoat, false, true, true);
@@ -351,9 +350,9 @@ export default class FirstMonthScenario {
     },
     // twenty first step
     () => {
-      this.declareAnimatedLine(37, true);
-      this.declareAnimatedLine(38);
-      this.declareAnimatedLine(39);
+      this.declareAnimatedLine(37, true, false, true);
+      this.declareAnimatedLine(38, false, false);
+      this.declareAnimatedLine(39, false, true);
       this.declareAnimatedSVG(37, this.kapitiBoat, true, true, true);
       this.declareAnimatedSVG(39, this.van, false, true, false);
       this.declareSteps(37, 21, true, false);
@@ -362,8 +361,8 @@ export default class FirstMonthScenario {
     },
     // twenty second step
     () => {
-      this.declareAnimatedLine(40);
-      this.declareAnimatedLine(41);
+      this.declareAnimatedLine(40, true, false);
+      this.declareAnimatedLine(41, false, true);
       this.declareAnimatedSVG(40, this.van, false, false, false);
       this.declareAnimatedSVG(41, this.van, false, false, true);
       this.declareSteps(40, 22, true, false, true);
@@ -371,9 +370,9 @@ export default class FirstMonthScenario {
     },
     // twenty third step
     () => {
-      this.declareAnimatedLine(42);
-      this.declareAnimatedLine(43);
-      this.declareAnimatedLine(44);
+      this.declareAnimatedLine(42, true, false);
+      this.declareAnimatedLine(43, false, false);
+      this.declareAnimatedLine(44, false, true);
       this.declareAnimatedSVG(42, this.van, true, true, false);
       this.declareAnimatedSVG(43, this.van, true, false, false);
       this.declareAnimatedSVG(44, this.van, true, false, true);
@@ -385,11 +384,13 @@ export default class FirstMonthScenario {
     () => {}
   ];
 
-  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject) {
+  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject) {
     this.canvas = canvas;
     this.actualPointSubject = actualPointSubject;
     this.actualBoxesSubject = actualBoxesSubject;
     this.onRoadAgainSubject = onRoadAgainSubject;
+    this.hasPreviousSubject = hasPreviousSubject;
+    this.hasNextSubject = hasNextSubject;
     this.nextStepSubject = new Subject();
     this.airport = new Airport();
     this.initPoint = new Coordinate(754, 476, pixelRatio);
@@ -404,6 +405,27 @@ export default class FirstMonthScenario {
       .withLatestFrom(this.onRoadAgainSubject)
       .filter(values => values[1])
       .map(values => values[0].deltaY / Math.abs(values[0].deltaY));
+    this.airplaneObservable = Observable.combineLatest(
+      Observable.of({ sens: 1, interval: 320 }),
+      this.actualPointSubject
+    ).map(values => ({
+      sens: values[0].sens,
+      currentPoint: values[1],
+      interval: values[0].interval
+    })).delay(5);
+    this.launchAutomatedSubject = new Subject();
+    this.automatedObservable = Observable.combineLatest(
+      this.launchAutomatedSubject,
+      this.actualPointSubject
+    ).filter(() => this.automatedRoadOn)
+      .map(values => ({
+        sens: values[0].sens,
+        interval: values[0].interval
+      })).delay(5);
+    this.nextStepSubject.subscribe((step) => {
+      this.hasPreviousSubject.next(step > 4);
+      this.hasNextSubject.next(step < 43);
+    });
   }
 
   // PLANNING joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
@@ -415,6 +437,19 @@ export default class FirstMonthScenario {
 
   nextStep() {
     this.index += 1;
-    this.nextStepSubject.next(this.index);
+    if (this.index < 4) {
+      this.nextStepSubject.next(this.index);
+    } else {
+      this.automatedRoadOn = true;
+      this.launchAutomatedSubject.next({ sens: 1, interval: 320 });
+    }
+  }
+
+  previousStep() {
+    this.index -= 1;
+    if (this.index >= 3) {
+      this.automatedRoadOn = true;
+      this.launchAutomatedSubject.next({ sens: -1, interval: 320 });
+    }
   }
 }

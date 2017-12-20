@@ -16,7 +16,6 @@ export default class Coordinate {
    * @return {Boolean}       vrai si égale, faux sinon
    */
   isEqual(point) {
-    return (this.x - 1 <= point.x && point.x <= this.x + 1) &&
-      (this.y - 1 <= point.y && point.y <= this.y + 1);
+    return this.x === point.x && this.y === point.y;
   }
 }

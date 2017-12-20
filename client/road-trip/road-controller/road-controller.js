@@ -18,6 +18,10 @@ export default class RoadController extends React.Component {
       .filter(event => event.keyCode === 13)
       .filter(() => this.props.hasNext)
       .subscribe(() => this.props.hasClickedNext());
+    Observable.fromEvent(window, 'keydown')
+      .filter(event => event.keyCode === 8)
+      .filter(() => this.props.hasPrevious)
+      .subscribe(() => this.props.hasClickedPrevious());
   }
 
   render() {
