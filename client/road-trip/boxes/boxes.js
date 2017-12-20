@@ -1,5 +1,142 @@
 import TypeBox from './type-box';
 
+const boxAirplaneTxt = {
+  id: 0,
+  left: true,
+  title: 'Road To Nz',
+  text: 'first text',
+  type: TypeBox.Text
+};
+const boxAirplaneImg = {
+  id: 10,
+  left: false,
+  position: 1,
+  title: 'Airplane',
+  pictures: [
+    {
+      id: 10,
+      prin: {
+        id: 100,
+        src: '/images/airplane/01.jpg'
+      },
+      secondary: {
+        sources: [
+          [
+            {
+              id: 101,
+              src: '/images/airplane/02.jpg',
+              wide: false
+            },
+            {
+              id: 102,
+              src: '/images/airplane/03.jpg',
+              wide: false
+            }
+          ],
+          [
+            {
+              id: 103,
+              src: '/images/airplane/04.jpg',
+              wide: false
+            },
+            {
+              id: 104,
+              src: '/images/airplane/05.jpg',
+              wide: false
+            }
+          ]
+        ]
+      }
+    },
+    {
+      id: 11,
+      prin: {
+        id: 105,
+        src: '/images/airplane/06.jpg'
+      },
+      secondary: {
+        sources: [
+          [
+            {
+              id: 106,
+              src: '/images/airplane/07.jpg',
+              wide: false,
+              turn: true
+            },
+            {
+              id: 107,
+              src: '/images/airplane/08.jpg',
+              wide: false,
+              turn: true
+            }
+          ],
+          []
+        ]
+      }
+    }
+  ],
+  type: TypeBox.Picture
+};
+
+const boxAirplaneMixed = {
+  id: 20,
+  left: false,
+  position: 2,
+  title: 'Singapour',
+  pictures: [
+    {
+      id: 20,
+      prin: {
+        id: 200,
+        title: 'Singapour',
+        text: 'un texte sur singapour'
+      },
+      secondary: {
+        sources: [
+          [
+            {
+              id: 201,
+              src: '/images/singapour/01.jpg',
+              wide: false
+            },
+            {
+              id: 202,
+              src: '/images/singapour/02.jpg',
+              wide: false
+            }
+          ],
+          []
+        ]
+      }
+    },
+    {
+      id: 21,
+      prin: {
+        id: 203,
+        src: '/images/singapour/03.jpg'
+      },
+      secondary: {
+        sources: [
+          [
+            {
+              id: 204,
+              src: '/images/singapour/04.jpg',
+              turn: true
+            },
+            {
+              id: 205,
+              src: '/images/singapour/05.jpg',
+              turn: true
+            }
+          ],
+          []
+        ]
+      }
+    }
+  ],
+  type: TypeBox.Mixed
+};
+
 const boxes = [
   // between step
   {
@@ -14,91 +151,17 @@ const boxes = [
     circle: false,
     keepPrevious: false,
     boxes: [
-      {
-        id: 0,
-        left: true,
-        title: 'Road To Nz',
-        text: 'first text',
-        type: TypeBox.Text
-      }
+      boxAirplaneTxt
     ]
   },
   // firstStep
   {
     id: 1,
     circle: false,
-    keepPrevious: true,
+    keepPrevious: false,
     boxes: [
-      {
-        id: 10,
-        left: false,
-        position: 1,
-        title: 'Airplane',
-        pictures: [
-          {
-            id: 10,
-            prin: {
-              id: 100,
-              src: '/images/airplane/01.jpg'
-            },
-            secondary: {
-              sources: [
-                [
-                  {
-                    id: 101,
-                    src: '/images/airplane/02.jpg',
-                    wide: false
-                  },
-                  {
-                    id: 102,
-                    src: '/images/airplane/03.jpg',
-                    wide: false
-                  }
-                ],
-                [
-                  {
-                    id: 103,
-                    src: '/images/airplane/04.jpg',
-                    wide: false
-                  },
-                  {
-                    id: 104,
-                    src: '/images/airplane/05.jpg',
-                    wide: false
-                  }
-                ]
-              ]
-            }
-          },
-          {
-            id: 11,
-            prin: {
-              id: 105,
-              src: '/images/airplane/06.jpg'
-            },
-            secondary: {
-              sources: [
-                [
-                  {
-                    id: 106,
-                    src: '/images/airplane/07.jpg',
-                    wide: false,
-                    turn: true
-                  },
-                  {
-                    id: 107,
-                    src: '/images/airplane/08.jpg',
-                    wide: false,
-                    turn: true
-                  }
-                ],
-                []
-              ]
-            }
-          }
-        ],
-        type: TypeBox.Picture
-      },
+      boxAirplaneTxt,
+      boxAirplaneImg,
       {
         id: 2,
         position: 2,
@@ -110,66 +173,11 @@ const boxes = [
   {
     id: 2,
     circle: false,
-    keepPrevious: true,
+    keepPrevious: false,
     boxes: [
-      {
-        id: 20,
-        left: false,
-        position: 2,
-        title: 'Singapour',
-        pictures: [
-          {
-            id: 20,
-            prin: {
-              id: 200,
-              title: 'Singapour',
-              text: 'un texte sur singapour'
-            },
-            secondary: {
-              sources: [
-                [
-                  {
-                    id: 201,
-                    src: '/images/singapour/01.jpg',
-                    wide: false
-                  },
-                  {
-                    id: 202,
-                    src: '/images/singapour/02.jpg',
-                    wide: false
-                  }
-                ],
-                []
-              ]
-            }
-          },
-          {
-            id: 21,
-            prin: {
-              id: 203,
-              src: '/images/singapour/03.jpg'
-            },
-            secondary: {
-              sources: [
-                [
-                  {
-                    id: 204,
-                    src: '/images/singapour/04.jpg',
-                    turn: true
-                  },
-                  {
-                    id: 205,
-                    src: '/images/singapour/05.jpg',
-                    turn: true
-                  }
-                ],
-                []
-              ]
-            }
-          }
-        ],
-        type: TypeBox.Mixed
-      }
+      boxAirplaneTxt,
+      boxAirplaneImg,
+      boxAirplaneMixed
     ]
   },
   // thirdStep

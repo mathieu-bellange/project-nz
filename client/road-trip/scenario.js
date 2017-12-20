@@ -18,7 +18,7 @@ export default class Scenario {
       .launch(this.scenarioService.getCurrentStep());
   }
 
-  // DOING sauvegarde du step courrant trello:#73
+  // DONE sauvegarde du step courrant trello:#73
   nextStep() {
     const currentStep = this.listScenario[this.scenarioService.getCurrentScenario()].nextStep();
     this.scenarioService.saveCurrentStep(currentStep);

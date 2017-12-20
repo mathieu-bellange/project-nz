@@ -7,7 +7,8 @@ export default class ScenarioService {
   }
 
   getCurrentScenario() {
-    return localStorage.getItem(this.CURRENT_SCENARIO_TOKEN) || 0;
+    const indexScenario = localStorage.getItem(this.CURRENT_SCENARIO_TOKEN) || 0;
+    return Number(indexScenario);
   }
 
   saveCurrentStep(indexStep) {
@@ -15,6 +16,7 @@ export default class ScenarioService {
   }
 
   getCurrentStep() {
-    return localStorage.getItem(this.CURRENT_STEP_TOKEN) || 0;
+    const indexStep = localStorage.getItem(this.CURRENT_STEP_TOKEN) || 0;
+    return Number(indexStep);
   }
 }

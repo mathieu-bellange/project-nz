@@ -45,7 +45,8 @@ const buildRoads = pixelRatio => ([
   new Road('rnh33-rnh34', 738, 976, 741, 974, pixelRatio),
   new Road('rnh34-rnh33', 741, 974, 738, 976, pixelRatio),
   new Road('rnh33-rnh35', 738, 976, 712, 991, pixelRatio),
-  new Road('rnh35-rnh36', 712, 991, 713, 994, pixelRatio)
+  new Road('rnh35-rnh36', 712, 991, 713, 994, pixelRatio),
+  new Road('rnh36-rnh36', 713, 994, 713, 994, pixelRatio)
 ]);
 
 export default buildRoads;

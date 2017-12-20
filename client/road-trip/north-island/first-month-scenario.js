@@ -32,6 +32,11 @@ export default class FirstMonthScenario {
   wheelObservable;
   automatedObservable;
   airplaneObservable;
+  landingFunction = () => {
+    this.onRoadAgainSubject.next(true);
+    this.actualBoxesSubject.next(3);
+    this.actualPointSubject.next(this.airportPoint);
+  };
   declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
     const road = this.ROADS[indexRoad];
     const observable = Observable.combineLatest(
@@ -62,6 +67,9 @@ export default class FirstMonthScenario {
     }
     animatedLine.animate();
     animatedLine.subscribe((point) => {
+      if (this.stoppingStep && this.stoppingStep.isEqual(point)) {
+        this.automatedRoadAlwaysOn = false;
+      }
       if ((road.begin.isEqual(point) && showBegin) || (road.end.isEqual(point) && showEnd)) {
         this.automatedRoadOn = false;
       }
@@ -73,6 +81,7 @@ export default class FirstMonthScenario {
     this.actualPointSubject
       .withLatestFrom(this.actualRoadSubject)
       .filter(values => values[1] === road.id)
+      .filter(() => !this.automatedRoadAlwaysOn)
       .map(values => values[0])
       .subscribe((point) => {
         if (road.begin.isEqual(point) && showBegin) {
@@ -130,6 +139,8 @@ export default class FirstMonthScenario {
 
   ROADS = [];
 
+  ROADS_BEGIN_BY_STEP = [];
+
   steps = [
     // launch step
     () => {
@@ -170,11 +181,11 @@ export default class FirstMonthScenario {
           .subscribe((point) => {
             this.actualPointSubject.next(point);
             if (this.airportPoint.isEqual(point)) {
+              // TODO sauver le next step (4) trello:#73
               animatedLine.unsubscribe();
-              this.onRoadAgainSubject.next(true);
+              this.landingFunction();
             }
           });
-        this.actualBoxesSubject.next(3);
         sub.unsubscribe();
       });
     },
@@ -182,6 +193,7 @@ export default class FirstMonthScenario {
     () => {
       this.declareAnimatedLine(0, true, true);
       this.declareSteps(0, 4, true, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[0].begin);
       this.declareCoastlineGenerator(0, 4);
     },
     // fifth step
@@ -189,6 +201,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(1, true, true);
       this.declareAnimatedSVG(1, this.van, false, true, true);
       this.declareSteps(1, 5, true, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[1].begin);
       this.declareCoastlineGenerator(1, 5);
     },
     // sixth step
@@ -196,6 +209,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedLine(2, true, true);
       this.declareAnimatedSVG(2, this.van, false, true, false);
       this.declareSteps(2, 6, true, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[2].begin);
       this.declareCoastlineGenerator(2, 6);
     },
     // Seventh step
@@ -206,6 +220,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(4, this.van, false, false, true);
       this.declareSteps(3, 7, true, false, true);
       this.declareSteps(4, 7, false, true, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[3].begin);
       this.declareCoastlineGenerator(3, 7);
     },
     // Eigth step
@@ -216,6 +231,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(6, this.van, false, false, true);
       this.declareSteps(5, 8, true, false);
       this.declareSteps(6, 8, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[5].begin);
     },
     // ninth step
     () => {
@@ -228,6 +244,7 @@ export default class FirstMonthScenario {
       this.declareSteps(7, 9, true, false);
       this.declareSteps(8, 9, false, false);
       this.declareSteps(9, 9, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[7].begin);
       this.declareCoastlineGenerator(4, 9);
     },
     // tenth step
@@ -238,12 +255,14 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(11, this.van, true, false, true);
       this.declareSteps(10, 10, true, false);
       this.declareSteps(11, 10, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[10].begin);
     },
     // eleventh step
     () => {
       this.declareAnimatedLine(12, true, true);
       this.declareAnimatedSVG(12, this.van, true, true, true);
       this.declareSteps(12, 11, true, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[12].begin);
     },
     // twelveth step
     () => {
@@ -256,6 +275,7 @@ export default class FirstMonthScenario {
       this.declareSteps(13, 12, true, false);
       this.declareSteps(14, 12, false, false);
       this.declareSteps(15, 12, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[13].begin);
     },
     // Thirteenth step
     () => {
@@ -271,6 +291,7 @@ export default class FirstMonthScenario {
       this.declareSteps(17, 13, false, false);
       this.declareSteps(18, 13, false, false);
       this.declareSteps(19, 13, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[16].begin);
     },
     // Fourteenth step
     () => {
@@ -280,6 +301,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(21, this.van, true, false, true);
       this.declareSteps(20, 14, true, false, true);
       this.declareSteps(21, 14, false, true, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[20].begin);
     },
     // fifteenth step
     () => {
@@ -289,6 +311,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(23, this.van, false, false, true);
       this.declareSteps(22, 15, true, false);
       this.declareSteps(23, 15, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[22].begin);
       this.declareCoastlineGenerator(5, 15);
     },
     // sixteenth step
@@ -302,6 +325,7 @@ export default class FirstMonthScenario {
       this.declareSteps(24, 16, true, false);
       this.declareSteps(25, 16, false, false);
       this.declareSteps(26, 16, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[24].begin);
       this.declareCoastlineGenerator(6, 16);
     },
     // seventeenth step
@@ -312,6 +336,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(28, this.van, true, false, false);
       this.declareSteps(27, 17, true, false);
       this.declareSteps(28, 17, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[27].begin);
     },
     // eighteenth step
     () => {
@@ -321,6 +346,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(30, this.van, true, false, true);
       this.declareSteps(29, 18, true, false, true);
       this.declareSteps(30, 18, false, true, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[29].begin);
       this.declareCoastlineGenerator(7, 18);
     },
     // nineteenth step
@@ -331,6 +357,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(32, this.van, true, false, true);
       this.declareSteps(31, 19, true, false);
       this.declareSteps(32, 19, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[31].begin);
       this.declareCoastlineGenerator(8, 19);
     },
     // twentieth step
@@ -346,6 +373,7 @@ export default class FirstMonthScenario {
       this.declareSteps(34, 20, false, false);
       this.declareSteps(35, 20, false, false);
       this.declareSteps(36, 20, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[33].begin);
       this.declareCoastlineGenerator(9, 20);
     },
     // twenty first step
@@ -358,6 +386,7 @@ export default class FirstMonthScenario {
       this.declareSteps(37, 21, true, false);
       this.declareSteps(38, 21, false, false);
       this.declareSteps(39, 21, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[37].begin);
     },
     // twenty second step
     () => {
@@ -367,6 +396,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(41, this.van, false, false, true);
       this.declareSteps(40, 22, true, false, true);
       this.declareSteps(41, 22, false, true, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[40].begin);
     },
     // twenty third step
     () => {
@@ -379,9 +409,12 @@ export default class FirstMonthScenario {
       this.declareSteps(42, 23, true, false);
       this.declareSteps(43, 23, false, false);
       this.declareSteps(44, 23, false, true);
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[42].begin);
     },
     // twenty fourth step
-    () => {}
+    () => {
+      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[45].begin);
+    }
   ];
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject) {
@@ -417,22 +450,35 @@ export default class FirstMonthScenario {
     this.automatedObservable = Observable.combineLatest(
       this.launchAutomatedSubject,
       this.actualPointSubject
-    ).filter(() => this.automatedRoadOn)
+    ).filter(() => this.automatedRoadOn || this.automatedRoadAlwaysOn)
       .map(values => ({
         sens: values[0].sens,
         interval: values[0].interval
       })).delay(5);
     this.nextStepSubject.subscribe((step) => {
       this.hasPreviousSubject.next(step > 4);
-      this.hasNextSubject.next(step < 43);
+      this.hasNextSubject.next(step < 24);
     });
   }
 
-  // TODO joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
+  // DONE joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
   launch(index) {
     this.index = index;
     this.steps.forEach(step => step());
-    this.nextStepSubject.next(index);
+    if (index === 4) {
+      this.landingFunction();
+    } else if (index > 4) {
+      this.automatedRoadAlwaysOn = true;
+      this.landingFunction();
+      for (let ind = 4; ind <= index; ind += 1) {
+        this.nextStepSubject.next(ind);
+      }
+      this.stoppingStep = this.ROADS_BEGIN_BY_STEP[index - 4];
+      this.launchAutomatedSubject.next({ sens: 1, interval: 1 });
+    } else {
+      this.nextStepSubject.next(0);
+      this.nextStepSubject.next(index);
+    }
   }
 
   nextStep() {
