@@ -428,7 +428,7 @@ export default class FirstMonthScenario {
     });
   }
 
-  // PLANNING joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
+  // TODO joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
   launch(index) {
     this.index = index;
     this.steps.forEach(step => step());
@@ -443,6 +443,7 @@ export default class FirstMonthScenario {
       this.automatedRoadOn = true;
       this.launchAutomatedSubject.next({ sens: 1, interval: 320 });
     }
+    return this.index;
   }
 
   previousStep() {
@@ -451,5 +452,6 @@ export default class FirstMonthScenario {
       this.automatedRoadOn = true;
       this.launchAutomatedSubject.next({ sens: -1, interval: 320 });
     }
+    return this.index;
   }
 }

@@ -12,7 +12,7 @@ import * as Boxes from './boxes';
 import * as Popin from './popin';
 
 // BACKLOG initialiser le tutorial au lancement du premier road trip trello:#70
-// PLANNING ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point trello:#73
+// DOING ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point trello:#73
 // DONE ajouter un composant permettant de lancer la route trello:#72
 export default class RoadTrip extends React.Component {
   width = 1080;
@@ -106,10 +106,8 @@ export default class RoadTrip extends React.Component {
       this.height * this.pixelRatio
     );
 
-    // PLANNING récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario trello:#73
-    // PLANNING récupérer le bon scenario suivant le point de sauvegarde trello:#73
     this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject, this.hasPreviousSubject, this.hasNextSubject);
-    this.scenario.launch(0);
+    this.scenario.launch();
   }
 
   componentDidMount() {
