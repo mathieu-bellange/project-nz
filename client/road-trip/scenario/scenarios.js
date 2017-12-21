@@ -1,13 +1,13 @@
-import * as NorthIsland from './north-island';
 import ScenarioService from './scenario.service';
+import FirstMonthScenario from './first-month-scenario';
 
-export default class Scenario {
+export default class Scenarios {
   listScenario = [];
   scenarioService;
 
   constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject) {
     this.scenarioService = new ScenarioService();
-    this.listScenario.push(new NorthIsland.FirstMonthScenario(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject));
+    this.listScenario.push(new FirstMonthScenario(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject));
   }
 
   // TODO jouer tous les scénario entre l'index 0 du tableau et l'index demandé par l'appelant trello:#73

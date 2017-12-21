@@ -5,7 +5,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
-import Scenario from './scenario';
+import Scenarios from './scenario';
 import RoadTripCanvas from './canvas';
 import RoadController from './road-controller';
 import * as Boxes from './boxes';
@@ -56,12 +56,8 @@ export default class RoadTrip extends React.Component {
     this.actualBoxesSubject.subscribe((id) => {
       self.defineBoxes(id);
     });
-    this.hasNextSubject.subscribe(value => {
-      this.setState({ hasNext: value });
-    });
-    this.hasPreviousSubject.subscribe(value => {
-      this.setState({ hasPrevious: value });
-    });
+    this.hasNextSubject.subscribe(value => this.setState({ hasNext: value }));
+    this.hasPreviousSubject.subscribe(value => this.setState({ hasPrevious: value }));
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
     }
@@ -106,7 +102,7 @@ export default class RoadTrip extends React.Component {
       this.height * this.pixelRatio
     );
 
-    this.scenario = new Scenario(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject, this.hasPreviousSubject, this.hasNextSubject);
+    this.scenario = new Scenarios(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject, this.hasPreviousSubject, this.hasNextSubject);
     this.scenario.launch();
   }
 

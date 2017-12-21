@@ -2,10 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import Airport from './airport';
-import Sky from './sky';
-import Van from './van';
-import KapitiBoat from './kapiti-boat';
+import { Airport, Sky, Van, KapitiBoat } from '../scenery';
 import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
@@ -181,7 +178,7 @@ export default class FirstMonthScenario {
           .subscribe((point) => {
             this.actualPointSubject.next(point);
             if (this.airportPoint.isEqual(point)) {
-              // TODO sauver le next step (4) trello:#73
+              // DOING sauver le next step (4) trello:#73
               animatedLine.unsubscribe();
               this.landingFunction();
             }
