@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import ScenarioService from './scenario.service';
 import { Airport, Sky, Van, KapitiBoat } from '../scenery';
 import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
@@ -21,7 +22,6 @@ export default class FirstMonthScenario {
   airport;
   van;
   kapitiBoat;
-  index;
   initPoint;
   airportPoint;
   landingPoint;
@@ -29,8 +29,8 @@ export default class FirstMonthScenario {
   wheelObservable;
   automatedObservable;
   airplaneObservable;
+  scenarioService;
   landingFunction = () => {
-    this.onRoadAgainSubject.next(true);
     this.actualBoxesSubject.next(3);
     this.actualPointSubject.next(this.airportPoint);
   };
@@ -69,6 +69,7 @@ export default class FirstMonthScenario {
       }
       if ((road.begin.isEqual(point) && showBegin) || (road.end.isEqual(point) && showEnd)) {
         this.automatedRoadOn = false;
+        this.onRoadAgainSubject.next(true);
       }
       this.actualPointSubject.next(point);
     });
@@ -84,23 +85,9 @@ export default class FirstMonthScenario {
         if (road.begin.isEqual(point) && showBegin) {
           this.actualBoxesSubject.next(indexStep);
           this.nextStepSubject.next(indexStep);
-          this.onRoadAgainSubject.next(false);
-          const sub = Observable.timer(1000)
-            .filter(value => value < 1)
-            .subscribe(() => {
-              this.onRoadAgainSubject.next(true);
-              sub.unsubscribe();
-            });
         } else if (road.end.isEqual(point) && showEnd) {
           this.actualBoxesSubject.next(indexStep + 1);
           this.nextStepSubject.next(indexStep + 1);
-          this.onRoadAgainSubject.next(false);
-          const sub = Observable.timer(1000)
-            .filter(value => value < 1)
-            .subscribe(() => {
-              this.onRoadAgainSubject.next(true);
-              sub.unsubscribe();
-            });
         } else if (keepShowing) {
           this.actualBoxesSubject.next(indexStep);
         } else {
@@ -178,7 +165,8 @@ export default class FirstMonthScenario {
           .subscribe((point) => {
             this.actualPointSubject.next(point);
             if (this.airportPoint.isEqual(point)) {
-              // DOING sauver le next step (4) trello:#73
+              // DONE sauver le next step (4) trello:#73
+              this.nextStep();
               animatedLine.unsubscribe();
               this.landingFunction();
             }
@@ -421,6 +409,7 @@ export default class FirstMonthScenario {
     this.onRoadAgainSubject = onRoadAgainSubject;
     this.hasPreviousSubject = hasPreviousSubject;
     this.hasNextSubject = hasNextSubject;
+    this.scenarioService = new ScenarioService();
     this.nextStepSubject = new Subject();
     this.airport = new Airport();
     this.initPoint = new Coordinate(754, 476, pixelRatio);
@@ -459,8 +448,8 @@ export default class FirstMonthScenario {
   }
 
   // DONE joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
-  launch(index) {
-    this.index = index;
+  launch() {
+    const index = this.scenarioService.getCurrentStep();
     this.steps.forEach(step => step());
     if (index === 4) {
       this.landingFunction();
@@ -478,23 +467,26 @@ export default class FirstMonthScenario {
     }
   }
 
+  // DONE sauvegarde du step courrant trello:#73
   nextStep() {
-    this.index += 1;
-    if (this.index < 4) {
-      this.nextStepSubject.next(this.index);
-    } else {
+    const index = this.scenarioService.getCurrentStep() + 1;
+    if (index < 4) {
+      this.nextStepSubject.next(index);
+    } else if (index > 4) {
       this.automatedRoadOn = true;
       this.launchAutomatedSubject.next({ sens: 1, interval: 320 });
+      this.onRoadAgainSubject.next(false);
     }
-    return this.index;
+    this.scenarioService.saveCurrentStep(index);
   }
 
   previousStep() {
-    this.index -= 1;
-    if (this.index >= 3) {
+    const index = this.scenarioService.getCurrentStep() - 1;
+    if (index > 3) {
       this.automatedRoadOn = true;
       this.launchAutomatedSubject.next({ sens: -1, interval: 320 });
+      this.onRoadAgainSubject.next(false);
     }
-    return this.index;
+    this.scenarioService.saveCurrentStep(index);
   }
 }

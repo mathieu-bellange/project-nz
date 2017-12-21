@@ -26,7 +26,6 @@ export default class RoadTrip extends React.Component {
 
   constructor(props) {
     super(props);
-    const self = this;
     this.state = {
       canvasCenter: {
         x: 0,
@@ -41,7 +40,7 @@ export default class RoadTrip extends React.Component {
     this.actualBoxesSubject = new Subject();
     this.hasNextSubject = new Subject();
     this.hasPreviousSubject = new Subject();
-    this.onRoadAgainSubject = new BehaviorSubject(false);
+    this.onRoadAgainSubject = new Subject();
     const theOne = Observable.combineLatest(
       Observable
         .fromEvent(window, 'resize')
@@ -51,13 +50,14 @@ export default class RoadTrip extends React.Component {
     );
     theOne.subscribe((values) => {
       const [windowSize, actualPoint] = values;
-      self.centerCanvas(actualPoint, windowSize);
+      this.centerCanvas(actualPoint, windowSize);
     });
     this.actualBoxesSubject.subscribe((id) => {
-      self.defineBoxes(id);
+      this.defineBoxes(id);
     });
     this.hasNextSubject.subscribe(value => this.setState({ hasNext: value }));
     this.hasPreviousSubject.subscribe(value => this.setState({ hasPrevious: value }));
+    this.onRoadAgainSubject.subscribe(value => this.setState({ hasNext: value, hasPrevious: value }));
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
     }

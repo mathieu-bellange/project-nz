@@ -14,18 +14,14 @@ export default class Scenarios {
   // DONE récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario trello:#73
   // DONE récupérer le bon scenario suivant le point de sauvegarde trello:#73
   launch() {
-    this.listScenario[this.scenarioService.getCurrentScenario()]
-      .launch(this.scenarioService.getCurrentStep());
+    this.listScenario[this.scenarioService.getCurrentScenario()].launch();
   }
 
-  // DONE sauvegarde du step courrant trello:#73
   nextStep() {
-    const currentStep = this.listScenario[this.scenarioService.getCurrentScenario()].nextStep();
-    this.scenarioService.saveCurrentStep(currentStep);
+    this.listScenario[this.scenarioService.getCurrentScenario()].nextStep();
   }
 
   previousStep() {
-    const currentStep = this.listScenario[this.scenarioService.getCurrentScenario()].previousStep();
-    this.scenarioService.saveCurrentStep(currentStep);
+    this.listScenario[this.scenarioService.getCurrentScenario()].previousStep();
   }
 }
