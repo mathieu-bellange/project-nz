@@ -6,6 +6,11 @@
   height: 100%
   display: flex
   overflow: hidden
+  opacity: 1
+  transition: opacity 1s ease-in-out
+  &.loading
+    opacity: 0
+    visibility: hidden
   & > div
     display: flex
     flex-direction: column

@@ -1,0 +1,32 @@
+.loading-component
+  opacity: 0
+  position: fixed
+  bottom: 0
+  left: 0
+  padding-bottom: 1em
+  display: flex
+  font-size: 3em
+  transition: opacity 1s ease-in-out
+  overflow: hidden
+  &.loading
+    opacity: 1
+  .txt-wrapper
+    display: flex
+    align-items: center
+    padding-top: 0.5em
+    .txt
+      margin-left: 2em
+      margin-right: 0.5em
+
+@media (max-width: 760px)
+  .loading-component
+    .txt-wrapper
+      .txt
+        margin-left: 1em
+
+@media (max-width: 560px)
+  .loading-component
+    font-size: 2em
+    .txt-wrapper
+      .txt
+        margin-left: 0.5em

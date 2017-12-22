@@ -2,7 +2,6 @@ import React from 'react';
 import Raphael from 'raphael';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import Scenarios from './scenario';
@@ -10,6 +9,7 @@ import RoadTripCanvas from './canvas';
 import RoadController from './road-controller';
 import * as Boxes from './boxes';
 import * as Popin from './popin';
+import LoadingComponent from './loading';
 
 // BACKLOG initialiser le tutorial au lancement du premier road trip trello:#70
 // DONE ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point trello:#73
@@ -34,13 +34,15 @@ export default class RoadTrip extends React.Component {
       hasNext: true,
       hasPrevious: false,
       boxes: [],
-      drawCircle: false
+      drawCircle: false,
+      loading: false
     };
     this.actualPointSubject = new ReplaySubject(1);
     this.actualBoxesSubject = new Subject();
     this.hasNextSubject = new Subject();
     this.hasPreviousSubject = new Subject();
     this.onRoadAgainSubject = new Subject();
+    this.isLoadingSubject = new Subject();
     const theOne = Observable.combineLatest(
       Observable
         .fromEvent(window, 'resize')
@@ -58,6 +60,7 @@ export default class RoadTrip extends React.Component {
     this.hasNextSubject.subscribe(value => this.setState({ hasNext: value }));
     this.hasPreviousSubject.subscribe(value => this.setState({ hasPrevious: value }));
     this.onRoadAgainSubject.subscribe(value => this.setState({ hasNext: value, hasPrevious: value }));
+    this.isLoadingSubject.subscribe(value => this.setState({ loading: value }));
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
     }
@@ -102,7 +105,7 @@ export default class RoadTrip extends React.Component {
       this.height * this.pixelRatio
     );
 
-    this.scenario = new Scenarios(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject, this.hasPreviousSubject, this.hasNextSubject);
+    this.scenario = new Scenarios(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject, this.hasPreviousSubject, this.hasNextSubject, this.isLoadingSubject);
     this.scenario.launch();
   }
 
@@ -124,17 +127,23 @@ export default class RoadTrip extends React.Component {
         <RoadTripCanvas
           canvasId={this.canvasId}
           canvasCenter={this.state.canvasCenter}
+          loading={this.state.loading}
         ></RoadTripCanvas>
         <Popin.Wrapper
           drawCircle={this.state.drawCircle}
           popinBoxes={this.state.boxes}
+          loading={this.state.loading}
         ></Popin.Wrapper>
         <RoadController
           hasNext={this.state.hasNext}
           hasPrevious={this.state.hasPrevious}
           hasClickedNext={this.onNextStep}
           hasClickedPrevious={this.onPreviousStep}
+          loading={this.state.loading}
         ></RoadController>
+        <LoadingComponent
+          loading={this.state.loading}
+        ></LoadingComponent>
       </main>
     );
   }

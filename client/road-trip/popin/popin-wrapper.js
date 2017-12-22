@@ -80,7 +80,8 @@ export default class PopinWrapper extends React.Component {
 
   static propTypes = {
     popinBoxes: PropTypes.array,
-    drawCircle: PropTypes.bool
+    drawCircle: PropTypes.bool,
+    loading: PropTypes.bool
   };
 
   constructor(props) {
@@ -209,7 +210,7 @@ export default class PopinWrapper extends React.Component {
 
   render() {
     return (
-        <div className="popin-wrapper">
+        <div className={`popin-wrapper ${this.props.loading ? 'loading' : ''}`}>
           <div id="left-container">
             <ReactCSSTransitionGroup
               transitionName="example"

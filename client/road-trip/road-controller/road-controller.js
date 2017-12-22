@@ -9,7 +9,8 @@ export default class RoadController extends React.Component {
     hasPrevious: PropTypes.bool,
     hasNext: PropTypes.bool,
     hasClickedNext: PropTypes.func.isRequired,
-    hasClickedPrevious: PropTypes.func.isRequired
+    hasClickedPrevious: PropTypes.func.isRequired,
+    loading: PropTypes.bool
   };
 
   componentDidMount() {
@@ -26,7 +27,7 @@ export default class RoadController extends React.Component {
 
   render() {
     return (
-      <div className="road-controller">
+      <div className={`road-controller ${this.props.loading ? 'loading' : ''}`}>
         <a className={`previous ${this.props.hasPrevious ? '' : 'disabled'}`} onClick={this.props.hasClickedPrevious}>
           <i className="fa fa-caret-left" aria-hidden="true"></i>
         </a>

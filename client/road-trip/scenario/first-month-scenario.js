@@ -66,6 +66,7 @@ export default class FirstMonthScenario {
     animatedLine.subscribe((point) => {
       if (this.stoppingStep && this.stoppingStep.isEqual(point)) {
         this.automatedRoadAlwaysOn = false;
+        this.isLoadingSubject.next(false);
       }
       if ((road.begin.isEqual(point) && showBegin) || (road.end.isEqual(point) && showEnd)) {
         this.automatedRoadOn = false;
@@ -402,13 +403,14 @@ export default class FirstMonthScenario {
     }
   ];
 
-  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject) {
+  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject, isLoadingSubject) {
     this.canvas = canvas;
     this.actualPointSubject = actualPointSubject;
     this.actualBoxesSubject = actualBoxesSubject;
     this.onRoadAgainSubject = onRoadAgainSubject;
     this.hasPreviousSubject = hasPreviousSubject;
     this.hasNextSubject = hasNextSubject;
+    this.isLoadingSubject = isLoadingSubject;
     this.scenarioService = new ScenarioService();
     this.nextStepSubject = new Subject();
     this.airport = new Airport();
@@ -454,6 +456,7 @@ export default class FirstMonthScenario {
     if (index === 4) {
       this.landingFunction();
     } else if (index > 4) {
+      this.isLoadingSubject.next(true);
       this.automatedRoadAlwaysOn = true;
       this.landingFunction();
       for (let ind = 4; ind <= index; ind += 1) {

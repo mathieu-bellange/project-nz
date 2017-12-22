@@ -6,7 +6,8 @@ import './canvas.css';
 export default class RoadTripCanvas extends React.Component {
   static propTypes = {
     canvasId: PropTypes.string.isRequired,
-    canvasCenter: PropTypes.object.isRequired
+    canvasCenter: PropTypes.object.isRequired,
+    loading: PropTypes.bool
   };
 
   constructor(props) {
@@ -34,7 +35,7 @@ export default class RoadTripCanvas extends React.Component {
 
   render() {
     return (
-        <div id="viewport">
+        <div id="viewport" className={`${this.props.loading ? 'loading' : ''}`}>
           <div id={this.props.canvasId} style={this.state.canvasStyle}>
 
           </div>

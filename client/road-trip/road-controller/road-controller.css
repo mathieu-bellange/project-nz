@@ -4,6 +4,11 @@
   right: 0
   text-align: end
   z-index: 1
+  opacity: 1
+  transition: opacity 1s ease-in-out
+  &.loading
+    opacity: 0
+    visibility: hidden
   a
     text-align: start
     display: inline-block
