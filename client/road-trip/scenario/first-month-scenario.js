@@ -13,7 +13,7 @@ import buildCoastlines from './coastline-markers';
 // BACKLOG ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
 // PLANNING voir pour utiliser l'event de défilement pour mobile comme pour le wheel sous desktop trello:#21
-// PLANNING ajouter un affichage du kilométrage parcouru trello:#75
+// TODO ajouter un affichage du kilométrage parcouru trello:#75
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;

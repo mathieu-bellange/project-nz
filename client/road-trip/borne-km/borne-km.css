@@ -1,0 +1,32 @@
+.borne-km
+  display: flex
+  position: fixed
+  top: 0
+  left: calc(50% - 100px - 2px - 1em)
+  padding: 0.4em 0.65em
+  margin-top: 1em
+  width: 200px
+  background-color: #fff
+  border: 2px solid #000
+  font-size: 1.75em
+  &.loading
+    visibility: hidden
+  span.txt
+    display: flex
+    align-items: center
+    width: 100%
+    justify-content: flex-end
+    padding: 0 1em
+
+@media (max-width: 1366px)
+  .borne-km
+    left: calc(50% - 50px - 2px - 1em)
+    font-size: 1em
+
+@media (max-width: 580px) and (orientation: portrait)
+  .borne-km
+    display: none
+
+@media (max-width: 780px) and (orientation: landscape)
+  .borne-km
+    display: none

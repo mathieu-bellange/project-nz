@@ -1,10 +1,7 @@
 #viewport
   max-height: 100vh
   overflow: hidden
-  opacity: 1
-  transition: opacity 1s ease-in-out
   &.loading
-    opacity: 0
     visibility: hidden
   #roadTrip-canvas
     position: relative

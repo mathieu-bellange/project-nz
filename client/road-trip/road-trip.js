@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import Scenarios from './scenario';
 import RoadTripCanvas from './canvas';
 import RoadController from './road-controller';
+import BorneKm from './borne-km';
 import * as Boxes from './boxes';
 import * as Popin from './popin';
 import LoadingComponent from './loading';
@@ -14,6 +15,7 @@ import LoadingComponent from './loading';
 // BACKLOG initialiser le tutorial au lancement du premier road trip trello:#70
 // DONE ajouter une fonction de sauvegarde à l'arrivée d'un nouveau point trello:#73
 // DONE ajouter un composant permettant de lancer la route trello:#72
+// DONE ajouter un composant affichant le kilométrage parcouru trello:#75
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;
@@ -141,6 +143,11 @@ export default class RoadTrip extends React.Component {
           hasClickedPrevious={this.onPreviousStep}
           loading={this.state.loading}
         ></RoadController>
+        <BorneKm
+          start={0}
+          end={1000}
+          loading={this.state.loading}
+        ></BorneKm>
         <LoadingComponent
           loading={this.state.loading}
         ></LoadingComponent>
