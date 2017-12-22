@@ -12,7 +12,6 @@ import buildCoastlines from './coastline-markers';
 // BACKLOG ajouter une liste de marker avec la position des villes principales trello:#76
 // BACKLOG ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
-// PLANNING voir pour utiliser l'event de défilement pour mobile comme pour le wheel sous desktop trello:#21
 // TODO ajouter un affichage du kilométrage parcouru trello:#75
 export default class FirstMonthScenario {
   canvas;
@@ -26,7 +25,6 @@ export default class FirstMonthScenario {
   airportPoint;
   landingPoint;
   actualRoadSubject;
-  wheelObservable;
   automatedObservable;
   airplaneObservable;
   scenarioService;
@@ -422,10 +420,6 @@ export default class FirstMonthScenario {
     this.ROADS = buildRoads(pixelRatio);
     this.COASTLINES = buildCoastlines(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
-    this.wheelObservable = Observable.fromEvent(window, 'wheel')
-      .withLatestFrom(this.onRoadAgainSubject)
-      .filter(values => values[1])
-      .map(values => values[0].deltaY / Math.abs(values[0].deltaY));
     this.airplaneObservable = Observable.combineLatest(
       Observable.of({ sens: 1, interval: 320 }),
       this.actualPointSubject
