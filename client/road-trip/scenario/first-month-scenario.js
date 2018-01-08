@@ -8,9 +8,8 @@ import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
-// DONE ajouter un système de déplacement automatique trello:#72
-// BACKLOG ajouter une liste de marker avec la position des villes principales trello:#76
-// BACKLOG ajouter avec la position des villes principales, leur nom trello:#76
+// PLANNING ajouter une liste de marker avec la position des villes principales trello:#76
+// PLANNING ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
 // TODO ajouter un affichage du kilométrage parcouru trello:#75
 export default class FirstMonthScenario {
@@ -164,7 +163,6 @@ export default class FirstMonthScenario {
           .subscribe((point) => {
             this.actualPointSubject.next(point);
             if (this.airportPoint.isEqual(point)) {
-              // DONE sauver le next step (4) trello:#73
               this.nextStep();
               animatedLine.unsubscribe();
               this.landingFunction();
@@ -443,7 +441,6 @@ export default class FirstMonthScenario {
     });
   }
 
-  // DONE joue l'intégralité du scénario précedent l'étape donnée en param trello:#73
   launch() {
     const index = this.scenarioService.getCurrentStep();
     this.steps.forEach(step => step());
@@ -464,7 +461,6 @@ export default class FirstMonthScenario {
     }
   }
 
-  // DONE sauvegarde du step courrant trello:#73
   nextStep() {
     const index = this.scenarioService.getCurrentStep() + 1;
     if (index < 4) {

@@ -14,7 +14,6 @@ export default class RoadController extends React.Component {
   };
 
   componentDidMount() {
-    // DONE link le key press enter au boutton suivant trello:#72
     Observable.fromEvent(window, 'keypress')
       .filter(event => event.keyCode === 13)
       .filter(() => this.props.hasNext)

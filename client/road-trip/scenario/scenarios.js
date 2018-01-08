@@ -10,8 +10,6 @@ export default class Scenarios {
     this.listScenario.push(new FirstMonthScenario(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject, isLoadingSubject));
   }
 
-  // DONE récupérer le point de départ du système de sauvegarde mis en place et l'injecter dans le scenario trello:#73
-  // DONE récupérer le bon scenario suivant le point de sauvegarde trello:#73
   launch() {
     this.listScenario[this.scenarioService.getCurrentScenario()].launch();
   }
