@@ -5,9 +5,29 @@ export default class Scenarios {
   listScenario = [];
   scenarioService;
 
-  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject, isLoadingSubject) {
+  constructor(
+    canvas,
+    pixelRatio,
+    actualPointSubject,
+    actualBoxesSubject,
+    onRoadAgainSubject,
+    hasPreviousSubject,
+    hasNextSubject,
+    isLoadingSubject,
+    nextKmTraveledSubject
+  ) {
     this.scenarioService = new ScenarioService();
-    this.listScenario.push(new FirstMonthScenario(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject, isLoadingSubject));
+    this.listScenario.push(new FirstMonthScenario(
+      canvas,
+      pixelRatio,
+      actualPointSubject,
+      actualBoxesSubject,
+      onRoadAgainSubject,
+      hasPreviousSubject,
+      hasNextSubject,
+      isLoadingSubject,
+      nextKmTraveledSubject
+    ));
   }
 
   launch() {

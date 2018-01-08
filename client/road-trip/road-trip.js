@@ -22,6 +22,7 @@ export default class RoadTrip extends React.Component {
   actualPointSubject;
   actualBoxesSubject;
   onRoadAgainSubject;
+  nextKmTraveledSubject;
   scenario;
 
   constructor(props) {
@@ -35,7 +36,9 @@ export default class RoadTrip extends React.Component {
       hasPrevious: false,
       boxes: [],
       drawCircle: false,
-      loading: false
+      loading: false,
+      startKm: 0,
+      nextKm: 0
     };
     this.actualPointSubject = new ReplaySubject(1);
     this.actualBoxesSubject = new Subject();
@@ -43,6 +46,7 @@ export default class RoadTrip extends React.Component {
     this.hasPreviousSubject = new Subject();
     this.onRoadAgainSubject = new Subject();
     this.isLoadingSubject = new Subject();
+    this.nextKmTraveledSubject = new Subject();
     const theOne = Observable.combineLatest(
       Observable
         .fromEvent(window, 'resize')
@@ -61,6 +65,9 @@ export default class RoadTrip extends React.Component {
     this.hasPreviousSubject.subscribe(value => this.setState({ hasPrevious: value }));
     this.onRoadAgainSubject.subscribe(value => this.setState({ hasNext: value, hasPrevious: value }));
     this.isLoadingSubject.subscribe(value => this.setState({ loading: value }));
+    this.nextKmTraveledSubject.subscribe((value) => {
+      this.setState({ nextKm: this.state.nextKm + value });
+    });
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
     }
@@ -69,6 +76,7 @@ export default class RoadTrip extends React.Component {
     this.defineBoxes = this.defineBoxes.bind(this);
     this.onNextStep = this.onNextStep.bind(this);
     this.onPreviousStep = this.onPreviousStep.bind(this);
+    this.onKmComplete = this.onKmComplete.bind(this);
   }
 
   centerCanvas(actualPoint, windowSize) {
@@ -105,7 +113,17 @@ export default class RoadTrip extends React.Component {
       this.height * this.pixelRatio
     );
 
-    this.scenario = new Scenarios(canvas, this.pixelRatio, this.actualPointSubject, this.actualBoxesSubject, this.onRoadAgainSubject, this.hasPreviousSubject, this.hasNextSubject, this.isLoadingSubject);
+    this.scenario = new Scenarios(
+      canvas,
+      this.pixelRatio,
+      this.actualPointSubject,
+      this.actualBoxesSubject,
+      this.onRoadAgainSubject,
+      this.hasPreviousSubject,
+      this.hasNextSubject,
+      this.isLoadingSubject,
+      this.nextKmTraveledSubject
+    );
     this.scenario.launch();
   }
 
@@ -119,6 +137,10 @@ export default class RoadTrip extends React.Component {
 
   onPreviousStep() {
     this.scenario.previousStep();
+  }
+
+  onKmComplete() {
+    this.setState({ startKm: this.state.nextKm });
   }
 
   render() {
@@ -142,8 +164,9 @@ export default class RoadTrip extends React.Component {
           loading={this.state.loading}
         ></RoadController>
         <BorneKm
-          start={0}
-          end={1000}
+          start={this.state.startKm}
+          end={this.state.nextKm}
+          onComplete={this.onKmComplete}
           loading={this.state.loading}
         ></BorneKm>
         <LoadingComponent

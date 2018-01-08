@@ -11,7 +11,7 @@ import buildCoastlines from './coastline-markers';
 // PLANNING ajouter une liste de marker avec la position des villes principales trello:#76
 // PLANNING ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
-// TODO ajouter un affichage du kilométrage parcouru trello:#75
+// DOING ajouter un affichage du kilométrage parcouru trello:#75
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -33,23 +33,28 @@ export default class FirstMonthScenario {
   };
   declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
     const road = this.ROADS[indexRoad];
-    const observable = Observable.combineLatest(
-      this.automatedObservable,
-      this.actualRoadSubject
-    ).withLatestFrom(this.actualPointSubject)
+    const observable = this.automatedObservable
+      .withLatestFrom(this.actualRoadSubject, this.actualPointSubject)
       .map(values => ({
-        sens: values[0][0].sens,
-        currentPoint: values[1],
-        roadId: values[0][1],
-        interval: values[0][0].interval
+        sens: values[0].sens,
+        interval: values[0].interval,
+        roadId: values[1],
+        currentPoint: values[2]
       }))
       .filter(o => o.roadId === road.id)
       .do((o) => {
+        if (o.sens === 1 && road.begin.isEqual(o.currentPoint)) {
+          this.nextKmTraveledSubject.next(road.km || 10);
+        }
+        if (o.sens === -1 && road.end.isEqual(o.currentPoint)) {
+          this.nextKmTraveledSubject.next(road.km || -10);
+        }
         if (o.sens === 1 && road.end.isEqual(o.currentPoint) && indexRoad + 1 < this.ROADS.length) {
           this.actualRoadSubject.next(this.ROADS[indexRoad + 1].id);
         }
         if (o.sens === -1 && road.begin.isEqual(o.currentPoint) && indexRoad > 0) {
           this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
+          this.actualPointSubject.next(o.currentPoint);
         }
       })
       .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
@@ -399,7 +404,17 @@ export default class FirstMonthScenario {
     }
   ];
 
-  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject, hasPreviousSubject, hasNextSubject, isLoadingSubject) {
+  constructor(
+    canvas,
+    pixelRatio,
+    actualPointSubject,
+    actualBoxesSubject,
+    onRoadAgainSubject,
+    hasPreviousSubject,
+    hasNextSubject,
+    isLoadingSubject,
+    nextKmTraveledSubject
+  ) {
     this.canvas = canvas;
     this.actualPointSubject = actualPointSubject;
     this.actualBoxesSubject = actualBoxesSubject;
@@ -407,6 +422,7 @@ export default class FirstMonthScenario {
     this.hasPreviousSubject = hasPreviousSubject;
     this.hasNextSubject = hasNextSubject;
     this.isLoadingSubject = isLoadingSubject;
+    this.nextKmTraveledSubject = nextKmTraveledSubject;
     this.scenarioService = new ScenarioService();
     this.nextStepSubject = new Subject();
     this.airport = new Airport();
