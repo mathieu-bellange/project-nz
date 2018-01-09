@@ -23,6 +23,7 @@ export default class RoadTrip extends React.Component {
   actualBoxesSubject;
   onRoadAgainSubject;
   nextKmTraveledSubject;
+  displayBorneKmSubject;
   scenario;
 
   constructor(props) {
@@ -38,7 +39,8 @@ export default class RoadTrip extends React.Component {
       drawCircle: false,
       loading: false,
       startKm: 0,
-      nextKm: 0
+      nextKm: 0,
+      displayBorneKm: false
     };
     this.actualPointSubject = new ReplaySubject(1);
     this.actualBoxesSubject = new Subject();
@@ -47,6 +49,7 @@ export default class RoadTrip extends React.Component {
     this.onRoadAgainSubject = new Subject();
     this.isLoadingSubject = new Subject();
     this.nextKmTraveledSubject = new Subject();
+    this.displayBorneKmSubject = new Subject();
     const theOne = Observable.combineLatest(
       Observable
         .fromEvent(window, 'resize')
@@ -65,9 +68,8 @@ export default class RoadTrip extends React.Component {
     this.hasPreviousSubject.subscribe(value => this.setState({ hasPrevious: value }));
     this.onRoadAgainSubject.subscribe(value => this.setState({ hasNext: value, hasPrevious: value }));
     this.isLoadingSubject.subscribe(value => this.setState({ loading: value }));
-    this.nextKmTraveledSubject.subscribe((value) => {
-      this.setState({ nextKm: this.state.nextKm + value });
-    });
+    this.nextKmTraveledSubject.subscribe(value => this.setState({ nextKm: this.state.nextKm + value }));
+    this.displayBorneKmSubject.subscribe(value => this.setState({ displayBorneKm: value }));
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
     }
@@ -122,7 +124,8 @@ export default class RoadTrip extends React.Component {
       this.hasPreviousSubject,
       this.hasNextSubject,
       this.isLoadingSubject,
-      this.nextKmTraveledSubject
+      this.nextKmTraveledSubject,
+      this.displayBorneKmSubject
     );
     this.scenario.launch();
   }
@@ -164,6 +167,7 @@ export default class RoadTrip extends React.Component {
           loading={this.state.loading}
         ></RoadController>
         <BorneKm
+          display={this.state.displayBorneKm}
           start={this.state.startKm}
           end={this.state.nextKm}
           onComplete={this.onKmComplete}

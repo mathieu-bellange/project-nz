@@ -14,7 +14,8 @@ export default class Scenarios {
     hasPreviousSubject,
     hasNextSubject,
     isLoadingSubject,
-    nextKmTraveledSubject
+    nextKmTraveledSubject,
+    displayBorneKmSubject
   ) {
     this.scenarioService = new ScenarioService();
     this.listScenario.push(new FirstMonthScenario(
@@ -26,7 +27,8 @@ export default class Scenarios {
       hasPreviousSubject,
       hasNextSubject,
       isLoadingSubject,
-      nextKmTraveledSubject
+      nextKmTraveledSubject,
+      displayBorneKmSubject
     ));
   }
 

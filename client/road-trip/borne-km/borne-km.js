@@ -9,12 +9,13 @@ export default class BorneKm extends React.Component {
     start: PropTypes.number,
     end: PropTypes.number,
     loading: PropTypes.bool,
-    onComplete: PropTypes.func
+    onComplete: PropTypes.func,
+    display: PropTypes.bool
   };
 
   render() {
     return (
-      <div className={`borne-km ${this.props.loading ? 'loading' : ''}`}>
+      <div className={`borne-km ${this.props.display ? '' : 'hidden'} ${this.props.loading ? 'loading' : ''}`}>
         <img src="/images/borne-km.svg"></img>
         <CountUp className="txt" separator=" " start={this.props.start} end={this.props.end} onComplete={this.props.onComplete} />
       </div>

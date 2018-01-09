@@ -190,6 +190,10 @@ export default class FirstMonthScenario {
       this.declareSteps(1, 5, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[1].begin);
       this.declareCoastlineGenerator(1, 5);
+      const sub = this.nextStepSubject.filter(step => step === 5).subscribe(() => {
+        this.displayBorneKmSubject.next(true);
+        sub.unsubscribe();
+      });
     },
     // sixth step
     () => {
@@ -413,7 +417,8 @@ export default class FirstMonthScenario {
     hasPreviousSubject,
     hasNextSubject,
     isLoadingSubject,
-    nextKmTraveledSubject
+    nextKmTraveledSubject,
+    displayBorneKmSubject
   ) {
     this.canvas = canvas;
     this.actualPointSubject = actualPointSubject;
@@ -423,6 +428,7 @@ export default class FirstMonthScenario {
     this.hasNextSubject = hasNextSubject;
     this.isLoadingSubject = isLoadingSubject;
     this.nextKmTraveledSubject = nextKmTraveledSubject;
+    this.displayBorneKmSubject = displayBorneKmSubject;
     this.scenarioService = new ScenarioService();
     this.nextStepSubject = new Subject();
     this.airport = new Airport();
