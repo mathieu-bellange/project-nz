@@ -17,7 +17,14 @@ export default class BorneKm extends React.Component {
     return (
       <div className={`borne-km ${this.props.display ? '' : 'hidden'} ${this.props.loading ? 'loading' : ''}`}>
         <img src="/images/borne-km.svg"></img>
-        <CountUp className="txt" separator=" " start={this.props.start} end={this.props.end} onComplete={this.props.onComplete} />
+        <CountUp
+          className="txt"
+          separator=" "
+          start={this.props.start}
+          end={this.props.end}
+          onComplete={this.props.onComplete}
+          duration={7}
+        />
       </div>
     );
   }
