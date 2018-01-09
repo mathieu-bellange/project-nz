@@ -44,10 +44,10 @@ export default class FirstMonthScenario {
       .filter(o => o.roadId === road.id)
       .do((o) => {
         if (o.sens === 1 && road.begin.isEqual(o.currentPoint)) {
-          this.nextKmTraveledSubject.next(road.km || 10);
+          this.nextKmTraveledSubject.next(road.km);
         }
         if (o.sens === -1 && road.end.isEqual(o.currentPoint)) {
-          this.nextKmTraveledSubject.next(road.km || -10);
+          this.nextKmTraveledSubject.next(-road.km);
         }
         if (o.sens === 1 && road.end.isEqual(o.currentPoint) && indexRoad + 1 < this.ROADS.length) {
           this.actualRoadSubject.next(this.ROADS[indexRoad + 1].id);
