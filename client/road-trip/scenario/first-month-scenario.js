@@ -8,8 +8,8 @@ import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 
-// PLANNING ajouter une liste de marker avec la position des villes principales trello:#76
-// PLANNING ajouter avec la position des villes principales, leur nom trello:#76
+// TODO ajouter une liste de marker avec la position des villes principales trello:#76
+// TODO ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
 // DONE ajouter un affichage du kilométrage parcouru trello:#75
 export default class FirstMonthScenario {
