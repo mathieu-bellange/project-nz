@@ -29,14 +29,14 @@ export default class Path {
     return this;
   }
 
-  animate(theDelay) {
-    const delay = theDelay || 1;
+  animate(interval) {
+    const theInterval = interval || 0.1;
     let index = 0;
     const intervalID = setInterval(() => {
-      this.element.attr({ opacity: index += 0.1 });
+      this.element.attr({ opacity: index += theInterval });
       if (index >= 1) {
         clearInterval(intervalID);
       }
-    }, delay / 10);
+    }, 100);
   }
 }
