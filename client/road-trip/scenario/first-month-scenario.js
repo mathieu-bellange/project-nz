@@ -84,11 +84,11 @@ export default class FirstMonthScenario {
       .filter(() => !this.automatedRoadAlwaysOn)
       .map(values => values[0])
       .subscribe((point) => {
-        if (road.begin.isEqual(point) && showBegin) {
-          this.actualBoxesSubject.next(indexStep);
+        if (road.begin.isEqual(point)) {
+          if (showBegin) this.actualBoxesSubject.next(indexStep);
           this.nextStepSubject.next(indexStep);
-        } else if (road.end.isEqual(point) && showEnd) {
-          this.actualBoxesSubject.next(indexStep + 1);
+        } else if (road.end.isEqual(point)) {
+          if (showEnd) this.actualBoxesSubject.next(indexStep + 1);
           this.nextStepSubject.next(indexStep + 1);
         } else if (keepShowing) {
           this.actualBoxesSubject.next(indexStep);
@@ -213,6 +213,7 @@ export default class FirstMonthScenario {
       this.declareSteps(2, 6, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[2].begin);
       this.declareCoastlineGenerator(2, 6);
+      this.declareCitiesGenerator(2, 6);
     },
     // Seventh step
     () => {
@@ -224,6 +225,7 @@ export default class FirstMonthScenario {
       this.declareSteps(4, 7, false, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[3].begin);
       this.declareCoastlineGenerator(3, 7);
+      this.declareCitiesGenerator(3, 7);
     },
     // Eigth step
     () => {
@@ -234,6 +236,7 @@ export default class FirstMonthScenario {
       this.declareSteps(5, 8, true, false);
       this.declareSteps(6, 8, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[5].begin);
+      this.declareCitiesGenerator(4, 8);
     },
     // ninth step
     () => {
@@ -248,6 +251,7 @@ export default class FirstMonthScenario {
       this.declareSteps(9, 9, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[7].begin);
       this.declareCoastlineGenerator(4, 9);
+      this.declareCitiesGenerator(5, 9);
     },
     // tenth step
     () => {
@@ -258,6 +262,7 @@ export default class FirstMonthScenario {
       this.declareSteps(10, 10, true, false);
       this.declareSteps(11, 10, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[10].begin);
+      this.declareCitiesGenerator(6, 10);
     },
     // eleventh step
     () => {
@@ -294,6 +299,7 @@ export default class FirstMonthScenario {
       this.declareSteps(18, 13, false, false);
       this.declareSteps(19, 13, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[16].begin);
+      this.declareCitiesGenerator(7, 13);
     },
     // Fourteenth step
     () => {
@@ -315,6 +321,7 @@ export default class FirstMonthScenario {
       this.declareSteps(23, 15, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[22].begin);
       this.declareCoastlineGenerator(5, 15);
+      this.declareCitiesGenerator(8, 15);
     },
     // sixteenth step
     () => {
@@ -329,6 +336,7 @@ export default class FirstMonthScenario {
       this.declareSteps(26, 16, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[24].begin);
       this.declareCoastlineGenerator(6, 16);
+      this.declareCitiesGenerator(9, 16);
     },
     // seventeenth step
     () => {
@@ -339,6 +347,7 @@ export default class FirstMonthScenario {
       this.declareSteps(27, 17, true, false);
       this.declareSteps(28, 17, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[27].begin);
+      this.declareCitiesGenerator(10, 17);
     },
     // eighteenth step
     () => {
@@ -377,6 +386,7 @@ export default class FirstMonthScenario {
       this.declareSteps(36, 20, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[33].begin);
       this.declareCoastlineGenerator(9, 20);
+      this.declareCitiesGenerator(11, 20);
     },
     // twenty first step
     () => {
@@ -412,6 +422,7 @@ export default class FirstMonthScenario {
       this.declareSteps(43, 23, false, false);
       this.declareSteps(44, 23, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[42].begin);
+      this.declareCitiesGenerator(12, 23);
     },
     // twenty fourth step
     () => {
