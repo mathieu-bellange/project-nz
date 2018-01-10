@@ -7,9 +7,8 @@ import { Airport, Sky, Van, KapitiBoat } from '../scenery';
 import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
+import buildCity from './city-markers';
 
-// TODO ajouter une liste de marker avec la position des villes principales trello:#76
-// TODO ajouter avec la position des villes principales, leur nom trello:#76
 // BACKLOG ajouter avec les décors avoisinant la route trello:#77
 // DONE ajouter un affichage du kilométrage parcouru trello:#75
 export default class FirstMonthScenario {
@@ -107,6 +106,14 @@ export default class FirstMonthScenario {
       sub.unsubscribe();
     });
   };
+  declareCitiesGenerator = (indexCities, indexStep) => {
+    const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
+      this.CITIES[indexCities].forEach((city) => {
+        city.draw(this.canvas).animate();
+      }, this);
+      sub.unsubscribe();
+    });
+  };
   declareAnimatedSVG = (indexRoad, svg, reverse, hideBegin, hideEnd) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject
@@ -127,6 +134,8 @@ export default class FirstMonthScenario {
   ROADS = [];
 
   ROADS_BEGIN_BY_STEP = [];
+
+  CITIES = [];
 
   steps = [
     // launch step
@@ -182,6 +191,7 @@ export default class FirstMonthScenario {
       this.declareSteps(0, 4, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[0].begin);
       this.declareCoastlineGenerator(0, 4);
+      this.declareCitiesGenerator(0, 4);
     },
     // fifth step
     () => {
@@ -190,6 +200,7 @@ export default class FirstMonthScenario {
       this.declareSteps(1, 5, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[1].begin);
       this.declareCoastlineGenerator(1, 5);
+      this.declareCitiesGenerator(1, 5);
       const sub = this.nextStepSubject.filter(step => step === 5).subscribe(() => {
         this.displayBorneKmSubject.next(true);
         sub.unsubscribe();
@@ -439,6 +450,7 @@ export default class FirstMonthScenario {
     this.kapitiBoat = new KapitiBoat();
     this.ROADS = buildRoads(pixelRatio);
     this.COASTLINES = buildCoastlines(pixelRatio);
+    this.CITIES = buildCity(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
     this.airplaneObservable = Observable.combineLatest(
       Observable.of({ sens: 1, interval: 320 }),
