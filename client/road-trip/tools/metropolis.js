@@ -21,7 +21,8 @@ export default class Metropolis extends Path {
     this.nameElement = paper.text(this.namePosition.x, this.namePosition.y, this.name)
       .attr({
         'font-size': '32',
-        opacity: '0'
+        opacity: '0',
+        'font-family': 'Roboto'
       });
     return this;
   }

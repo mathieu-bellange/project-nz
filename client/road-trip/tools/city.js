@@ -27,7 +27,8 @@ export default class City extends Coordinate {
       .attr({
         'text-anchor': 'start',
         'font-size': '16',
-        opacity: 0
+        opacity: 0,
+        'font-family': 'Roboto'
       });
     return this;
   }
