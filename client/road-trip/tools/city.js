@@ -1,9 +1,10 @@
 import Coordinate from './coordinate';
 
+// DONE ajouter avec la position des villes principales, leur nom trello:#76
 export default class City extends Coordinate {
   name;
   namePosition;
-  pixelRatio;
+  radius;
   centerElement;
   nameElement;
 
@@ -12,10 +13,11 @@ export default class City extends Coordinate {
     this.pixelRatio = pixelRatio;
     this.name = name;
     this.namePosition = new Coordinate(x + 0.5, y - 0.75, pixelRatio);
+    this.radius = 0.35 * pixelRatio;
   }
 
   draw(paper) {
-    this.centerElement = paper.circle(this.x, this.y, 0.35 * this.pixelRatio)
+    this.centerElement = paper.circle(this.x, this.y, this.radius)
       .attr({
         stroke: '#f3f3f3',
         fill: '#f3f3f3',
