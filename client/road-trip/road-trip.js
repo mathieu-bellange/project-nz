@@ -13,6 +13,7 @@ import * as Popin from './popin';
 import LoadingComponent from './loading';
 
 // TODO initialiser le tutorial au lancement du premier road trip trello:#70
+// TODO ajouter un composant de tutorial trello:#70
 // DONE ajouter un composant affichant le kilométrage parcouru trello:#75
 export default class RoadTrip extends React.Component {
   width = 1080;

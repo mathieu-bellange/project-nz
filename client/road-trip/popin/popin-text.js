@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Observable } from 'rxjs/Observable';
 
 import PrinFlexBox from './prin-flexbox';
-import Tutorial from '../tutorial';
 
-// DOING ajouter un composant de tutorial à afficher quand demandé, quand popin fermé trello:#70
+// TODO ajouter un composant de tutorial à afficher quand demandé, quand popin fermé trello:#70
 // TODO ajouter un composant de tutorial à afficher quand demandé, quand popin ouverte trello:#70
 export default class PopinText extends React.Component {
   elem;
@@ -29,13 +28,11 @@ export default class PopinText extends React.Component {
     super(props);
     this.state = {
       begin: false,
-      end: false,
-      displayTutorial: true
+      end: false
     };
     this.openFullScreen = this.openFullScreen.bind(this);
     this.finishAnimation = this.finishAnimation.bind(this);
     this.closeFullScreen = this.closeFullScreen.bind(this);
-    this.closeTutorial = this.closeTutorial.bind(this);
   }
 
   componentDidMount() {
@@ -67,8 +64,7 @@ export default class PopinText extends React.Component {
         height: this.state.height
       },
       begin: true,
-      animationState: this.animationState.open.begin,
-      displayTutorial: false
+      animationState: this.animationState.open.begin
     });
   }
 
@@ -129,10 +125,6 @@ export default class PopinText extends React.Component {
     }
   }
 
-  closeTutorial() {
-    this.setState({ displayTutorial: false });
-  }
-
   render() {
     return (
       <div style={{ width: '100%' }}>
@@ -142,12 +134,6 @@ export default class PopinText extends React.Component {
           onClick={this.openFullScreen}
         >
           <PrinFlexBox box={this.props.box} />
-          <Tutorial
-            display={this.state.displayTutorial}
-            title='Titre'
-            txt='Le texte'
-            closeTutorial={this.closeTutorial}
-          ></Tutorial>
         </div>
         <div
           id={this.props.box.id}
