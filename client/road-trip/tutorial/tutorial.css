@@ -1,0 +1,38 @@
+.tutorial
+  position: absolute
+  top: 20%
+  right: -65%
+  z-index: 1
+  cursor: default
+  display: flex
+  .arrow
+    display: flex
+    .arrow-left
+      width: 0
+      height: 0
+      border-top: 50px solid transparent
+      border-bottom: 50px solid transparent
+      border-right: 50px solid #e2e2e2
+    .arrow-body
+      width: 50px
+      height: 40px
+      background-color: #e2e2e2
+      margin-right: 20px
+      align-self: center
+  &.hidden
+    display: none
+  .ui
+    border: 1px solid #000
+    border-radius: 2px
+    padding: 1em 2em
+    background-color: #e2e2e2
+    display: flex
+    .txt-wrapper
+      padding: 0 1em
+    .btn-wrapper
+      align-items: flex-end
+      display: flex
+      button
+        width: 40px
+        &:hover
+          cursor: pointer
