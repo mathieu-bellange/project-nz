@@ -4,6 +4,7 @@ import CountUp from 'react-countup';
 
 import './borne-km.css';
 
+// TODO ajouter un composant de tutorial affiché sur demande trello:#70
 export default class BorneKm extends React.Component {
   static propTypes = {
     start: PropTypes.number,

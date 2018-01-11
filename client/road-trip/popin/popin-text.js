@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import PrinFlexBox from './prin-flexbox';
 
+// TODO ajouter un composant de tutorial à afficher quand demandé, quand popin fermé trello:#70
+// TODO ajouter un composant de tutorial à afficher quand demandé, quand popin ouverte trello:#70
 export default class PopinText extends React.Component {
   elem;
   doppleganger;
