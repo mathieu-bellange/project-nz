@@ -12,7 +12,6 @@ import * as Boxes from './boxes';
 import * as Popin from './popin';
 import LoadingComponent from './loading';
 
-// PLANNING initialiser le tutorial au lancement du premier road trip trello:#70
 // DONE ajouter un composant affichant le kilométrage parcouru trello:#75
 export default class RoadTrip extends React.Component {
   width = 1080;
