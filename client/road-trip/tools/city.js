@@ -1,6 +1,5 @@
 import Coordinate from './coordinate';
 
-// DONE ajouter avec la position des villes principales, leur nom trello:#76
 export default class City extends Coordinate {
   name;
   namePosition;

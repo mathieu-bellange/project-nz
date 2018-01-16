@@ -1,6 +1,5 @@
 import { City, Metropolis } from '../tools';
 
-// DONE ajouter une liste de marker avec la position des villes principales trello:#76
 const buildCity = pixelRatio => ([
   [
     new City(713, 502, pixelRatio, 'Manukau')
