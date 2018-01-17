@@ -1,0 +1,9 @@
+## En route pour la Nouvelle-Zélande
+
+Le voyage en avion pour la Nouvelle-Zélande depuis la France dur en moyenne 24h, sans compter les escales éventuelles. Notre première expérience du voyage avait été supportable mais très fatiguante. Avec notre fille en plus, il nous fallait impérativement réaliser le voyage en plusieurs étapes pour se reposer. Nous voulions aussi voyager en A380 pour avoir le plus d'espace possible pour les 24 h de vol qui nous attendaient.
+
+Nous avons décidé de partir avec Singapour Airlines avec une escale à Singapour. Douze heures pour atteindre Singapour puis douze heures pour attérrir à Auckland, les deux voyages en A380. C'était la meilleure option d'un point de vue horaire et confort durant le voyage. Nous avions en plus réservés une chambre d'hôtel à Singapour pour nous reposer durant l'escale. Il ne nous restait plus qu'à préparer notre voyage.
+
+A l'achat des billets d'avion, nous préparions déjà un un budget pour le voyage depuis plusieurs mois et il nous restait un an encore pour le boucler. Nous avions de vagues souvenirs du coût de la vie sur place mais l'inconnu résidait dans l'achat du van. La location étant hors de question pour une durée aussi longue, il nous fallait l'acheter. Il y a de nombreux van à la vente en Nouvelle-Zélande et on peut trouver son bonheur sur le site trademe, un leboncoin local. Une fois le budget estimé, ils ne nous restaient plus qu'à préparer notre départ.
+
+Essentiellement administratif, il fallait prendre une dispo au près de notre employeur et réduire nos frais en France dont notre logement qui nous louions. Pour notre dispo, nous avons posé un congé parental de 6 mois. Et pour l'appartement, nous voulions déménager pour changer de cadre de vie et nous avons donc décidé de quitter notre appartement avant notre départ.

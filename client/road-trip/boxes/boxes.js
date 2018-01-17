@@ -3,8 +3,7 @@ import TypeBox from './type-box';
 const boxAirplaneTxt = {
   id: 0,
   left: true,
-  title: 'Road To Nz',
-  text: 'first text',
+  text: require('./road-to-nz.md'),
   type: TypeBox.Text
 };
 const boxAirplaneImg = {
@@ -197,8 +196,7 @@ const boxes = [
         id: 40,
         left: true,
         position: 0,
-        title: 'Aéroport d\'Auckland',
-        text: 'second text',
+        text: require('./auckland-airport.md'),
         type: TypeBox.Text
       },
       {
