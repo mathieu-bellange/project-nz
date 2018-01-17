@@ -2,7 +2,7 @@ import 'react';
 import 'react-dom';
 import 'react-router-dom';
 import 'prop-types';
-import 'react-addons-css-transition-group';
+import 'react-transition-group';
 import 'raphael';
 import 'rxjs/BehaviorSubject';
 import 'rxjs/Subject';

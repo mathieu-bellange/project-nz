@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Raphael from 'raphael';
 import isequal from 'lodash/isEqual';
 import { Observable } from 'rxjs/Observable';
@@ -41,9 +41,15 @@ export default class PopinWrapper extends React.Component {
       default:
         component = '';
     }
-    return <div key={box.id} className={`popin-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'}`}>
-      {component}
-    </div>;
+    return <CSSTransition
+              key={box.id}
+              classNames='fade-animation'
+              timeout={{ enter: 1000, exit: 500 }}
+          >
+        <div className={`popin-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'}`}>
+          {component}
+        </div>
+    </CSSTransition>;
   };
   defineMiddleComponent = () => {
     if (this.paper) this.paper.remove();
@@ -212,17 +218,14 @@ export default class PopinWrapper extends React.Component {
     return (
         <div className={`popin-wrapper ${this.props.loading ? 'loading' : ''}`}>
           <div id="left-container">
-            <ReactCSSTransitionGroup
-              transitionName="example"
-              transitionEnterTimeout={1000}
-              transitionLeaveTimeout={500}>
+            <TransitionGroup>
               {
                 this.props.popinBoxes
                   .filter(() => window.innerWidth >= 1024)
                   .filter(popinBox => popinBox.left)
                   .map(this.mapPopinComponents)
                 }
-              </ReactCSSTransitionGroup>
+              </TransitionGroup>
             </div>
           <div id="middle-container">
             <IconsWrapper popinBoxes={this.props.popinBoxes
@@ -230,17 +233,14 @@ export default class PopinWrapper extends React.Component {
             </IconsWrapper>
           </div>
           <div id="right-container">
-            <ReactCSSTransitionGroup
-              transitionName="example"
-              transitionEnterTimeout={1000}
-              transitionLeaveTimeout={500}>
+            <TransitionGroup>
               {
                 this.props.popinBoxes
                   .filter(() => window.innerWidth >= 1024)
                   .filter(popinBox => !popinBox.left)
                   .map(this.mapPopinComponents)
               }
-            </ReactCSSTransitionGroup>
+            </TransitionGroup>
           </div>
         </div>
     );

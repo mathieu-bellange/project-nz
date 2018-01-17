@@ -60,16 +60,16 @@
     #middle-container
       opacity: 1
 
-.example-enter
+.fade-animation-enter
   opacity: 0.01
 
-.example-enter.example-enter-active
+.fade-animation-enter.fade-animation-enter-active
   opacity: 1
   transition: opacity 1000ms ease-in
 
-.example-leave
+.fade-animation-exit
   opacity: 1
 
-.example-leave.example-leave-active
+.fade-animation-exit.fade-animation-exit-active
   opacity: 0.01
   transition: opacity 500ms ease-in
