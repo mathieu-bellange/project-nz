@@ -1,0 +1,13 @@
+.text-wrapper
+  h2
+    padding-bottom: 2em
+  p
+    padding-bottom: 1em
+  .text-container
+    max-height: 80%
+    overflow: hidden
+  .ellipsis
+    font-size: 2em
+    text-align: center
+    &.hidden
+      visibility: hidden

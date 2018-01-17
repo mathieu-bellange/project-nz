@@ -8,7 +8,10 @@
   &.popin-text
     background-color: rgba(190,188,188,0.7)
     .prin
-      width: 100%
+      height: calc(100% - 12px)
+      width: calc(100% - 8px)
+      .text-wrapper
+        height: calc(100% - 4em)
   &.full-screen
     visibility: hidden
   &.doppleganger
@@ -62,6 +65,16 @@
           opacity: 1
         .secondary > div
           height: auto
+@media (max-width: 1280px)
+  .popin.doppleganger.full-screen.end
+    .prin
+      .text-wrapper
+        padding: 4em 10em
+@media (max-width: 1024px)
+  .popin.doppleganger.full-screen.end
+    .prin
+      .text-wrapper
+        padding: 3em 10em
 @media (max-width: 980px)
   .popin
     &.doppleganger
