@@ -12,7 +12,6 @@ import * as Boxes from './boxes';
 import * as Popin from './popin';
 import LoadingComponent from './loading';
 
-// TODO ajouter un fichier txt avec les textes du voyage trello:#81
 export default class RoadTrip extends React.Component {
   width = 1080;
   height = 1120;

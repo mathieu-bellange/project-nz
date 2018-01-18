@@ -26,7 +26,8 @@ export default class PopinText extends React.Component {
     super(props);
     this.state = {
       begin: false,
-      end: false
+      end: false,
+      fullScreen: false
     };
     this.openFullScreen = this.openFullScreen.bind(this);
     this.finishAnimation = this.finishAnimation.bind(this);
@@ -73,7 +74,8 @@ export default class PopinText extends React.Component {
           this.setState({
             style: {},
             end: true,
-            animationState: this.animationState.open.end
+            animationState: this.animationState.open.end,
+            fullScreen: true
           });
           break;
         case this.animationState.open.end:
@@ -89,7 +91,8 @@ export default class PopinText extends React.Component {
               top: this.state.offsetTop,
               left: this.state.offsetLeft
             },
-            animationState: this.animationState.close.end
+            animationState: this.animationState.close.end,
+            fullScreen: false
           });
           break;
         case this.animationState.close.end:
@@ -125,13 +128,13 @@ export default class PopinText extends React.Component {
 
   render() {
     return (
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', height: '100%' }}>
         <div
           className={`popin popin-text ${this.state.begin ? 'full-screen' : ''}`}
           ref={(el) => { this.elem = el; }}
           onClick={this.openFullScreen}
         >
-          <PrinFlexBox box={this.props.box} />
+          <PrinFlexBox fullScreen={this.state.fullScreen} box={this.props.box} />
         </div>
         <div
           id={this.props.box.id}
@@ -143,7 +146,11 @@ export default class PopinText extends React.Component {
           ref={(el) => { this.doppleganger = el; }}
         >
           <i className={`fa fa-times ${this.state.fixedCloseIcon ? 'fixed' : ''}`} onClick={this.closeFullScreen}></i>
-          <PrinFlexBox box={this.props.box} onTransitionEnd={e => e.stopPropagation()}/>
+          <PrinFlexBox
+            fullScreen={this.state.fullScreen}
+            box={this.props.box}
+            onTransitionEnd={e => e.stopPropagation()}
+          />
         </div>
       </div>
     );

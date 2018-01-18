@@ -223,7 +223,7 @@ export default class PopinWrapper extends React.Component {
                 this.props.popinBoxes
                   .filter(() => window.innerWidth >= 1024)
                   .filter(popinBox => popinBox.left)
-                  .map(this.mapPopinComponents)
+                  .map(this.mapPopinComponents, this)
                 }
               </TransitionGroup>
             </div>
@@ -238,7 +238,7 @@ export default class PopinWrapper extends React.Component {
                 this.props.popinBoxes
                   .filter(() => window.innerWidth >= 1024)
                   .filter(popinBox => !popinBox.left)
-                  .map(this.mapPopinComponents)
+                  .map(this.mapPopinComponents, this)
               }
             </TransitionGroup>
           </div>

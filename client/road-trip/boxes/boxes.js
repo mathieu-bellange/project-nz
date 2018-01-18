@@ -1,5 +1,6 @@
 import TypeBox from './type-box';
 
+// DONE ajouter un fichier .md avec les textes du voyage trello:#81
 const boxAirplaneTxt = {
   id: 0,
   left: true,

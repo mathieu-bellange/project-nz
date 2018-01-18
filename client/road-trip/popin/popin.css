@@ -5,13 +5,15 @@
   display: flex
   padding: 0.2em 0.3em
   visibility: visible
+  height: 100%
   &.popin-text
     background-color: rgba(190,188,188,0.7)
     .prin
-      height: calc(100% - 12px)
-      width: calc(100% - 8px)
+      padding: 1em
+      height: calc(100% - 2em)
+      width: calc(100% - 2em)
       .text-wrapper
-        height: calc(100% - 4em)
+        height: 100%
   &.full-screen
     visibility: hidden
   &.doppleganger
@@ -51,6 +53,15 @@
         height: 90%
         padding: 0
         overflow-y: auto
+        &.popin-text
+          .prin
+            width: auto
+            height: calc(100% - 10em)
+            padding: 5em 20em
+            .text-wrapper
+              height: auto
+              .text-container
+                max-height: none
         .prin
           padding: 0
           .img-wrapper
