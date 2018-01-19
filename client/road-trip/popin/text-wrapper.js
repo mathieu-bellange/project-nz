@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './text-wrapper.css';
 
 // DONE gérer l'affichage de l'ellipse sur les petites box de texte trello:#81
-// DOING gérer l'affichage de l'ellipse sur les box mixes trello:#81
+// DONE gérer l'affichage de l'ellipse sur les box mixes trello:#81
 export default class TextWrapper extends React.Component {
   txtContainerElem;
   txtWrapperElem;

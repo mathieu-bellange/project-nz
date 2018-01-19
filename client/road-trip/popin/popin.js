@@ -29,7 +29,8 @@ export default class Popin extends React.Component {
     super(props);
     this.state = {
       begin: false,
-      end: false
+      end: false,
+      fullScreen: false
     };
     switch (props.box.type) {
       case Boxes.Type.Text:
@@ -105,7 +106,8 @@ export default class Popin extends React.Component {
           this.setState({
             style: {},
             end: true,
-            animationState: this.animationState.open.end
+            animationState: this.animationState.open.end,
+            fullScreen: true
           });
           break;
         case this.animationState.open.end:
@@ -121,7 +123,8 @@ export default class Popin extends React.Component {
               top: this.state.offsetTop,
               left: this.state.offsetLeft
             },
-            animationState: this.animationState.close.end
+            animationState: this.animationState.close.end,
+            fullScreen: false
           });
           break;
         case this.animationState.close.end:
@@ -157,13 +160,17 @@ export default class Popin extends React.Component {
 
   render() {
     return (
-      <div style={{ width: '100%' }}>
+      <div style={this.props.box.type === Boxes.Type.Mixed ? { width: '100%', height: '100%' } : { width: '100%' }}>
         <div
           ref={(el) => { this.elem = el; }}
           className={`popin ${this.clazz} ${this.state.begin ? 'full-screen' : ''}`}
           onClick={this.openFullScreen}
         >
-          <PrinFlexBox onLoad={this.prinLoaded} box={this.props.box.pictures[0].prin} />
+          <PrinFlexBox
+            fullScreen={this.state.fullScreen}
+            onLoad={this.prinLoaded}
+            box={this.props.box.pictures[0].prin}
+          />
           <SecondaryFlexBox images={this.props.box.pictures[0].secondary.sources}/>
         </div>
         <div
@@ -180,7 +187,7 @@ export default class Popin extends React.Component {
             this.props.box.pictures
               .map(picture =>
                   <div key={picture.id} onTransitionEnd={e => e.stopPropagation()}>
-                    <PrinFlexBox box={picture.prin} />
+                    <PrinFlexBox fullScreen={this.state.fullScreen} box={picture.prin} />
                     <SecondaryFlexBox images={picture.secondary.sources}/>
                   </div>)
           }

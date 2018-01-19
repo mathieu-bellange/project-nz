@@ -12,8 +12,12 @@
       padding: 1em
       height: calc(100% - 2em)
       width: calc(100% - 2em)
-      .text-wrapper
-        height: 100%
+  &.popin-mixed
+    &.doppleganger > div
+      min-height: 100%
+    &.doppleganger.end > div
+      height: auto
+      min-height: min-content
   &.full-screen
     visibility: hidden
   &.doppleganger
@@ -64,8 +68,11 @@
                 max-height: none
         .prin
           padding: 0
+          width: 50%
           .img-wrapper
             max-width: 100%
+          .text-wrapper
+            padding: 1em
         .secondary
           .img-wrapper
             padding: 0
