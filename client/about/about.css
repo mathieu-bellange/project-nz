@@ -10,6 +10,10 @@
       margin: 1em 2em
       display: inline-block
       vertical-align: top
+      h1
+        padding-bottom: 1em
+      p
+        padding-bottom: 1em
       img
         width: 100%
       &.about-us
