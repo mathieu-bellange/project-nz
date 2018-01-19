@@ -1,3 +1,5 @@
 ## Aéroport d'Auckland
 
-On est arrivés !
+Le voyage s'est bien passé et nous arrivons à l'aéroport d'Auckland dans la matinée. Il fait beau et nous avions réservé une voiture pour quelques jours pour nous permettre de nous déplacer en attendant d'acheter le van. Avant de sortir, il faut encore passer les contrôles de sécurité de l'aéroport et notamment les contrôles environnementales. Ils ont un controle drastique sur tous organismes biologiques importés en Nouvelle-Zélande. Nos bagages passent tous aux rayons X, on vérifie nos chaussures, les bagages de camping... L'aéroport affiche partout l'importance pour le Nouvelle Zélande d'empêcher de nouvelles espèces d'entrée sur l'île. On verra au plus tard dans le voyage qu'ils ont beaucoup de problèmes avec des espèces endémiques que ce soit animales ou végétales.
+
+Une fois passé tous les contrôles, nous allons chercher notre voiture et direction Auckland. Ici, on roule à droite avec des boîtes automatiques et la circulation à Auckland est un peu compliqué. Beaucoup de mondes sur les routes, très peu de transport en commun. C'est un peu le tout voiture. On se dirige vers le centre d'AUckland où on a rendez vous avec la personne qui nous loue un appartement pour quelques jours le temps de trouver un van.

@@ -88,8 +88,7 @@ const boxAirplaneMixed = {
       id: 20,
       prin: {
         id: 200,
-        title: 'Singapour',
-        text: 'un texte sur singapour'
+        text: require('./singapour.md')
       },
       secondary: {
         sources: [

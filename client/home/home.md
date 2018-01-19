@@ -1,5 +1,6 @@
-# Notre voyage
+# Road trip en Nouvelle-Zélande
 
-Expliqué par des gens bien d'une super façon
+Bienvenue sur notre carnet de voyage de Nouvelle-Zélande. Vous y trouverez notre road-trip
+réalisé pendant plus de quatre mois, en compagnie de notre fille de 18 mois, à travers la Nouvelle-Zélande.
 
-Un second paragraphe éventuel
+Ceci est le récit d'une petite famille de trois, partie à l'autre bout du monde, dans un petit van.
