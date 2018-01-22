@@ -1,10 +1,12 @@
 import TypeBox from './type-box';
+import roadToNz from './road-to-nz.md';
+import singapour from './singapour.md';
+import aucklandAirport from './auckland-airport.md';
 
-// DONE ajouter un fichier .md avec les textes du voyage trello:#81
 const boxAirplaneTxt = {
   id: 0,
   left: true,
-  text: require('./road-to-nz.md'),
+  text: roadToNz,
   type: TypeBox.Text
 };
 const boxAirplaneImg = {
@@ -88,7 +90,7 @@ const boxAirplaneMixed = {
       id: 20,
       prin: {
         id: 200,
-        text: require('./singapour.md')
+        text: singapour
       },
       secondary: {
         sources: [
@@ -196,7 +198,7 @@ const boxes = [
         id: 40,
         left: true,
         position: 0,
-        text: require('./auckland-airport.md'),
+        text: aucklandAirport,
         type: TypeBox.Text
       },
       {

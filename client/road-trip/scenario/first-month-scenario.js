@@ -9,7 +9,7 @@ import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 import buildCity from './city-markers';
 
-// PLANNING ajouter avec les décors avoisinant la route trello:#77
+// DOING ajouter avec les décors avoisinant la route trello:#77
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
