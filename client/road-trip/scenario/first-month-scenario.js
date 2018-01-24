@@ -226,6 +226,7 @@ export default class FirstMonthScenario {
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[2].begin);
       this.declareCoastlineGenerator(2, 6);
       this.declareCitiesGenerator(2, 6);
+      this.declareDecorsGenerator(2, 6);
     },
     // Seventh step
     () => {
