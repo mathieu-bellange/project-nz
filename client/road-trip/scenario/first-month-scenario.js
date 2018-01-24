@@ -239,6 +239,7 @@ export default class FirstMonthScenario {
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[3].begin);
       this.declareCoastlineGenerator(3, 7);
       this.declareCitiesGenerator(3, 7);
+      this.declareDecorsGenerator(3, 7);
     },
     // Eigth step
     () => {
