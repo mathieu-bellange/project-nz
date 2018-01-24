@@ -8,6 +8,7 @@ import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 import buildCity from './city-markers';
+import buildDecors from './decor-markers';
 
 // DOING ajouter avec les décors avoisinant la route trello:#77
 export default class FirstMonthScenario {
@@ -96,6 +97,14 @@ export default class FirstMonthScenario {
         }
       });
   };
+  declareDecorsGenerator = (indexDecor, indexStep) => {
+    const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
+      this.DECORS[indexDecor].forEach((decor) => {
+        decor.draw(this.canvas).animate();
+      }, this);
+      sub.unsubscribe();
+    });
+  };
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
     const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
       this.COASTLINES[indexCoastline].forEach((orientedVector) => {
@@ -135,6 +144,8 @@ export default class FirstMonthScenario {
   ROADS_BEGIN_BY_STEP = [];
 
   CITIES = [];
+
+  DECORS = [];
 
   steps = [
     // launch step
@@ -191,6 +202,7 @@ export default class FirstMonthScenario {
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[0].begin);
       this.declareCoastlineGenerator(0, 4);
       this.declareCitiesGenerator(0, 4);
+      this.declareDecorsGenerator(0, 4);
     },
     // fifth step
     () => {
@@ -200,6 +212,7 @@ export default class FirstMonthScenario {
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[1].begin);
       this.declareCoastlineGenerator(1, 5);
       this.declareCitiesGenerator(1, 5);
+      this.declareDecorsGenerator(1, 5);
       const sub = this.nextStepSubject.filter(step => step === 5).subscribe(() => {
         this.displayBorneKmSubject.next(true);
         sub.unsubscribe();
@@ -461,6 +474,7 @@ export default class FirstMonthScenario {
     this.ROADS = buildRoads(pixelRatio);
     this.COASTLINES = buildCoastlines(pixelRatio);
     this.CITIES = buildCity(pixelRatio);
+    this.DECORS = buildDecors(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
     this.airplaneObservable = Observable.combineLatest(
       Observable.of({ sens: 1, interval: 320 }),
