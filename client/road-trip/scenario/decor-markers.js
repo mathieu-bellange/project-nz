@@ -18,6 +18,18 @@ const buildDecors = pixelRatio => ([
   [
     new SVGImage('/images/hills.svg', { x: 790, y: 640 }, { w: 225, h: 54 }, pixelRatio),
     new SVGImage('/images/hills.svg', { x: 772, y: 648 }, { w: 225, h: 54 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/lake-maraetai.svg', { x: 803, y: 667 }, { w: 234, h: 210 }, pixelRatio),
+    new SVGImage('/images/ligth-mountain.svg', { x: 810, y: 650 }, { w: 255, h: 182 }, pixelRatio),
+    new SVGImage('/images/ligth-mountain.svg', { x: 835, y: 675 }, { w: 255, h: 182 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/ligth-mountain.svg', { x: 840, y: 705 }, { w: 255, h: 182 }, pixelRatio),
+    new SVGImage('/images/ligth-mountain.svg', { x: 825, y: 725 }, { w: 255, h: 182 }, pixelRatio),
+    new SVGImage('/images/water-skiing.svg', { x: 810, y: 708 }, { w: 224, h: 48 }, pixelRatio),
+    new SVGImage('/images/fishing-boat.svg', { x: 818, y: 702 }, { w: 124, h: 52 }, pixelRatio),
+    new SVGImage('/images/fish.svg', { x: 805, y: 718 }, { w: 125, h: 74 }, pixelRatio)
   ]
 ]);
 
