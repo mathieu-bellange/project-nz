@@ -5,5 +5,6 @@ import City from './city';
 import Metropolis from './metropolis';
 import AnimatedLine from './animated-line';
 import SVGImage from './svg-image';
+import SVGText from './svg-text';
 
-export { Coordinate, OrientedVector, Road, City, AnimatedLine, Metropolis, SVGImage };
+export { Coordinate, OrientedVector, Road, City, AnimatedLine, Metropolis, SVGImage, SVGText };

@@ -1,4 +1,4 @@
-import { SVGImage } from '../tools';
+import { SVGImage, SVGText } from '../tools';
 
 const buildDecors = pixelRatio => ([
   [
@@ -27,9 +27,12 @@ const buildDecors = pixelRatio => ([
   [
     new SVGImage('/images/ligth-mountain.svg', { x: 840, y: 705 }, { w: 255, h: 182 }, pixelRatio),
     new SVGImage('/images/ligth-mountain.svg', { x: 825, y: 725 }, { w: 255, h: 182 }, pixelRatio),
-    new SVGImage('/images/water-skiing.svg', { x: 810, y: 708 }, { w: 224, h: 48 }, pixelRatio),
-    new SVGImage('/images/fishing-boat.svg', { x: 818, y: 702 }, { w: 124, h: 52 }, pixelRatio),
-    new SVGImage('/images/fish.svg', { x: 805, y: 718 }, { w: 125, h: 74 }, pixelRatio)
+    new SVGImage('/images/ligth-mountain.svg', { x: 810, y: 688 }, { w: 255, h: 182 }, pixelRatio),
+    new SVGImage('/images/ligth-mountain.svg', { x: 790, y: 710 }, { w: 255, h: 182 }, pixelRatio),
+    new SVGImage('/images/water-skiing.svg', { x: 805, y: 700 }, { w: 111, h: 24 }, pixelRatio),
+    new SVGImage('/images/fishing-boat.svg', { x: 818, y: 702 }, { w: 68, h: 29 }, pixelRatio),
+    new SVGImage('/images/fish.svg', { x: 806, y: 714 }, { w: 69, h: 41 }, pixelRatio),
+    new SVGText('Lake Taupo', { x: 811, y: 706 }, 46, pixelRatio)
   ]
 ]);
 
