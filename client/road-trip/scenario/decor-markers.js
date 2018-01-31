@@ -44,6 +44,20 @@ const buildDecors = pixelRatio => ([
   ],
   [
     new SVGImage('/images/volcano-ruapehu.svg', { x: 780, y: 765 }, { w: 417, h: 249 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/ruatiti.svg', { x: 738, y: 758 }, { w: 150, h: 116 }, pixelRatio),
+    new SVGImage('/images/ruatiti-valley.svg', { x: 753, y: 768 }, { w: 142, h: 88 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/ligth-mountain.svg', { x: 745, y: 790 }, { w: 207, h: 148 }, pixelRatio),
+    new SVGImage('/images/ligth-mountain.svg', { x: 762, y: 800 }, { w: 207, h: 148 }, pixelRatio),
+    new SVGImage('/images/ligth-mountain.svg', { x: 748, y: 815 }, { w: 207, h: 148 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/wanganui.svg', { x: 728, y: 840 }, { w: 78, h: 92 }, pixelRatio),
+    new SVGImage('/images/windy-beach.svg', { x: 732, y: 849 }, { w: 75, h: 57 }, pixelRatio),
+    new SVGImage('/images/tamariki.svg', { x: 737, y: 850 }, { w: 114, h: 34 }, pixelRatio)
   ]
 ]);
 

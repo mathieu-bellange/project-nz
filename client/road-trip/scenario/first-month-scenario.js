@@ -319,6 +319,7 @@ export default class FirstMonthScenario {
       this.declareSteps(19, 13, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[16].begin);
       this.declareCitiesGenerator(7, 13);
+      this.declareDecorsGenerator(9, 13);
     },
     // Fourteenth step
     () => {
@@ -329,6 +330,7 @@ export default class FirstMonthScenario {
       this.declareSteps(20, 14, true, false, true);
       this.declareSteps(21, 14, false, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[20].begin);
+      this.declareDecorsGenerator(10, 14);
     },
     // fifteenth step
     () => {
@@ -341,6 +343,7 @@ export default class FirstMonthScenario {
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[22].begin);
       this.declareCoastlineGenerator(5, 15);
       this.declareCitiesGenerator(8, 15);
+      this.declareDecorsGenerator(11, 15);
     },
     // sixteenth step
     () => {
