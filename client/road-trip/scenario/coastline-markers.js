@@ -146,10 +146,6 @@ const buildCoastlines = pixelRatio => ([
     new OrientedVector('nh123-nh124', 741, 923, 719, 965, pixelRatio)
   ],
   [
-    new OrientedVector('nh131-nh132', 721, 942, 724, 942, pixelRatio),
-    new OrientedVector('nh132-nh133', 724, 942, 717, 952, pixelRatio),
-    new OrientedVector('nh133-nh134', 717, 952, 716, 950, pixelRatio),
-    new OrientedVector('nh134-nh131', 716, 950, 721, 942, pixelRatio),
     new OrientedVector('nh124-nh125', 719, 965, 694, 1000, pixelRatio)
   ],
   [

@@ -58,6 +58,25 @@ const buildDecors = pixelRatio => ([
     new SVGImage('/images/wanganui.svg', { x: 728, y: 840 }, { w: 78, h: 92 }, pixelRatio),
     new SVGImage('/images/windy-beach.svg', { x: 732, y: 849 }, { w: 75, h: 57 }, pixelRatio),
     new SVGImage('/images/tamariki.svg', { x: 737, y: 850 }, { w: 114, h: 34 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/himatangi-beach.svg', { x: 747.5, y: 889.5 }, { w: 88, h: 118 }, pixelRatio),
+    new SVGImage('/images/w-beach.svg', { x: 746, y: 903 }, { w: 89, h: 52 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/ligth-mountain.svg', { x: 760, y: 925 }, { w: 207, h: 148 }, pixelRatio),
+    new SVGImage('/images/ligth-mountain.svg', { x: 750, y: 940 }, { w: 207, h: 148 }, pixelRatio),
+    new SVGImage('/images/w-beach.svg', { x: 744.5, y: 918 }, { w: 89, h: 52 }, pixelRatio),
+    new SVGImage('/images/w-beach.svg', { x: 736.5, y: 937 }, { w: 89, h: 52 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/ligth-mountain.svg', { x: 732, y: 965 }, { w: 207, h: 148 }, pixelRatio),
+    new SVGImage('/images/ligth-mountain.svg', { x: 727, y: 980 }, { w: 207, h: 148 }, pixelRatio),
+    new SVGImage('/images/w-beach.svg', { x: 728.5, y: 952 }, { w: 89, h: 52 }, pixelRatio),
+    new SVGImage('/images/kapiti-island.svg', { x: 714, y: 946 }, { w: 270, h: 99 }, pixelRatio)
+  ],
+  [
+    new SVGImage('/images/wellington.svg', { x: 705, y: 1000 }, { w: 112, h: 84 }, pixelRatio)
   ]
 ]);
 
