@@ -7,6 +7,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="622.45288"
@@ -17,7 +18,29 @@
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    sodipodi:docname="fishing-boat.svg">
   <defs
-     id="defs4026" />
+     id="defs4026">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient7469">
+      <stop
+         style="stop-color:#ff311a;stop-opacity:1;"
+         offset="0"
+         id="stop7465" />
+      <stop
+         style="stop-color:#ff311a;stop-opacity:0;"
+         offset="1"
+         id="stop7467" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7469"
+       id="linearGradient7471"
+       x1="93.636086"
+       y1="69.032509"
+       x2="85.91378"
+       y2="149.21336"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,16 +48,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="426.26072"
-     inkscape:cy="57.181321"
+     inkscape:zoom="0.7"
+     inkscape:cx="341.18568"
+     inkscape:cy="-245.32325"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="987"
-     inkscape:window-x="-8"
-     inkscape:window-y="14"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="103"
      inkscape:window-maximized="1"
      units="px" />
   <metadata
@@ -45,7 +68,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,9 +79,10 @@
      transform="translate(-36.44041,-64.794798)">
     <path
        style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 124.07068,98.373511 -0.14174,15.686009"
+       d="m 124.07068,98.373511 0.0253,13.614669"
        id="path4711"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.45119235px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 197.39412,124.94125 c 0,0 -2.57191,-0.39961 -4.00263,-0.3342 -1.41352,0.0646 -4.01917,0.6947 -4.01917,0.6947"
@@ -132,7 +156,7 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cac" />
     <path
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.05833328;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:url(#linearGradient7471);fill-opacity:1;stroke:#000000;stroke-width:1.05833328;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 37.371317,99.66782 13.787613,27.13647 79.67037,4.72366 15.47829,-16.68269 z"
        id="path4577"
        inkscape:connector-curvature="0" />
@@ -143,7 +167,7 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscc" />
     <path
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#0095de;fill-opacity:1;stroke:#000000;stroke-width:1.05833333;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 95.393444,130.95013 c 0,0 12.144416,-4.98442 16.592486,-4.60173 3.68389,0.31695 6.59348,4.23294 10.28988,4.14268 3.72605,-0.091 6.43164,-4.53911 10.15624,-4.67721 3.94398,-0.14624 7.14516,4.10684 11.09169,4.14267 2.40903,0.0219 4.41307,-2.58673 6.81537,-2.40542 2.26535,0.17098 9.03737,5.66408 9.03737,5.66408"
        id="path4707"
        inkscape:connector-curvature="0"

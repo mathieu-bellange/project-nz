@@ -10,7 +10,7 @@ import buildCoastlines from './coastline-markers';
 import buildCity from './city-markers';
 import buildDecors from './decor-markers';
 
-// DOING ajouter avec les décors avoisinant la route trello:#77
+// DONE ajouter avec les décors avoisinant la route trello:#77
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;
@@ -435,6 +435,7 @@ export default class FirstMonthScenario {
       this.declareSteps(40, 22, true, false, true);
       this.declareSteps(41, 22, false, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[40].begin);
+      this.declareDecorsGenerator(16, 22);
     },
     // twenty third step
     () => {
@@ -449,6 +450,7 @@ export default class FirstMonthScenario {
       this.declareSteps(44, 23, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[42].begin);
       this.declareCitiesGenerator(12, 23);
+      this.declareDecorsGenerator(17, 23);
     },
     // twenty fourth step
     () => {
