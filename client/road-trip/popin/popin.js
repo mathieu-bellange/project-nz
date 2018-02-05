@@ -7,6 +7,7 @@ import SecondaryFlexBox from './secondary-flexbox';
 import * as Boxes from '../boxes';
 import './popin.css';
 
+// PLANNING corriger l'affichage des photo en orrientation paysage trello:79
 export default class Popin extends React.Component {
   elem;
   clazz;
@@ -148,7 +149,7 @@ export default class Popin extends React.Component {
       end: false,
       fixedCloseIcon: false
     });
-    // FIXME corriger le smooth scroll sous firefox trello:#78
+    // PLANNING corriger le smooth scroll sous firefox trello:#78
     if (this.doppleganger.scroll) {
       this.doppleganger.scroll({
         top: 0,

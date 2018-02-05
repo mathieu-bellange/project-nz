@@ -10,7 +10,7 @@ import buildCoastlines from './coastline-markers';
 import buildCity from './city-markers';
 import buildDecors from './decor-markers';
 
-// DONE ajouter avec les décors avoisinant la route trello:#77
+// TODO voir s'il est possible d'adapter l'interval à la route trello:#79
 export default class FirstMonthScenario {
   canvas;
   actualPointSubject;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import PrinFlexBox from './prin-flexbox';
 
+// PLANNING masquer les de la popin texte sous basse résolution trello:#79
 export default class PopinText extends React.Component {
   elem;
   doppleganger;
@@ -116,7 +117,7 @@ export default class PopinText extends React.Component {
       end: false,
       fixedCloseIcon: false
     });
-    // FIXME corriger le smooth scroll sous firefox trello:#78
+    // PLANNING corriger le smooth scroll sous firefox trello:#78
     if (this.doppleganger.scroll) {
       this.doppleganger.scroll({
         top: 0,

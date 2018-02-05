@@ -18,6 +18,10 @@ function subtract(a1, a2) {
   return a1 - a2;
 }
 
+// PLANNING corriger l'apparition des boxes entre deux steps trello:#79
+// PLANNING le cercle des popins n'est pas bien centré trello:#79
+// PLANNING la croix de fermeture des popins n'est pas très visible trello:#79
+// PLANNING ouverture de popins non fonctionnelles sous edge trello:#79
 export default class PopinWrapper extends React.Component {
   paper;
   center;

@@ -1,3 +1,4 @@
+// PLANNING accélérer l'animation de l'avion sous basse résolution trello:#79
 export default class Airplane {
   svg;
   landingSubject;
