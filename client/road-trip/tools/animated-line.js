@@ -1,17 +1,20 @@
+import { Subject } from 'rxjs/Subject';
+
 export default class AnimatedLine {
   initLength;
   currentLength;
   line;
   path;
-  sensObservable;
+  sensSubject;
   sensSubscribe;
 
-  constructor(line, sensObservable) {
+  constructor(line) {
     this.line = line;
     this.initLength = Math.ceil(Math.sqrt(
       ((line.end.x - line.begin.x) ** 2) + ((line.end.y - line.begin.y) ** 2)
     ));
-    this.sensObservable = sensObservable;
+    this.currentLength = this.initLength;
+    this.sensSubject = new Subject();
   }
 
   draw(canvas) {
@@ -20,25 +23,20 @@ export default class AnimatedLine {
     return this;
   }
 
-  animate() {
-    this.currentLength = this.initLength;
-    this.sensObservable = this.sensObservable
-      .do((o) => { this.currentLength = this.currentLength + (o.sens * (this.initLength / o.interval)); })
-      .do(() => {
-        // permet l'animation de l'écran sans dessiner de ligne
-        if (this.path) {
-          this.path.node.setAttribute('style', `stroke-dasharray: ${this.currentLength}; stroke-dashoffset: ${this.initLength};`);
-        }
-      })
-      .map(o => ({
-        x: o.currentPoint.x + (((this.line.end.x - this.line.begin.x) / o.interval) * o.sens),
-        y: o.currentPoint.y + (((this.line.end.y - this.line.begin.y) / o.interval) * o.sens)
-      }));
-    return this;
+  animate(o) {
+    this.currentLength = this.currentLength + (o.sens * (this.initLength / o.interval));
+    // permet l'animation de l'écran sans dessiner de ligne
+    if (this.path) {
+      this.path.node.setAttribute('style', `stroke-dasharray: ${this.currentLength}; stroke-dashoffset: ${this.initLength};`);
+    }
+    this.sensSubject.next({
+      x: o.currentPoint.x + (((this.line.end.x - this.line.begin.x) / o.interval) * o.sens),
+      y: o.currentPoint.y + (((this.line.end.y - this.line.begin.y) / o.interval) * o.sens)
+    });
   }
 
   subscribe(callback) {
-    this.sensSubscribe = this.sensObservable.subscribe(callback);
+    this.sensSubscribe = this.sensSubject.subscribe(callback);
     return this.sensSubscribe;
   }
 

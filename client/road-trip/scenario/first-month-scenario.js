@@ -32,16 +32,13 @@ export default class FirstMonthScenario {
   };
   declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
     const road = this.ROADS[indexRoad];
-    const observable = this.automatedObservable
-      .withLatestFrom(this.actualRoadSubject, this.actualPointSubject)
-      .map(values => ({
-        sens: values[0].sens,
-        interval: values[0].interval,
-        roadId: values[1],
-        currentPoint: values[2]
-      }))
+    let animatedLine = new AnimatedLine(road);
+    if (!hideRoad) {
+      animatedLine = animatedLine.draw(this.canvas);
+    }
+    this.automatedObservable
       .filter(o => o.roadId === road.id)
-      .do((o) => {
+      .subscribe((o) => {
         if (o.sens === 1 && road.begin.isEqual(o.currentPoint)) {
           this.nextKmTraveledSubject.next(road.km);
         }
@@ -55,14 +52,11 @@ export default class FirstMonthScenario {
           this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
           this.actualPointSubject.next(o.currentPoint);
         }
-      })
-      .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
-        (o.sens === -1 && !road.begin.isEqual(o.currentPoint)));
-    let animatedLine = new AnimatedLine(road, observable);
-    if (!hideRoad) {
-      animatedLine = animatedLine.draw(this.canvas);
-    }
-    animatedLine.animate();
+        if ((o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
+          (o.sens === -1 && !road.begin.isEqual(o.currentPoint))) {
+          animatedLine.animate(o);
+        }
+      });
     animatedLine.subscribe((point) => {
       if (this.stoppingStep && this.stoppingStep.isEqual(point)) {
         this.automatedRoadAlwaysOn = false;
@@ -174,23 +168,19 @@ export default class FirstMonthScenario {
     },
     // third step
     () => {
-      const animatedLine = new AnimatedLine(
-        new OrientedVector('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y),
-        this.airplaneObservable
-      );
+      const animatedLine = new AnimatedLine(new OrientedVector('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y));
       const sub = this.nextStepSubject.filter(step => step === 3).subscribe(() => {
         this.sky.stop();
         this.airport.landing(this.canvas, this.landingPoint);
-        animatedLine
-          .animate()
-          .subscribe((point) => {
-            this.actualPointSubject.next(point);
-            if (this.airportPoint.isEqual(point)) {
-              this.nextStep();
-              animatedLine.unsubscribe();
-              this.landingFunction();
-            }
-          });
+        this.airplaneObservable.subscribe(o => animatedLine.animate(o));
+        animatedLine.subscribe((point) => {
+          this.actualPointSubject.next(point);
+          if (this.airportPoint.isEqual(point)) {
+            this.nextStep();
+            animatedLine.unsubscribe();
+            this.landingFunction();
+          }
+        });
         sub.unsubscribe();
       });
     },
@@ -503,11 +493,15 @@ export default class FirstMonthScenario {
     this.automatedObservable = Observable.combineLatest(
       this.launchAutomatedSubject,
       this.actualPointSubject
-    ).filter(() => this.automatedRoadOn || this.automatedRoadAlwaysOn)
+    ).withLatestFrom(this.actualRoadSubject)
+      .filter(() => this.automatedRoadOn || this.automatedRoadAlwaysOn)
       .map(values => ({
-        sens: values[0].sens,
-        interval: values[0].interval
-      })).delay(10);
+        sens: values[0][0].sens,
+        interval: values[0][0].interval,
+        roadId: values[1],
+        currentPoint: values[0][1]
+      }))
+      .delay(10);
     this.nextStepSubject.subscribe((step) => {
       this.hasPreviousSubject.next(step > 4);
       this.hasNextSubject.next(step < 24);
