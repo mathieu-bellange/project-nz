@@ -100,9 +100,8 @@ export default class FirstMonthScenario {
   };
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
     const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
-      this.COASTLINES[indexCoastline].forEach((orientedVector) => {
-        const path = this.canvas.path(`M${orientedVector.begin.x} ${orientedVector.begin.y}`);
-        path.animate({ path: `M${orientedVector.begin.x} ${orientedVector.begin.y} L${orientedVector.end.x} ${orientedVector.end.y}` }, 2000);
+      this.COASTLINES[indexCoastline].forEach((coastLine) => {
+        coastLine.draw(this.canvas).animate();
       }, this);
       sub.unsubscribe();
     });

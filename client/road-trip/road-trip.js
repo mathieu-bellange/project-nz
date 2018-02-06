@@ -1,5 +1,5 @@
 import React from 'react';
-import Raphael from 'raphael';
+import SVG from 'svg.js';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
@@ -74,7 +74,7 @@ export default class RoadTrip extends React.Component {
       this.pixelRatio = 15;
     }
     this.centerCanvas = this.centerCanvas.bind(this);
-    this.initRaphael = this.initRaphael.bind(this);
+    this.initSvgJs = this.initSvgJs.bind(this);
     this.defineBoxes = this.defineBoxes.bind(this);
     this.onNextStep = this.onNextStep.bind(this);
     this.onPreviousStep = this.onPreviousStep.bind(this);
@@ -101,14 +101,13 @@ export default class RoadTrip extends React.Component {
     });
   }
 
-  initRaphael() {
-    // init Rapahael
-    const canvas = Raphael(
-      this.canvasId,
+  initSvgJs() {
+    // init SVG.js
+    const draw = SVG(this.canvasId).size(
       this.width * this.pixelRatio,
       this.height * this.pixelRatio
     );
-    canvas.setViewBox(
+    draw.viewbox(
       0,
       0,
       this.width * this.pixelRatio,
@@ -116,7 +115,7 @@ export default class RoadTrip extends React.Component {
     );
 
     this.scenario = new Scenarios(
-      canvas,
+      draw,
       this.pixelRatio,
       this.actualPointSubject,
       this.actualBoxesSubject,
@@ -131,7 +130,7 @@ export default class RoadTrip extends React.Component {
   }
 
   componentDidMount() {
-    this.initRaphael();
+    this.initSvgJs();
   }
 
   onNextStep() {

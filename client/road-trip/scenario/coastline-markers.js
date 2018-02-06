@@ -1,4 +1,4 @@
-import { OrientedVector } from '../tools';
+import { OrientedVector, SVGLine } from '../tools';
 
 const OrientedVectors = [
   new OrientedVector('nh1-nh2', 499, 205, 541, 205),
@@ -80,82 +80,82 @@ const OrientedVectors = [
 
 const buildCoastlines = pixelRatio => ([
   [
-    new OrientedVector('nh54-nh55', 705, 498, 703, 498, pixelRatio),
-    new OrientedVector('nh55-nh56', 703, 498, 706, 504, pixelRatio),
-    new OrientedVector('nh56-nh57', 706, 504, 714, 503, pixelRatio)
+    new SVGLine('nh54-nh55', 705, 498, 703, 498, pixelRatio),
+    new SVGLine('nh55-nh56', 703, 498, 706, 504, pixelRatio),
+    new SVGLine('nh56-nh57', 706, 504, 714, 503, pixelRatio)
   ],
   [
-    new OrientedVector('nh49-nh50', 648, 441, 681, 506, pixelRatio),
-    new OrientedVector('nh50-nh51', 681, 506, 690, 502, pixelRatio),
-    new OrientedVector('nh51-nh52', 690, 502, 695, 497, pixelRatio),
-    new OrientedVector('nh52-nh53', 695, 497, 705, 495, pixelRatio),
-    new OrientedVector('nh53-nh54', 705, 495, 705, 498, pixelRatio),
-    new OrientedVector('nh57-nh58', 714, 503, 717, 508, pixelRatio),
-    new OrientedVector('nh24-nh25', 701, 455, 714, 478, pixelRatio),
-    new OrientedVector('nh25-nh26', 714, 478, 695, 482, pixelRatio),
-    new OrientedVector('nh26-nh27', 695, 482, 717, 484, pixelRatio),
-    new OrientedVector('nh27-nh28', 717, 484, 755, 499, pixelRatio)
+    new SVGLine('nh49-nh50', 648, 441, 681, 506, pixelRatio),
+    new SVGLine('nh50-nh51', 681, 506, 690, 502, pixelRatio),
+    new SVGLine('nh51-nh52', 690, 502, 695, 497, pixelRatio),
+    new SVGLine('nh52-nh53', 695, 497, 705, 495, pixelRatio),
+    new SVGLine('nh53-nh54', 705, 495, 705, 498, pixelRatio),
+    new SVGLine('nh57-nh58', 714, 503, 717, 508, pixelRatio),
+    new SVGLine('nh24-nh25', 701, 455, 714, 478, pixelRatio),
+    new SVGLine('nh25-nh26', 714, 478, 695, 482, pixelRatio),
+    new SVGLine('nh26-nh27', 695, 482, 717, 484, pixelRatio),
+    new SVGLine('nh27-nh28', 717, 484, 755, 499, pixelRatio)
   ],
   [
-    new OrientedVector('nh28-nh29', 755, 499, 760, 525, pixelRatio),
-    new OrientedVector('nh29-nh30', 760, 525, 771, 524, pixelRatio),
-    new OrientedVector('nh58-nh59', 717, 508, 699, 516, pixelRatio),
-    new OrientedVector('nh59-nh60', 699, 516, 697, 512, pixelRatio),
-    new OrientedVector('nh60-nh61', 697, 512, 695, 504, pixelRatio),
-    new OrientedVector('nh61-nh62', 695, 504, 682, 508, pixelRatio),
-    new OrientedVector('nh62-nh63', 682, 508, 683, 517, pixelRatio),
-    new OrientedVector('nh63-nh90', 683, 517, 709, 589, pixelRatio)
+    new SVGLine('nh28-nh29', 755, 499, 760, 525, pixelRatio),
+    new SVGLine('nh29-nh30', 760, 525, 771, 524, pixelRatio),
+    new SVGLine('nh58-nh59', 717, 508, 699, 516, pixelRatio),
+    new SVGLine('nh59-nh60', 699, 516, 697, 512, pixelRatio),
+    new SVGLine('nh60-nh61', 697, 512, 695, 504, pixelRatio),
+    new SVGLine('nh61-nh62', 695, 504, 682, 508, pixelRatio),
+    new SVGLine('nh62-nh63', 682, 508, 683, 517, pixelRatio),
+    new SVGLine('nh63-nh90', 683, 517, 709, 589, pixelRatio)
   ],
   [
-    new OrientedVector('nh90-nh91', 709, 589, 705, 604, pixelRatio),
-    new OrientedVector('nh91-nh92', 705, 604, 705, 625, pixelRatio),
-    new OrientedVector('nh92-nh93', 705, 625, 709, 626, pixelRatio),
-    new OrientedVector('nh93-nh94', 709, 626, 716, 622, pixelRatio),
-    new OrientedVector('nh94-nh95', 716, 622, 720, 627, pixelRatio),
-    new OrientedVector('nh95-nh96', 720, 627, 711, 632, pixelRatio),
-    new OrientedVector('nh96-nh97', 711, 632, 705, 629, pixelRatio),
-    new OrientedVector('nh97-nh98', 705, 629, 698, 629, pixelRatio),
-    new OrientedVector('nh98-nh99', 698, 629, 700, 653, pixelRatio),
-    new OrientedVector('nh99-nh100', 700, 653, 693, 662, pixelRatio)
+    new SVGLine('nh90-nh91', 709, 589, 705, 604, pixelRatio),
+    new SVGLine('nh91-nh92', 705, 604, 705, 625, pixelRatio),
+    new SVGLine('nh92-nh93', 705, 625, 709, 626, pixelRatio),
+    new SVGLine('nh93-nh94', 709, 626, 716, 622, pixelRatio),
+    new SVGLine('nh94-nh95', 716, 622, 720, 627, pixelRatio),
+    new SVGLine('nh95-nh96', 720, 627, 711, 632, pixelRatio),
+    new SVGLine('nh96-nh97', 711, 632, 705, 629, pixelRatio),
+    new SVGLine('nh97-nh98', 705, 629, 698, 629, pixelRatio),
+    new SVGLine('nh98-nh99', 698, 629, 700, 653, pixelRatio),
+    new SVGLine('nh99-nh100', 700, 653, 693, 662, pixelRatio)
   ],
   [
-    new OrientedVector('lt1-lt2', 799, 696, 824, 698, pixelRatio),
-    new OrientedVector('lt2-lt3', 824, 698, 824, 708, pixelRatio),
-    new OrientedVector('lt3-lt4', 824, 708, 800, 728, pixelRatio),
-    new OrientedVector('lt4-lt1', 800, 728, 799, 696, pixelRatio)
+    new SVGLine('lt1-lt2', 799, 696, 824, 698, pixelRatio),
+    new SVGLine('lt2-lt3', 824, 698, 824, 708, pixelRatio),
+    new SVGLine('lt3-lt4', 824, 708, 800, 728, pixelRatio),
+    new SVGLine('lt4-lt1', 800, 728, 799, 696, pixelRatio)
   ],
   [
-    new OrientedVector('nh100-nh101', 693, 662, 689, 711, pixelRatio),
-    new OrientedVector('nh101-nh102', 689, 711, 673, 729, pixelRatio),
-    new OrientedVector('nh102-nh103', 673, 729, 659, 730, pixelRatio),
-    new OrientedVector('nh103-nh104', 659, 730, 640, 738, pixelRatio),
-    new OrientedVector('nh104-nh105', 640, 738, 615, 758, pixelRatio),
-    new OrientedVector('nh105-nh106', 615, 758, 615, 777, pixelRatio),
-    new OrientedVector('nh106-nh107', 615, 777, 631, 795, pixelRatio),
-    new OrientedVector('nh107-nh108', 631, 795, 664, 807, pixelRatio),
-    new OrientedVector('nh108-nh109', 664, 807, 678, 823, pixelRatio),
-    new OrientedVector('nh109-nh110', 678, 823, 702, 834, pixelRatio),
-    new OrientedVector('nh110-nh111', 702, 834, 717, 835, pixelRatio),
-    new OrientedVector('nh111-nh121', 717, 835, 740, 862, pixelRatio)
+    new SVGLine('nh100-nh101', 693, 662, 689, 711, pixelRatio),
+    new SVGLine('nh101-nh102', 689, 711, 673, 729, pixelRatio),
+    new SVGLine('nh102-nh103', 673, 729, 659, 730, pixelRatio),
+    new SVGLine('nh103-nh104', 659, 730, 640, 738, pixelRatio),
+    new SVGLine('nh104-nh105', 640, 738, 615, 758, pixelRatio),
+    new SVGLine('nh105-nh106', 615, 758, 615, 777, pixelRatio),
+    new SVGLine('nh106-nh107', 615, 777, 631, 795, pixelRatio),
+    new SVGLine('nh107-nh108', 631, 795, 664, 807, pixelRatio),
+    new SVGLine('nh108-nh109', 664, 807, 678, 823, pixelRatio),
+    new SVGLine('nh109-nh110', 678, 823, 702, 834, pixelRatio),
+    new SVGLine('nh110-nh111', 702, 834, 717, 835, pixelRatio),
+    new SVGLine('nh111-nh121', 717, 835, 740, 862, pixelRatio)
   ],
   [
-    new OrientedVector('nh121-nh122', 740, 862, 746, 877, pixelRatio),
-    new OrientedVector('nh122-nh123', 746, 877, 741, 923, pixelRatio)
+    new SVGLine('nh121-nh122', 740, 862, 746, 877, pixelRatio),
+    new SVGLine('nh122-nh123', 746, 877, 741, 923, pixelRatio)
   ],
   [
-    new OrientedVector('nh123-nh124', 741, 923, 719, 965, pixelRatio)
+    new SVGLine('nh123-nh124', 741, 923, 719, 965, pixelRatio)
   ],
   [
-    new OrientedVector('nh124-nh125', 719, 965, 694, 1000, pixelRatio)
+    new SVGLine('nh124-nh125', 719, 965, 694, 1000, pixelRatio)
   ],
   [
-    new OrientedVector('nh125-nh126', 694, 1000, 705, 1008, pixelRatio),
-    new OrientedVector('nh126-nh127', 705, 1008, 714, 1001, pixelRatio),
-    new OrientedVector('nh127-nh128', 714, 1001, 713, 994, pixelRatio),
-    new OrientedVector('nh128-nh129', 713, 994, 719, 993, pixelRatio),
-    new OrientedVector('nh129-nh130', 719, 993, 715, 1006, pixelRatio),
-    new OrientedVector('nh130-nh120', 715, 1006, 719, 1014, pixelRatio),
-    new OrientedVector('nh119-nh120', 742, 1013, 719, 1014, pixelRatio)
+    new SVGLine('nh125-nh126', 694, 1000, 705, 1008, pixelRatio),
+    new SVGLine('nh126-nh127', 705, 1008, 714, 1001, pixelRatio),
+    new SVGLine('nh127-nh128', 714, 1001, 713, 994, pixelRatio),
+    new SVGLine('nh128-nh129', 713, 994, 719, 993, pixelRatio),
+    new SVGLine('nh129-nh130', 719, 993, 715, 1006, pixelRatio),
+    new SVGLine('nh130-nh120', 715, 1006, 719, 1014, pixelRatio),
+    new SVGLine('nh119-nh120', 742, 1013, 719, 1014, pixelRatio)
   ]
 ]);
 
