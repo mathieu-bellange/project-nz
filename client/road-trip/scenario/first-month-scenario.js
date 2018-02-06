@@ -47,6 +47,7 @@ export default class FirstMonthScenario {
         }
         if (o.sens === 1 && road.end.isEqual(o.currentPoint) && indexRoad + 1 < this.ROADS.length) {
           this.actualRoadSubject.next(this.ROADS[indexRoad + 1].id);
+          this.actualPointSubject.next(o.currentPoint);
         }
         if (o.sens === -1 && road.begin.isEqual(o.currentPoint) && indexRoad > 0) {
           this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
