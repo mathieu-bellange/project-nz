@@ -34,14 +34,9 @@ export default class City extends Coordinate {
     return this;
   }
 
-  animate() {
-    let index = 0;
-    const intervalID = setInterval(() => {
-      this.centerElement.attr({ opacity: index += 0.025 });
-      this.nameElement.attr({ opacity: index += 0.025 });
-      if (index >= 1) {
-        clearInterval(intervalID);
-      }
-    }, 100);
+  animate(interval) {
+    this.nameElement.animate(interval || 2000, '-').attr({ opacity: 1 });
+    this.centerElement.animate(interval || 2000, '-').attr({ opacity: 1 });
+    return this;
   }
 }

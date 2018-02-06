@@ -18,23 +18,19 @@ export default class Metropolis extends Path {
 
   draw(paper) {
     super.draw(paper, this.pixelRatio);
-    this.nameElement = paper.text(this.namePosition.x, this.namePosition.y, this.name)
-      .attr({
-        'font-size': '32',
-        opacity: '0',
-        'font-family': 'Roboto'
-      });
+    this.nameElement = paper.text(this.name)
+      .move(this.namePosition.x, this.namePosition.y)
+      .font({
+        size: '32',
+        family: 'Roboto'
+      })
+      .attr({ opacity: 0 });
     return this;
   }
 
-  animate() {
-    super.animate(0.025);
-    let index = 0;
-    const intervalID = setInterval(() => {
-      this.nameElement.attr({ opacity: index += 0.025 });
-      if (index >= 1) {
-        clearInterval(intervalID);
-      }
-    }, 100);
+  animate(interval) {
+    super.animate(interval);
+    this.nameElement.animate(interval || 2000, '-').attr({ opacity: 1 });
+    return this;
   }
 }
