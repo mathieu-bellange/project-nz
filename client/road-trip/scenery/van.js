@@ -33,6 +33,7 @@ export default class Van {
   drive() {
     this.svg.stop();
     this.svg.animate({ transform: 't500,0' }, 1000, () => {
+      this.svg.remove();
     });
   }
 

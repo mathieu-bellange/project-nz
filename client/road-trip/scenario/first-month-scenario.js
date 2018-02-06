@@ -57,8 +57,7 @@ export default class FirstMonthScenario {
         }
       })
       .filter(o => (o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
-        (o.sens === -1 && !road.begin.isEqual(o.currentPoint)))
-      .debounceTime(5);
+        (o.sens === -1 && !road.begin.isEqual(o.currentPoint)));
     let animatedLine = new AnimatedLine(road, observable);
     if (!hideRoad) {
       animatedLine = animatedLine.draw(this.canvas);
@@ -508,7 +507,7 @@ export default class FirstMonthScenario {
       .map(values => ({
         sens: values[0].sens,
         interval: values[0].interval
-      })).delay(5);
+      })).delay(10);
     this.nextStepSubject.subscribe((step) => {
       this.hasPreviousSubject.next(step > 4);
       this.hasNextSubject.next(step < 24);
