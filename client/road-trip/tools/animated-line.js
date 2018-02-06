@@ -17,9 +17,14 @@ export default class AnimatedLine {
     this.sensSubject = new Subject();
   }
 
-  draw(canvas) {
-    this.path = canvas.path(`M${this.line.begin.x} ${this.line.begin.y} L${this.line.end.x} ${this.line.end.y}`);
-    this.path.node.setAttribute('style', `stroke-dasharray: ${this.initLength}; stroke-dashoffset: ${this.initLength};`);
+  draw(draw) {
+    this.path = draw.line(this.line.begin.x, this.line.begin.y, this.line.end.x, this.line.end.y)
+      .stroke({
+        dasharray: this.initLength,
+        dashoffset: this.initLength,
+        color: '#000',
+        width: 1
+      });
     return this;
   }
 
@@ -27,7 +32,7 @@ export default class AnimatedLine {
     this.currentLength = this.currentLength + (o.sens * (this.initLength / o.interval));
     // permet l'animation de l'écran sans dessiner de ligne
     if (this.path) {
-      this.path.node.setAttribute('style', `stroke-dasharray: ${this.currentLength}; stroke-dashoffset: ${this.initLength};`);
+      this.path.stroke({ dasharray: this.currentLength, dashoffset: this.initLength });
     }
     this.sensSubject.next({
       x: o.currentPoint.x + (((this.line.end.x - this.line.begin.x) / o.interval) * o.sens),
