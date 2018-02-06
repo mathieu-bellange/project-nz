@@ -12,26 +12,18 @@ export default class SVGText {
   }
 
   draw(paper) {
-    this.text = paper.text(
-      this.position.x * this.pixelRatio,
-      this.position.y * this.pixelRatio,
-      this.txt
-    ).attr({
-      'text-anchor': 'middle',
-      'font-size': this.size,
-      opacity: 0,
-      'font-family': 'Roboto'
-    });
+    this.text = paper.text(this.txt)
+      .move(this.position.x * this.pixelRatio, this.position.y * this.pixelRatio)
+      .font({
+        anchor: 'middle',
+        size: this.size,
+        family: 'Roboto'
+      })
+      .attr({ opacity: 0 });
     return this;
   }
 
   animate() {
-    let index = 0;
-    const intervalID = setInterval(() => {
-      this.text.attr({ opacity: index += 0.025 });
-      if (index >= 1) {
-        clearInterval(intervalID);
-      }
-    }, 100);
+    this.text.animate(2000, '-').attr({ opacity: 1 });
   }
 }
