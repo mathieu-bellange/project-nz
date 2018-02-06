@@ -472,7 +472,7 @@ export default class FirstMonthScenario {
     this.airport = new Airport();
     this.initPoint = new Coordinate(754, 476, pixelRatio);
     this.airportPoint = new Coordinate(708, 502, pixelRatio);
-    this.landingPoint = new Coordinate(675, 521, pixelRatio);
+    this.landingPoint = new Coordinate(670, 526, pixelRatio);
     this.van = new Van();
     this.kapitiBoat = new KapitiBoat();
     this.ROADS = buildRoads(pixelRatio);

@@ -7,8 +7,8 @@ export default class Airport {
   airplane;
   airplaneLandingSubject;
   runwaySize = {
-    w: 668,
-    h: 128
+    w: 509,
+    h: 209
   };
 
   constructor() {
@@ -18,17 +18,22 @@ export default class Airport {
     });
     if (window.innerWidth < 680) {
       this.runwaySize = {
-        w: 334,
-        h: 64
+        w: 339,
+        h: 139
       };
     }
     this.airplane = new Airplane(this.airplaneLandingSubject);
   }
 
-  landing(canvas, position) {
-    this.runway = canvas.image('/images/runway.svg', position.x - (this.runwaySize.w / 2), position.y, this.runwaySize.w, this.runwaySize.h);
+  landing(draw, position) {
+    this.runwayPosition = {
+      x: position.x - (this.runwaySize.w / 2),
+      y: position.y - (this.runwaySize.h / 2)
+    };
+    this.runway = draw.image('/images/runway.svg', this.runwaySize.w, this.runwaySize.h)
+      .move(this.runwayPosition.x, this.runwayPosition.y);
     this.airplane.stopAnimation();
-    this.airplane.landing(position);
+    this.airplane.landing(this.runwayPosition);
   }
 
   fliing(canvas, position) {
@@ -37,7 +42,7 @@ export default class Airport {
   }
 
   removeRunway() {
-    this.runway.animate({ transform: `t-${this.runwaySize.w},0` }, 4000, () => {
+    this.runway.animate(3000, '-').move(this.runwayPosition.x - this.runwaySize.w, this.runwayPosition.y).after(() => {
       this.runway.remove();
     });
   }
