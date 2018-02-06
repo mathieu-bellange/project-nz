@@ -124,6 +124,8 @@ export default class FirstMonthScenario {
       .subscribe((point) => {
         if ((road.begin.isEqual(point) && hideBegin) || (road.end.isEqual(point) && hideEnd)) {
           svg.remove();
+        } else if (road.begin.isEqual(point) || road.end.isEqual(point)) {
+          svg.draw(this.canvas, point, reverse).animate();
         } else {
           svg.draw(this.canvas, point, reverse);
         }
@@ -488,7 +490,7 @@ export default class FirstMonthScenario {
       sens: values[0].sens,
       currentPoint: values[1],
       interval: values[0].interval
-    })).delay(5);
+    })).delay(10);
     this.launchAutomatedSubject = new Subject();
     this.automatedObservable = Observable.combineLatest(
       this.launchAutomatedSubject,
@@ -501,7 +503,7 @@ export default class FirstMonthScenario {
         roadId: values[1],
         currentPoint: values[0][1]
       }))
-      .delay(10);
+      .delay(20);
     this.nextStepSubject.subscribe((step) => {
       this.hasPreviousSubject.next(step > 4);
       this.hasNextSubject.next(step < 24);
@@ -534,7 +536,7 @@ export default class FirstMonthScenario {
       this.nextStepSubject.next(index);
     } else if (index > 4) {
       this.automatedRoadOn = true;
-      this.launchAutomatedSubject.next({ sens: 1, interval: 320 });
+      this.launchAutomatedSubject.next({ sens: 1, interval: 160 });
       this.onRoadAgainSubject.next(false);
     }
     this.scenarioService.saveCurrentStep(index);
@@ -544,7 +546,7 @@ export default class FirstMonthScenario {
     const index = this.scenarioService.getCurrentStep() - 1;
     if (index > 3) {
       this.automatedRoadOn = true;
-      this.launchAutomatedSubject.next({ sens: -1, interval: 320 });
+      this.launchAutomatedSubject.next({ sens: -1, interval: 160 });
       this.onRoadAgainSubject.next(false);
     }
     this.scenarioService.saveCurrentStep(index);

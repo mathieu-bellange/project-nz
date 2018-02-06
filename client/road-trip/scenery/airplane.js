@@ -41,7 +41,7 @@ export default class Airplane {
 
   landing(position) {
     this.svg.stop();
-    this.svg.animate(4000, '-').move(position.x, position.y - this.airplaneSize.h).after(() => {
+    this.svg.animate(5000, '-').move(position.x, position.y - this.airplaneSize.h).after(() => {
       this.landingSubject.next();
       this.svg.animate(3000, '-').move(position.x - (window.innerWidth / 2) - this.airplaneSize.w, position.y - this.airplaneSize.h).after(() => {
         this.svg.remove();
