@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Raphael from 'raphael';
+import SVG from 'svg.js';
 import { Observable } from 'rxjs/Observable';
 
 import { Van } from '../scenery';
@@ -34,7 +34,7 @@ export default class LoadingComponent extends React.Component {
       canvasY = 65;
       vanY = 40;
     }
-    const canvas = Raphael('van', 1000, canvasY);
+    const canvas = SVG('van', 1000, canvasY);
     this.van.draw(canvas, { x: vanX, y: vanY }).animate();
     Observable.timer(0, 900)
       .filter(() => this.props.loading)

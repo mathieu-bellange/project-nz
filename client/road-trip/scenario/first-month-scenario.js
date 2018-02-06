@@ -125,7 +125,7 @@ export default class FirstMonthScenario {
         if ((road.begin.isEqual(point) && hideBegin) || (road.end.isEqual(point) && hideEnd)) {
           svg.remove();
         } else {
-          svg.draw(this.canvas, point, reverse).animate();
+          svg.draw(this.canvas, point, reverse);
         }
       });
   };
