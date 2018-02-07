@@ -12,7 +12,7 @@ import * as Boxes from './boxes';
 import * as Popin from './popin';
 import LoadingComponent from './loading';
 
-// DOING correction de performances du site trello:#79
+// DONE correction de performances du site trello:#79
 // PLANNING réduction de la police sous basse résolution trello:#79
 export default class RoadTrip extends React.Component {
   width = 1080;

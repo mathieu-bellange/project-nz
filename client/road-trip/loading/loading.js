@@ -7,7 +7,7 @@ import { Van } from '../scenery';
 import Point from './point';
 import './loading.css';
 
-// PLANNING le composant loading masque une partie de l'écran même quand il n'est pas affiché trello:#79
+// TODO le composant loading masque une partie de l'écran même quand il n'est pas affiché trello:#79
 export default class LoadingComponent extends React.Component {
   van;
 
