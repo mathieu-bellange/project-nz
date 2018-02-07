@@ -3,7 +3,7 @@ import 'react-dom';
 import 'react-router-dom';
 import 'prop-types';
 import 'react-transition-group';
-import 'raphael';
+import 'svg.js';
 import 'rxjs/BehaviorSubject';
 import 'rxjs/Subject';
 import 'rxjs/Observable';

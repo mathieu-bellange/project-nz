@@ -15,6 +15,6 @@ Le travail ayant été conséquent, les mois suivants seront ajoutés au fur et 
 pour que chacun puisse profiter des nombreux textes et photos de notre premier mois,
 ainsi que pour nous laisser le temps d'ajouter la suite du contenu.
 
-Pour les plus curieurs/technophiles/développeurs, vous pouvez trouver les sources du site [ici][1], développé avec Webpack, React et RaphaelJs.
+Pour les plus curieurs/technophiles/développeurs, vous pouvez trouver les sources du site [ici][1], développé avec Webpack, React et SVG.js.
 
 [1]: https://github.com/mathieu-bellange/project-nz "github.com"

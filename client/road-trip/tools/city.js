@@ -15,31 +15,28 @@ export default class City extends Coordinate {
     this.radius = 0.35 * pixelRatio;
   }
 
-  draw(paper) {
-    this.centerElement = paper.circle(this.x, this.y, this.radius)
+  draw(draw) {
+    this.centerElement = draw.circle(this.radius)
+      .move(this.x, this.y)
       .attr({
         stroke: '#f3f3f3',
         fill: '#f3f3f3',
         opacity: 0
       });
-    this.nameElement = paper.text(this.namePosition.x, this.namePosition.y, this.name)
-      .attr({
-        'text-anchor': 'start',
-        'font-size': '16',
-        opacity: 0,
-        'font-family': 'Roboto'
-      });
+    this.nameElement = draw.text(this.name)
+      .move(this.namePosition.x, this.namePosition.y)
+      .font({
+        anchor: 'start',
+        size: '16',
+        family: 'Roboto'
+      })
+      .attr({ opacity: 0 });
     return this;
   }
 
-  animate() {
-    let index = 0;
-    const intervalID = setInterval(() => {
-      this.centerElement.attr({ opacity: index += 0.025 });
-      this.nameElement.attr({ opacity: index += 0.025 });
-      if (index >= 1) {
-        clearInterval(intervalID);
-      }
-    }, 100);
+  animate(interval) {
+    this.nameElement.animate(interval || 2000, '-').attr({ opacity: 1 });
+    this.centerElement.animate(interval || 2000, '-').attr({ opacity: 1 });
+    return this;
   }
 }

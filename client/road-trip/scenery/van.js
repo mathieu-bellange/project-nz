@@ -1,5 +1,6 @@
 export default class Van {
   svg;
+  vanPosition;
   vanSize = {
     w: 120,
     h: 62
@@ -16,23 +17,26 @@ export default class Van {
 
   draw(canvas, position, reverse) {
     if (this.svg) this.svg.remove();
+    this.vanPosition = {
+      x: position.x - (this.vanSize.w / 2),
+      y: position.y - (this.vanSize.h / 2)
+    };
     let srcImage = '/images/van.svg';
     if (reverse) {
       srcImage = '/images/van-reverse.svg';
     }
-    this.svg = canvas.image(srcImage, position.x - (this.vanSize.w / 2), position.y - (this.vanSize.h / 2), this.vanSize.w, this.vanSize.h);
+    this.svg = canvas.image(srcImage, this.vanSize.w, this.vanSize.h)
+      .move(this.vanPosition.x, this.vanPosition.y);
     return this;
   }
 
   animate() {
-    this.svg.animate({ transform: 't0,1' }, 100, () => {
-      this.svg.animate({ transform: 't0,0' }, 100, () => this.animate());
-    });
+    this.svg.animate(200, '-').move(this.vanPosition.x, this.vanPosition.y + 1).loop();
   }
 
   drive() {
     this.svg.stop();
-    this.svg.animate({ transform: 't500,0' }, 1000, () => {
+    this.svg.animate(1000, '-').move(this.vanPosition.x + 500, this.vanPosition.y).after(() => {
       this.svg.remove();
     });
   }

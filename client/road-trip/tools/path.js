@@ -25,18 +25,12 @@ export default class Path {
     this.element = paper
       .path(path)
       .attr(this.options)
-      .toBack();
+      .back();
     return this;
   }
 
   animate(interval) {
-    const theInterval = interval || 0.1;
-    let index = 0;
-    const intervalID = setInterval(() => {
-      this.element.attr({ opacity: index += theInterval });
-      if (index >= 1) {
-        clearInterval(intervalID);
-      }
-    }, 100);
+    this.element.animate(interval || 2000, '-').attr({ opacity: 1 });
+    return this;
   }
 }

@@ -1,4 +1,5 @@
 export default class Cloud {
+  cloudPosition;
   cloudSize = {
     w: 167,
     h: 64
@@ -14,11 +15,13 @@ export default class Cloud {
   }
 
   draw(canvas, position, sizeRatio, cloudIndexImg) {
-    this.svg = canvas.image(`/images/nuage_${cloudIndexImg}.svg`, position.x - this.cloudSize.w, position.y, this.cloudSize.w * sizeRatio, this.cloudSize.h * sizeRatio);
+    this.cloudPosition = position;
+    this.svg = canvas.image(`/images/nuage_${cloudIndexImg}.svg`, this.cloudSize.w * sizeRatio, this.cloudSize.h * sizeRatio)
+      .move(position.x - this.cloudSize.w, position.y);
   }
 
   animate(speedTransition) {
-    this.svg.animate({ transform: `t${window.innerWidth + this.cloudSize.w},0` }, speedTransition, () => {
+    this.svg.animate(speedTransition, '-').move(this.cloudPosition.x + window.innerWidth + this.cloudSize.w, this.cloudPosition.y).after(() => {
       this.svg.remove();
     });
   }

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Raphael from 'raphael';
+import SVG from 'svg.js';
 import { Observable } from 'rxjs/Observable';
 
 import { Van } from '../scenery';
 import Point from './point';
 import './loading.css';
 
-// PLANNING le composant loading masque une partie de l'écran même quand il n'est pas affiché trello:#79
+// TODO le composant loading masque une partie de l'écran même quand il n'est pas affiché trello:#79
 export default class LoadingComponent extends React.Component {
   van;
 
@@ -34,7 +34,7 @@ export default class LoadingComponent extends React.Component {
       canvasY = 65;
       vanY = 40;
     }
-    const canvas = Raphael('van', 1000, canvasY);
+    const canvas = SVG('van', 1000, canvasY);
     this.van.draw(canvas, { x: vanX, y: vanY }).animate();
     Observable.timer(0, 900)
       .filter(() => this.props.loading)

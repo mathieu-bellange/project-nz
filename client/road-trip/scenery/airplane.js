@@ -18,15 +18,19 @@ export default class Airplane {
     }
   }
 
-  draw(canvas, position) {
-    this.flyPosition = position;
-    this.svg = canvas.image('/images/airplane.svg', position.x - (this.airplaneSize.w / 2), position.y - (this.airplaneSize.h / 2), this.airplaneSize.w, this.airplaneSize.h);
+  draw(draw, position) {
+    this.flyPosition = {
+      x: position.x - (this.airplaneSize.w / 2),
+      y: position.y - (this.airplaneSize.h / 2)
+    };
+    this.svg = draw.image('/images/airplane.svg', this.airplaneSize.w, this.airplaneSize.h)
+      .move(this.flyPosition.x, this.flyPosition.y);
   }
 
   animate() {
-    this.svg.animate({ transform: 't0,25' }, 1000, () => {
-      this.svg.animate({ transform: 't0,-25' }, 2000, () => {
-        this.svg.animate({ transform: 't0,0' }, 1000, () => this.animate());
+    this.svg.animate(1000, '-').move(this.flyPosition.x, this.flyPosition.y + 25).after(() => {
+      this.svg.animate(2000, '-').move(this.flyPosition.x, this.flyPosition.y - 25).after(() => {
+        this.svg.animate(1000, '-').move(this.flyPosition.x, this.flyPosition.y).after(() => this.animate());
       });
     });
   }
@@ -36,11 +40,10 @@ export default class Airplane {
   }
 
   landing(position) {
-    const landingXBis = position.x - this.flyPosition.x;
-    const landingYBis = position.y - this.flyPosition.y - 64;
-    this.svg.animate({ transform: `t${landingXBis},${landingYBis}` }, 4000, () => {
+    this.svg.stop();
+    this.svg.animate(5000, '-').move(position.x, position.y - this.airplaneSize.h).after(() => {
       this.landingSubject.next();
-      this.svg.animate({ transform: `t${landingXBis - (window.innerWidth / 2)  - this.airplaneSize.w},${landingYBis}` }, 3000, () => {
+      this.svg.animate(3000, '-').move(position.x - (window.innerWidth / 2) - this.airplaneSize.w, position.y - this.airplaneSize.h).after(() => {
         this.svg.remove();
       });
     });

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Raphael from 'raphael';
+import SVG from 'svg.js';
 import isequal from 'lodash/isEqual';
 import { Observable } from 'rxjs/Observable';
 
@@ -19,14 +19,14 @@ function subtract(a1, a2) {
 }
 
 // PLANNING corriger l'apparition des boxes entre deux steps trello:#79
-// PLANNING le cercle des popins n'est pas bien centré trello:#79
+// DONE le cercle des popins n'est pas bien centré trello:#79
 // PLANNING la croix de fermeture des popins n'est pas très visible trello:#79
 // PLANNING ouverture de popins non fonctionnelles sous edge trello:#79
 export default class PopinWrapper extends React.Component {
-  paper;
+  draw;
   center;
   containerSize;
-  lineStyle = { stroke: '#BEBCBC', 'stroke-width': 2 };
+  lineStyle = { color: '#BEBCBC', width: 2 };
   animations = [];
   mapPopinComponents = function mapPopinComponents(box) {
     let component = '';
@@ -56,32 +56,14 @@ export default class PopinWrapper extends React.Component {
     </CSSTransition>;
   };
   defineMiddleComponent = () => {
-    if (this.paper) this.paper.remove();
+    if (this.draw) this.draw.remove();
     if (window.innerWidth < 1024) return;
     const container = document.getElementById('middle-container');
     this.containerSize = {
       width: container.clientWidth,
       height: container.clientHeight
     };
-    this.paper = Raphael('middle-container', container.clientWidth, container.clientHeight);
-    this.paper.customAttributes.arc = (centerX, centerY, startAngle, endAngle, arcEdge) => {
-      const radians = Math.PI / 180;
-      const largeArc = +(endAngle - startAngle > 180);
-      // calculate the start and end points for both inner and outer edges of the arc segment
-      // the -90s are about starting the angle measurement from the top get rid
-      // of these if this doesn't suit your needs
-      const outerX1 = centerX + (arcEdge * Math.cos((startAngle - 90) * radians));
-      const outerY1 = centerY + (arcEdge * Math.sin((startAngle - 90) * radians));
-      const outerX2 = centerX + (arcEdge * Math.cos((endAngle - 90) * radians));
-      const outerY2 = centerY + (arcEdge * Math.sin((endAngle - 90) * radians));
-
-      // build the path array
-      const path = [
-        ['M', outerX1, outerY1], // move to the start point
-        ['A', arcEdge, arcEdge, 0, largeArc, 1, outerX2, outerY2] // draw the outer edge of the arc
-      ];
-      return { path };
-    };
+    this.draw = SVG('middle-container', container.clientWidth, container.clientHeight);
     this.center = {
       x: container.clientWidth / 2,
       y: container.clientHeight / 2
@@ -111,7 +93,7 @@ export default class PopinWrapper extends React.Component {
         this.defineMiddleComponent();
         this.forceUpdate();
         if (this.props.drawCircle) {
-          this.circleAnimation(0);
+          this.circleAnimation();
         }
       });
   }
@@ -119,7 +101,7 @@ export default class PopinWrapper extends React.Component {
   componentDidUpdate(prevProps) {
     if (!isequal(prevProps.drawCircle, this.props.drawCircle)) {
       if (this.props.drawCircle) {
-        this.circleAnimation(0);
+        this.circleAnimation();
       } else {
         this.removeCircle();
       }
@@ -132,20 +114,21 @@ export default class PopinWrapper extends React.Component {
     });
   }
 
-  circleAnimation(x) {
+  circleAnimation() {
     if (window.innerWidth < 1024) return;
-    if (x < 360) {
-      const animatedCircle = this.paper.path().attr({ stroke: '#BEBCBC', 'stroke-width': 2, arc: [this.center.x, this.center.y, 0, x, 10] });
-      const animRotation = Raphael.animation({ transform: `r5,${this.center.x},${this.center.y}` }, 1, () => {
-        this.circleAnimation(x + 5);
-      });
-      animatedCircle.animate(animRotation);
-      this.animations.push(animatedCircle);
-    } else {
-      const circle = this.paper.circle(this.center.x, this.center.y, 10).attr(this.lineStyle);
-      this.animations.push(circle);
-      this.drawingLines();
-    }
+    const animatedCircle = this.draw.circle(20)
+      .stroke({
+        color: '#BEBCBC',
+        width: 2,
+        dasharray: 65,
+        dashoffset: 65
+      })
+      .attr({ cx: this.center.x, cy: this.center.y })
+      .transform({ rotation: -90 });
+    this.animations.push(animatedCircle);
+    animatedCircle.animate(2000, '-')
+      .stroke({ dashoffset: 0 })
+      .after(() => this.drawingLines());
   }
 
   defineBeginPoint(index, left) {
@@ -208,13 +191,18 @@ export default class PopinWrapper extends React.Component {
         });
       }, this);
     lines.forEach((line) => {
-      const firstLine = this.paper.path(`M${line.begin.x} ${line.begin.y}`).attr(this.lineStyle);
-      const secondLine = this.paper.path(`M${line.firstStop.x} ${line.firstStop.y}`).attr(this.lineStyle);
+      const firstLine = this.draw.line(line.begin.x, line.begin.y, line.begin.x, line.begin.y)
+        .stroke(this.lineStyle);
       this.animations.push(firstLine);
-      this.animations.push(secondLine);
-      firstLine.animate({ path: `M${line.begin.x} ${line.begin.y} L${line.firstStop.x} ${line.firstStop.y}` }, 1000, () => {
-        secondLine.animate({ path: `M${line.firstStop.x} ${line.firstStop.y} L${line.end.x} ${line.end.y}` }, 1000);
-      });
+      firstLine.animate(1000, '-')
+        .plot(line.begin.x, line.begin.y, line.firstStop.x, line.firstStop.y)
+        .after(() => {
+          const secondLine = this.draw.line(line.firstStop.x, line.firstStop.y, line.firstStop.x, line.firstStop.y)
+            .stroke(this.lineStyle);
+          this.animations.push(secondLine);
+          secondLine.animate(1000, '-')
+            .plot(line.firstStop.x, line.firstStop.y, line.end.x, line.end.y);
+        });
     }, this);
   }
 

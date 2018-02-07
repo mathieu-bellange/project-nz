@@ -11,14 +11,12 @@ export default class SVGImage {
     this.pixelRatio = pixelRatio;
   }
 
-  draw(paper) {
-    this.img = paper
-      .image(
-        this.path,
+  draw(draw) {
+    this.img = draw
+      .image(this.path, this.size.w, this.size.h)
+      .move(
         (this.position.x * this.pixelRatio) - (this.size.w / 2),
-        (this.position.y * this.pixelRatio) - (this.size.h / 2),
-        this.size.w,
-        this.size.h
+        (this.position.y * this.pixelRatio) - (this.size.h / 2)
       );
     this.img.attr({ opacity: 0 });
     return this;

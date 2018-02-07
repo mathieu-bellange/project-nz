@@ -101,9 +101,8 @@ export default class FirstMonthScenario {
   };
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
     const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
-      this.COASTLINES[indexCoastline].forEach((orientedVector) => {
-        const path = this.canvas.path(`M${orientedVector.begin.x} ${orientedVector.begin.y}`);
-        path.animate({ path: `M${orientedVector.begin.x} ${orientedVector.begin.y} L${orientedVector.end.x} ${orientedVector.end.y}` }, 2000);
+      this.COASTLINES[indexCoastline].forEach((coastLine) => {
+        coastLine.draw(this.canvas).animate();
       }, this);
       sub.unsubscribe();
     });
@@ -125,8 +124,10 @@ export default class FirstMonthScenario {
       .subscribe((point) => {
         if ((road.begin.isEqual(point) && hideBegin) || (road.end.isEqual(point) && hideEnd)) {
           svg.remove();
-        } else {
+        } else if (road.begin.isEqual(point) || road.end.isEqual(point)) {
           svg.draw(this.canvas, point, reverse).animate();
+        } else {
+          svg.draw(this.canvas, point, reverse);
         }
       });
   };
@@ -474,7 +475,7 @@ export default class FirstMonthScenario {
     this.airport = new Airport();
     this.initPoint = new Coordinate(754, 476, pixelRatio);
     this.airportPoint = new Coordinate(708, 502, pixelRatio);
-    this.landingPoint = new Coordinate(675, 521, pixelRatio);
+    this.landingPoint = new Coordinate(670, 526, pixelRatio);
     this.van = new Van();
     this.kapitiBoat = new KapitiBoat();
     this.ROADS = buildRoads(pixelRatio);
@@ -489,7 +490,7 @@ export default class FirstMonthScenario {
       sens: values[0].sens,
       currentPoint: values[1],
       interval: values[0].interval
-    })).delay(5);
+    })).delay(10);
     this.launchAutomatedSubject = new Subject();
     this.automatedObservable = Observable.combineLatest(
       this.launchAutomatedSubject,
@@ -502,7 +503,7 @@ export default class FirstMonthScenario {
         roadId: values[1],
         currentPoint: values[0][1]
       }))
-      .delay(10);
+      .delay(20);
     this.nextStepSubject.subscribe((step) => {
       this.hasPreviousSubject.next(step > 4);
       this.hasNextSubject.next(step < 24);
@@ -535,7 +536,7 @@ export default class FirstMonthScenario {
       this.nextStepSubject.next(index);
     } else if (index > 4) {
       this.automatedRoadOn = true;
-      this.launchAutomatedSubject.next({ sens: 1, interval: 320 });
+      this.launchAutomatedSubject.next({ sens: 1, interval: 160 });
       this.onRoadAgainSubject.next(false);
     }
     this.scenarioService.saveCurrentStep(index);
@@ -545,7 +546,7 @@ export default class FirstMonthScenario {
     const index = this.scenarioService.getCurrentStep() - 1;
     if (index > 3) {
       this.automatedRoadOn = true;
-      this.launchAutomatedSubject.next({ sens: -1, interval: 320 });
+      this.launchAutomatedSubject.next({ sens: -1, interval: 160 });
       this.onRoadAgainSubject.next(false);
     }
     this.scenarioService.saveCurrentStep(index);
