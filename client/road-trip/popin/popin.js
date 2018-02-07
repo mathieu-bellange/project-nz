@@ -8,7 +8,7 @@ import * as Boxes from '../boxes';
 import './popin.css';
 
 // PLANNING corriger l'affichage des photo en orrientation paysage trello:79
-// TODO centrer l'affichage des photo en mode portrait trello:79
+// DONE centrer l'affichage des photo en mode portrait trello:79
 export default class Popin extends React.Component {
   elem;
   clazz;
