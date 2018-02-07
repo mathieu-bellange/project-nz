@@ -37,7 +37,7 @@ export default class RoadTrip extends React.Component {
       hasPrevious: false,
       boxes: [],
       drawCircle: false,
-      loading: false,
+      loading: true,
       startKm: 0,
       nextKm: 0,
       displayBorneKm: false

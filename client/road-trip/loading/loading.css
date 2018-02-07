@@ -11,6 +11,9 @@
   #van
     height: 100px
     width: 600px
+  &.hidden
+    display: none
+    display: none
   &.loading
     opacity: 1
   .txt-wrapper

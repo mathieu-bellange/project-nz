@@ -511,12 +511,13 @@ export default class FirstMonthScenario {
   }
 
   launch() {
+    this.isLoadingSubject.next(true);
     const index = this.scenarioService.getCurrentStep();
     this.steps.forEach(step => step());
     if (index === 4) {
       this.landingFunction();
+      this.isLoadingSubject.next(false);
     } else if (index > 4) {
-      this.isLoadingSubject.next(true);
       this.automatedRoadAlwaysOn = true;
       this.landingFunction();
       for (let ind = 4; ind <= index; ind += 1) {
@@ -527,6 +528,7 @@ export default class FirstMonthScenario {
     } else {
       this.nextStepSubject.next(0);
       this.nextStepSubject.next(index);
+      this.isLoadingSubject.next(false);
     }
   }
 

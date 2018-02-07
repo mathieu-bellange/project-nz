@@ -7,7 +7,7 @@ import { Van } from '../scenery';
 import Point from './point';
 import './loading.css';
 
-// TODO le composant loading masque une partie de l'écran même quand il n'est pas affiché trello:#79
+// DONE le composant loading masque une partie de l'écran même quand il n'est pas affiché trello:#79
 export default class LoadingComponent extends React.Component {
   van;
 
@@ -21,8 +21,10 @@ export default class LoadingComponent extends React.Component {
     this.state = {
       pointOneJumped: false,
       pointTwoJumped: false,
-      pointThreeJumped: false
+      pointThreeJumped: false,
+      hidden: false
     };
+    this.onTransitionEnd = this.onTransitionEnd.bind(this);
   }
 
   componentDidMount() {
@@ -54,14 +56,20 @@ export default class LoadingComponent extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (!nextProps.loading) {
+    if (nextProps.loading !== this.props.loading && !nextProps.loading) {
       this.van.drive();
+    }
+  }
+
+  onTransitionEnd(e) {
+    if (e.propertyName === 'opacity' && !this.props.loading) {
+      this.setState({ hidden: true });
     }
   }
 
   render() {
     return (
-      <div className={`loading-component ${this.props.loading ? 'loading' : ''}`}>
+      <div className={`loading-component ${this.props.loading ? 'loading' : ''} ${this.state.hidden ? 'hidden' : ''}`} onTransitionEnd={this.onTransitionEnd}>
         <div className="txt-wrapper">
           <div className="txt">Chargement</div>
           <Point isJumping={this.state.pointOneJumped}></Point>
