@@ -60,7 +60,6 @@
     "lodash": "^4.17.4",
     "mathjs": "^3.16.4",
     "prop-types": "^15.6.0",
-    "raphael": "^2.2.7",
     "react": "^15.6.1",
     "react-countup": "^3.0.2",
     "react-dom": "^15.6.1",
