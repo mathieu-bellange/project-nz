@@ -1,17 +1,19 @@
 .popin
   cursor: pointer
-  border: 2px solid rgba(190,188,188,0.7)
-  background-color: rgba(256,256,256,0.7)
+  border: 2px solid rgb(190 188 188 / 0.7)
+  background-color: rgb(256 256 256 / 0.7)
   display: flex
   padding: 0.2em 0.3em
   visibility: visible
   height: 100%
   &.popin-text
-    background-color: rgba(190,188,188,0.7)
+    background-color: rgb(190 188 188 / 0.7)
     .prin
       padding: 1em
       height: calc(100% - 2em)
       width: calc(100% - 2em)
+    &.doppleganger.end
+      background-color: rgb(190 188 188)
   &.popin-mixed
     &.doppleganger > div
       min-height: 100%
@@ -52,7 +54,6 @@
       left: 0
       z-index: 10
       &.end
-        background-color: rgb(190,188,188)
         width: calc(100% - 4px)
         height: 90%
         padding: 0
