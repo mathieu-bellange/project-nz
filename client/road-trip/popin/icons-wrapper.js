@@ -41,12 +41,12 @@ export default class IconsWrapper extends React.Component {
   render() {
     return (
       <div className="icons-wrapper">
-          <PopinMobile box={this.state.box} popinClosed={this.popinClosed}></PopinMobile>
           {
             this.props.popinBoxes
               .filter(() => window.innerWidth < 1024)
               .map(this.mapIconsComponents)
           }
+          <PopinMobile box={this.state.box} popinClosed={this.popinClosed}></PopinMobile>
       </div>
     );
   }

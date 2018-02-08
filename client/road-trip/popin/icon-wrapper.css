@@ -3,7 +3,7 @@
   border: 2px solid #000
   background-color: #fff
   border-radius: 10px
-  width: 50%
+  width: 10em
   text-align: center
   .title
     overflow-wrap: break-word
@@ -13,10 +13,12 @@
 @media (max-width: 680px)
   .icon-wrapper
     padding: 0.5em 1em
+    width: 5em
     img
       width: 70px
 
 @media (max-width: 480px)
   .icon-wrapper
+    width: 5em
     img
       width: 50px

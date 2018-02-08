@@ -36,3 +36,13 @@
     bottom: 0
     width: 100%
     text-align: center
+    a
+      text-align: center
+      padding: 1em 0.65em
+      font-size: 1.5em
+      &.next
+        margin: 0.15em
+        width: calc(80% - 1.3em - 4px - 0.3em)
+      &.previous
+        margin: 0.15em 0 0.15em 0.15em
+        width: calc(20% - 1.3em - 4px - 0.15em)
