@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Observable } from 'rxjs/Observable';
+import SVG from 'svg.js';
 
 import PrinFlexBox from './prin-flexbox';
 
@@ -51,6 +52,8 @@ export default class PopinText extends React.Component {
     this.wheelSub = Observable.fromEvent(document.getElementById(this.props.box.id), 'wheel').subscribe((event) => {
       event.stopPropagation();
     });
+    const draw = SVG(`close-${this.props.box.id}`).size(29, 29);
+    draw.image('/images/close.svg', 29, 29);
   }
 
   componentWillUnmount() {
@@ -146,7 +149,8 @@ export default class PopinText extends React.Component {
           onTransitionEnd={this.finishAnimation}
           ref={(el) => { this.doppleganger = el; }}
         >
-          <i className={`fa fa-times ${this.state.fixedCloseIcon ? 'fixed' : ''}`} onClick={this.closeFullScreen}></i>
+          <div id={`close-${this.props.box.id}`} className={`closed-icon ${this.state.fixedCloseIcon ? 'fixed' : ''}`} onClick={this.closeFullScreen}>
+          </div>
           <PrinFlexBox
             fullScreen={this.state.fullScreen}
             box={this.props.box}

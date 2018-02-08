@@ -36,11 +36,10 @@
         flex-direction: row
       &:nth-child(odd)
         flex-direction: row-reverse
-    i.fa
-      font-size: 2em
+    .closed-icon
       cursor: pointer
       position: absolute
-      padding: 1em
+      padding: 2em
       right: 0
       opacity: 0
       transition: opacity 1s ease-in-out
@@ -80,7 +79,7 @@
             max-width: 50%
             &.wide
               max-width: 100%
-        i.fa
+        .closed-icon
           opacity: 1
         .secondary > div
           height: auto
