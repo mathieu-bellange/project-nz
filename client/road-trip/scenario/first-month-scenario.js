@@ -505,8 +505,12 @@ export default class FirstMonthScenario {
       }))
       .delay(20);
     this.nextStepSubject.subscribe((step) => {
-      this.hasPreviousSubject.next(step > 4);
-      this.hasNextSubject.next(step < 24);
+      if (step < 4) {
+        this.hasPreviousSubject.next(false);
+      }
+      if (step > 23) {
+        this.hasNextSubject.next(false);
+      }
     });
   }
 
