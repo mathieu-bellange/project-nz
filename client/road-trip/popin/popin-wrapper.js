@@ -193,13 +193,17 @@ export default class PopinWrapper extends React.Component {
     lines.forEach((line) => {
       const firstLine = this.draw.line(line.begin.x, line.begin.y, line.begin.x, line.begin.y)
         .stroke(this.lineStyle);
+      const secondLine = this.draw.line(
+        line.firstStop.x,
+        line.firstStop.y,
+        line.firstStop.x,
+        line.firstStop.y
+      ).stroke(this.lineStyle);
       this.animations.push(firstLine);
+      this.animations.push(secondLine);
       firstLine.animate(1000, '-')
         .plot(line.begin.x, line.begin.y, line.firstStop.x, line.firstStop.y)
         .after(() => {
-          const secondLine = this.draw.line(line.firstStop.x, line.firstStop.y, line.firstStop.x, line.firstStop.y)
-            .stroke(this.lineStyle);
-          this.animations.push(secondLine);
           secondLine.animate(1000, '-')
             .plot(line.firstStop.x, line.firstStop.y, line.end.x, line.end.y);
         });
