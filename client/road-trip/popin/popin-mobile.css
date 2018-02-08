@@ -20,3 +20,7 @@
     font-size: 2em
   .text-wrapper
     padding: 4em
+    .text-container
+      max-height: none
+    .ellipsis
+      display: none
