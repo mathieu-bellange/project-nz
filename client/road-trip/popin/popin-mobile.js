@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SVG from 'svg.js';
 
 import * as Boxes from '../boxes';
 import './popin-mobile.css';
@@ -17,6 +18,11 @@ export default class PopinMobile extends React.Component {
   constructor(props) {
     super(props);
     this.close = this.close.bind(this);
+  }
+
+  componentDidMount() {
+    const draw = SVG(`close-${this.props.box.id}`).size(20, 20);
+    draw.image('/images/close.svg', 20, 20);
   }
 
   componentWillUpdate(nextprops) {
@@ -54,7 +60,8 @@ export default class PopinMobile extends React.Component {
       <div ref={(el) => { this.popin = el; }}
           onWheel={e => e.stopPropagation()}
           className={`popin-mobile ${this.props.box.type === Boxes.Type.Text ? 'txt' : ''} ${this.props.box.type ? 'show' : ''}`}>
-        <i className="fa fa-times" onClick={this.close}></i>
+          <div id={`close-${this.props.box.id}`} className='closed-icon' onClick={this.close}>
+          </div>
         {this.component}
       </div>
     );
