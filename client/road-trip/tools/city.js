@@ -17,8 +17,9 @@ export default class City extends Coordinate {
 
   draw(draw) {
     this.centerElement = draw.circle(this.radius)
-      .move(this.x, this.y)
       .attr({
+        cx: this.x,
+        cy: this.y,
         stroke: '#f3f3f3',
         fill: '#f3f3f3',
         opacity: 0
