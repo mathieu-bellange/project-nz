@@ -101,9 +101,3 @@
           flex-direction: column
         &:nth-child(odd)
           flex-direction: column
-      i.fa
-        font-size: 1em
-        padding: 0.5em
-        &.fixed
-          top: 5%
-          right: 0

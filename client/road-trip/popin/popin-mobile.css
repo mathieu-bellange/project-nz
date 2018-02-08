@@ -18,7 +18,8 @@
     cursor: pointer
     margin: 1em
   .text-wrapper
-    padding: 4em
+    padding: 3em
+    height: auto
     .text-container
       max-height: none
     .ellipsis
