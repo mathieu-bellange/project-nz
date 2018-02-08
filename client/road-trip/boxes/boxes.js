@@ -963,10 +963,6 @@ const boxes = [
           }
         ],
         type: TypeBox.Picture
-      },
-      {
-        id: 83,
-        left: false
       }
     ]
   },
