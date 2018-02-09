@@ -17,10 +17,11 @@ export default class Home extends React.Component {
   render() {
     return (
       <main id="home">
-        <header dangerouslySetInnerHTML={this.createMarkup()}></header>
-        <div id="content">
-          <img src="images/home_1920.jpg"></img>
-          <Link to="/road-trip">Commencer le voyage</Link>
+        <div className="home-wrapper">
+          <header dangerouslySetInnerHTML={this.createMarkup()}></header>
+          <div id="content">
+            <Link to="/road-trip">Commencer le voyage</Link>
+          </div>
         </div>
       </main>
     );
