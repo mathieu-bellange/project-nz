@@ -29,6 +29,7 @@ export default class FirstMonthScenario {
   landingFunction = () => {
     this.actualBoxesSubject.next(3);
     this.actualPointSubject.next(this.airportPoint);
+    this.hasNextSubject.next(true);
   };
   declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
     const road = this.ROADS[indexRoad];
@@ -172,6 +173,7 @@ export default class FirstMonthScenario {
     () => {
       const animatedLine = new AnimatedLine(new OrientedVector('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y));
       const sub = this.nextStepSubject.filter(step => step === 3).subscribe(() => {
+        this.hasNextSubject.next(false);
         this.sky.stop();
         this.airport.landing(this.canvas, this.landingPoint);
         this.airplaneObservable.subscribe(o => animatedLine.animate(o));
@@ -505,7 +507,7 @@ export default class FirstMonthScenario {
       }))
       .delay(20);
     this.nextStepSubject.subscribe((step) => {
-      if (step < 4) {
+      if (step < 5) {
         this.hasPreviousSubject.next(false);
       }
       if (step > 23) {
@@ -538,7 +540,7 @@ export default class FirstMonthScenario {
 
   nextStep() {
     const index = this.scenarioService.getCurrentStep() + 1;
-    if (index < 4) {
+    if (index <= 4) {
       this.nextStepSubject.next(index);
     } else if (index > 4) {
       this.automatedRoadOn = true;
