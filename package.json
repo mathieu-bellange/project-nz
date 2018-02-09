@@ -58,7 +58,6 @@
     "blueimp-load-image": "^2.17.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
-    "mathjs": "^3.16.4",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-countup": "^3.0.2",
