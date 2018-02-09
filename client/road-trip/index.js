@@ -1,3 +1,4 @@
 import RoadTrip from './road-trip';
+import { ScenarioService } from './scenario';
 
-export default RoadTrip;
+export { RoadTrip, ScenarioService };

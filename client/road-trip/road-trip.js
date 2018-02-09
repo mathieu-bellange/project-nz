@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 
-import Scenarios from './scenario';
+import { Scenarios } from './scenario';
 import RoadTripCanvas from './canvas';
 import RoadController from './road-controller';
 import BorneKm from './borne-km';

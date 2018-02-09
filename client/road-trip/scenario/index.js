@@ -1,3 +1,4 @@
 import Scenarios from './scenarios';
+import ScenarioService from './scenario.service';
 
-export default Scenarios;
+export { Scenarios, ScenarioService };
