@@ -153,7 +153,6 @@ export default class Popin extends React.Component {
       end: false,
       fixedCloseIcon: false
     });
-    // PLANNING corriger le smooth scroll sous firefox trello:#78
     if (this.doppleganger.scroll) {
       this.doppleganger.scroll({
         top: 0,
