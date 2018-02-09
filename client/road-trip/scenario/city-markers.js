@@ -44,7 +44,7 @@ const buildCity = pixelRatio => ([
     new City(757, 622, pixelRatio, 'KihiKihi')
   ],
   [
-    new City(797, 663, pixelRatio, 'Mangakino')
+    new City(797, 661.5, pixelRatio, 'Mangakino')
   ],
   [
     new City(827, 699, pixelRatio, 'Taupo'),

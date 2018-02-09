@@ -20,7 +20,7 @@ const buildDecors = pixelRatio => ([
     new SVGImage('/images/hills.svg', { x: 772, y: 648 }, { w: 225, h: 54 }, pixelRatio)
   ],
   [
-    new SVGImage('/images/lake-maraetai.svg', { x: 803, y: 667 }, { w: 211, h: 189 }, pixelRatio),
+    new SVGImage('/images/lake-maraetai.svg', { x: 803, y: 668 }, { w: 211, h: 189 }, pixelRatio),
     new SVGImage('/images/ligth-mountain.svg', { x: 810, y: 650 }, { w: 207, h: 148 }, pixelRatio),
     new SVGImage('/images/ligth-mountain.svg', { x: 835, y: 675 }, { w: 207, h: 148 }, pixelRatio)
   ],
@@ -85,7 +85,7 @@ const buildDecors = pixelRatio => ([
     new SVGImage('/images/ocean.svg', { x: 710, y: 1015 }, { w: 90, h: 42 }, pixelRatio)
   ],
   [
-    new SVGImage('/images/road-to-rivendell.svg', { x: 752, y: 960 }, { w: 411, h: 153 }, pixelRatio)
+    new SVGImage('/images/road-to-rivendell.svg', { x: 754, y: 960 }, { w: 411, h: 153 }, pixelRatio)
   ],
   [
     new SVGImage('/images/rivendell.svg', { x: 743, y: 971 }, { w: 79, h: 112 }, pixelRatio)
