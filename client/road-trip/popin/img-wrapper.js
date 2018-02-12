@@ -4,7 +4,6 @@ import loadImage from 'blueimp-load-image';
 
 import './img-wrapper.css';
 
-// DONE corriger l'orientation des images sous firefox trello:#78
 export default class ImgWrapper extends React.Component {
   img;
   static propTypes = {

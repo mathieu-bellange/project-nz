@@ -8,8 +8,6 @@ import SecondaryFlexBox from './secondary-flexbox';
 import * as Boxes from '../boxes';
 import './popin.css';
 
-// DONE corriger l'affichage des photo en orrientation paysage trello:79
-// DONE centrer l'affichage des photo en mode portrait trello:79
 export default class Popin extends React.Component {
   elem;
   clazz;
