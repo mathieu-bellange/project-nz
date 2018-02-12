@@ -10,7 +10,7 @@ import buildCoastlines from './coastline-markers';
 import buildCity from './city-markers';
 import buildDecors from './decor-markers';
 
-// DOING voir s'il est possible d'adapter l'interval à la route trello:#79
+// DONE voir s'il est possible d'adapter l'interval à la route trello:#79
 // PLANNING refacto des sub de l'observable nextStep trello:#84
 // NOTE refacto le système de route trello:#83
 export default class FirstMonthScenario {
@@ -145,6 +145,8 @@ export default class FirstMonthScenario {
 
   DECORS = [];
 
+  intervalMap = new Map();
+
   steps = [
     // launch step
     () => {
@@ -192,6 +194,7 @@ export default class FirstMonthScenario {
     },
     // fourth step
     () => {
+      this.intervalMap.set(this.ROADS[0].id, 160);
       this.declareAnimatedLine(0, true, true);
       this.declareSteps(0, 4, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[0].begin);
@@ -201,6 +204,7 @@ export default class FirstMonthScenario {
     },
     // fifth step
     () => {
+      this.intervalMap.set(this.ROADS[1].id, 160);
       this.declareAnimatedLine(1, true, true);
       this.declareAnimatedSVG(1, this.van, false, true, true);
       this.declareSteps(1, 5, true, true);
@@ -215,6 +219,7 @@ export default class FirstMonthScenario {
     },
     // sixth step
     () => {
+      this.intervalMap.set(this.ROADS[2].id, 160);
       this.declareAnimatedLine(2, true, true);
       this.declareAnimatedSVG(2, this.van, false, true, false);
       this.declareSteps(2, 6, true, true);
@@ -225,6 +230,8 @@ export default class FirstMonthScenario {
     },
     // Seventh step
     () => {
+      this.intervalMap.set(this.ROADS[3].id, 160);
+      this.intervalMap.set(this.ROADS[4].id, 160);
       this.declareAnimatedLine(3, true, false);
       this.declareAnimatedLine(4, false, true);
       this.declareAnimatedSVG(3, this.van, false, false, false);
@@ -238,6 +245,8 @@ export default class FirstMonthScenario {
     },
     // Eigth step
     () => {
+      this.intervalMap.set(this.ROADS[5].id, 80);
+      this.intervalMap.set(this.ROADS[6].id, 160);
       this.declareAnimatedLine(5, true, false);
       this.declareAnimatedLine(6, false, true);
       this.declareAnimatedSVG(5, this.van, false, true, false);
@@ -250,6 +259,9 @@ export default class FirstMonthScenario {
     },
     // ninth step
     () => {
+      this.intervalMap.set(this.ROADS[7].id, 40);
+      this.intervalMap.set(this.ROADS[8].id, 160);
+      this.intervalMap.set(this.ROADS[9].id, 80);
       this.declareAnimatedLine(7, true, false);
       this.declareAnimatedLine(8, false, false);
       this.declareAnimatedLine(9, false, true);
@@ -266,6 +278,8 @@ export default class FirstMonthScenario {
     },
     // tenth step
     () => {
+      this.intervalMap.set(this.ROADS[10].id, 80);
+      this.intervalMap.set(this.ROADS[11].id, 80);
       this.declareAnimatedLine(10, true, false);
       this.declareAnimatedLine(11, false, true);
       this.declareAnimatedSVG(10, this.van, true, true, false);
@@ -278,6 +292,7 @@ export default class FirstMonthScenario {
     },
     // eleventh step
     () => {
+      this.intervalMap.set(this.ROADS[12].id, 80);
       this.declareAnimatedLine(12, true, true);
       this.declareAnimatedSVG(12, this.van, true, true, true);
       this.declareSteps(12, 11, true, true);
@@ -286,6 +301,9 @@ export default class FirstMonthScenario {
     },
     // twelveth step
     () => {
+      this.intervalMap.set(this.ROADS[13].id, 80);
+      this.intervalMap.set(this.ROADS[14].id, 80);
+      this.intervalMap.set(this.ROADS[15].id, 80);
       this.declareAnimatedLine(13, true, false);
       this.declareAnimatedLine(14, false, false);
       this.declareAnimatedLine(15, false, true);
@@ -300,6 +318,10 @@ export default class FirstMonthScenario {
     },
     // Thirteenth step
     () => {
+      this.intervalMap.set(this.ROADS[16].id, 80);
+      this.intervalMap.set(this.ROADS[17].id, 80);
+      this.intervalMap.set(this.ROADS[18].id, 40);
+      this.intervalMap.set(this.ROADS[19].id, 40);
       this.declareAnimatedLine(16, true, false);
       this.declareAnimatedLine(17, false, false);
       this.declareAnimatedLine(18, false, false);
@@ -318,6 +340,8 @@ export default class FirstMonthScenario {
     },
     // Fourteenth step
     () => {
+      this.intervalMap.set(this.ROADS[20].id, 160);
+      this.intervalMap.set(this.ROADS[21].id, 160);
       this.declareAnimatedLine(20, true, false);
       this.declareAnimatedLine(21, false, true);
       this.declareAnimatedSVG(20, this.van, true, false, false);
@@ -329,6 +353,8 @@ export default class FirstMonthScenario {
     },
     // fifteenth step
     () => {
+      this.intervalMap.set(this.ROADS[22].id, 160);
+      this.intervalMap.set(this.ROADS[23].id, 80);
       this.declareAnimatedLine(22, true, false);
       this.declareAnimatedLine(23, false, true);
       this.declareAnimatedSVG(22, this.van, false, true, false);
@@ -342,6 +368,9 @@ export default class FirstMonthScenario {
     },
     // sixteenth step
     () => {
+      this.intervalMap.set(this.ROADS[24].id, 80);
+      this.intervalMap.set(this.ROADS[25].id, 80);
+      this.intervalMap.set(this.ROADS[26].id, 40);
       this.declareAnimatedLine(24, true, false);
       this.declareAnimatedLine(25, false, false);
       this.declareAnimatedLine(26, false, true);
@@ -357,6 +386,8 @@ export default class FirstMonthScenario {
     },
     // seventeenth step
     () => {
+      this.intervalMap.set(this.ROADS[27].id, 40);
+      this.intervalMap.set(this.ROADS[28].id, 160);
       this.declareAnimatedLine(27, true, false);
       this.declareAnimatedLine(28, false, true);
       this.declareAnimatedSVG(27, this.van, false, true, false);
@@ -369,6 +400,8 @@ export default class FirstMonthScenario {
     },
     // eighteenth step
     () => {
+      this.intervalMap.set(this.ROADS[29].id, 80);
+      this.intervalMap.set(this.ROADS[30].id, 80);
       this.declareAnimatedLine(29, true, false);
       this.declareAnimatedLine(30, false, true);
       this.declareAnimatedSVG(29, this.van, true, false, false);
@@ -381,6 +414,8 @@ export default class FirstMonthScenario {
     },
     // nineteenth step
     () => {
+      this.intervalMap.set(this.ROADS[31].id, 40);
+      this.intervalMap.set(this.ROADS[32].id, 160);
       this.declareAnimatedLine(31, true, false);
       this.declareAnimatedLine(32, false, true);
       this.declareAnimatedSVG(31, this.van, true, true, false);
@@ -393,6 +428,10 @@ export default class FirstMonthScenario {
     },
     // twentieth step
     () => {
+      this.intervalMap.set(this.ROADS[33].id, 160);
+      this.intervalMap.set(this.ROADS[34].id, 40);
+      this.intervalMap.set(this.ROADS[35].id, 80);
+      this.intervalMap.set(this.ROADS[36].id, 80);
       this.declareAnimatedLine(33, true, false);
       this.declareAnimatedLine(34, false, false);
       this.declareAnimatedLine(35, false, false);
@@ -411,6 +450,9 @@ export default class FirstMonthScenario {
     },
     // twenty first step
     () => {
+      this.intervalMap.set(this.ROADS[37].id, 80);
+      this.intervalMap.set(this.ROADS[38].id, 80);
+      this.intervalMap.set(this.ROADS[39].id, 80);
       this.declareAnimatedLine(37, true, false, true);
       this.declareAnimatedLine(38, false, false);
       this.declareAnimatedLine(39, false, true);
@@ -423,6 +465,8 @@ export default class FirstMonthScenario {
     },
     // twenty second step
     () => {
+      this.intervalMap.set(this.ROADS[40].id, 80);
+      this.intervalMap.set(this.ROADS[41].id, 40);
       this.declareAnimatedLine(40, true, false);
       this.declareAnimatedLine(41, false, true);
       this.declareAnimatedSVG(40, this.van, false, false, false);
@@ -434,6 +478,9 @@ export default class FirstMonthScenario {
     },
     // twenty third step
     () => {
+      this.intervalMap.set(this.ROADS[42].id, 40);
+      this.intervalMap.set(this.ROADS[43].id, 160);
+      this.intervalMap.set(this.ROADS[44].id, 40);
       this.declareAnimatedLine(42, true, false);
       this.declareAnimatedLine(43, false, false);
       this.declareAnimatedLine(44, false, true);
@@ -503,7 +550,7 @@ export default class FirstMonthScenario {
       .filter(() => this.automatedRoadOn || this.automatedRoadAlwaysOn)
       .map(values => ({
         sens: values[0][0].sens,
-        interval: values[0][0].interval,
+        interval: values[0][0].interval || this.intervalMap.get(values[1]),
         roadId: values[1],
         currentPoint: values[0][1]
       }))
@@ -546,7 +593,7 @@ export default class FirstMonthScenario {
       this.nextStepSubject.next(index);
     } else if (index > 4) {
       this.automatedRoadOn = true;
-      this.launchAutomatedSubject.next({ sens: 1, interval: 160 });
+      this.launchAutomatedSubject.next({ sens: 1 });
       this.onRoadAgainSubject.next(false);
     }
     this.scenarioService.saveCurrentStep(index);
@@ -556,7 +603,7 @@ export default class FirstMonthScenario {
     const index = this.scenarioService.getCurrentStep() - 1;
     if (index > 3) {
       this.automatedRoadOn = true;
-      this.launchAutomatedSubject.next({ sens: -1, interval: 160 });
+      this.launchAutomatedSubject.next({ sens: -1 });
       this.onRoadAgainSubject.next(false);
     }
     this.scenarioService.saveCurrentStep(index);
