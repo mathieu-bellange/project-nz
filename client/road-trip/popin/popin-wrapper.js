@@ -6,8 +6,9 @@ import isequal from 'lodash/isEqual';
 import { Observable } from 'rxjs/Observable';
 
 import './popin-wrapper.css';
-import Popin from './popin';
+import PopinImage from './popin-image';
 import PopinText from './popin-text';
+import Popin from './popin';
 import IconsWrapper from './icons-wrapper';
 import * as Boxes from '../boxes';
 
@@ -29,13 +30,13 @@ export default class PopinWrapper extends React.Component {
     let component = '';
     switch (box.type) {
       case Boxes.Type.Text:
-        component = <PopinText
+        component = <Popin
           box={box}
         />;
         break;
       case Boxes.Type.Picture:
       case Boxes.Type.Mixed:
-        component = <Popin
+        component = <PopinImage
           box={box}
         />;
         break;
