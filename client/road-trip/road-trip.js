@@ -145,7 +145,7 @@ export default class RoadTrip extends React.Component {
 
   render() {
     return (
-      <main id="roadTrip">
+      <div id="roadTrip">
         <RoadTripCanvas
           canvasId={this.canvasId}
           canvasCenter={this.state.canvasCenter}
@@ -173,7 +173,7 @@ export default class RoadTrip extends React.Component {
         <LoadingComponent
           loading={this.state.loading}
         ></LoadingComponent>
-      </main>
+      </div>
     );
   }
 }

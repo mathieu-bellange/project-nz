@@ -17,9 +17,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
 
   entry: {
-    /* polyfills: './src/polyfills', */
     main: './client/app',
-    vendor: './client/vendor'
+    vendor: './client/vendor',
+    polyfills: './client/polyfills'
   },
 
   resolve: {

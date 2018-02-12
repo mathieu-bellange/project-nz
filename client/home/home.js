@@ -20,14 +20,14 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <main id="home">
+      <div id="home">
         <div className="home-wrapper">
           <header dangerouslySetInnerHTML={this.createMarkup()}></header>
           <div id="content">
             <Link to="/road-trip">{this.alreadyOnTheRoad ? 'Continuer' : 'Commencer'} le voyage</Link>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }

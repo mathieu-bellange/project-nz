@@ -27,7 +27,7 @@ export default class About extends React.Component {
 
   render() {
     return (
-      <main id="about">
+      <div id="about">
           <div className="container">
             <div className="inner-container" dangerouslySetInnerHTML={this.createOurTripMarkup()}>
             </div>
@@ -49,7 +49,7 @@ export default class About extends React.Component {
               <img src="images/about-website.jpg"></img>
             </div>
           </div>
-      </main>
+      </div>
     );
   }
 }

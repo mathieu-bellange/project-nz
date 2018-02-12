@@ -31,13 +31,13 @@ export default class Nav extends React.Component {
             <div id="int" className={ this.state.displayMenu ? 'show' : ''}>
               <i className={`fa ${this.state.displayMenu ? 'fa-times' : 'fa-bars'}`} onClick={() => this.onMenuOpen()}></i>
               <span>
-                <NavLink exact to="/" activeClassName="selected" onClick={() => this.onMobileMenuClose()}>Accueil</NavLink>
+                <NavLink exact to="/" activeClassName="selected" onClick={() => this.onMenuClose()}>Accueil</NavLink>
               </span>
               <span>
-                <NavLink to="/road-trip" activeClassName="selected" onClick={() => this.onMobileMenuClose()}>Road Trip</NavLink>
+                <NavLink to="/road-trip" activeClassName="selected" onClick={() => this.onMenuClose()}>Road Trip</NavLink>
               </span>
               <span>
-                <NavLink to="/about" activeClassName="selected" onClick={() => this.onMobileMenuClose()}>Sur nous</NavLink>
+                <NavLink to="/about" activeClassName="selected" onClick={() => this.onMenuClose()}>Sur nous</NavLink>
               </span>
           </div>
           </div>
