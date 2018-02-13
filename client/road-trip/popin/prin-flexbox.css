@@ -2,3 +2,4 @@
   transition: height 1s ease-in-out
   flex: 1
   display: flex
+  max-height: 100%

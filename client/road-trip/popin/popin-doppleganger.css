@@ -7,6 +7,7 @@
   .row
     display: flex
     min-height: min-content
+    height: 100%
     &:nth-child(even)
       flex-direction: row
     &:nth-child(odd)

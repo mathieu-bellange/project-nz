@@ -9,11 +9,13 @@ export default class TextWrapper extends React.Component {
 
   static propTypes = {
     box: PropTypes.object.isRequired,
-    fullScreen: PropTypes.bool
+    fullScreen: PropTypes.bool,
+    mixed: PropTypes.bool
   };
 
   constructor(props) {
     super(props);
+    console.log(props);
     this.createMarkup = this.createMarkup.bind(this);
   }
 
@@ -23,7 +25,7 @@ export default class TextWrapper extends React.Component {
 
   render() {
     return (
-      <div id={this.props.box.id} className="text-wrapper" ref={(el) => { this.txtWrapperElem = el; }}>
+      <div id={this.props.box.id} className={`text-wrapper ${this.props.mixed ? 'mixed' : ''}`} ref={(el) => { this.txtWrapperElem = el; }}>
         <div
           ref={(el) => { this.txtContainerElem = el; }}
           className='text-container'
