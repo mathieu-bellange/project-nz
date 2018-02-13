@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import PrinFlexBox from './prin-flexbox';
+import SecondaryFlexBox from './secondary-flexbox';
 import './popin-overview.css';
 
 export default class Popin extends React.Component {
@@ -21,8 +23,8 @@ export default class Popin extends React.Component {
     this.props.overviewLoaded({
       offsetLeft: this.elem.offsetLeft,
       offsetTop: this.elem.offsetTop,
-      width: `calc(${this.elem.clientWidth}px - 0.6em)`,
-      height: `calc(${this.elem.clientHeight}px - 0.4em)`
+      width: `${this.elem.clientWidth}px`,
+      height: `${this.elem.clientHeight}px`
     });
   }
 
@@ -33,6 +35,10 @@ export default class Popin extends React.Component {
           onClick={this.props.openFullScreen}
           className={`${this.props.className} popin-overview ${this.props.fullScreen ? 'full-screen' : ''}`}
         >
+          <PrinFlexBox box={this.props.box} />
+          {
+            this.props.box.pictures ? <SecondaryFlexBox images={this.props.box.pictures[0].secondary.sources}/> : ''
+          }
         </div>
     );
   }

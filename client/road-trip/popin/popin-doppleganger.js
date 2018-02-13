@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SVG from 'svg.js';
 
+import PrinFlexBox from './prin-flexbox';
+import SecondaryFlexBox from './secondary-flexbox';
 import './popin-doppleganger.css';
 
 export default class PopinDoppleganger extends React.Component {
@@ -50,6 +52,19 @@ export default class PopinDoppleganger extends React.Component {
       >
         <div id={`close-${this.props.box.id}`} className={`closed-icon ${this.props.fixedCloseIcon ? 'fixed' : ''}`} onClick={this.closeFullScreen}>
         </div>
+        {
+          this.props.box.pictures ?
+            this.props.box.pictures.map(picture =>
+              <div key={picture.id} onTransitionEnd={e => e.stopPropagation()}>
+                <PrinFlexBox fullScreen={this.state.fullScreen} box={picture.prin} />
+                <SecondaryFlexBox images={picture.secondary.sources}/>
+              </div>)
+          : <PrinFlexBox
+              fullScreen={this.props.fullScreen}
+              box={this.props.box}
+              onTransitionEnd={e => e.stopPropagation()}
+            />
+        }
       </div>
     );
   }
