@@ -55,12 +55,12 @@ export default class PopinDoppleganger extends React.Component {
         {
           this.props.box.pictures ?
             this.props.box.pictures.map(picture =>
-              <div key={picture.id} onTransitionEnd={e => e.stopPropagation()}>
-                <PrinFlexBox fullScreen={this.state.fullScreen} box={picture.prin} />
-                <SecondaryFlexBox images={picture.secondary.sources}/>
+              <div className="row" key={picture.id} onTransitionEnd={e => e.stopPropagation()}>
+                <PrinFlexBox fullScreen={this.props.scaled} box={picture.prin} />
+                <SecondaryFlexBox fullScreen={this.props.scaled} images={picture.secondary.sources}/>
               </div>)
           : <PrinFlexBox
-              fullScreen={this.props.fullScreen}
+              fullScreen={this.props.scaled}
               box={this.props.box}
               onTransitionEnd={e => e.stopPropagation()}
             />

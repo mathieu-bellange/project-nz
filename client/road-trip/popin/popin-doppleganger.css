@@ -4,6 +4,13 @@
   visibility: hidden
   overflow: hidden
   flex-direction: column
+  .row
+    display: flex
+    min-height: min-content
+    &:nth-child(even)
+      flex-direction: row
+    &:nth-child(odd)
+      flex-direction: row-reverse
   &.show
     visibility: visible
   &.full-screen

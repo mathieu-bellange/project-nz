@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 
 import './popin-wrapper.css';
 import PopinImage from './popin-image';
-import PopinText from './popin-text';
 import Popin from './popin';
 import IconsWrapper from './icons-wrapper';
 import * as Boxes from '../boxes';
@@ -36,7 +35,7 @@ export default class PopinWrapper extends React.Component {
         break;
       case Boxes.Type.Picture:
       case Boxes.Type.Mixed:
-        component = <PopinImage
+        component = <Popin
           box={box}
         />;
         break;

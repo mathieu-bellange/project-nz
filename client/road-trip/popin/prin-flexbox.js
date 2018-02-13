@@ -16,7 +16,7 @@ export default class PrinFlexBox extends React.Component {
   render() {
     return (
       <div className="prin">
-        {this.props.box.src ? <ImgWrapper onLoad={this.props.onLoad} img={this.props.box} />
+        {this.props.box.src ? <ImgWrapper fullScreen={this.props.fullScreen} className="prin" onLoad={this.props.onLoad} img={this.props.box} />
                           : <TextWrapper fullScreen={this.props.fullScreen} box={this.props.box} />}
       </div>
     );
