@@ -543,6 +543,7 @@ export default class FirstMonthScenario {
       interval: values[0].interval
     })).delay(10);
     this.launchAutomatedSubject = new Subject();
+    const delay = !!document.documentMode || !!window.StyleMedia ? 60 : 20;
     this.automatedObservable = Observable.combineLatest(
       this.launchAutomatedSubject,
       this.actualPointSubject
@@ -554,7 +555,7 @@ export default class FirstMonthScenario {
         roadId: values[1],
         currentPoint: values[0][1]
       }))
-      .delay(20);
+      .delay(delay);
     this.nextStepSubject.subscribe((step) => {
       if (step < 5) {
         this.hasPreviousSubject.next(false);
@@ -593,7 +594,8 @@ export default class FirstMonthScenario {
       this.nextStepSubject.next(index);
     } else if (index > 4) {
       this.automatedRoadOn = true;
-      this.launchAutomatedSubject.next({ sens: 1 });
+      const interval = !!document.documentMode || !!window.StyleMedia ? 20 : null;
+      this.launchAutomatedSubject.next({ sens: 1, interval });
       this.onRoadAgainSubject.next(false);
     }
     this.scenarioService.saveCurrentStep(index);
@@ -603,7 +605,8 @@ export default class FirstMonthScenario {
     const index = this.scenarioService.getCurrentStep() - 1;
     if (index > 3) {
       this.automatedRoadOn = true;
-      this.launchAutomatedSubject.next({ sens: -1 });
+      const interval = !!document.documentMode || !!window.StyleMedia ? 20 : null;
+      this.launchAutomatedSubject.next({ sens: -1, interval });
       this.onRoadAgainSubject.next(false);
     }
     this.scenarioService.saveCurrentStep(index);
