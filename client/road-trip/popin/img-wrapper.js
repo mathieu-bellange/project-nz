@@ -8,7 +8,9 @@ export default class ImgWrapper extends React.Component {
   img;
   static propTypes = {
     img: PropTypes.object.isRequired,
-    onLoad: PropTypes.func
+    onLoad: PropTypes.func,
+    className: PropTypes.string,
+    fullScreen: PropTypes.bool
   };
 
   componentDidMount() {
@@ -34,7 +36,8 @@ export default class ImgWrapper extends React.Component {
 
   render() {
     return (
-      <div id={`canvas${this.props.img.id}`} className={`img-wrapper ${this.props.img.wide ? 'wide' : ''} `}>
+      <div id={`canvas${this.props.img.id}`}
+          className={`img-wrapper ${this.props.className ? this.props.className : ''} ${this.props.fullScreen ? 'full-screen' : ''} ${this.props.img.wide ? 'wide' : ''}`}>
         <img ref={(el) => { this.img = el; }}></img>
       </div>
     );

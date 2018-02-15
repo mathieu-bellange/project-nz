@@ -1,0 +1,42 @@
+.doppleganger
+  cursor: default
+  position: absolute
+  visibility: hidden
+  overflow: hidden
+  flex-direction: column
+  .row
+    display: flex
+    min-height: min-content
+    height: 100%
+    &:nth-child(even)
+      flex-direction: row
+    &:nth-child(odd)
+      flex-direction: row-reverse
+  &.show
+    visibility: visible
+  &.full-screen
+    top: 5%
+    left: 0
+    z-index: 10
+  &.end
+    width: calc(100% - 4px)
+    height: 90%
+    padding: 0
+    overflow-y: auto
+    .closed-icon
+      opacity: 1
+  .closed-icon
+    cursor: pointer
+    position: absolute
+    padding: 2em
+    right: 0
+    opacity: 0
+    transition: opacity 1s ease-in-out
+    &.fixed
+      top: 5%
+      right: 17px
+      position: fixed
+
+@supports not (-ms-ime-align:auto)
+  .doppleganger
+    transition: top 1s ease-in-out, left 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out, padding 1s ease-in-out, background-color 1s ease-in-out

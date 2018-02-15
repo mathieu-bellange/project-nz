@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 
 import './popin-wrapper.css';
 import Popin from './popin';
-import PopinText from './popin-text';
 import IconsWrapper from './icons-wrapper';
 import * as Boxes from '../boxes';
 
@@ -18,40 +17,24 @@ function subtract(a1, a2) {
   return a1 - a2;
 }
 
-// PLANNING ouverture de popins non fonctionnelles sous edge trello:#79
+// DONE ouverture de popins non fonctionnelles sous edge trello:#79
 export default class PopinWrapper extends React.Component {
   draw;
   center;
   containerSize;
   lineStyle = { color: '#BEBCBC', width: 2 };
   animations = [];
-  mapPopinComponents = function mapPopinComponents(box) {
-    let component = '';
-    switch (box.type) {
-      case Boxes.Type.Text:
-        component = <PopinText
-          box={box}
-        />;
-        break;
-      case Boxes.Type.Picture:
-      case Boxes.Type.Mixed:
-        component = <Popin
-          box={box}
-        />;
-        break;
-      default:
-        component = '';
-    }
-    return <CSSTransition
+  mapPopinComponents = box => <CSSTransition
               key={box.id}
               classNames='fade-animation'
               timeout={{ enter: 1000, exit: 500 }}
           >
-        <div className={`popin-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'}`}>
-          {component}
+        <div className={`popin-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'} ${box.position === 1 ? 'one' : ''}`}>
+          <Popin
+            box={box}
+          />
         </div>
     </CSSTransition>;
-  };
   defineMiddleComponent = () => {
     if (this.draw) this.draw.remove();
     if (window.innerWidth < 1024) return;

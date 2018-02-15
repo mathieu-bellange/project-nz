@@ -1,20 +1,12 @@
 .secondary
-  width: 50%
+  flex: 1
   display: flex
   justify-content: center
   flex-direction: column
   & > div
     display: flex
     align-items: center
-    .img-wrapper
-      max-width: calc(50% - 8px)
-      &.wide
-        max-width: none
-      &.down
-        padding-top: 2px
 
 @media (max-width: 980px)
-  .secondary
-    width: 100%
-    & > div
-      justify-content: center
+  .secondary > div
+    justify-content: center

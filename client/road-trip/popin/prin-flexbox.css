@@ -1,12 +1,5 @@
 .prin
-  transition: padding 1s ease-in-out, height 1s ease-in-out, width 1s ease-in-out
-  width: 50%
-  padding: 6px 4px 2px
-  .img-wrapper
-    padding: 0
-  .text-wrapper
-    padding: 0
-
-@media (max-width: 980px)
-  .prin
-    width: 100%
+  transition: height 1s ease-in-out
+  flex: 1
+  display: flex
+  max-height: 100%

@@ -18,9 +18,9 @@
       height: calc(50% - 14em)
       min-height: calc(50% - 14em)
       display: flex
-      align-items: center
       padding: 7em 0
       flex-grow: 1
+      align-items: center
       &.left
         justify-content: flex-end
       &.right
@@ -33,6 +33,10 @@
           height: 100%
           & > div
             height: calc(100% - 0.4em - 4px)
+      &.one
+        height: auto
+        & > div
+          height: auto
   #left-container
     align-items: flex-end
     flex: 1

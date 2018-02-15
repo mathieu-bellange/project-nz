@@ -1,6 +1,12 @@
 .img-wrapper
   transition: padding 1s ease-in-out
-  padding: 6px 4px
+  padding: 4px
+  &.prin
+    padding: 8px 4px 10px 6px
+  &.full-screen
+    padding: 0
+    img, canvas
+      display: block
   img, canvas
     width: 100%
-    display: block
+    height: 100%
