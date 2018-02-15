@@ -6,7 +6,6 @@ import isequal from 'lodash/isEqual';
 import { Observable } from 'rxjs/Observable';
 
 import './popin-wrapper.css';
-import PopinImage from './popin-image';
 import Popin from './popin';
 import IconsWrapper from './icons-wrapper';
 import * as Boxes from '../boxes';
@@ -25,33 +24,17 @@ export default class PopinWrapper extends React.Component {
   containerSize;
   lineStyle = { color: '#BEBCBC', width: 2 };
   animations = [];
-  mapPopinComponents = function mapPopinComponents(box) {
-    let component = '';
-    switch (box.type) {
-      case Boxes.Type.Text:
-        component = <Popin
-          box={box}
-        />;
-        break;
-      case Boxes.Type.Picture:
-      case Boxes.Type.Mixed:
-        component = <Popin
-          box={box}
-        />;
-        break;
-      default:
-        component = '';
-    }
-    return <CSSTransition
+  mapPopinComponents = box => <CSSTransition
               key={box.id}
               classNames='fade-animation'
               timeout={{ enter: 1000, exit: 500 }}
           >
         <div className={`popin-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'} ${box.position === 1 ? 'one' : ''}`}>
-          {component}
+          <Popin
+            box={box}
+          />
         </div>
     </CSSTransition>;
-  };
   defineMiddleComponent = () => {
     if (this.draw) this.draw.remove();
     if (window.innerWidth < 1024) return;

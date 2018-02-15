@@ -9,7 +9,7 @@ import RoadTripCanvas from './canvas';
 import RoadController from './road-controller';
 import BorneKm from './borne-km';
 import * as Boxes from './boxes';
-import * as Popin from './popin';
+import PopinWrapper from './popin';
 import LoadingComponent from './loading';
 
 export default class RoadTrip extends React.Component {
@@ -151,11 +151,11 @@ export default class RoadTrip extends React.Component {
           canvasCenter={this.state.canvasCenter}
           loading={this.state.loading}
         ></RoadTripCanvas>
-        <Popin.Wrapper
+        <PopinWrapper
           drawCircle={this.state.drawCircle}
           popinBoxes={this.state.boxes}
           loading={this.state.loading}
-        ></Popin.Wrapper>
+        ></PopinWrapper>
         <RoadController
           hasNext={this.state.hasNext}
           hasPrevious={this.state.hasPrevious}
