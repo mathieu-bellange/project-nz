@@ -23,10 +23,6 @@ export default class Popin extends React.Component {
     openFullScreen: PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.overviewLoaded({
       offsetLeft: this.elem.offsetLeft,

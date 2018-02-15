@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Observable';
 import './popin-wrapper.css';
 import Popin from './popin';
 import IconsWrapper from './icons-wrapper';
-import * as Boxes from '../boxes';
 
 function add(a1, a2) {
   return a1 + a2;
@@ -24,17 +23,21 @@ export default class PopinWrapper extends React.Component {
   containerSize;
   lineStyle = { color: '#BEBCBC', width: 2 };
   animations = [];
-  mapPopinComponents = box => <CSSTransition
+  mapPopinComponents = (box) => {
+    let component = '';
+    if (box.type) {
+      component = <Popin box={box} />;
+    }
+    return <CSSTransition
               key={box.id}
               classNames='fade-animation'
               timeout={{ enter: 1000, exit: 500 }}
           >
         <div className={`popin-container ${box.left ? 'left' : 'right'} ${box.position !== undefined ? '' : 'alone'} ${box.position === 1 ? 'one' : ''}`}>
-          <Popin
-            box={box}
-          />
+          {component}
         </div>
     </CSSTransition>;
+  };
   defineMiddleComponent = () => {
     if (this.draw) this.draw.remove();
     if (window.innerWidth < 1024) return;

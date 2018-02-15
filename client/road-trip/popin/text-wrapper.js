@@ -15,7 +15,6 @@ export default class TextWrapper extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
     this.createMarkup = this.createMarkup.bind(this);
   }
 
