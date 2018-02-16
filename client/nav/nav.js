@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import './nav.css';
 
 export default class Nav extends React.Component {
+  isIE = !!document.documentMode;
+
   constructor() {
     super();
     this.state = {
@@ -34,7 +36,7 @@ export default class Nav extends React.Component {
                 <NavLink exact to="/" activeClassName="selected" onClick={() => this.onMenuClose()}>Accueil</NavLink>
               </span>
               <span>
-                <NavLink to="/road-trip" activeClassName="selected" onClick={() => this.onMenuClose()}>Road Trip</NavLink>
+                { this.isIE ? '' : <NavLink to="/road-trip" activeClassName="selected" onClick={() => this.onMenuClose()}>Road Trip</NavLink> }
               </span>
               <span>
                 <NavLink to="/about" activeClassName="selected" onClick={() => this.onMenuClose()}>Sur nous</NavLink>

@@ -36,8 +36,8 @@ export default class Popin extends React.Component {
   }
 
   openFullScreen() {
-    const isIEorEdge = !!document.documentMode || !!window.StyleMedia;
-    if (isIEorEdge) {
+    const isEdge = !!window.StyleMedia;
+    if (isEdge) {
       this.setState({
         fullScreen: true,
         positioned: true,
@@ -59,8 +59,8 @@ export default class Popin extends React.Component {
   }
 
   closeFullScreen() {
-    const isIEorEdge = !!document.documentMode || !!window.StyleMedia;
-    if (isIEorEdge) {
+    const isEdge = !!window.StyleMedia;
+    if (isEdge) {
       this.setState({
         fullScreen: false,
         positioned: false,

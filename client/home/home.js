@@ -7,6 +7,7 @@ import home from './home.md';
 
 export default class Home extends React.Component {
   scenarioService = new ScenarioService();
+  isIE = !!document.documentMode;
 
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ export default class Home extends React.Component {
         <div className="home-wrapper">
           <header dangerouslySetInnerHTML={this.createMarkup()}></header>
           <div id="content">
-            <Link to="/road-trip">{this.alreadyOnTheRoad ? 'Continuer' : 'Commencer'} le voyage</Link>
+            { this.isIE ? '' : <Link to="/road-trip">{this.alreadyOnTheRoad ? 'Continuer' : 'Commencer'} le voyage</Link> }
           </div>
         </div>
       </div>

@@ -9,12 +9,14 @@ import { RoadTrip } from './road-trip';
 import About from './about';
 
 class AppWrapper extends React.Component {
+  isIE = !!document.documentMode;
+
   render() {
     return (
       <div id="wrapper">
         <Nav></Nav>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/road-trip" component={RoadTrip}/>
+        { this.isIE ? '' : <Route exact path="/road-trip" component={RoadTrip}/> }
         <Route path="/about" component={About}/>
       </div>
     );
