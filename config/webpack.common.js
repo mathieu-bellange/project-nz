@@ -14,6 +14,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
+// NOTE refacto pour passer tous les fichiers en .sss
 module.exports = {
 
   entry: {
