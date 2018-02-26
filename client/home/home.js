@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { ScenarioService } from '../road-trip';
 import './home.css';
 import home from './home.md';
+import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class Home extends React.Component {
   scenarioService = new ScenarioService();
-  isIE = !!document.documentMode;
+  outdatedBrowserService = new OutdatedBrowserService();
 
   constructor(props) {
     super(props);
@@ -25,7 +26,7 @@ export default class Home extends React.Component {
         <div className="home-wrapper">
           <header dangerouslySetInnerHTML={this.createMarkup()}></header>
           <div id="content">
-            { this.isIE ? '' : <Link to="/road-trip">{this.alreadyOnTheRoad ? 'Continuer' : 'Commencer'} le voyage</Link> }
+            { this.outdatedBrowserService.isOutdated() ? '' : <Link to="/road-trip">{this.alreadyOnTheRoad ? 'Continuer' : 'Commencer'} le voyage</Link> }
           </div>
         </div>
       </div>

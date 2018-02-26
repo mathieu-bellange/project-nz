@@ -2,9 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './nav.css';
+import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class Nav extends React.Component {
-  isIE = !!document.documentMode;
+  outdatedBrowserService = new OutdatedBrowserService();
 
   constructor() {
     super();
@@ -36,7 +37,7 @@ export default class Nav extends React.Component {
                 <NavLink exact to="/" activeClassName="selected" onClick={() => this.onMenuClose()}>Accueil</NavLink>
               </span>
               <span>
-                { this.isIE ? '' : <NavLink to="/road-trip" activeClassName="selected" onClick={() => this.onMenuClose()}>Road Trip</NavLink> }
+                { this.outdatedBrowserService.isOutdated() ? '' : <NavLink to="/road-trip" activeClassName="selected" onClick={() => this.onMenuClose()}>Road Trip</NavLink> }
               </span>
               <span>
                 <NavLink to="/about" activeClassName="selected" onClick={() => this.onMenuClose()}>Sur nous</NavLink>
