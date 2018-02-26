@@ -10,8 +10,6 @@ import buildCoastlines from './coastline-markers';
 import buildCity from './city-markers';
 import buildDecors from './decor-markers';
 
-// DONE voir s'il est possible d'adapter l'interval à la route trello:#79
-// PLANNING refacto des sub de l'observable nextStep trello:#84
 // NOTE refacto le système de route trello:#83
 export default class FirstMonthScenario {
   canvas;

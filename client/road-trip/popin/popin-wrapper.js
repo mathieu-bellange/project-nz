@@ -16,7 +16,6 @@ function subtract(a1, a2) {
   return a1 - a2;
 }
 
-// DONE ouverture de popins non fonctionnelles sous edge trello:#79
 export default class PopinWrapper extends React.Component {
   draw;
   center;
