@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ScenarioService } from '../road-trip';
 import './home.css';
 import home from './home.md';
+import OutdatedBrowserInfo from './outdatedBrowsers-info';
 import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class Home extends React.Component {
@@ -25,6 +26,7 @@ export default class Home extends React.Component {
       <div id="home">
         <div className="home-wrapper">
           <header dangerouslySetInnerHTML={this.createMarkup()}></header>
+          <OutdatedBrowserInfo></OutdatedBrowserInfo>
           <div id="content">
             { this.outdatedBrowserService.isOutdated() ? '' : <Link to="/road-trip">{this.alreadyOnTheRoad ? 'Continuer' : 'Commencer'} le voyage</Link> }
           </div>
