@@ -6,6 +6,12 @@ import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class Nav extends React.Component {
   outdatedBrowserService = new OutdatedBrowserService();
+  homeLinkActiveEvent = (match, location) => {
+    if (!location) {
+      return false;
+    }
+    return location.pathname !== '/road-trip' && location.pathname !== '/about';
+  }
 
   constructor() {
     super();
@@ -34,7 +40,7 @@ export default class Nav extends React.Component {
             <div id="int" className={ this.state.displayMenu ? 'show' : ''}>
               <i className={`fa ${this.state.displayMenu ? 'fa-times' : 'fa-bars'}`} onClick={() => this.onMenuOpen()}></i>
               <span>
-                <NavLink exact to="/" activeClassName="selected" onClick={() => this.onMenuClose()}>Accueil</NavLink>
+                <NavLink isActive={this.homeLinkActiveEvent} to="/" activeClassName="selected" onClick={() => this.onMenuClose()}>Accueil</NavLink>
               </span>
               <span>
                 { this.outdatedBrowserService.isOutdated() ? '' : <NavLink to="/road-trip" activeClassName="selected" onClick={() => this.onMenuClose()}>Road Trip</NavLink> }

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './app.css';
 import Nav from './nav';
@@ -16,9 +16,11 @@ class AppWrapper extends React.Component {
     return (
       <div id="wrapper">
         <Nav></Nav>
-        <Route exact path="/" component={Home}/>
-        { this.outdatedBrowserService.isOutdated() ? '' : <Route exact path="/road-trip" component={RoadTrip}/> }
-        <Route path="/about" component={About}/>
+        <Switch>
+          { this.outdatedBrowserService.isOutdated() ? '' : <Route exact path="/road-trip" component={RoadTrip}/> }
+          <Route path="/about" component={About}/>
+          <Route component={Home}/>
+        </Switch>
       </div>
     );
   }
