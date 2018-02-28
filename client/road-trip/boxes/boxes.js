@@ -2,6 +2,7 @@ import TypeBox from './type-box';
 import roadToNz from './road-to-nz.md';
 import singapour from './singapour.md';
 import aucklandAirport from './auckland-airport.md';
+import aucklandCBD from './auckland-cbd.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -217,8 +218,7 @@ const boxes = [
         id: 50,
         left: true,
         position: 0,
-        title: 'Auckland',
-        text: 'second text',
+        text: aucklandCBD,
         type: TypeBox.Text
       },
       {
