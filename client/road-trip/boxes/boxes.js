@@ -3,6 +3,7 @@ import roadToNz from './road-to-nz.md';
 import singapour from './singapour.md';
 import aucklandAirport from './auckland-airport.md';
 import aucklandCBD from './auckland-cbd.md';
+import teKauwhata from './te-kauwhata.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -632,8 +633,7 @@ const boxes = [
         id: 60,
         left: false,
         position: 1,
-        title: 'Te Kauwhata',
-        text: 'sixth text',
+        text: teKauwhata,
         type: TypeBox.Text
       }
     ]
