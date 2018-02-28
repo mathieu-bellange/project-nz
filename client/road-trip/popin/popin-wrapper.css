@@ -35,8 +35,6 @@
             height: calc(100% - 0.4em - 4px)
       &.one
         height: auto
-        & > div
-          height: auto
   #left-container
     align-items: flex-end
     flex: 1
