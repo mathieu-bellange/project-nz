@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './popin.css';
 import PopinOverview from './popin-overview';
 import PopinDoppleganger from './popin-doppleganger';
+import { Type } from '../boxes';
 
 export default class Popin extends React.Component {
   animationState = {
@@ -141,7 +142,7 @@ export default class Popin extends React.Component {
 
   render() {
     return (
-      <div className="popin-manager">
+      <div className={`popin-manager ${this.props.box.type === Type.Picture ? '' : 'text'}`}>
         <PopinOverview
           className="popin"
           fullScreen={this.state.fullScreen}

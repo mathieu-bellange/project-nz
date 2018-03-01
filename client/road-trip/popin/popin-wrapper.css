@@ -58,6 +58,12 @@
       display: flex
       height: 100%
       flex-direction: column
+@media (max-width: 1380px)
+  .popin-wrapper > div
+    .popin-container
+      height: calc(50% - 10em)
+      min-height: calc(50% - 10em)
+      padding: 5em 0
 @media (max-width: 980px)
   .popin-wrapper
     #left-container
