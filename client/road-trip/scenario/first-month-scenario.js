@@ -470,7 +470,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(40, this.van, false, false, false);
       this.declareAnimatedSVG(41, this.van, false, false, true);
       this.declareSteps(40, 22, true, false, true);
-      this.declareSteps(41, 22, false, true, true);
+      this.declareSteps(41, 22, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[40].begin);
       this.declareDecorsGenerator(16, 22);
     },

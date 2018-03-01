@@ -1243,7 +1243,7 @@ const boxes = [
       {
         id: 120,
         left: true,
-        position: 1,
+        position: 0,
         pictures: [
           {
             id: 1200,
@@ -1272,6 +1272,10 @@ const boxes = [
           }
         ],
         type: TypeBox.Mixed
+      },
+      {
+        id: 121,
+        left: true
       }
     ]
   },

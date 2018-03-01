@@ -195,7 +195,7 @@ export default class PopinWrapper extends React.Component {
   render() {
     return (
         <div className={`popin-wrapper ${this.props.loading ? 'loading' : ''}`}>
-          <div id="left-container">
+          <div className="container">
             <TransitionGroup>
               {
                 this.props.popinBoxes
@@ -210,7 +210,7 @@ export default class PopinWrapper extends React.Component {
               .filter(() => window.innerWidth < 1024)}>
             </IconsWrapper>
           </div>
-          <div id="right-container">
+          <div className="container">
             <TransitionGroup>
               {
                 this.props.popinBoxes
