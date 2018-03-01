@@ -17,13 +17,13 @@ export default class SecondaryFlexBox extends React.Component {
         <div className="up">
           {
             this.props.images[0]
-              .map(upPic => <ImgWrapper fullScreen={this.props.fullScreen} key={upPic.id} onLoad={this.props.onLoad} img={upPic} />)
+              .map((upPic, index) => <ImgWrapper className={`up ${index === 1 ? 'last' : ''}`} fullScreen={this.props.fullScreen} key={upPic.id} onLoad={this.props.onLoad} img={upPic} />)
           }
         </div>
         <div className="down">
           {
             this.props.images[1]
-              .map(dnPic => <ImgWrapper fullScreen={this.props.fullScreen} key={dnPic.id} onLoad={this.props.onLoad} img={dnPic} />)
+              .map((dnPic, index) => <ImgWrapper className={`dn ${index === 1 ? 'last' : ''}`} fullScreen={this.props.fullScreen} key={dnPic.id} onLoad={this.props.onLoad} img={dnPic} />)
           }
         </div>
       </div>

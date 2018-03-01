@@ -1,8 +1,14 @@
 .img-wrapper
   transition: padding 1s ease-in-out
-  padding: 4px
+  padding: 2px
+  &.up
+    padding-top: 4px
+  &.dn
+    padding-bottom: 4px
+  &.last
+    padding-right: 4px
   &.prin
-    padding: 8px 4px 10px 6px
+    padding: 4px 2px 4px 4px
   &.full-screen
     padding: 0
     img, canvas

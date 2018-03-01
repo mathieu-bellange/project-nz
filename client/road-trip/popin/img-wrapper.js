@@ -20,6 +20,7 @@ export default class ImgWrapper extends React.Component {
         (img) => {
           if (img.type !== 'error' && document.getElementById(`canvas${this.props.img.id}`)) {
             document.getElementById(`canvas${this.props.img.id}`).appendChild(img);
+            this.img.remove();
           }
         },
         {
