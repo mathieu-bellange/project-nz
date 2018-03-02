@@ -87,6 +87,7 @@ const boxAirplaneMixed = {
   left: false,
   position: 2,
   title: 'Singapour',
+  break: true,
   pictures: [
     {
       id: 20,

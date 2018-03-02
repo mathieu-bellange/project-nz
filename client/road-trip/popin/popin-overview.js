@@ -43,7 +43,7 @@ export default class Popin extends React.Component {
             this.props.box.pictures ? <PrinFlexBox mixed={true} box={this.props.box.pictures[0].prin} onLoad={this.onLoad} /> : <PrinFlexBox box={this.props.box} />
           }
           {
-            this.props.box.pictures ? <SecondaryFlexBox onLoad={this.onLoad} images={this.props.box.pictures[0].secondary.sources}/> : ''
+            this.props.box.pictures ? <SecondaryFlexBox break={this.props.box.break} onLoad={this.onLoad} images={this.props.box.pictures[0].secondary.sources}/> : ''
           }
         </div>
     );

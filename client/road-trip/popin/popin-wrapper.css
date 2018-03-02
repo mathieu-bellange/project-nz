@@ -31,8 +31,6 @@
         height: 100%
         & > div
           height: 100%
-          & > div
-            height: calc(100% - 0.4em - 4px)
       &.one
         height: auto
   .container

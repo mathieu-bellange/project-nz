@@ -5,6 +5,9 @@
   flex-direction: column
   & > div
     display: flex
+    &.break
+      align-items: center
+      justify-content: center
 
 @media (max-width: 980px)
   .secondary > div
