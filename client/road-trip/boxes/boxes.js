@@ -4,6 +4,8 @@ import singapour from './singapour.md';
 import aucklandAirport from './auckland-airport.md';
 import aucklandCBD from './auckland-cbd.md';
 import teKauwhata from './te-kauwhata.md';
+import hamilton from './hamilton.md';
+import lakeMaraetai from './lake-maraetai.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -648,8 +650,7 @@ const boxes = [
       {
         id: 70,
         left: false,
-        title: 'Hamilton',
-        text: 'seventh text',
+        text: hamilton,
         type: TypeBox.Text
       },
       {
@@ -672,8 +673,7 @@ const boxes = [
         id: 81,
         left: true,
         position: 2,
-        title: 'Lac Maraetai',
-        text: 'eigth text',
+        text: lakeMaraetai,
         type: TypeBox.Text
       },
       {
