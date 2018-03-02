@@ -1,5 +1,4 @@
 .doppleganger
-  cursor: default
   position: absolute
   visibility: hidden
   overflow: hidden
@@ -15,6 +14,7 @@
   &.show
     visibility: visible
   &.full-screen
+    cursor: default
     top: 5%
     left: 0
     z-index: 10
@@ -32,6 +32,7 @@
     right: 0
     opacity: 0
     transition: opacity 1s ease-in-out
+    z-index: 1
     &.fixed
       top: 5%
       right: 17px

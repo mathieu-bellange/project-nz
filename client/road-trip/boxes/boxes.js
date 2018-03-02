@@ -11,6 +11,7 @@ const boxAirplaneTxt = {
   id: 0,
   left: true,
   text: roadToNz,
+  date: '6 Janvier',
   type: TypeBox.Text
 };
 const boxAirplaneImg = {

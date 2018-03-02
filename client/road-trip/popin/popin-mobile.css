@@ -17,6 +17,7 @@
     position: fixed
     cursor: pointer
     margin: 1em
+    z-index: 1
   .text-wrapper
     padding: 3em
     height: auto
