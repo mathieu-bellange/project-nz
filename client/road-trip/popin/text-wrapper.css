@@ -37,8 +37,9 @@
     border-bottom: 1px solid #000
     transition: margin 1s ease-in-out
 
-@media(max-width: 1366px)
+@media(max-width: 1680px)
   .text-wrapper
+    height: calc(100% - 3em)
     padding: 1.5em 2em
     .date
       margin-right: 1.5em
