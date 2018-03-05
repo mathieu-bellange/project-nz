@@ -28,7 +28,7 @@ export default class TextWrapper extends React.Component {
         <span className="date">{this.props.box.date}</span>
         <div
           ref={(el) => { this.txtContainerElem = el; }}
-          className='text-container'
+          className={`text-container ${this.props.fullScreen ? 'full-screen' : ''}`}
           dangerouslySetInnerHTML={this.createMarkup()}
         ></div>
         <div className={`ellipsis ${this.props.fullScreen ? 'hidden' : ''}`}>...</div>

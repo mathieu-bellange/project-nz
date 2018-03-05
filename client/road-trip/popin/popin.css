@@ -9,3 +9,7 @@
     background-color: rgb(256 256 256 / 0.7)
     display: flex
     width: 100%
+    &.text
+      background-color: rgb(190 188 188 / 0.7)
+      &.full-screen
+        background-color: rgb(190 188 188 / 0.95)

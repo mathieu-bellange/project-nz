@@ -4,7 +4,7 @@
   transition: padding 1s ease-in-out
   position: relative
   &.full-screen
-    height: calc(100% - 10em)
+    height: auto
     padding: 5em 30em
     .date
       margin-right: 28em
@@ -21,11 +21,14 @@
   .text-container
     max-height: 80%
     overflow: hidden
+    &.full-screen
+      overflow: visible
+      max-height: auto
   .ellipsis
     font-size: 2em
     text-align: center
     &.hidden
-      visibility: hidden
+      display: none
   .date
     position: absolute
     right: 0
@@ -47,7 +50,6 @@
       padding-right: 0.5em
       padding-left: 1.5em
     &.full-screen
-      height: calc(100% - 6em)
       padding: 3em 15em
       .date
         margin-right: 13em
