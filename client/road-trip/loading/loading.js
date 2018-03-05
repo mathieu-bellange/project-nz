@@ -9,6 +9,7 @@ import './loading.css';
 
 export default class LoadingComponent extends React.Component {
   van;
+  subs = [];
 
   static propTypes = {
     loading: PropTypes.bool
@@ -37,21 +38,22 @@ export default class LoadingComponent extends React.Component {
     }
     const canvas = SVG('van', 1000, canvasY);
     this.van.draw(canvas, { x: vanX, y: vanY }).animate();
-    Observable.timer(0, 900)
+    const sub1 = Observable.timer(0, 900)
       .filter(() => this.props.loading)
       .subscribe(() => {
         this.setState({ pointOneJumped: !this.state.pointOneJumped });
       });
-    Observable.timer(300, 900)
+    const sub2 = Observable.timer(300, 900)
       .filter(() => this.props.loading)
       .subscribe(() => {
         this.setState({ pointTwoJumped: !this.state.pointTwoJumped });
       });
-    Observable.timer(600, 900)
+    const sub3 = Observable.timer(600, 900)
       .filter(() => this.props.loading)
       .subscribe(() => {
         this.setState({ pointThreeJumped: !this.state.pointThreeJumped });
       });
+    this.subs.push(sub1, sub2, sub3);
   }
 
   componentWillUpdate(nextProps) {
@@ -64,6 +66,10 @@ export default class LoadingComponent extends React.Component {
     if (e.propertyName === 'opacity' && !this.props.loading) {
       this.setState({ hidden: true });
     }
+  }
+
+  componentWillUnmount() {
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   render() {

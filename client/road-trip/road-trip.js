@@ -22,6 +22,7 @@ export default class RoadTrip extends React.Component {
   onRoadAgainSubject;
   nextKmTraveledSubject;
   displayBorneKmSubject;
+  canvasMountSubject;
   scenario;
 
   constructor(props) {
@@ -48,26 +49,53 @@ export default class RoadTrip extends React.Component {
     this.isLoadingSubject = new Subject();
     this.nextKmTraveledSubject = new Subject();
     this.displayBorneKmSubject = new Subject();
+    this.canvasMountSubject = new Subject();
+    this.roadControllerMountSubject = new Subject();
+    this.borneKmMountSubject = new Subject();
     const theOne = Observable.combineLatest(
       Observable
         .fromEvent(window, 'resize')
         .map(() => ({ width: window.innerWidth, height: window.innerHeight }))
         .startWith({ width: window.innerWidth, height: window.innerHeight }),
       this.actualPointSubject
-    );
+    ).withLatestFrom(this.canvasMountSubject)
+      .filter(values => values[1])
+      .map(values => values[0]);
     theOne.subscribe((values) => {
       const [windowSize, actualPoint] = values;
       this.centerCanvas(actualPoint, windowSize);
     });
-    this.actualBoxesSubject.subscribe((id) => {
-      this.defineBoxes(id);
-    });
-    this.hasNextSubject.subscribe(value => this.setState({ hasNext: value }));
-    this.hasPreviousSubject.subscribe(value => this.setState({ hasPrevious: value }));
-    this.onRoadAgainSubject.subscribe(value => this.setState({ hasNext: value, hasPrevious: value }));
-    this.isLoadingSubject.subscribe(value => this.setState({ loading: value }));
-    this.nextKmTraveledSubject.subscribe(value => this.setState({ nextKm: this.state.nextKm + value }));
-    this.displayBorneKmSubject.subscribe(value => this.setState({ displayBorneKm: value }));
+    this.actualBoxesSubject
+      .withLatestFrom(this.canvasMountSubject)
+      .filter(values => values[1])
+      .map(values => values[0])
+      .subscribe((id) => {
+        this.defineBoxes(id);
+      });
+    this.hasNextSubject.withLatestFrom(this.roadControllerMountSubject)
+      .filter(values => values[1])
+      .map(values => values[0])
+      .subscribe(value => this.setState({ hasNext: value }));
+    this.hasPreviousSubject.withLatestFrom(this.roadControllerMountSubject)
+      .filter(values => values[1])
+      .map(values => values[0])
+      .subscribe(value => this.setState({ hasPrevious: value }));
+    this.onRoadAgainSubject.withLatestFrom(this.roadControllerMountSubject)
+      .filter(values => values[1])
+      .map(values => values[0])
+      .subscribe(value => this.setState({ hasNext: value, hasPrevious: value }));
+    this.isLoadingSubject.withLatestFrom(this.canvasMountSubject)
+      .filter(values => values[1])
+      .map(values => values[0])
+      .subscribe(value => this.setState({ loading: value }));
+    this.nextKmTraveledSubject.withLatestFrom(this.borneKmMountSubject)
+      .filter(values => values[1])
+      .map(values => values[0])
+      .subscribe(value => this.setState({ nextKm: this.state.nextKm + value }));
+    this.displayBorneKmSubject.withLatestFrom(this.borneKmMountSubject)
+      .filter(values => values[1])
+      .map(values => values[0])
+      .subscribe(value => this.setState({ displayBorneKm: value }));
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
     }
@@ -150,6 +178,7 @@ export default class RoadTrip extends React.Component {
           canvasId={this.canvasId}
           canvasCenter={this.state.canvasCenter}
           loading={this.state.loading}
+          componentMountSubject={this.canvasMountSubject}
         ></RoadTripCanvas>
         <PopinWrapper
           drawCircle={this.state.drawCircle}
@@ -162,6 +191,7 @@ export default class RoadTrip extends React.Component {
           hasClickedNext={this.onNextStep}
           hasClickedPrevious={this.onPreviousStep}
           loading={this.state.loading}
+          componentMountSubject={this.roadControllerMountSubject}
         ></RoadController>
         <BorneKm
           display={this.state.displayBorneKm}
@@ -169,6 +199,7 @@ export default class RoadTrip extends React.Component {
           end={this.state.nextKm}
           onComplete={this.onKmComplete}
           loading={this.state.loading}
+          componentMountSubject={this.borneKmMountSubject}
         ></BorneKm>
         <LoadingComponent
           loading={this.state.loading}

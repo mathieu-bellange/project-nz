@@ -7,7 +7,8 @@ export default class RoadTripCanvas extends React.Component {
   static propTypes = {
     canvasId: PropTypes.string.isRequired,
     canvasCenter: PropTypes.object.isRequired,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    componentMountSubject: PropTypes.object
   };
 
   constructor(props) {
@@ -22,6 +23,14 @@ export default class RoadTripCanvas extends React.Component {
     if (prevProps.canvasCenter !== this.props.canvasCenter) {
       this.defineCanvasStyle();
     }
+  }
+
+  componentDidMount() {
+    this.props.componentMountSubject.next(true);
+  }
+
+  componentWillUnmount() {
+    this.props.componentMountSubject.next(false);
   }
 
   defineCanvasStyle() {

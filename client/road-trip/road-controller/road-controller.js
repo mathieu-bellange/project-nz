@@ -10,10 +10,12 @@ export default class RoadController extends React.Component {
     hasNext: PropTypes.bool,
     hasClickedNext: PropTypes.func.isRequired,
     hasClickedPrevious: PropTypes.func.isRequired,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    componentMountSubject: PropTypes.object
   };
 
   componentDidMount() {
+    this.props.componentMountSubject.next(true);
     Observable.fromEvent(window, 'keypress')
       .filter(event => event.keyCode === 13)
       .filter(() => this.props.hasNext)
@@ -22,6 +24,10 @@ export default class RoadController extends React.Component {
       .filter(event => event.keyCode === 8)
       .filter(() => this.props.hasPrevious)
       .subscribe(() => this.props.hasClickedPrevious());
+  }
+
+  componentWillUnmount() {
+    this.props.componentMountSubject.next(false);
   }
 
   render() {

@@ -10,8 +10,26 @@ export default class BorneKm extends React.Component {
     end: PropTypes.number,
     loading: PropTypes.bool,
     onComplete: PropTypes.func,
-    display: PropTypes.bool
+    display: PropTypes.bool,
+    componentMountSubject: PropTypes.object
   };
+
+  constructor(props) {
+    super(props);
+    this.onComplete = this.onComplete.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.componentMountSubject.next(true);
+  }
+
+  componentWillUnmount() {
+    this.props.componentMountSubject.next(false);
+  }
+
+  onComplete() {
+    this.props.onComplete();
+  }
 
   render() {
     return (
@@ -22,7 +40,7 @@ export default class BorneKm extends React.Component {
           separator=" "
           start={this.props.start}
           end={this.props.end}
-          onComplete={this.props.onComplete}
+          onComplete={this.onComplete}
           duration={7}
         />
       </div>
