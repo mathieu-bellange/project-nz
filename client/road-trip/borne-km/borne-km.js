@@ -5,6 +5,7 @@ import CountUp from 'react-countup';
 import './borne-km.css';
 
 export default class BorneKm extends React.Component {
+  propagated;
   static propTypes = {
     start: PropTypes.number,
     end: PropTypes.number,
@@ -21,14 +22,16 @@ export default class BorneKm extends React.Component {
 
   componentDidMount() {
     this.props.componentMountSubject.next(true);
+    this.propagated = true;
   }
 
   componentWillUnmount() {
     this.props.componentMountSubject.next(false);
+    this.propagated = false;
   }
 
   onComplete() {
-    this.props.onComplete();
+    if (this.propagated) this.props.onComplete();
   }
 
   render() {
