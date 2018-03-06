@@ -9,6 +9,7 @@ import lakeMaraetai from './lake-maraetai.md';
 import taupo from './taupo.md';
 import tongariroAlpineCrossing from './tongariro-alpine-crossing.md';
 import gollumsPool from './gollums-pool.md';
+import mountRuapehu from './mount-ruapehu.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1095,7 +1096,7 @@ const boxes = [
         id: 110,
         left: true,
         position: 0,
-        date: '20 Janvier',
+        date: '21 Janvier',
         text: gollumsPool,
         type: TypeBox.Text
       },
@@ -1259,8 +1260,8 @@ const boxes = [
             id: 1200,
             prin: {
               id: 12000,
-              title: 'Mangahuia',
-              text: 'un texte sur Mangahuia'
+              date: '21 Janvier',
+              text: mountRuapehu
             },
             secondary: {
               sources: [
