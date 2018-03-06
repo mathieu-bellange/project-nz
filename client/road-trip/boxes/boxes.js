@@ -8,6 +8,7 @@ import hamilton from './hamilton.md';
 import lakeMaraetai from './lake-maraetai.md';
 import taupo from './taupo.md';
 import tangarihoCrossing from './tangariho-alping.md';
+import gollumsPool from './gollums-pool.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1094,8 +1095,8 @@ const boxes = [
         id: 110,
         left: true,
         position: 0,
-        title: 'Forêt',
-        text: 'tenth text',
+        date: '20 Janvier',
+        text: gollumsPool,
         type: TypeBox.Text
       },
       {
