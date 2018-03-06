@@ -8,4 +8,14 @@ import SVGLine from './svg-line';
 import SVGImage from './svg-image';
 import SVGText from './svg-text';
 
-export { Coordinate, OrientedVector, Road, City, AnimatedLine, Metropolis, SVGImage, SVGText, SVGLine };
+export {
+  Coordinate,
+  OrientedVector,
+  Road,
+  City,
+  AnimatedLine,
+  Metropolis,
+  SVGImage,
+  SVGText,
+  SVGLine
+};

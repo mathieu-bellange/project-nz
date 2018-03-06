@@ -6,24 +6,9 @@ import us from './us.md';
 import webSite from './web-site.md';
 
 export default class About extends React.Component {
-  constructor(props) {
-    super(props);
-    this.createMarkup = this.createOurTripMarkup.bind(this);
-    this.createMarkup = this.createUsMarkup.bind(this);
-    this.createMarkup = this.createWebSiteMarkup.bind(this);
-  }
-
-  createOurTripMarkup() {
-    return { __html: ourTrip };
-  }
-
-  createUsMarkup() {
-    return { __html: us };
-  }
-
-  createWebSiteMarkup() {
-    return { __html: webSite };
-  }
+  createOurTripMarkup = () => ({ __html: ourTrip });
+  createUsMarkup = () => ({ __html: us });
+  createWebSiteMarkup = () => ({ __html: webSite });
 
   render() {
     return (

@@ -1,5 +1,6 @@
 import { OrientedVector, SVGLine } from '../tools';
 
+/* eslint-disable */
 const OrientedVectors = [
   new OrientedVector('nh1-nh2', 499, 205, 541, 205),
   new OrientedVector('nh2-nh3', 541, 205, 540, 230),
@@ -77,6 +78,7 @@ const OrientedVectors = [
   new OrientedVector('nh117-nh118', 758, 1035, 747, 1036),
   new OrientedVector('nh118-nh119', 747, 1036, 742, 1013)
 ];
+/* eslint-enable */
 
 const buildCoastlines = pixelRatio => ([
   [

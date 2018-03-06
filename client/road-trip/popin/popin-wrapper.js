@@ -22,6 +22,13 @@ export default class PopinWrapper extends React.Component {
   containerSize;
   lineStyle = { color: '#BEBCBC', width: 2 };
   animations = [];
+  defineStopPoint = (begin, end, left) => {
+    const exec = left ? add : subtract;
+    return {
+      x: exec(end.x, begin.x / 2),
+      y: end.y
+    };
+  }
   mapPopinComponents = (box) => {
     let component = '';
     if (box.type) {
@@ -131,14 +138,6 @@ export default class PopinWrapper extends React.Component {
         begin.y = this.center.y + (Math.sin(Math.PI / 4) * 10);
     }
     return begin;
-  }
-
-  defineStopPoint(begin, end, left) {
-    const exec = left ? add : subtract;
-    return {
-      x: exec(end.x, begin.x / 2),
-      y: end.y
-    };
   }
 
   defineEndPoint(index, left) {

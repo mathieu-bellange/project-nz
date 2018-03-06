@@ -1,5 +1,7 @@
 export default class OutdatedBrowserService {
+  disableIE = !!document.documentMode;
+
   isOutdated() {
-    return !!document.documentMode;
+    return this.disableIE;
   }
 }

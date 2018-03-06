@@ -40,7 +40,14 @@ export default class Popin extends React.Component {
           className={`${this.props.className} popin-overview ${this.props.fullScreen ? 'full-screen' : ''}`}
         >
           {
-            this.props.box.pictures ? <PrinFlexBox mixed={true} box={this.props.box.pictures[0].prin} onLoad={this.onLoad} /> : <PrinFlexBox box={this.props.box} />
+            this.props.box.pictures ?
+              <PrinFlexBox
+                mixed={true}
+                box={this.props.box.pictures[0].prin}
+                onLoad={this.onLoad}
+              />
+            :
+              <PrinFlexBox box={this.props.box} />
           }
           {
             this.props.box.pictures ? <SecondaryFlexBox break={this.props.box.break} onLoad={this.onLoad} images={this.props.box.pictures[0].secondary.sources}/> : ''

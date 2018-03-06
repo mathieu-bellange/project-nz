@@ -10,9 +10,8 @@ export default class AnimatedLine {
 
   constructor(line) {
     this.line = line;
-    this.initLength = Math.ceil(Math.sqrt(
-      ((line.end.x - line.begin.x) ** 2) + ((line.end.y - line.begin.y) ** 2)
-    ));
+    const sqrt = ((line.end.x - line.begin.x) ** 2) + ((line.end.y - line.begin.y) ** 2);
+    this.initLength = Math.ceil(Math.sqrt(sqrt));
     this.currentLength = this.initLength;
     this.sensSubject = new Subject();
   }
