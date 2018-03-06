@@ -7,7 +7,7 @@ import teKauwhata from './te-kauwhata.md';
 import hamilton from './hamilton.md';
 import lakeMaraetai from './lake-maraetai.md';
 import taupo from './taupo.md';
-import tangarihoCrossing from './tangariho-alping.md';
+import tongariroAlpineCrossing from './tongariro-alpine-crossing.md';
 import gollumsPool from './gollums-pool.md';
 
 const boxAirplaneTxt = {
@@ -987,7 +987,7 @@ const boxes = [
         left: true,
         position: 1,
         date: '20 janvier',
-        text: tangarihoCrossing,
+        text: tongariroAlpineCrossing,
         type: TypeBox.Text
       },
       {
