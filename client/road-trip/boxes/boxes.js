@@ -6,6 +6,8 @@ import aucklandCBD from './auckland-cbd.md';
 import teKauwhata from './te-kauwhata.md';
 import hamilton from './hamilton.md';
 import lakeMaraetai from './lake-maraetai.md';
+import taupo from './taupo.md';
+import tangarihoCrossing from './tangariho-alping.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -204,6 +206,7 @@ const boxes = [
         id: 40,
         left: true,
         position: 0,
+        date: '7 janvier',
         text: aucklandAirport,
         type: TypeBox.Text
       },
@@ -223,6 +226,7 @@ const boxes = [
         id: 50,
         left: true,
         position: 0,
+        date: '7 janvier',
         text: aucklandCBD,
         type: TypeBox.Text
       },
@@ -637,6 +641,7 @@ const boxes = [
         id: 60,
         left: false,
         position: 1,
+        date: '16 janvier',
         text: teKauwhata,
         type: TypeBox.Text
       }
@@ -651,6 +656,7 @@ const boxes = [
       {
         id: 70,
         left: false,
+        date: '17 janvier',
         text: hamilton,
         type: TypeBox.Text
       },
@@ -675,6 +681,7 @@ const boxes = [
         left: true,
         position: 2,
         text: lakeMaraetai,
+        date: '17 janvier',
         type: TypeBox.Text
       },
       {
@@ -891,8 +898,8 @@ const boxes = [
         id: 90,
         left: false,
         position: 1,
-        title: 'Lac Taupo',
-        text: 'ninth text',
+        date: '19 janvier',
+        text: taupo,
         type: TypeBox.Text
       },
       {
@@ -978,8 +985,8 @@ const boxes = [
         id: 100,
         left: true,
         position: 1,
-        title: 'Forêt',
-        text: 'tenth text',
+        date: '20 janvier',
+        text: tangarihoCrossing,
         type: TypeBox.Text
       },
       {
