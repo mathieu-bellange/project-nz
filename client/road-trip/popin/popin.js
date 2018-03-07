@@ -142,7 +142,7 @@ export default class Popin extends React.Component {
 
   render() {
     return (
-      <div className={`popin-manager ${this.props.box.type === Type.Picture ? '' : 'text'}`}>
+      <div className={`popin-manager ${this.props.box.type === Type.Picture ? '' : 'text'} ${this.props.box.position !== undefined ? '' : 'alone'}`}>
         <PopinOverview
           className={`popin ${this.props.box.type === Type.Text ? 'text' : ''}`}
           fullScreen={this.state.fullScreen}
