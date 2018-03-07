@@ -13,6 +13,7 @@ import mountRuapehu from './mount-ruapehu.md';
 import ruatihiDomain from './ruatihi-domain.md';
 import roadToWanganui from './road-to-wanganui.md';
 import wanganui from './wanganui.md';
+import feilding from './feilding.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1599,8 +1600,8 @@ const boxes = [
         id: 160,
         left: false,
         position: 1,
-        title: 'Feilding',
-        text: 'text',
+        date: '27 Janvier',
+        text: feilding,
         type: TypeBox.Text
       },
       {
