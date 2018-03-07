@@ -10,6 +10,8 @@ import taupo from './taupo.md';
 import tongariroAlpineCrossing from './tongariro-alpine-crossing.md';
 import gollumsPool from './gollums-pool.md';
 import mountRuapehu from './mount-ruapehu.md';
+import ruatihiDomain from './ruatihi-domain.md';
+import roadToWanganui from './road-to-wanganui.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1300,8 +1302,8 @@ const boxes = [
         id: 130,
         left: true,
         position: 2,
-        title: 'Ruatihi domain',
-        text: 'text',
+        date: '23 Janvier',
+        text: ruatihiDomain,
         type: TypeBox.Text
       },
       {
@@ -1452,9 +1454,13 @@ const boxes = [
       {
         id: 140,
         left: false,
-        title: 'Road to Wanganui',
-        text: 'text',
+        date: '25 Janvier',
+        text: roadToWanganui,
         type: TypeBox.Text
+      },
+      {
+        id: 141,
+        left: false
       }
     ]
   },
