@@ -12,6 +12,7 @@ import gollumsPool from './gollums-pool.md';
 import mountRuapehu from './mount-ruapehu.md';
 import ruatihiDomain from './ruatihi-domain.md';
 import roadToWanganui from './road-to-wanganui.md';
+import wanganui from './wanganui.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1474,8 +1475,8 @@ const boxes = [
         id: 150,
         left: false,
         position: 1,
-        title: 'Wanganui',
-        text: 'text',
+        date: '26 Janvier',
+        text: wanganui,
         type: TypeBox.Text
       },
       {
