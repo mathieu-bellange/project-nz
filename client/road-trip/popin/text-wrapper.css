@@ -11,8 +11,13 @@
     &.mixed
       height: calc(100% - 6em)
       padding: 3em 5em
+      .date
+        display: inline-block
+        margin-right: 5em
   &.mixed
     background-color: transparent
+    .date
+      display: none
   h2
     padding-bottom: 1em
     max-width: 75%
