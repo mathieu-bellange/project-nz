@@ -2,10 +2,10 @@
   position: fixed
   top: 0
   left: 0
-  margin: 1em
+  margin: 0.5em
   z-index: 1
   transition: width 1s ease-in-out
-  width: calc(100%-2em)
+  width: calc(100% - 1em)
   &.show
     z-index: 100
   nav
