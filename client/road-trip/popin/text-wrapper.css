@@ -18,6 +18,11 @@
     max-width: 75%
   p
     padding-bottom: 0.5em
+  a
+    font-style: italic
+    &:hover, &:active, &:focus, &:visited
+      color: #000
+      text-decoration: underline
   .text-container
     max-height: 80%
     overflow: hidden
