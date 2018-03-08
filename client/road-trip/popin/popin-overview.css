@@ -1,3 +1,5 @@
 .popin-overview
   &.full-screen
     visibility: hidden
+  a
+    pointer-events: none
