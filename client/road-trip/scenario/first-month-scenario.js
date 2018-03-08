@@ -235,7 +235,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(3, this.van, false, false, false);
       this.declareAnimatedSVG(4, this.van, false, false, true);
       this.declareSteps(3, 7, true, false, true);
-      this.declareSteps(4, 7, false, true, true);
+      this.declareSteps(4, 7, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[3].begin);
       this.declareCoastlineGenerator(3, 7);
       this.declareCitiesGenerator(3, 7);
@@ -345,7 +345,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(20, this.van, true, false, false);
       this.declareAnimatedSVG(21, this.van, true, false, true);
       this.declareSteps(20, 14, true, false, true);
-      this.declareSteps(21, 14, false, true, true);
+      this.declareSteps(21, 14, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[20].begin);
       this.declareDecorsGenerator(10, 14);
     },
@@ -405,7 +405,7 @@ export default class FirstMonthScenario {
       this.declareAnimatedSVG(29, this.van, true, false, false);
       this.declareAnimatedSVG(30, this.van, true, false, true);
       this.declareSteps(29, 18, true, false, true);
-      this.declareSteps(30, 18, false, true, true);
+      this.declareSteps(30, 18, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[29].begin);
       this.declareCoastlineGenerator(7, 18);
       this.declareDecorsGenerator(13, 18);
