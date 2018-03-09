@@ -16,3 +16,8 @@
   img, canvas
     width: 100%
     height: 100%
+    &.bad
+      height: fit-content
+      width: fit-content
+      align-self: center
+      max-width: 100%

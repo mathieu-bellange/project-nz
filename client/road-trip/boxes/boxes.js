@@ -1550,7 +1550,8 @@ const boxes = [
             id: 1502,
             prin: {
               id: 15008,
-              src: '/images/wanganui/09.jpg'
+              src: '/images/wanganui/09.jpg',
+              bad: true
             },
             secondary: {
               sources: [

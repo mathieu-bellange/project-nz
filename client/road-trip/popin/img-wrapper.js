@@ -39,7 +39,7 @@ export default class ImgWrapper extends React.Component {
     return (
       <div id={`canvas${this.props.img.id}`}
           className={`img-wrapper ${this.props.className ? this.props.className : ''} ${this.props.fullScreen ? 'full-screen' : ''} ${this.props.img.wide ? 'wide' : ''}`}>
-        <img ref={(el) => { this.img = el; }}></img>
+        <img className={this.props.img.bad ? 'bad' : ''} ref={(el) => { this.img = el; }}></img>
       </div>
     );
   }
