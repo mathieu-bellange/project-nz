@@ -14,6 +14,7 @@ import ruatihiDomain from './ruatihi-domain.md';
 import roadToWanganui from './road-to-wanganui.md';
 import wanganui from './wanganui.md';
 import feilding from './feilding.md';
+import waikanae from './waikanae.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1604,49 +1605,6 @@ const boxes = [
         date: '27 Janvier',
         text: feilding,
         type: TypeBox.Text
-      },
-      {
-        id: 161,
-        left: true,
-        position: 1,
-        pictures: [
-          {
-            id: 1600,
-            prin: {
-              id: 16000,
-              src: '/images/feilding/01.jpg'
-            },
-            secondary: {
-              sources: [
-                [
-                  {
-                    id: 16001,
-                    src: '/images/feilding/02.jpg',
-                    wide: false
-                  },
-                  {
-                    id: 16002,
-                    src: '/images/feilding/03.jpg',
-                    wide: false
-                  }
-                ],
-                [
-                  {
-                    id: 16003,
-                    src: '/images/feilding/04.jpg',
-                    wide: false
-                  },
-                  {
-                    id: 16004,
-                    src: '/images/feilding/05.jpg',
-                    wide: false
-                  }
-                ]
-              ]
-            }
-          }
-        ],
-        type: TypeBox.Picture
       }
     ]
   },
@@ -1685,15 +1643,59 @@ const boxes = [
   // nineteenthStep
   {
     id: 19,
-    circle: false,
+    circle: true,
     keepPrevious: false,
     boxes: [
       {
         id: 190,
         left: true,
-        title: 'Paraparamu',
-        text: 'text',
+        position: 1,
+        date: '31 Janvier',
+        text: waikanae,
         type: TypeBox.Text
+      },
+      {
+        id: 191,
+        left: false,
+        position: 1,
+        pictures: [
+          {
+            id: 1900,
+            prin: {
+              id: 19000,
+              src: '/images/waikanae/01.jpg'
+            },
+            secondary: {
+              sources: [
+                [
+                  {
+                    id: 19001,
+                    src: '/images/waikanae/02.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 19002,
+                    src: '/images/waikanae/03.jpg',
+                    wide: false
+                  }
+                ],
+                [
+                  {
+                    id: 19003,
+                    src: '/images/waikanae/04.jpg',
+                    wide: false
+                  },
+                  {
+                    id: 19004,
+                    src: '/images/waikanae/05.jpg',
+                    wide: false
+                  }
+                ]
+              ]
+            }
+          }
+        ],
+        type: TypeBox.Picture
       }
     ]
   },
