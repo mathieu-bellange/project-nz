@@ -15,6 +15,7 @@ import roadToWanganui from './road-to-wanganui.md';
 import wanganui from './wanganui.md';
 import feilding from './feilding.md';
 import waikanae from './waikanae.md';
+import wellington from './wellington.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1709,8 +1710,7 @@ const boxes = [
         id: 200,
         left: false,
         position: 0,
-        title: 'Wellington',
-        text: 'text',
+        text: wellington,
         type: TypeBox.Text
       },
       {
