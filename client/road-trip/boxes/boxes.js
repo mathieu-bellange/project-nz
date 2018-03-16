@@ -14,6 +14,8 @@ import ruatihiDomain from './ruatihi-domain.md';
 import roadToWanganui from './road-to-wanganui.md';
 import wanganui from './wanganui.md';
 import feilding from './feilding.md';
+import himatangiBeach from './himatangi-beach.md';
+import levin from './levin.md';
 import waikanae from './waikanae.md';
 import wellington from './wellington.md';
 import kapitiIsland from './kapiti-island.md';
@@ -1620,8 +1622,8 @@ const boxes = [
         id: 170,
         left: false,
         position: 1,
-        title: 'Minatangi Beach',
-        text: 'text',
+        date: '28 Janvier',
+        text: himatangiBeach,
         type: TypeBox.Text
       }
     ]
@@ -1636,8 +1638,8 @@ const boxes = [
         id: 180,
         left: false,
         position: 0,
-        title: 'Road to paraparamu',
-        text: 'text',
+        date: '30 Janvier',
+        text: levin,
         type: TypeBox.Text
       }
     ]
