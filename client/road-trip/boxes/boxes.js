@@ -19,6 +19,7 @@ import levin from './levin.md';
 import waikanae from './waikanae.md';
 import wellington from './wellington.md';
 import kapitiIsland from './kapiti-island.md';
+import roadToRivendell from './road-to-rivendell.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1917,8 +1918,8 @@ const boxes = [
         id: 220,
         left: false,
         position: 0,
-        title: 'Road To Rivendell',
-        text: 'text',
+        date: '4 Février',
+        text: roadToRivendell,
         type: TypeBox.Text
       },
       {

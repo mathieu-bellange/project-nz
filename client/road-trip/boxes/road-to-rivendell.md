@@ -1,0 +1,5 @@
+## Route vers Wellington
+
+Juste après Waikanae, la route devient très rapidement tortueuse, en terre et sur une voie et demi. C'est l'équivalent des routes départementales en France. Généralement, elles ne sont pas assez large pour passer à deux véhicules, non goudronnées et souvent, comme c'est le cas ici, avec un dénivelé important. On ne s'attendait pas à ça mais on s'avance sur une route de montagne sinueuse avec très peu de visibilité. On croise quelques voitures en contre sens et le stress monte. La traversé nous prend une bonne heure et on comprend pourquoi il y'a autant de monde sur la SH-1 vers Wellington, c'est la seule route accessible vers la capitale depuis l'ouest de l'île. L'ouest et l'est étant en grande partie séparé par des montagnes.
+
+On se dirige ensuite vers le parc régional de Kaitoke pour y passer la nuit. On prend le bateau pour l'île du sud dans 2 jours et on décide de faire le plein avant de prendre le ferry. On se dirige donc vers notre dernière étape dans l'île du nord, le lieu de tournage de Rivendell.
