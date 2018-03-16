@@ -20,6 +20,7 @@ import waikanae from './waikanae.md';
 import wellington from './wellington.md';
 import kapitiIsland from './kapiti-island.md';
 import roadToRivendell from './road-to-rivendell.md';
+import rivendell from './rivendell.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1935,16 +1936,16 @@ const boxes = [
     keepPrevious: false,
     boxes: [
       {
-        id: 230,
-        left: true
-      },
-      {
         id: 231,
         left: true,
-        position: 2,
-        title: 'Rivendell',
-        text: 'text',
+        position: 0,
+        date: '4 Février',
+        text: rivendell,
         type: TypeBox.Text
+      },
+      {
+        id: 230,
+        left: true
       },
       {
         id: 232,
