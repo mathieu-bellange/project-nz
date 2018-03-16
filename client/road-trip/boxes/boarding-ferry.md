@@ -1,0 +1,3 @@
+## Embarquement dans le ferry 
+
+On se réveille tôt et on part faire la vidange pour être nickel pour le départ. On va ensuite faire la queue avec les autres voitures vers 10h30. Vers 11h50 on passe l'enregistrement et on refait la queue pour l'embarquement. Heureusement Mimi dort pendant une bonne partie de l'attente. Elle est calme le reste du temps, se nourrit d'une purée, d'un yaourt et d'une compote en gourde. Enfin nous embarquons à bord du ferry...

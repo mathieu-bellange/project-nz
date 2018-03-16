@@ -1,9 +1,5 @@
 ## Ruatihi Domain
 
-La pluie continuant non stop, nous perdons l'espoir de visiter les lieux de tournage du Mordor dans la trilogie du seigneur des anneaux. Et aussi de faire une jolie randonnée vers le volcan Ruapehu.
-
-Mathieu a une illumination dans la nuit. Nous sommes du côté du volcan où les nuages s'écrasent, il faut que nous nous déplacions pour retrouver du beau temps. Ni une ni deux nous replions la chambre à Mimi, et réinstallons le siège auto sans sortir du van! On a vu dans Campermate un site de camping gratuit hyper bien noté, on en prend la route pleins d'espoir.
-
 Au bout d'une route lambda dans une petite ville comme les autres, nous découvrons que nous étions en fait sur un plateau. Devant nous, soudain, la route plonge entre des collines verdoyantes en suivant plus ou moins le lit d'une petite rivière. Le soleil est là et éclaire doucement le paysage. On tombe en arrêt devant tant de beauté, le moral regrimpe imédiatement en flèche. On en oublie même les photos.
 
 Au bout de 20 minutes de route sinueuse nous atteignons Ruatihi Domain, un camp bien agencé, beaucoup de place sur l'herbe, des toilettes et des cabines pour suspendre les douches solaires. Nous ne sommes pas seuls, mais on a largement de la place pour 4 fois notre van. 

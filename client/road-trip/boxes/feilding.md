@@ -5,7 +5,7 @@ Nous allons de nouveaux traverser une région extrêmement urbanisée et c'est p
 
 Le lendemain, on retourne à Feilding avec un petit tour aux jeux avant tout ! Ensuite, on se dirige vers le [Coach House Museum][1], un petit musée sympa sur l'histoire de la région, une belle exposition de jouets de toutes les époques (jouables !) et de vieilles voitures. Une fois arrivé au musée, on s'est rendu compte qu'on avait oublié notre appareil photo dans le van. On n'a donc pas pris de photo du musée.
 
-Pour manger, on se joint à une fête locale appelée "The longest lunch". Une petite fête très sympa où plein de tables sont posées dans le parc de la ville, des food trucks propose toute sorte de nourriture mais pas vraiment locale malheureusement. On a le droit aussi à un chanteur pendant tout le repas. Mimi comme depuis plusieurs jours ne veut plus manger ses pots mais préfère manger dans nos assiettes, elle goûte donc des nouilles indonésiennes bien relevées!
+Pour manger, on se joint à une fête locale appelée "The longest lunch". Une petite fête très sympa où plein de tables sont posées dans le parc de la ville, des food trucks proposent toutes sortes de nourritures mais pas vraiment locales malheureusement. On a le droit aussi à un chanteur pendant tout le repas. Mimi comme depuis plusieurs jours ne veut plus manger ses pots mais préfère manger dans nos assiettes, elle goûte donc des nouilles indonésiennes bien relevées!
 
 On apprendra plus tard que c'est une fête pour commémorer l'arrivée des colons, ce qui nous ravit moins. Après un dernier tour aux jeux, on repart vers le sud.
 
