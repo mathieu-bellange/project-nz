@@ -16,6 +16,7 @@ import wanganui from './wanganui.md';
 import feilding from './feilding.md';
 import waikanae from './waikanae.md';
 import wellington from './wellington.md';
+import kapitiIsland from './kapiti-island.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -1710,6 +1711,7 @@ const boxes = [
         id: 200,
         left: false,
         position: 0,
+        date: '2 Février',
         text: wellington,
         type: TypeBox.Text
       },
@@ -1728,8 +1730,8 @@ const boxes = [
       {
         id: 210,
         left: true,
-        title: 'Kapiti island',
-        text: 'text',
+        date: '3 février',
+        text: kapitiIsland,
         type: TypeBox.Text
       },
       {
