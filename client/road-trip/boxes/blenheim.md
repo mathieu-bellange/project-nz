@@ -1,0 +1,3 @@
+## Blenheim
+
+Ce courrier contenait nos papiers d'affiliation à la [NZMCA] (https://www.nzmca.org.nz/), l'association des propriétaires de campings cars, fourgons et caravanes néo-zélandaise. Cette affiliation nous apportait plusieurs avantages: une grosse réduction sur le ferry, le droit de passer la nuit sur les parking des clubs affilié (ça nous a sauvés plusieurs fois dans l'île du sud), et un atlas très complet et très complémentaire de notre application Campermate de tous les sites de camping et de bivouac payants ou gratuits du pays, de tous les clubs affiliés, de toutes les stations de vidange aussi. 
