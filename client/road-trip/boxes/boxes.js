@@ -21,6 +21,7 @@ import wellington from './wellington.md';
 import kapitiIsland from './kapiti-island.md';
 import roadToRivendell from './road-to-rivendell.md';
 import rivendell from './rivendell.md';
+import boardingFerry from './boarding-ferry.md';
 
 const boxAirplaneTxt = {
   id: 0,
@@ -2085,15 +2086,15 @@ const boxes = [
     boxes: [
       {
         id: 240,
-        left: false,
+        left: true,
         position: 0,
-        title: 'Ferry',
-        text: 'text',
+        date: '6 Février',
+        text: boardingFerry,
         type: TypeBox.Text
       },
       {
         id: 241,
-        left: false
+        left: true
       }
     ]
   }
