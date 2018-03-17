@@ -29,6 +29,12 @@ export default class PopinDoppleganger extends React.Component {
     draw.image('/images/close.svg', 29, 29);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.fullScreen !== this.props.fullScreen && this.props.fullScreen) {
+      this.elem.focus();
+    }
+  }
+
   closeFullScreen() {
     this.props.closeFullScreen();
     if (this.elem.scroll) {
@@ -44,6 +50,7 @@ export default class PopinDoppleganger extends React.Component {
   render() {
     return (
       <div
+        tabIndex="0"
         id={this.props.box.id}
         className={`${this.props.className} doppleganger ${this.props.fullScreen ? 'show' : ''} ${this.props.positioned ? 'full-screen' : ''} ${this.props.scaled ? 'end' : ''}`}
         style={this.props.style}
