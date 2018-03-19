@@ -1,0 +1,16 @@
+/* TEAM */
+  Conception, realisation: Mathieu Bellange
+  Contact: mbellange [at] gmail.com
+  Twitter: @mbellange1
+  From: Nantes, France
+
+/* THANKS */
+  Texts writter: Julie Petit
+  Twitter: @ju_marie1403
+  From: Nantes, France
+
+/* SITE */
+  Last update: 2018/03/19
+  Language: French
+  Doctype: HTML5
+  IDE: Atom, Adobe XD, Inkscape
