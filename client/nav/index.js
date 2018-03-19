@@ -1,3 +1,4 @@
 import Nav from './nav';
+import path from './path';
 
-export default Nav;
+export { Nav, path };
