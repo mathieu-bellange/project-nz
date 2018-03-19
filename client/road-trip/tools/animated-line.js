@@ -22,7 +22,7 @@ export default class AnimatedLine {
         dasharray: this.initLength,
         dashoffset: this.initLength,
         color: '#000',
-        width: 1
+        width: 2
       });
     return this;
   }
