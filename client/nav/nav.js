@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 import './nav.css';
 import OutdatedBrowserService from '../outdated-browser.service';
-import path from './path';
 
 export default class Nav extends React.Component {
   outdatedBrowserService = new OutdatedBrowserService();
@@ -11,7 +10,7 @@ export default class Nav extends React.Component {
     if (!location) {
       return false;
     }
-    return location.pathname !== path.roadTrip && location.pathname !== path.about;
+    return location.pathname !== '/journal-de-bord' && location.pathname !== '/sur-nous';
   }
 
   constructor() {
@@ -44,10 +43,10 @@ export default class Nav extends React.Component {
                 <NavLink isActive={this.homeLinkActiveEvent} to="/" activeClassName="selected" onClick={() => this.onMenuClose()}>Accueil</NavLink>
               </span>
               <span>
-                { this.outdatedBrowserService.isOutdated() ? '' : <NavLink to={path.roadTrip} activeClassName="selected" onClick={() => this.onMenuClose()}>Journal de bord</NavLink> }
+                { this.outdatedBrowserService.isOutdated() ? '' : <NavLink to="/journal-de-bord" activeClassName="selected" onClick={() => this.onMenuClose()}>Journal de bord</NavLink> }
               </span>
               <span>
-                <NavLink to={path.about} activeClassName="selected" onClick={() => this.onMenuClose()}>Sur nous</NavLink>
+                <NavLink to="/sur-nous" activeClassName="selected" onClick={() => this.onMenuClose()}>Sur nous</NavLink>
               </span>
           </div>
           </div>

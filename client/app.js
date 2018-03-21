@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './app.css';
-import { Nav, path } from './nav';
+import Nav from './nav';
 import Home from './home';
 import { RoadTrip } from './road-trip';
 import About from './about';
@@ -17,8 +17,8 @@ class AppWrapper extends React.Component {
       <div id="wrapper">
         <Nav></Nav>
         <Switch>
-          { this.outdatedBrowserService.isOutdated() ? '' : <Route exact path={path.roadTrip} component={RoadTrip}/> }
-          <Route path={path.about} component={About}/>
+          { this.outdatedBrowserService.isOutdated() ? '' : <Route exact path="/journal-de-bord" component={RoadTrip}/> }
+          <Route path="/sur-nous" component={About}/>
           <Route component={Home}/>
         </Switch>
       </div>

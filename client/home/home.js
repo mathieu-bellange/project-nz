@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { ScenarioService } from '../road-trip';
-import { path } from '../nav';
 import './home.css';
 import home from './home.md';
 import OutdatedBrowserInfo from './outdatedBrowsers-info';
@@ -27,7 +26,7 @@ export default class Home extends React.Component {
           <header dangerouslySetInnerHTML={this.createMarkup()}></header>
           <OutdatedBrowserInfo></OutdatedBrowserInfo>
           <div id="content">
-            { this.outdatedBrowserService.isOutdated() ? '' : <Link to={path.roadTrip}>{this.alreadyOnTheRoad ? 'Continuer' : 'Commencer'} le voyage</Link> }
+            { this.outdatedBrowserService.isOutdated() ? '' : <Link to="/journal-de-bord">{this.alreadyOnTheRoad ? 'Continuer' : 'Commencer'} le voyage</Link> }
           </div>
         </div>
       </div>
