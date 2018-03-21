@@ -1,8 +1,8 @@
 {
   "name": "project-nz",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "GPL-3.0",
-  "main": "server/server.js",
+  "main": "client/app.js",
   "scripts": {
     "clean": "rimraf dist",
     "lint": "eslint client",
