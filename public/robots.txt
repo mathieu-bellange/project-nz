@@ -1,5 +1,8 @@
 User-agent: *
 Disallow: /sur-nous
 Disallow: /journal-de-bord
+Disallow: /images
+
+allow: /images/home_1920.jpg
 
 Sitemap: http://www.la-nouvelle-zelande-en-famille.fr/sitemap.xml
