@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './road-controller.css';
 
@@ -35,10 +36,10 @@ export default class RoadController extends React.Component {
     return (
       <div className={`road-controller ${this.props.loading ? 'loading' : ''}`}>
         <a className={`previous ${this.props.hasPrevious ? '' : 'disabled'}`} onClick={this.props.hasClickedPrevious}>
-          <i className="fa fa-caret-left" aria-hidden="true"></i>
+          <FontAwesomeIcon icon="caret-left"/>
         </a>
         <a className={`next ${this.props.hasNext ? '' : 'disabled'}`} onClick={this.props.hasClickedNext}>
-          Etape suivante <i className="fa fa-caret-right" aria-hidden="true"></i>
+          Etape suivante <FontAwesomeIcon icon="caret-right"/>
         </a>
       </div>
     );
