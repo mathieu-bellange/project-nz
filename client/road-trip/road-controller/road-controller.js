@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Observable } from 'rxjs/Observable';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import './road-controller.css';
 
@@ -16,14 +17,14 @@ export default class RoadController extends React.Component {
 
   componentDidMount() {
     this.props.componentMountSubject.next(true);
-    Observable.fromEvent(window, 'keypress')
-      .filter(event => event.keyCode === 13)
-      .filter(() => this.props.hasNext)
-      .subscribe(() => this.props.hasClickedNext());
-    Observable.fromEvent(window, 'keydown')
-      .filter(event => event.keyCode === 8)
-      .filter(() => this.props.hasPrevious)
-      .subscribe(() => this.props.hasClickedPrevious());
+    fromEvent(window, 'keypress').pipe(
+      filter(event => event.keyCode === 13),
+      filter(() => this.props.hasNext)
+    ).subscribe(() => this.props.hasClickedNext());
+    fromEvent(window, 'keydown').pipe(
+      filter(event => event.keyCode === 8),
+      filter(() => this.props.hasPrevious)
+    ).subscribe(() => this.props.hasClickedPrevious());
   }
 
   componentWillUnmount() {

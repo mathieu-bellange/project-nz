@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SVG from 'svg.js';
-import { Observable } from 'rxjs/Observable';
+import { timer } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { Van } from '../scenery';
 import Point from './point';
@@ -38,18 +39,18 @@ export default class LoadingComponent extends React.Component {
     }
     const canvas = SVG('van', 1000, canvasY);
     this.van.draw(canvas, { x: vanX, y: vanY }).animate();
-    const sub1 = Observable.timer(0, 900)
-      .filter(() => this.props.loading)
+    const sub1 = timer(0, 900)
+      .pipe(filter(() => this.props.loading))
       .subscribe(() => {
         this.setState({ pointOneJumped: !this.state.pointOneJumped });
       });
-    const sub2 = Observable.timer(300, 900)
-      .filter(() => this.props.loading)
+    const sub2 = timer(300, 900)
+      .pipe(filter(() => this.props.loading))
       .subscribe(() => {
         this.setState({ pointTwoJumped: !this.state.pointTwoJumped });
       });
-    const sub3 = Observable.timer(600, 900)
-      .filter(() => this.props.loading)
+    const sub3 = timer(600, 900)
+      .pipe(filter(() => this.props.loading))
       .subscribe(() => {
         this.setState({ pointThreeJumped: !this.state.pointThreeJumped });
       });

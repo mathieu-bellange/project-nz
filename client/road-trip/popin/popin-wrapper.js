@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import SVG from 'svg.js';
 import isequal from 'lodash/isEqual';
-import { Observable } from 'rxjs/Observable';
+import { fromEvent } from 'rxjs';
 
 import './popin-wrapper.css';
 import Popin from './popin';
@@ -75,16 +75,14 @@ export default class PopinWrapper extends React.Component {
 
   componentDidMount() {
     this.defineMiddleComponent();
-    Observable
-      .fromEvent(window, 'resize')
-      .subscribe(() => {
-        this.removeCircle();
-        this.defineMiddleComponent();
-        this.forceUpdate();
-        if (this.props.drawCircle) {
-          this.circleAnimation();
-        }
-      });
+    fromEvent(window, 'resize').subscribe(() => {
+      this.removeCircle();
+      this.defineMiddleComponent();
+      this.forceUpdate();
+      if (this.props.drawCircle) {
+        this.circleAnimation();
+      }
+    });
   }
 
   componentDidUpdate(prevProps) {

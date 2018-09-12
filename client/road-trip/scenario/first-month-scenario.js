@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject, BehaviorSubject, combineLatest, of } from 'rxjs';
+import { delay, map, withLatestFrom, filter } from 'rxjs/operators';
 
 import ScenarioService from './scenario.service';
 import { Airport, Sky, Van, KapitiBoat } from '../scenery';
@@ -37,8 +36,7 @@ export default class FirstMonthScenario {
     if (!hideRoad) {
       animatedLine = animatedLine.draw(this.canvas);
     }
-    this.automatedObservable
-      .filter(o => o.roadId === road.id)
+    this.automatedObservable.pipe(filter(o => o.roadId === road.id))
       .subscribe((o) => {
         if (o.sens === 1 && road.begin.isEqual(o.currentPoint)) {
           this.nextKmTraveledSubject.next(road.km);
@@ -73,27 +71,27 @@ export default class FirstMonthScenario {
   };
   declareSteps = (indexRoad, indexStep, showBegin, showEnd, keepShowing) => {
     const road = this.ROADS[indexRoad];
-    this.actualPointSubject
-      .withLatestFrom(this.actualRoadSubject)
-      .filter(values => values[1] === road.id)
-      .filter(() => !this.automatedRoadAlwaysOn)
-      .map(values => values[0])
-      .subscribe((point) => {
-        if (road.begin.isEqual(point)) {
-          if (showBegin) this.actualBoxesSubject.next(indexStep);
-          this.nextStepSubject.next(indexStep);
-        } else if (road.end.isEqual(point)) {
-          if (showEnd) this.actualBoxesSubject.next(indexStep + 1);
-          this.nextStepSubject.next(indexStep + 1);
-        } else if (keepShowing) {
-          this.actualBoxesSubject.next(indexStep);
-        } else {
-          this.actualBoxesSubject.next(-1);
-        }
-      });
+    this.actualPointSubject.pipe(
+      withLatestFrom(this.actualRoadSubject),
+      filter(values => values[1] === road.id),
+      filter(() => !this.automatedRoadAlwaysOn),
+      map(values => values[0])
+    ).subscribe((point) => {
+      if (road.begin.isEqual(point)) {
+        if (showBegin) this.actualBoxesSubject.next(indexStep);
+        this.nextStepSubject.next(indexStep);
+      } else if (road.end.isEqual(point)) {
+        if (showEnd) this.actualBoxesSubject.next(indexStep + 1);
+        this.nextStepSubject.next(indexStep + 1);
+      } else if (keepShowing) {
+        this.actualBoxesSubject.next(indexStep);
+      } else {
+        this.actualBoxesSubject.next(-1);
+      }
+    });
   };
   declareDecorsGenerator = (indexDecor, indexStep) => {
-    const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
+    const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
       this.DECORS[indexDecor].forEach((decor) => {
         decor.draw(this.canvas).animate();
       }, this);
@@ -101,7 +99,7 @@ export default class FirstMonthScenario {
     });
   };
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
-    const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
+    const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
       this.COASTLINES[indexCoastline].forEach((coastLine) => {
         coastLine.draw(this.canvas).animate();
       }, this);
@@ -109,7 +107,7 @@ export default class FirstMonthScenario {
     });
   };
   declareCitiesGenerator = (indexCities, indexStep) => {
-    const sub = this.nextStepSubject.filter(step => step === indexStep).subscribe(() => {
+    const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
       this.CITIES[indexCities].forEach((city) => {
         city.draw(this.canvas).animate();
       }, this);
@@ -118,19 +116,19 @@ export default class FirstMonthScenario {
   };
   declareAnimatedSVG = (indexRoad, svg, reverse, hideBegin, hideEnd) => {
     const road = this.ROADS[indexRoad];
-    this.actualPointSubject
-      .withLatestFrom(this.actualRoadSubject)
-      .filter(values => values[1] === road.id)
-      .map(values => values[0])
-      .subscribe((point) => {
-        if ((road.begin.isEqual(point) && hideBegin) || (road.end.isEqual(point) && hideEnd)) {
-          svg.remove();
-        } else if (road.begin.isEqual(point) || road.end.isEqual(point)) {
-          svg.draw(this.canvas, point, reverse).animate();
-        } else {
-          svg.draw(this.canvas, point, reverse);
-        }
-      });
+    this.actualPointSubject.pipe(
+      withLatestFrom(this.actualRoadSubject),
+      filter(values => values[1] === road.id),
+      map(values => values[0])
+    ).subscribe((point) => {
+      if ((road.begin.isEqual(point) && hideBegin) || (road.end.isEqual(point) && hideEnd)) {
+        svg.remove();
+      } else if (road.begin.isEqual(point) || road.end.isEqual(point)) {
+        svg.draw(this.canvas, point, reverse).animate();
+      } else {
+        svg.draw(this.canvas, point, reverse);
+      }
+    });
   };
 
   COASTLINES = [];
@@ -148,7 +146,7 @@ export default class FirstMonthScenario {
   steps = [
     // launch step
     () => {
-      const sub = this.nextStepSubject.filter(step => step === 0).subscribe(() => {
+      const sub = this.nextStepSubject.pipe(filter(step => step === 0)).subscribe(() => {
         this.actualPointSubject.next(this.initPoint);
         this.actualBoxesSubject.next(0);
         this.airport.fliing(this.canvas, this.initPoint);
@@ -159,14 +157,14 @@ export default class FirstMonthScenario {
     },
     // first step
     () => {
-      const sub = this.nextStepSubject.filter(step => step === 1).subscribe(() => {
+      const sub = this.nextStepSubject.pipe(filter(step => step === 1)).subscribe(() => {
         this.actualBoxesSubject.next(1);
         sub.unsubscribe();
       });
     },
     // second step
     () => {
-      const sub = this.nextStepSubject.filter(step => step === 2).subscribe(() => {
+      const sub = this.nextStepSubject.pipe(filter(step => step === 2)).subscribe(() => {
         this.actualBoxesSubject.next(2);
         sub.unsubscribe();
       });
@@ -174,7 +172,7 @@ export default class FirstMonthScenario {
     // third step
     () => {
       const animatedLine = new AnimatedLine(new OrientedVector('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y));
-      const sub = this.nextStepSubject.filter(step => step === 3).subscribe(() => {
+      const sub = this.nextStepSubject.pipe(filter(step => step === 3)).subscribe(() => {
         this.hasNextSubject.next(false);
         this.sky.stop();
         this.airport.landing(this.canvas, this.landingPoint);
@@ -210,7 +208,7 @@ export default class FirstMonthScenario {
       this.declareCoastlineGenerator(1, 5);
       this.declareCitiesGenerator(1, 5);
       this.declareDecorsGenerator(1, 5);
-      const sub = this.nextStepSubject.filter(step => step === 5).subscribe(() => {
+      const sub = this.nextStepSubject.pipe(filter(step => step === 5)).subscribe(() => {
         this.displayBorneKmSubject.next(true);
         sub.unsubscribe();
       });
@@ -532,28 +530,33 @@ export default class FirstMonthScenario {
     this.CITIES = buildCity(pixelRatio);
     this.DECORS = buildDecors(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
-    this.airplaneObservable = Observable.combineLatest(
-      Observable.of({ sens: 1, interval: 320 }),
+    this.airplaneObservable = combineLatest(
+      of({ sens: 1, interval: 320 }),
       this.actualPointSubject
-    ).map(values => ({
-      sens: values[0].sens,
-      currentPoint: values[1],
-      interval: values[0].interval
-    })).delay(10);
+    ).pipe(
+      map(values => ({
+        sens: values[0].sens,
+        currentPoint: values[1],
+        interval: values[0].interval
+      })),
+      delay(10)
+    );
     this.launchAutomatedSubject = new Subject();
-    const delay = !!document.documentMode || !!window.StyleMedia ? 60 : 20;
-    this.automatedObservable = Observable.combineLatest(
+    const theDelay = !!document.documentMode || !!window.StyleMedia ? 60 : 20;
+    this.automatedObservable = combineLatest(
       this.launchAutomatedSubject,
       this.actualPointSubject
-    ).withLatestFrom(this.actualRoadSubject)
-      .filter(() => this.automatedRoadOn || this.automatedRoadAlwaysOn)
-      .map(values => ({
+    ).pipe(
+      withLatestFrom(this.actualRoadSubject),
+      filter(() => this.automatedRoadOn || this.automatedRoadAlwaysOn),
+      map(values => ({
         sens: values[0][0].sens,
         interval: values[0][0].interval || this.intervalMap.get(values[1]),
         roadId: values[1],
         currentPoint: values[0][1]
-      }))
-      .delay(delay);
+      })),
+      delay(theDelay)
+    );
     this.nextStepSubject.subscribe((step) => {
       if (step < 5) {
         this.hasPreviousSubject.next(false);

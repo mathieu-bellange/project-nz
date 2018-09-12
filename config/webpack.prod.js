@@ -7,12 +7,12 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
  */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const CompressionPlugin = require('compression-webpack-plugin');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 /**
  * Webpack Constants
@@ -84,18 +84,13 @@ module.exports = webpackMerge(commonConfig, {
    * See: http://webpack.github.io/docs/configuration.html#plugins
    */
   plugins: [
+    new ModuleConcatenationPlugin(),
     new CopyWebpackPlugin([
       { from: './public' }
     ]),
-    new CommonsChunkPlugin({
-      name: 'commons',
-      filename: '[name].[chunkhash].bundle.js',
-      chunks: ['main']
-    }),
     new HtmlWebpackPlugin({
       template: 'client/index.html',
-      chunksSortMode: 'dependency',
-      metadata: METADATA
+      chunksSortMode: 'dependency'
     }),
     new DefinePlugin({
       ENV: JSON.stringify(METADATA.ENV),
@@ -122,40 +117,42 @@ module.exports = webpackMerge(commonConfig, {
      */
     // NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
     new UglifyJsPlugin({
-      // beautify: true, //debug
-      // mangle: false, //debug
-      // dead_code: false, //debug
-      // unused: false, //debug
-      // deadCode: false, //debug
-      // compress: {
-      //   screw_ie8: true,
-      //   keep_fnames: true,
-      //   drop_debugger: false,
-      //   dead_code: false,
-      //   unused: false
-      // }, // debug
-      // comments: true, //debug
+      uglifyOptions: {
+        // beautify: true, //debug
+        // mangle: false, //debug
+        // dead_code: false, //debug
+        // unused: false, //debug
+        // deadCode: false, //debug
+        // compress: {
+        //   ie8: false,
+        //   keep_fnames: true,
+        //   drop_debugger: false,
+        //   dead_code: false,
+        //   unused: false
+        // }, // debug
+        // comments: true, //debug
 
 
-      beautify: false, // prod
-      output: {
-        comments: false
-      }, // prod
-      mangle: {
-        screw_ie8: true
-      }, // prod
-      compress: {
-        screw_ie8: true,
-        warnings: false,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true,
-        negate_iife: false // we need this for lazy v8
+        beautify: false, // prod
+        output: {
+          comments: false
+        }, // prod
+        mangle: {
+          ie8: false
+        }, // prod
+        compress: {
+          ie8: false,
+          warnings: false,
+          conditionals: true,
+          unused: true,
+          comparisons: true,
+          sequences: true,
+          dead_code: true,
+          evaluate: true,
+          if_return: true,
+          join_vars: true,
+          negate_iife: false // we need this for lazy v8
+        }
       }
     }),
 
@@ -169,7 +166,8 @@ module.exports = webpackMerge(commonConfig, {
     new CompressionPlugin({
       regExp: /\.css$|\.html$|\.js$|\.map$/,
       threshold: 2 * 1024
-    })
+    }),
+    new OptimizeCSSAssetsPlugin({})
   ],
 
   /**
@@ -185,5 +183,7 @@ module.exports = webpackMerge(commonConfig, {
     module: false,
     clearImmediate: false,
     setImmediate: false
-  }
+  },
+
+  mode: 'production'
 });
