@@ -2,7 +2,6 @@ const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
-const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -70,11 +69,6 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
-    new CommonsChunkPlugin({
-      name: 'commons',
-      filename: '[name].bundle.js',
-      chunks: ['main']
-    }),
     /**
      * Plugin: HtmlWebpackPlugin
      * Description: Simplifies creation of HTML files to serve your webpack bundles.
@@ -85,8 +79,7 @@ module.exports = webpackMerge(commonConfig, {
      */
     new HtmlWebpackPlugin({
       template: 'client/index.html',
-      chunksSortMode: 'dependency',
-      metadata: METADATA
+      chunksSortMode: 'dependency'
     }),
 
     new DefinePlugin({
@@ -125,5 +118,7 @@ module.exports = webpackMerge(commonConfig, {
 
   node: {
     process: true
-  }
+  },
+
+  mode: 'development'
 });

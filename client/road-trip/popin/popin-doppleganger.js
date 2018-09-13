@@ -60,9 +60,7 @@ export default class PopinDoppleganger extends React.Component {
         <div id={`close-${this.props.box.id}`} className={`closed-icon ${this.props.fixedCloseIcon ? 'fixed' : ''}`} onClick={this.closeFullScreen}>
         </div>
         {
-          this.props.box.pictures ?
-            this.props.box.pictures.map(picture =>
-              <div className="row" key={picture.id} onTransitionEnd={e => e.stopPropagation()}>
+          this.props.box.pictures ? this.props.box.pictures.map(picture => <div className="row" key={picture.id} onTransitionEnd={e => e.stopPropagation()}>
                 <PrinFlexBox
                   mixed={!!picture.prin.text}
                   fullScreen={this.props.scaled}
@@ -74,7 +72,7 @@ export default class PopinDoppleganger extends React.Component {
                   images={picture.secondary.sources}
                 />
               </div>)
-          : <PrinFlexBox
+            : <PrinFlexBox
               fullScreen={this.props.scaled}
               box={this.props.box}
               onTransitionEnd={e => e.stopPropagation()}

@@ -1,7 +1,10 @@
 export default class SVGText {
   path;
+
   position;
+
   size;
+
   text;
 
   constructor(txt, position, size, pixelRatio) {

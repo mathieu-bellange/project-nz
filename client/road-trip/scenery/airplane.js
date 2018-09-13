@@ -1,7 +1,10 @@
 export default class Airplane {
   svg;
+
   landingSubject;
+
   flyPosition;
+
   airplaneSize = {
     w: 334,
     h: 128

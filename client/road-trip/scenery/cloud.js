@@ -1,5 +1,6 @@
 export default class Cloud {
   cloudPosition;
+
   cloudSize = {
     w: 167,
     h: 64

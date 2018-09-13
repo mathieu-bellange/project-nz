@@ -6,6 +6,7 @@ import './borne-km.css';
 
 export default class BorneKm extends React.Component {
   propagated;
+
   static propTypes = {
     start: PropTypes.number,
     end: PropTypes.number,
@@ -43,8 +44,8 @@ export default class BorneKm extends React.Component {
           separator=" "
           start={this.props.start}
           end={this.props.end}
-          onComplete={this.onComplete}
-          duration={7}
+          onEnd={this.onComplete}
+          duration={3}
         />
       </div>
     );

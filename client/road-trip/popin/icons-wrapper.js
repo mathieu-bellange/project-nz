@@ -12,6 +12,7 @@ export default class IconsWrapper extends React.Component {
       <IconWrapper box={box}></IconWrapper>
     </div>;
   };
+
   static propTypes = {
     popinBoxes: PropTypes.array.isRequired,
     box: PropTypes.object

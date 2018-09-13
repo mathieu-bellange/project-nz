@@ -1,7 +1,10 @@
 export default class SVGImage {
   path;
+
   position;
+
   size;
+
   img;
 
   constructor(path, position, size, pixelRatio) {

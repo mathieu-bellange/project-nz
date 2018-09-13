@@ -1,8 +1,17 @@
 import React from 'react';
 import SVG from 'svg.js';
-import { Subject } from 'rxjs/Subject';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Observable } from 'rxjs/Observable';
+import {
+  Subject,
+  ReplaySubject,
+  combineLatest,
+  fromEvent
+} from 'rxjs';
+import {
+  startWith,
+  map,
+  withLatestFrom,
+  filter
+} from 'rxjs/operators';
 
 import { Scenarios } from './scenario';
 import RoadTripCanvas from './canvas';
@@ -14,15 +23,25 @@ import LoadingComponent from './loading';
 
 export default class RoadTrip extends React.Component {
   width = 1080;
+
   height = 1120;
+
   pixelRatio = 20;
+
   canvasId = 'roadTrip-canvas';
+
   actualPointSubject;
+
   actualBoxesSubject;
+
   onRoadAgainSubject;
+
   nextKmTraveledSubject;
+
   displayBorneKmSubject;
+
   canvasMountSubject;
+
   scenario;
 
   constructor(props) {
@@ -52,50 +71,58 @@ export default class RoadTrip extends React.Component {
     this.canvasMountSubject = new Subject();
     this.roadControllerMountSubject = new Subject();
     this.borneKmMountSubject = new Subject();
-    const theOne = Observable.combineLatest(
-      Observable
-        .fromEvent(window, 'resize')
-        .map(() => ({ width: window.innerWidth, height: window.innerHeight }))
-        .startWith({ width: window.innerWidth, height: window.innerHeight }),
+    const theOne = combineLatest(
+      fromEvent(window, 'resize').pipe(
+        map(() => ({ width: window.innerWidth, height: window.innerHeight })),
+        startWith({ width: window.innerWidth, height: window.innerHeight })
+      ),
       this.actualPointSubject
-    ).withLatestFrom(this.canvasMountSubject)
-      .filter(values => values[1])
-      .map(values => values[0]);
+    ).pipe(
+      withLatestFrom(this.canvasMountSubject),
+      filter(values => values[1]),
+      map(values => values[0])
+    );
     theOne.subscribe((values) => {
       const [windowSize, actualPoint] = values;
       this.centerCanvas(actualPoint, windowSize);
     });
-    this.actualBoxesSubject
-      .withLatestFrom(this.canvasMountSubject)
-      .filter(values => values[1])
-      .map(values => values[0])
-      .subscribe((id) => {
-        this.defineBoxes(id);
-      });
-    this.hasNextSubject.withLatestFrom(this.roadControllerMountSubject)
-      .filter(values => values[1])
-      .map(values => values[0])
-      .subscribe(value => this.setState({ hasNext: value }));
-    this.hasPreviousSubject.withLatestFrom(this.roadControllerMountSubject)
-      .filter(values => values[1])
-      .map(values => values[0])
-      .subscribe(value => this.setState({ hasPrevious: value }));
-    this.onRoadAgainSubject.withLatestFrom(this.roadControllerMountSubject)
-      .filter(values => values[1])
-      .map(values => values[0])
-      .subscribe(value => this.setState({ hasNext: value, hasPrevious: value }));
-    this.isLoadingSubject.withLatestFrom(this.canvasMountSubject)
-      .filter(values => values[1])
-      .map(values => values[0])
-      .subscribe(value => this.setState({ loading: value }));
-    this.nextKmTraveledSubject.withLatestFrom(this.borneKmMountSubject)
-      .filter(values => values[1])
-      .map(values => values[0])
-      .subscribe(value => this.setState({ nextKm: this.state.nextKm + value }));
-    this.displayBorneKmSubject.withLatestFrom(this.borneKmMountSubject)
-      .filter(values => values[1])
-      .map(values => values[0])
-      .subscribe(value => this.setState({ displayBorneKm: value }));
+    this.actualBoxesSubject.pipe(
+      withLatestFrom(this.canvasMountSubject),
+      filter(values => values[1]),
+      map(values => values[0])
+    ).subscribe((id) => {
+      this.defineBoxes(id);
+    });
+    this.hasNextSubject.pipe(
+      withLatestFrom(this.roadControllerMountSubject),
+      filter(values => values[1]),
+      map(values => values[0])
+    ).subscribe(value => this.setState({ hasNext: value }));
+    this.hasPreviousSubject.pipe(
+      withLatestFrom(this.roadControllerMountSubject),
+      filter(values => values[1]),
+      map(values => values[0])
+    ).subscribe(value => this.setState({ hasPrevious: value }));
+    this.onRoadAgainSubject.pipe(
+      withLatestFrom(this.roadControllerMountSubject),
+      filter(values => values[1]),
+      map(values => values[0])
+    ).subscribe(value => this.setState({ hasNext: value, hasPrevious: value }));
+    this.isLoadingSubject.pipe(
+      withLatestFrom(this.canvasMountSubject),
+      filter(values => values[1]),
+      map(values => values[0])
+    ).subscribe(value => this.setState({ loading: value }));
+    this.nextKmTraveledSubject.pipe(
+      withLatestFrom(this.borneKmMountSubject),
+      filter(values => values[1]),
+      map(values => values[0])
+    ).subscribe(value => this.setState({ nextKm: this.state.nextKm + value }));
+    this.displayBorneKmSubject.pipe(
+      withLatestFrom(this.borneKmMountSubject),
+      filter(values => values[1]),
+      map(values => values[0])
+    ).subscribe(value => this.setState({ displayBorneKm: value }));
     if (window.innerWidth < 680) {
       this.pixelRatio = 15;
     }

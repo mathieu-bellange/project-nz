@@ -1,5 +1,6 @@
 export default class Coordinate {
   x;
+
   y;
 
   constructor(x, y, pixelRatio) {

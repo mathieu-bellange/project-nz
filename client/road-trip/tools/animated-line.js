@@ -1,11 +1,16 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 export default class AnimatedLine {
   initLength;
+
   currentLength;
+
   line;
+
   path;
+
   sensSubject;
+
   sensSubscribe;
 
   constructor(line) {

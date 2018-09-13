@@ -2,9 +2,13 @@ import Coordinate from './coordinate';
 
 export default class City extends Coordinate {
   name;
+
   namePosition;
+
   radius;
+
   centerElement;
+
   nameElement;
 
   constructor(x, y, pixelRatio, name) {

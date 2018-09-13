@@ -1,11 +1,14 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 import Airplane from './airplane';
 
 export default class Airport {
   runway;
+
   airplane;
+
   airplaneLandingSubject;
+
   runwaySize = {
     w: 509,
     h: 209

@@ -1,11 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './nav.css';
 import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class Nav extends React.Component {
   outdatedBrowserService = new OutdatedBrowserService();
+
   homeLinkActiveEvent = (match, location) => {
     if (!location) {
       return false;
@@ -38,7 +40,7 @@ export default class Nav extends React.Component {
         <nav>
           <div id="menu">
             <div id="int" className={ this.state.displayMenu ? 'show' : ''}>
-              <i className={`fa ${this.state.displayMenu ? 'fa-times' : 'fa-bars'}`} onClick={() => this.onMenuOpen()}></i>
+              <FontAwesomeIcon icon={`${this.state.displayMenu ? 'times' : 'bars'}`} onClick={() => this.onMenuOpen()} />
               <span>
                 <NavLink isActive={this.homeLinkActiveEvent} to="/" activeClassName="selected" onClick={() => this.onMenuClose()}>Accueil</NavLink>
               </span>

@@ -2,12 +2,13 @@
  * @author: mbellange
  */
 const helpers = require('./helpers');
+const devMode = process.env.NODE_ENV !== 'production';
 
 /**
  * Webpack Plugins
  */
-const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 /**
  * Webpack configuration
@@ -19,13 +20,12 @@ module.exports = {
 
   entry: {
     main: './client/app',
-    vendor: './client/vendor',
     polyfills: './client/polyfills'
   },
 
   resolve: {
     extensions: ['.js', '.css'],
-    modules: [helpers.root('client'), helpers.root('public'), helpers.root('node_modules')]
+    modules: [helpers.root('client'), helpers.root('public'), 'node_modules']
   },
 
   module: {
@@ -52,17 +52,8 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              alias: {
-                '../fonts': 'font-awesome/fonts',
-                './images': 'images'
-              }
-            }
-          },
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
           'postcss-loader'
         ]
       },
@@ -86,12 +77,39 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin('app.css'),
-
-    new CommonsChunkPlugin({
-      names: ['vendor']
-    })
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css'
+    }),
+    new CleanWebpackPlugin('../dist', { allowExternal: true })
   ],
+
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
 
   node: {
     global: true,

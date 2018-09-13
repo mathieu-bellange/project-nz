@@ -1,5 +1,6 @@
 export default class ScenarioService {
   CURRENT_SCENARIO_TOKEN = 'currentScenario';
+
   CURRENT_STEP_TOKEN = 'currentStep';
 
   saveCurrentScenario(indexScenario) {
