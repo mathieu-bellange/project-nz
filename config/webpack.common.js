@@ -7,8 +7,8 @@ const devMode = process.env.NODE_ENV !== 'production';
 /**
  * Webpack Plugins
  */
- const MiniCssExtractPlugin = require("mini-css-extract-plugin");
- const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 /**
  * Webpack configuration
