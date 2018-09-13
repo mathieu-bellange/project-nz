@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SVG from 'svg.js';
 
 import * as Boxes from '../boxes';
-import './popin-mobile.css';
+import './popin-mobile.sss';
 import TextWrapper from './text-wrapper';
 import ImgWrapper from './img-wrapper';
 

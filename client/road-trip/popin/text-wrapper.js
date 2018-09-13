@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './text-wrapper.css';
+import './text-wrapper.sss';
 
 export default class TextWrapper extends React.Component {
   static propTypes = {

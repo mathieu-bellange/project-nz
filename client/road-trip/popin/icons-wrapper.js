@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './icons-wrapper.css';
+import './icons-wrapper.sss';
 import IconWrapper from './icon-wrapper';
 import PopinMobile from './popin-mobile';
 

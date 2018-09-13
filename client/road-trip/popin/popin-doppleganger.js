@@ -4,7 +4,7 @@ import SVG from 'svg.js';
 
 import PrinFlexBox from './prin-flexbox';
 import SecondaryFlexBox from './secondary-flexbox';
-import './popin-doppleganger.css';
+import './popin-doppleganger.sss';
 
 export default class PopinDoppleganger extends React.Component {
   static propTypes = {

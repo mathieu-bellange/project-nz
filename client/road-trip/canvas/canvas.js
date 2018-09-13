@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './canvas.css';
+import './canvas.sss';
 
 export default class RoadTripCanvas extends React.Component {
   static propTypes = {

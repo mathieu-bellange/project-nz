@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ImgWrapper from './img-wrapper';
 import TextWrapper from './text-wrapper';
 import { Type } from '../boxes';
-import './prin-flexbox.css';
+import './prin-flexbox.sss';
 
 export default class PrinFlexBox extends React.Component {
   static propTypes = {

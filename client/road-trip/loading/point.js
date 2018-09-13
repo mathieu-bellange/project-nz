@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './point.css';
+import './point.sss';
 
 export default class Point extends React.Component {
   static propTypes = {

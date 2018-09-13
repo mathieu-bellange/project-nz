@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './icon-wrapper.css';
+import './icon-wrapper.sss';
 import * as Boxes from '../boxes';
 
 export default class IconWrapper extends React.Component {

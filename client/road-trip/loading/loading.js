@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 
 import { Van } from '../scenery';
 import Point from './point';
-import './loading.css';
+import './loading.sss';
 
 export default class LoadingComponent extends React.Component {
   van;

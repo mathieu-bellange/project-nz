@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import './nav.css';
+import './nav.sss';
 import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class Nav extends React.Component {

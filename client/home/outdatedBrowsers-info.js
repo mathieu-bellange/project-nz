@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './outdatedBrowsers-info.css';
+import './outdatedBrowsers-info.sss';
 import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class OutdatedBrowserInfo extends React.Component {

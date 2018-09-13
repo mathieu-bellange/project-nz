@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './about.css';
+import './about.sss';
 import ourTrip from './our-trip.md';
 import us from './us.md';
 import webSite from './web-site.md';

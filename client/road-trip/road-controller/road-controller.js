@@ -4,7 +4,7 @@ import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import './road-controller.css';
+import './road-controller.sss';
 
 export default class RoadController extends React.Component {
   static propTypes = {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import loadImage from 'blueimp-load-image';
 
-import './img-wrapper.css';
+import './img-wrapper.sss';
 
 export default class ImgWrapper extends React.Component {
   img;

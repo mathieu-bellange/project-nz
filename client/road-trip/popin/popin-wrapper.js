@@ -5,7 +5,7 @@ import SVG from 'svg.js';
 import isequal from 'lodash/isEqual';
 import { fromEvent } from 'rxjs';
 
-import './popin-wrapper.css';
+import './popin-wrapper.sss';
 import Popin from './popin';
 import IconsWrapper from './icons-wrapper';
 

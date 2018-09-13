@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './popin.css';
+import './popin.sss';
 import PopinOverview from './popin-overview';
 import PopinDoppleganger from './popin-doppleganger';
 import { Type } from '../boxes';

@@ -164,7 +164,7 @@ module.exports = webpackMerge(commonConfig, {
      * See: https://github.com/webpack/compression-webpack-plugin
      */
     new CompressionPlugin({
-      regExp: /\.css$|\.html$|\.js$|\.map$/,
+      regExp: /\.sss$|\.html$|\.js$|\.map$/,
       threshold: 2 * 1024
     }),
     new OptimizeCSSAssetsPlugin({})

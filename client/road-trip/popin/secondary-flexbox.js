@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ImgWrapper from './img-wrapper';
-import './secondary-flexbox.css';
+import './secondary-flexbox.sss';
 
 export default class SecondaryFlexBox extends React.Component {
   static propTypes = {

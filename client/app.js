@@ -9,7 +9,7 @@ import {
   faCaretRight
 } from '@fortawesome/free-solid-svg-icons';
 
-import './app.css';
+import './app.sss';
 import Nav from './nav';
 import Home from './home';
 import { RoadTrip } from './road-trip';

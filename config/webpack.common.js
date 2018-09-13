@@ -15,7 +15,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-// PLANNING refacto pour passer tous les fichiers en .sss trello:#86
+// DONE refacto pour passer tous les fichiers en .sss trello:#86
 module.exports = {
 
   entry: {
@@ -24,7 +24,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.css'],
+    extensions: ['.js', '.sss'],
     modules: [helpers.root('client'), helpers.root('public'), 'node_modules']
   },
 
@@ -50,7 +50,7 @@ module.exports = {
       },
 
       {
-        test: /\.css$/,
+        test: /\.sss$/,
         use: [
           devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',

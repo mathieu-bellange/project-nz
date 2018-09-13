@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { ScenarioService } from '../road-trip';
-import './home.css';
+import './home.sss';
 import home from './home.md';
 import OutdatedBrowserInfo from './outdatedBrowsers-info';
 import OutdatedBrowserService from '../outdated-browser.service';

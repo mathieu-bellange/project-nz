@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import PrinFlexBox from './prin-flexbox';
 import SecondaryFlexBox from './secondary-flexbox';
-import './popin-overview.css';
+import './popin-overview.sss';
 
 export default class Popin extends React.Component {
   elem;

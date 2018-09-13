@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CountUp from 'react-countup';
 
-import './borne-km.css';
+import './borne-km.sss';
 
 export default class BorneKm extends React.Component {
   propagated;
