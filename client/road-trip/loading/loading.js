@@ -58,10 +58,12 @@ export default class LoadingComponent extends React.Component {
     this.subs.push(sub1, sub2, sub3);
   }
 
-  componentWillUpdate(nextProps) {
+  shouldComponentUpdate(nextProps) {
     if (nextProps.loading !== this.props.loading && !nextProps.loading) {
       this.van.drive();
+      return true;
     }
+    return false;
   }
 
   onTransitionEnd(e) {

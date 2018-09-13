@@ -27,8 +27,8 @@ export default class PopinMobile extends React.Component {
     draw.image('/images/close.svg', 20, 20);
   }
 
-  componentWillUpdate(nextprops) {
-    if (!nextprops.box) return;
+  shouldComponentUpdate(nextprops) {
+    if (!nextprops.box) return false;
     switch (nextprops.box.type) {
       case Boxes.Type.Text:
         this.component = <TextWrapper box={nextprops.box}></TextWrapper>;
@@ -50,6 +50,7 @@ export default class PopinMobile extends React.Component {
       default:
         this.component = '';
     }
+    return true;
   }
 
   close() {
