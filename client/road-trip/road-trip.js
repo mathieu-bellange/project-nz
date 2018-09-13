@@ -13,7 +13,6 @@ import {
   filter
 } from 'rxjs/operators';
 
-// TODO refacto du package scenario pour une gestion simple de step trello:#126
 import { Scenario } from './scenario';
 import RoadTripCanvas from './canvas';
 import RoadController from './road-controller';
