@@ -23,6 +23,7 @@ import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
 import buildCity from './city-markers';
 import buildDecors from './decor-markers';
+import LandscapeSteps from './landscape-steps';
 
 // PLANNING refacto le système de route trello:#83
 // DONE refacto la class pour supprimer la notion de scenario trello:#126
@@ -179,7 +180,7 @@ export default class Scenario {
 
   intervalMap = new Map();
 
-  // TODO externalise les étapes dans un autre fichier trello:#126
+  // DOING externalise les étapes dans un autre fichier trello:#126
   steps = [
     // launch step
     () => {
@@ -231,9 +232,7 @@ export default class Scenario {
       this.declareAnimatedLine(0, true, true);
       this.declareSteps(0, 4, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[0].begin);
-      this.declareCoastlineGenerator(0, 4);
-      this.declareCitiesGenerator(0, 4);
-      this.declareDecorsGenerator(0, 4);
+      this.landscapeSteps.execute(4);
     },
     // fifth step
     () => {
@@ -556,6 +555,7 @@ export default class Scenario {
     this.displayBorneKmSubject = displayBorneKmSubject;
     this.scenarioService = new ScenarioService();
     this.nextStepSubject = new Subject();
+    this.landscapeSteps = new LandscapeSteps(this.nextStepSubject, canvas, pixelRatio);
     this.airport = new Airport();
     this.initPoint = new Coordinate(754, 476, pixelRatio);
     this.airportPoint = new Coordinate(708, 502, pixelRatio);
