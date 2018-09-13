@@ -1,4 +1,4 @@
-import Scenarios from './scenarios';
+import Scenario from './first-month-scenario';
 import ScenarioService from './scenario.service';
 
-export { Scenarios, ScenarioService };
+export { Scenario, ScenarioService };

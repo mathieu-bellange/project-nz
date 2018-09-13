@@ -1,4 +1,4 @@
-// PLANNING refacto la class pour supprimer la notion de scenario, on ne conserve que l'étape trello:#126
+// TODO refacto la class pour supprimer la notion de scenario, on ne conserve que l'étape trello:#126
 export default class ScenarioService {
   CURRENT_SCENARIO_TOKEN = 'currentScenario';
 
