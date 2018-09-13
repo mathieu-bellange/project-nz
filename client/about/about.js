@@ -7,7 +7,9 @@ import webSite from './web-site.md';
 
 export default class About extends React.Component {
   createOurTripMarkup = () => ({ __html: ourTrip });
+
   createUsMarkup = () => ({ __html: us });
+
   createWebSiteMarkup = () => ({ __html: webSite });
 
   render() {

@@ -6,6 +6,7 @@ import './img-wrapper.css';
 
 export default class ImgWrapper extends React.Component {
   img;
+
   static propTypes = {
     img: PropTypes.object.isRequired,
     onLoad: PropTypes.func,

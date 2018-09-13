@@ -1,6 +1,8 @@
 export default class Van {
   svg;
+
   vanPosition;
+
   vanSize = {
     w: 120,
     h: 62

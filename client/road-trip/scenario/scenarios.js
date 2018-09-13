@@ -3,6 +3,7 @@ import FirstMonthScenario from './first-month-scenario';
 
 export default class Scenarios {
   listScenario = [];
+
   scenarioService;
 
   constructor(

@@ -6,6 +6,7 @@ import './borne-km.css';
 
 export default class BorneKm extends React.Component {
   propagated;
+
   static propTypes = {
     start: PropTypes.number,
     end: PropTypes.number,

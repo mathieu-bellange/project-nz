@@ -10,6 +10,7 @@ import './loading.css';
 
 export default class LoadingComponent extends React.Component {
   van;
+
   subs = [];
 
   static propTypes = {

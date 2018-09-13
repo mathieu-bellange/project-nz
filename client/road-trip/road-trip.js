@@ -1,7 +1,17 @@
 import React from 'react';
 import SVG from 'svg.js';
-import { Subject, ReplaySubject, combineLatest, fromEvent } from 'rxjs';
-import { startWith, map, withLatestFrom, filter } from 'rxjs/operators';
+import {
+  Subject,
+  ReplaySubject,
+  combineLatest,
+  fromEvent
+} from 'rxjs';
+import {
+  startWith,
+  map,
+  withLatestFrom,
+  filter
+} from 'rxjs/operators';
 
 import { Scenarios } from './scenario';
 import RoadTripCanvas from './canvas';
@@ -13,15 +23,25 @@ import LoadingComponent from './loading';
 
 export default class RoadTrip extends React.Component {
   width = 1080;
+
   height = 1120;
+
   pixelRatio = 20;
+
   canvasId = 'roadTrip-canvas';
+
   actualPointSubject;
+
   actualBoxesSubject;
+
   onRoadAgainSubject;
+
   nextKmTraveledSubject;
+
   displayBorneKmSubject;
+
   canvasMountSubject;
+
   scenario;
 
   constructor(props) {

@@ -9,7 +9,9 @@ import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class Home extends React.Component {
   scenarioService = new ScenarioService();
+
   outdatedBrowserService = new OutdatedBrowserService();
+
   createMarkup = () => ({ __html: home });
 
   constructor(props) {

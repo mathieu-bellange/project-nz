@@ -18,10 +18,15 @@ function subtract(a1, a2) {
 
 export default class PopinWrapper extends React.Component {
   draw;
+
   center;
+
   containerSize;
+
   lineStyle = { color: '#BEBCBC', width: 2 };
+
   animations = [];
+
   defineStopPoint = (begin, end, left) => {
     const exec = left ? add : subtract;
     return {
@@ -29,6 +34,7 @@ export default class PopinWrapper extends React.Component {
       y: end.y
     };
   }
+
   mapPopinComponents = (box) => {
     let component = '';
     if (box.type) {
@@ -44,6 +50,7 @@ export default class PopinWrapper extends React.Component {
         </div>
     </CSSTransition>;
   };
+
   defineMiddleComponent = () => {
     if (this.draw) this.draw.remove();
     if (window.innerWidth < 1024) return;

@@ -1,6 +1,8 @@
 export default class KapitiBoat {
   svg;
+
   boatPosition;
+
   boatSize = {
     w: 120,
     h: 62

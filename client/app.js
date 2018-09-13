@@ -2,7 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTimes, faBars, faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTimes,
+  faBars,
+  faCaretLeft,
+  faCaretRight
+} from '@fortawesome/free-solid-svg-icons';
 
 import './app.css';
 import Nav from './nav';

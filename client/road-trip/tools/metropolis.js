@@ -3,7 +3,9 @@ import Coordinate from './coordinate';
 
 export default class Metropolis extends Path {
   name;
+
   namePosition;
+
   nameElement;
 
   constructor(coordinates, pixelRatio, name, x, y) {

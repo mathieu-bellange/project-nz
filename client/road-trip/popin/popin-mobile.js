@@ -9,7 +9,9 @@ import ImgWrapper from './img-wrapper';
 
 export default class PopinMobile extends React.Component {
   component;
+
   popin;
+
   static propTypes = {
     box: PropTypes.object,
     popinClosed: PropTypes.func.isRequired

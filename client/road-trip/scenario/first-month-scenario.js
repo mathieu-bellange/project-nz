@@ -1,8 +1,23 @@
-import { Subject, BehaviorSubject, combineLatest, of } from 'rxjs';
-import { delay, map, withLatestFrom, filter } from 'rxjs/operators';
+import {
+  Subject,
+  BehaviorSubject,
+  combineLatest,
+  of
+} from 'rxjs';
+import {
+  delay,
+  map,
+  withLatestFrom,
+  filter
+} from 'rxjs/operators';
 
 import ScenarioService from './scenario.service';
-import { Airport, Sky, Van, KapitiBoat } from '../scenery';
+import {
+  Airport,
+  Sky,
+  Van,
+  KapitiBoat
+} from '../scenery';
 import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import buildCoastlines from './coastline-markers';
@@ -12,24 +27,39 @@ import buildDecors from './decor-markers';
 // NOTE refacto le système de route trello:#83
 export default class FirstMonthScenario {
   canvas;
+
   actualPointSubject;
+
   actualBoxesSubject;
+
   nextStepSubject;
+
   airport;
+
   van;
+
   kapitiBoat;
+
   initPoint;
+
   airportPoint;
+
   landingPoint;
+
   actualRoadSubject;
+
   automatedObservable;
+
   airplaneObservable;
+
   scenarioService;
+
   landingFunction = () => {
     this.actualBoxesSubject.next(3);
     this.actualPointSubject.next(this.airportPoint);
     this.hasNextSubject.next(true);
   };
+
   declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
     const road = this.ROADS[indexRoad];
     let animatedLine = new AnimatedLine(road);
@@ -52,8 +82,8 @@ export default class FirstMonthScenario {
           this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
           this.actualPointSubject.next(o.currentPoint);
         }
-        if ((o.sens === 1 && !road.end.isEqual(o.currentPoint)) ||
-          (o.sens === -1 && !road.begin.isEqual(o.currentPoint))) {
+        if ((o.sens === 1 && !road.end.isEqual(o.currentPoint))
+          || (o.sens === -1 && !road.begin.isEqual(o.currentPoint))) {
           animatedLine.animate(o);
         }
       });
@@ -69,6 +99,7 @@ export default class FirstMonthScenario {
       this.actualPointSubject.next(point);
     });
   };
+
   declareSteps = (indexRoad, indexStep, showBegin, showEnd, keepShowing) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject.pipe(
@@ -90,6 +121,7 @@ export default class FirstMonthScenario {
       }
     });
   };
+
   declareDecorsGenerator = (indexDecor, indexStep) => {
     const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
       this.DECORS[indexDecor].forEach((decor) => {
@@ -98,6 +130,7 @@ export default class FirstMonthScenario {
       sub.unsubscribe();
     });
   };
+
   declareCoastlineGenerator = (indexCoastline, indexStep) => {
     const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
       this.COASTLINES[indexCoastline].forEach((coastLine) => {
@@ -106,6 +139,7 @@ export default class FirstMonthScenario {
       sub.unsubscribe();
     });
   };
+
   declareCitiesGenerator = (indexCities, indexStep) => {
     const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
       this.CITIES[indexCities].forEach((city) => {
@@ -114,6 +148,7 @@ export default class FirstMonthScenario {
       sub.unsubscribe();
     });
   };
+
   declareAnimatedSVG = (indexRoad, svg, reverse, hideBegin, hideEnd) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject.pipe(

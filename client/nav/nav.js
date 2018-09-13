@@ -7,6 +7,7 @@ import OutdatedBrowserService from '../outdated-browser.service';
 
 export default class Nav extends React.Component {
   outdatedBrowserService = new OutdatedBrowserService();
+
   homeLinkActiveEvent = (match, location) => {
     if (!location) {
       return false;

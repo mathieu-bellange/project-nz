@@ -2,7 +2,9 @@ import Coordinate from './coordinate';
 
 export default class Path {
   options = {};
+
   element;
+
   coordinates = [];
 
   constructor(coordinates, options) {
