@@ -115,7 +115,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
      */
-    // NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
+    // To debug prod builds uncomment //debug lines and comment //prod lines
     new UglifyJsPlugin({
       uglifyOptions: {
         // beautify: true, //debug

@@ -24,7 +24,8 @@ import buildCoastlines from './coastline-markers';
 import buildCity from './city-markers';
 import buildDecors from './decor-markers';
 
-// NOTE refacto le système de route trello:#83
+// PLANNING refacto le système de route trello:#83
+// PLANNING refacto la class pour supprimer la notion de scenario trello:#126
 export default class FirstMonthScenario {
   canvas;
 
@@ -178,6 +179,7 @@ export default class FirstMonthScenario {
 
   intervalMap = new Map();
 
+  // PLANNING externalise les étapes dans un autre fihcier trello:#126
   steps = [
     // launch step
     () => {

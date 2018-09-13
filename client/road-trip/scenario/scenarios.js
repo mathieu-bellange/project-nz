@@ -1,6 +1,7 @@
 import ScenarioService from './scenario.service';
 import FirstMonthScenario from './first-month-scenario';
 
+// PLANNING supprimer la class trello:#126
 export default class Scenarios {
   listScenario = [];
 

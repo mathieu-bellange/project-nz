@@ -13,6 +13,7 @@ import {
   filter
 } from 'rxjs/operators';
 
+// PLANNING refacto du package scenario pour une gestion simple de step trello:#126
 import { Scenarios } from './scenario';
 import RoadTripCanvas from './canvas';
 import RoadController from './road-controller';
@@ -186,10 +187,12 @@ export default class RoadTrip extends React.Component {
     this.initSvgJs();
   }
 
+  // PLANNING refacto pour appeler directement le prochain step trello:#126
   onNextStep() {
     this.scenario.nextStep();
   }
 
+  // PLANNING refacto pour appeler directement le précédent step trello:#126
   onPreviousStep() {
     this.scenario.previousStep();
   }
