@@ -20,9 +20,6 @@ import {
 } from '../scenery';
 import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
-import buildCoastlines from './coastline-markers';
-import buildCity from './city-markers';
-import buildDecors from './decor-markers';
 import LandscapeSteps from './landscape-steps';
 
 // PLANNING refacto le système de route trello:#83
@@ -124,33 +121,6 @@ export default class Scenario {
     });
   };
 
-  declareDecorsGenerator = (indexDecor, indexStep) => {
-    const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
-      this.DECORS[indexDecor].forEach((decor) => {
-        decor.draw(this.canvas).animate();
-      }, this);
-      sub.unsubscribe();
-    });
-  };
-
-  declareCoastlineGenerator = (indexCoastline, indexStep) => {
-    const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
-      this.COASTLINES[indexCoastline].forEach((coastLine) => {
-        coastLine.draw(this.canvas).animate();
-      }, this);
-      sub.unsubscribe();
-    });
-  };
-
-  declareCitiesGenerator = (indexCities, indexStep) => {
-    const sub = this.nextStepSubject.pipe(filter(step => step === indexStep)).subscribe(() => {
-      this.CITIES[indexCities].forEach((city) => {
-        city.draw(this.canvas).animate();
-      }, this);
-      sub.unsubscribe();
-    });
-  };
-
   declareAnimatedSVG = (indexRoad, svg, reverse, hideBegin, hideEnd) => {
     const road = this.ROADS[indexRoad];
     this.actualPointSubject.pipe(
@@ -168,15 +138,9 @@ export default class Scenario {
     });
   };
 
-  COASTLINES = [];
-
   ROADS = [];
 
   ROADS_BEGIN_BY_STEP = [];
-
-  CITIES = [];
-
-  DECORS = [];
 
   intervalMap = new Map();
 
@@ -241,9 +205,7 @@ export default class Scenario {
       this.declareAnimatedSVG(1, this.van, false, true, true);
       this.declareSteps(1, 5, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[1].begin);
-      this.declareCoastlineGenerator(1, 5);
-      this.declareCitiesGenerator(1, 5);
-      this.declareDecorsGenerator(1, 5);
+      this.landscapeSteps.execute(5);
       const sub = this.nextStepSubject.pipe(filter(step => step === 5)).subscribe(() => {
         this.displayBorneKmSubject.next(true);
         sub.unsubscribe();
@@ -256,9 +218,7 @@ export default class Scenario {
       this.declareAnimatedSVG(2, this.van, false, true, false);
       this.declareSteps(2, 6, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[2].begin);
-      this.declareCoastlineGenerator(2, 6);
-      this.declareCitiesGenerator(2, 6);
-      this.declareDecorsGenerator(2, 6);
+      this.landscapeSteps.execute(6);
     },
     // Seventh step
     () => {
@@ -271,9 +231,7 @@ export default class Scenario {
       this.declareSteps(3, 7, true, false, true);
       this.declareSteps(4, 7, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[3].begin);
-      this.declareCoastlineGenerator(3, 7);
-      this.declareCitiesGenerator(3, 7);
-      this.declareDecorsGenerator(3, 7);
+      this.landscapeSteps.execute(7);
     },
     // Eigth step
     () => {
@@ -286,8 +244,7 @@ export default class Scenario {
       this.declareSteps(5, 8, true, false);
       this.declareSteps(6, 8, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[5].begin);
-      this.declareCitiesGenerator(4, 8);
-      this.declareDecorsGenerator(4, 8);
+      this.landscapeSteps.execute(8);
     },
     // ninth step
     () => {
@@ -304,9 +261,7 @@ export default class Scenario {
       this.declareSteps(8, 9, false, false);
       this.declareSteps(9, 9, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[7].begin);
-      this.declareCoastlineGenerator(4, 9);
-      this.declareCitiesGenerator(5, 9);
-      this.declareDecorsGenerator(5, 9);
+      this.landscapeSteps.execute(9);
     },
     // tenth step
     () => {
@@ -319,8 +274,7 @@ export default class Scenario {
       this.declareSteps(10, 10, true, false);
       this.declareSteps(11, 10, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[10].begin);
-      this.declareCitiesGenerator(6, 10);
-      this.declareDecorsGenerator(6, 10);
+      this.landscapeSteps.execute(10);
     },
     // eleventh step
     () => {
@@ -329,7 +283,7 @@ export default class Scenario {
       this.declareAnimatedSVG(12, this.van, true, true, true);
       this.declareSteps(12, 11, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[12].begin);
-      this.declareDecorsGenerator(7, 11);
+      this.landscapeSteps.execute(11);
     },
     // twelveth step
     () => {
@@ -346,7 +300,7 @@ export default class Scenario {
       this.declareSteps(14, 12, false, false);
       this.declareSteps(15, 12, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[13].begin);
-      this.declareDecorsGenerator(8, 12);
+      this.landscapeSteps.execute(12);
     },
     // Thirteenth step
     () => {
@@ -367,8 +321,7 @@ export default class Scenario {
       this.declareSteps(18, 13, false, false);
       this.declareSteps(19, 13, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[16].begin);
-      this.declareCitiesGenerator(7, 13);
-      this.declareDecorsGenerator(9, 13);
+      this.landscapeSteps.execute(13);
     },
     // Fourteenth step
     () => {
@@ -381,7 +334,7 @@ export default class Scenario {
       this.declareSteps(20, 14, true, false, true);
       this.declareSteps(21, 14, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[20].begin);
-      this.declareDecorsGenerator(10, 14);
+      this.landscapeSteps.execute(14);
     },
     // fifteenth step
     () => {
@@ -394,9 +347,7 @@ export default class Scenario {
       this.declareSteps(22, 15, true, false);
       this.declareSteps(23, 15, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[22].begin);
-      this.declareCoastlineGenerator(5, 15);
-      this.declareCitiesGenerator(8, 15);
-      this.declareDecorsGenerator(11, 15);
+      this.landscapeSteps.execute(15);
     },
     // sixteenth step
     () => {
@@ -413,8 +364,7 @@ export default class Scenario {
       this.declareSteps(25, 16, false, false);
       this.declareSteps(26, 16, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[24].begin);
-      this.declareCoastlineGenerator(6, 16);
-      this.declareCitiesGenerator(9, 16);
+      this.landscapeSteps.execute(16);
     },
     // seventeenth step
     () => {
@@ -427,8 +377,7 @@ export default class Scenario {
       this.declareSteps(27, 17, true, false);
       this.declareSteps(28, 17, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[27].begin);
-      this.declareCitiesGenerator(10, 17);
-      this.declareDecorsGenerator(12, 17);
+      this.landscapeSteps.execute(17);
     },
     // eighteenth step
     () => {
@@ -441,8 +390,7 @@ export default class Scenario {
       this.declareSteps(29, 18, true, false, true);
       this.declareSteps(30, 18, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[29].begin);
-      this.declareCoastlineGenerator(7, 18);
-      this.declareDecorsGenerator(13, 18);
+      this.landscapeSteps.execute(18);
     },
     // nineteenth step
     () => {
@@ -455,8 +403,7 @@ export default class Scenario {
       this.declareSteps(31, 19, true, false);
       this.declareSteps(32, 19, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[31].begin);
-      this.declareCoastlineGenerator(8, 19);
-      this.declareDecorsGenerator(14, 19);
+      this.landscapeSteps.execute(19);
     },
     // twentieth step
     () => {
@@ -476,9 +423,7 @@ export default class Scenario {
       this.declareSteps(35, 20, false, false);
       this.declareSteps(36, 20, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[33].begin);
-      this.declareCoastlineGenerator(9, 20);
-      this.declareCitiesGenerator(11, 20);
-      this.declareDecorsGenerator(15, 20);
+      this.landscapeSteps.execute(20);
     },
     // twenty first step
     () => {
@@ -506,7 +451,7 @@ export default class Scenario {
       this.declareSteps(40, 22, true, false, true);
       this.declareSteps(41, 22, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[40].begin);
-      this.declareDecorsGenerator(16, 22);
+      this.landscapeSteps.execute(22);
     },
     // twenty third step
     () => {
@@ -523,8 +468,7 @@ export default class Scenario {
       this.declareSteps(43, 23, false, false);
       this.declareSteps(44, 23, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[42].begin);
-      this.declareCitiesGenerator(12, 23);
-      this.declareDecorsGenerator(17, 23);
+      this.landscapeSteps.execute(23);
     },
     // twenty fourth step
     () => {
@@ -563,9 +507,6 @@ export default class Scenario {
     this.van = new Van();
     this.kapitiBoat = new KapitiBoat();
     this.ROADS = buildRoads(pixelRatio);
-    this.COASTLINES = buildCoastlines(pixelRatio);
-    this.CITIES = buildCity(pixelRatio);
-    this.DECORS = buildDecors(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
     this.airplaneObservable = combineLatest(
       of({ sens: 1, interval: 320 }),

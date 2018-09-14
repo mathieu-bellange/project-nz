@@ -7,5 +7,96 @@
     "cities": [0],
     "coastlines": [0],
     "decors": [0]
+  },
+  {
+    "cities": [1],
+    "coastlines": [1],
+    "decors": [1]
+  },
+  {
+    "cities": [2],
+    "coastlines": [2],
+    "decors": [2]
+  },
+  {
+    "cities": [3],
+    "coastlines": [3],
+    "decors": [3]
+  },
+  {
+    "cities": [4],
+    "coastlines": [],
+    "decors": [4]
+  },
+  {
+    "cities": [5],
+    "coastlines": [4],
+    "decors": [5]
+  },
+  {
+    "cities": [6],
+    "coastlines": [],
+    "decors": [6]
+  },
+  {
+    "cities": [],
+    "coastlines": [],
+    "decors": [7]
+  },
+  {
+    "cities": [],
+    "coastlines": [],
+    "decors": [8]
+  },
+  {
+    "cities": [7],
+    "coastlines": [],
+    "decors": [9]
+  },
+  {
+    "cities": [],
+    "coastlines": [],
+    "decors": [10]
+  },
+  {
+    "cities": [8],
+    "coastlines": [5],
+    "decors": [11]
+  },
+  {
+    "cities": [9],
+    "coastlines": [6],
+    "decors": []
+  },
+  {
+    "cities": [10],
+    "coastlines": [],
+    "decors": [12]
+  },
+  {
+    "cities": [],
+    "coastlines": [7],
+    "decors": [13]
+  },
+  {
+    "cities": [],
+    "coastlines": [8],
+    "decors": [14]
+  },
+  {
+    "cities": [11],
+    "coastlines": [9],
+    "decors": [15]
+  },
+  {},
+  {
+    "cities": [],
+    "coastlines": [],
+    "decors": [16]
+  },
+  {
+    "cities": [12],
+    "coastlines": [],
+    "decors": [17]
   }
 ]
