@@ -12,12 +12,7 @@ import {
 } from 'rxjs/operators';
 
 import ScenarioService from './scenario.service';
-import {
-  Airport,
-  Sky,
-  Van,
-  KapitiBoat
-} from '../scenery';
+import { Airport, Sky } from '../scenery';
 import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import LandscapeSteps from './landscape-steps';
@@ -35,10 +30,6 @@ export default class Scenario {
   nextStepSubject;
 
   airport;
-
-  van;
-
-  kapitiBoat;
 
   initPoint;
 
@@ -58,85 +49,6 @@ export default class Scenario {
     this.actualBoxesSubject.next(3);
     this.actualPointSubject.next(this.airportPoint);
     this.hasNextSubject.next(true);
-  };
-
-  declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
-    const road = this.ROADS[indexRoad];
-    let animatedLine = new AnimatedLine(road);
-    if (!hideRoad) {
-      animatedLine = animatedLine.draw(this.canvas);
-    }
-    this.automatedObservable.pipe(filter(o => o.roadId === road.id))
-      .subscribe((o) => {
-        if (o.sens === 1 && road.begin.isEqual(o.currentPoint)) {
-          this.nextKmTraveledSubject.next(road.km);
-        }
-        if (o.sens === -1 && road.end.isEqual(o.currentPoint)) {
-          this.nextKmTraveledSubject.next(-road.km);
-        }
-        if (o.sens === 1 && road.end.isEqual(o.currentPoint) && indexRoad + 1 < this.ROADS.length) {
-          this.actualRoadSubject.next(this.ROADS[indexRoad + 1].id);
-          this.actualPointSubject.next(o.currentPoint);
-        }
-        if (o.sens === -1 && road.begin.isEqual(o.currentPoint) && indexRoad > 0) {
-          this.actualRoadSubject.next(this.ROADS[indexRoad - 1].id);
-          this.actualPointSubject.next(o.currentPoint);
-        }
-        if ((o.sens === 1 && !road.end.isEqual(o.currentPoint))
-          || (o.sens === -1 && !road.begin.isEqual(o.currentPoint))) {
-          animatedLine.animate(o);
-        }
-      });
-    animatedLine.subscribe((point) => {
-      if (this.stoppingStep && this.stoppingStep.isEqual(point)) {
-        this.automatedRoadAlwaysOn = false;
-        this.isLoadingSubject.next(false);
-      }
-      if ((road.begin.isEqual(point) && showBegin) || (road.end.isEqual(point) && showEnd)) {
-        this.automatedRoadOn = false;
-        this.onRoadAgainSubject.next(true);
-      }
-      this.actualPointSubject.next(point);
-    });
-  };
-
-  declareSteps = (indexRoad, indexStep, showBegin, showEnd, keepShowing) => {
-    const road = this.ROADS[indexRoad];
-    this.actualPointSubject.pipe(
-      withLatestFrom(this.actualRoadSubject),
-      filter(values => values[1] === road.id),
-      filter(() => !this.automatedRoadAlwaysOn),
-      map(values => values[0])
-    ).subscribe((point) => {
-      if (road.begin.isEqual(point)) {
-        if (showBegin) this.actualBoxesSubject.next(indexStep);
-        this.nextStepSubject.next(indexStep);
-      } else if (road.end.isEqual(point)) {
-        if (showEnd) this.actualBoxesSubject.next(indexStep + 1);
-        this.nextStepSubject.next(indexStep + 1);
-      } else if (keepShowing) {
-        this.actualBoxesSubject.next(indexStep);
-      } else {
-        this.actualBoxesSubject.next(-1);
-      }
-    });
-  };
-
-  declareAnimatedSVG = (indexRoad, svg, reverse, hideBegin, hideEnd) => {
-    const road = this.ROADS[indexRoad];
-    this.actualPointSubject.pipe(
-      withLatestFrom(this.actualRoadSubject),
-      filter(values => values[1] === road.id),
-      map(values => values[0])
-    ).subscribe((point) => {
-      if ((road.begin.isEqual(point) && hideBegin) || (road.end.isEqual(point) && hideEnd)) {
-        svg.remove();
-      } else if (road.begin.isEqual(point) || road.end.isEqual(point)) {
-        svg.draw(this.canvas, point, reverse).animate();
-      } else {
-        svg.draw(this.canvas, point, reverse);
-      }
-    });
   };
 
   ROADS = [];
@@ -212,36 +124,24 @@ export default class Scenario {
     // sixth step
     () => {
       this.intervalMap.set(this.ROADS[2].id, 160);
-      this.declareAnimatedLine(2, true, true);
-      this.declareAnimatedSVG(2, this.van, false, true, false);
-      this.declareSteps(2, 6, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[2].begin);
+      this.roadSteps.execute(6);
       this.landscapeSteps.execute(6);
     },
     // Seventh step
     () => {
       this.intervalMap.set(this.ROADS[3].id, 160);
       this.intervalMap.set(this.ROADS[4].id, 160);
-      this.declareAnimatedLine(3, true, false);
-      this.declareAnimatedLine(4, false, true);
-      this.declareAnimatedSVG(3, this.van, false, false, false);
-      this.declareAnimatedSVG(4, this.van, false, false, true);
-      this.declareSteps(3, 7, true, false, true);
-      this.declareSteps(4, 7, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[3].begin);
+      this.roadSteps.execute(7);
       this.landscapeSteps.execute(7);
     },
     // Eigth step
     () => {
       this.intervalMap.set(this.ROADS[5].id, 80);
       this.intervalMap.set(this.ROADS[6].id, 160);
-      this.declareAnimatedLine(5, true, false);
-      this.declareAnimatedLine(6, false, true);
-      this.declareAnimatedSVG(5, this.van, false, true, false);
-      this.declareAnimatedSVG(6, this.van, false, false, true);
-      this.declareSteps(5, 8, true, false);
-      this.declareSteps(6, 8, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[5].begin);
+      this.roadSteps.execute(8);
       this.landscapeSteps.execute(8);
     },
     // ninth step
@@ -249,38 +149,23 @@ export default class Scenario {
       this.intervalMap.set(this.ROADS[7].id, 40);
       this.intervalMap.set(this.ROADS[8].id, 160);
       this.intervalMap.set(this.ROADS[9].id, 80);
-      this.declareAnimatedLine(7, true, false);
-      this.declareAnimatedLine(8, false, false);
-      this.declareAnimatedLine(9, false, true);
-      this.declareAnimatedSVG(7, this.van, true, true, false);
-      this.declareAnimatedSVG(8, this.van, true, false, false);
-      this.declareAnimatedSVG(9, this.van, true, false, true);
-      this.declareSteps(7, 9, true, false);
-      this.declareSteps(8, 9, false, false);
-      this.declareSteps(9, 9, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[7].begin);
+      this.roadSteps.execute(9);
       this.landscapeSteps.execute(9);
     },
     // tenth step
     () => {
       this.intervalMap.set(this.ROADS[10].id, 80);
       this.intervalMap.set(this.ROADS[11].id, 80);
-      this.declareAnimatedLine(10, true, false);
-      this.declareAnimatedLine(11, false, true);
-      this.declareAnimatedSVG(10, this.van, true, true, false);
-      this.declareAnimatedSVG(11, this.van, true, false, true);
-      this.declareSteps(10, 10, true, false);
-      this.declareSteps(11, 10, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[10].begin);
+      this.roadSteps.execute(10);
       this.landscapeSteps.execute(10);
     },
     // eleventh step
     () => {
       this.intervalMap.set(this.ROADS[12].id, 80);
-      this.declareAnimatedLine(12, true, true);
-      this.declareAnimatedSVG(12, this.van, true, true, true);
-      this.declareSteps(12, 11, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[12].begin);
+      this.roadSteps.execute(11);
       this.landscapeSteps.execute(11);
     },
     // twelveth step
@@ -288,16 +173,8 @@ export default class Scenario {
       this.intervalMap.set(this.ROADS[13].id, 80);
       this.intervalMap.set(this.ROADS[14].id, 80);
       this.intervalMap.set(this.ROADS[15].id, 80);
-      this.declareAnimatedLine(13, true, false);
-      this.declareAnimatedLine(14, false, false);
-      this.declareAnimatedLine(15, false, true);
-      this.declareAnimatedSVG(13, this.van, true, true, false);
-      this.declareAnimatedSVG(14, this.van, true, false, false);
-      this.declareAnimatedSVG(15, this.van, true, false, true);
-      this.declareSteps(13, 12, true, false);
-      this.declareSteps(14, 12, false, false);
-      this.declareSteps(15, 12, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[13].begin);
+      this.roadSteps.execute(12);
       this.landscapeSteps.execute(12);
     },
     // Thirteenth step
@@ -306,45 +183,24 @@ export default class Scenario {
       this.intervalMap.set(this.ROADS[17].id, 80);
       this.intervalMap.set(this.ROADS[18].id, 40);
       this.intervalMap.set(this.ROADS[19].id, 40);
-      this.declareAnimatedLine(16, true, false);
-      this.declareAnimatedLine(17, false, false);
-      this.declareAnimatedLine(18, false, false);
-      this.declareAnimatedLine(19, false, true);
-      this.declareAnimatedSVG(16, this.van, false, true, false);
-      this.declareAnimatedSVG(17, this.van, false, false, false);
-      this.declareAnimatedSVG(18, this.van, false, false, false);
-      this.declareAnimatedSVG(19, this.van, true, false, false);
-      this.declareSteps(16, 13, true, false);
-      this.declareSteps(17, 13, false, false);
-      this.declareSteps(18, 13, false, false);
-      this.declareSteps(19, 13, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[16].begin);
+      this.roadSteps.execute(13);
       this.landscapeSteps.execute(13);
     },
     // Fourteenth step
     () => {
       this.intervalMap.set(this.ROADS[20].id, 160);
       this.intervalMap.set(this.ROADS[21].id, 160);
-      this.declareAnimatedLine(20, true, false);
-      this.declareAnimatedLine(21, false, true);
-      this.declareAnimatedSVG(20, this.van, true, false, false);
-      this.declareAnimatedSVG(21, this.van, true, false, true);
-      this.declareSteps(20, 14, true, false, true);
-      this.declareSteps(21, 14, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[20].begin);
+      this.roadSteps.execute(14);
       this.landscapeSteps.execute(14);
     },
     // fifteenth step
     () => {
       this.intervalMap.set(this.ROADS[22].id, 160);
       this.intervalMap.set(this.ROADS[23].id, 80);
-      this.declareAnimatedLine(22, true, false);
-      this.declareAnimatedLine(23, false, true);
-      this.declareAnimatedSVG(22, this.van, false, true, false);
-      this.declareAnimatedSVG(23, this.van, false, false, true);
-      this.declareSteps(22, 15, true, false);
-      this.declareSteps(23, 15, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[22].begin);
+      this.roadSteps.execute(15);
       this.landscapeSteps.execute(15);
     },
     // sixteenth step
@@ -352,55 +208,32 @@ export default class Scenario {
       this.intervalMap.set(this.ROADS[24].id, 80);
       this.intervalMap.set(this.ROADS[25].id, 80);
       this.intervalMap.set(this.ROADS[26].id, 40);
-      this.declareAnimatedLine(24, true, false);
-      this.declareAnimatedLine(25, false, false);
-      this.declareAnimatedLine(26, false, true);
-      this.declareAnimatedSVG(24, this.van, true, true, false);
-      this.declareAnimatedSVG(25, this.van, true, false, false);
-      this.declareAnimatedSVG(26, this.van, true, false, true);
-      this.declareSteps(24, 16, true, false);
-      this.declareSteps(25, 16, false, false);
-      this.declareSteps(26, 16, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[24].begin);
+      this.roadSteps.execute(16);
       this.landscapeSteps.execute(16);
     },
     // seventeenth step
     () => {
       this.intervalMap.set(this.ROADS[27].id, 40);
       this.intervalMap.set(this.ROADS[28].id, 160);
-      this.declareAnimatedLine(27, true, false);
-      this.declareAnimatedLine(28, false, true);
-      this.declareAnimatedSVG(27, this.van, false, true, false);
-      this.declareAnimatedSVG(28, this.van, true, false, false);
-      this.declareSteps(27, 17, true, false);
-      this.declareSteps(28, 17, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[27].begin);
+      this.roadSteps.execute(17);
       this.landscapeSteps.execute(17);
     },
     // eighteenth step
     () => {
       this.intervalMap.set(this.ROADS[29].id, 80);
       this.intervalMap.set(this.ROADS[30].id, 80);
-      this.declareAnimatedLine(29, true, false);
-      this.declareAnimatedLine(30, false, true);
-      this.declareAnimatedSVG(29, this.van, true, false, false);
-      this.declareAnimatedSVG(30, this.van, true, false, true);
-      this.declareSteps(29, 18, true, false, true);
-      this.declareSteps(30, 18, false, true, false);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[29].begin);
+      this.roadSteps.execute(18);
       this.landscapeSteps.execute(18);
     },
     // nineteenth step
     () => {
       this.intervalMap.set(this.ROADS[31].id, 40);
       this.intervalMap.set(this.ROADS[32].id, 160);
-      this.declareAnimatedLine(31, true, false);
-      this.declareAnimatedLine(32, false, true);
-      this.declareAnimatedSVG(31, this.van, true, true, false);
-      this.declareAnimatedSVG(32, this.van, true, false, true);
-      this.declareSteps(31, 19, true, false);
-      this.declareSteps(32, 19, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[31].begin);
+      this.roadSteps.execute(19);
       this.landscapeSteps.execute(19);
     },
     // twentieth step
@@ -409,18 +242,8 @@ export default class Scenario {
       this.intervalMap.set(this.ROADS[34].id, 40);
       this.intervalMap.set(this.ROADS[35].id, 80);
       this.intervalMap.set(this.ROADS[36].id, 80);
-      this.declareAnimatedLine(33, true, false);
-      this.declareAnimatedLine(34, false, false);
-      this.declareAnimatedLine(35, false, false);
-      this.declareAnimatedLine(36, false, true, true);
-      this.declareAnimatedSVG(33, this.van, false, true, false);
-      this.declareAnimatedSVG(34, this.van, false, false, true);
-      this.declareAnimatedSVG(36, this.kapitiBoat, false, true, true);
-      this.declareSteps(33, 20, true, false);
-      this.declareSteps(34, 20, false, false);
-      this.declareSteps(35, 20, false, false);
-      this.declareSteps(36, 20, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[33].begin);
+      this.roadSteps.execute(20);
       this.landscapeSteps.execute(20);
     },
     // twenty first step
@@ -428,27 +251,15 @@ export default class Scenario {
       this.intervalMap.set(this.ROADS[37].id, 80);
       this.intervalMap.set(this.ROADS[38].id, 80);
       this.intervalMap.set(this.ROADS[39].id, 80);
-      this.declareAnimatedLine(37, true, false, true);
-      this.declareAnimatedLine(38, false, false);
-      this.declareAnimatedLine(39, false, true);
-      this.declareAnimatedSVG(37, this.kapitiBoat, true, true, true);
-      this.declareAnimatedSVG(39, this.van, false, true, false);
-      this.declareSteps(37, 21, true, false);
-      this.declareSteps(38, 21, false, false);
-      this.declareSteps(39, 21, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[37].begin);
+      this.roadSteps.execute(21);
     },
     // twenty second step
     () => {
       this.intervalMap.set(this.ROADS[40].id, 80);
       this.intervalMap.set(this.ROADS[41].id, 40);
-      this.declareAnimatedLine(40, true, false);
-      this.declareAnimatedLine(41, false, true);
-      this.declareAnimatedSVG(40, this.van, false, false, false);
-      this.declareAnimatedSVG(41, this.van, false, false, true);
-      this.declareSteps(40, 22, true, false, true);
-      this.declareSteps(41, 22, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[40].begin);
+      this.roadSteps.execute(22);
       this.landscapeSteps.execute(22);
     },
     // twenty third step
@@ -456,16 +267,8 @@ export default class Scenario {
       this.intervalMap.set(this.ROADS[42].id, 40);
       this.intervalMap.set(this.ROADS[43].id, 160);
       this.intervalMap.set(this.ROADS[44].id, 40);
-      this.declareAnimatedLine(42, true, false);
-      this.declareAnimatedLine(43, false, false);
-      this.declareAnimatedLine(44, false, true);
-      this.declareAnimatedSVG(42, this.van, true, true, false);
-      this.declareAnimatedSVG(43, this.van, true, false, false);
-      this.declareAnimatedSVG(44, this.van, true, false, true);
-      this.declareSteps(42, 23, true, false);
-      this.declareSteps(43, 23, false, false);
-      this.declareSteps(44, 23, false, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[42].begin);
+      this.roadSteps.execute(23);
       this.landscapeSteps.execute(23);
     },
     // twenty fourth step
@@ -502,8 +305,6 @@ export default class Scenario {
     this.initPoint = new Coordinate(754, 476, pixelRatio);
     this.airportPoint = new Coordinate(708, 502, pixelRatio);
     this.landingPoint = new Coordinate(670, 526, pixelRatio);
-    this.van = new Van();
-    this.kapitiBoat = new KapitiBoat();
     this.ROADS = buildRoads(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
     this.airplaneObservable = combineLatest(

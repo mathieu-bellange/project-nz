@@ -6,5 +6,82 @@
   [],
   [
     { "indexRoad": 1, "svg": "van", "reverse": false, "hideBegin": true, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 2, "svg": "van", "reverse": false, "hideBegin": true, "hideEnd": false }
+  ],
+  [
+    { "indexRoad": 3, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 4, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 5, "svg": "van", "reverse": false, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 6, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 7, "svg": "van", "reverse": true, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 8, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 9, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 10, "svg": "van", "reverse": true, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 11, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 12, "svg": "van", "reverse": true, "hideBegin": true, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 13, "svg": "van", "reverse": true, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 14, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 15, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 16, "svg": "van", "reverse": false, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 17, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 18, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 19, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false }
+  ],
+  [
+    { "indexRoad": 20, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 21, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 22, "svg": "van", "reverse": false, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 23, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 24, "svg": "van", "reverse": true, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 25, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 26, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 27, "svg": "van", "reverse": false, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 28, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false }
+  ],
+  [
+    { "indexRoad": 29, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 30, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 31, "svg": "van", "reverse": true, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 32, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 33, "svg": "van", "reverse": false, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 34, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": true },
+    { "indexRoad": 36, "svg": "kapiti-boat", "reverse": false, "hideBegin": true, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 37, "svg": "kapiti-boat", "reverse": true, "hideBegin": true, "hideEnd": true },
+    { "indexRoad": 39, "svg": "van", "reverse": false, "hideBegin": true, "hideEnd": false }
+  ],
+  [
+    { "indexRoad": 40, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 41, "svg": "van", "reverse": false, "hideBegin": false, "hideEnd": true }
+  ],
+  [
+    { "indexRoad": 42, "svg": "van", "reverse": true, "hideBegin": true, "hideEnd": false },
+    { "indexRoad": 43, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false },
+    { "indexRoad": 44, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
   ]
 ]
