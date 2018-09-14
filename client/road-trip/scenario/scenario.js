@@ -21,6 +21,7 @@ import {
 import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
 import LandscapeSteps from './landscape-steps';
+import RoadSteps from './road-steps';
 
 // PLANNING refacto le système de route trello:#83
 // DONE refacto la class pour supprimer la notion de scenario trello:#126
@@ -193,18 +194,15 @@ export default class Scenario {
     // fourth step
     () => {
       this.intervalMap.set(this.ROADS[0].id, 160);
-      this.declareAnimatedLine(0, true, true);
-      this.declareSteps(0, 4, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[0].begin);
+      this.roadSteps.execute(4);
       this.landscapeSteps.execute(4);
     },
     // fifth step
     () => {
       this.intervalMap.set(this.ROADS[1].id, 160);
-      this.declareAnimatedLine(1, true, true);
-      this.declareAnimatedSVG(1, this.van, false, true, true);
-      this.declareSteps(1, 5, true, true);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[1].begin);
+      this.roadSteps.execute(5);
       this.landscapeSteps.execute(5);
       const sub = this.nextStepSubject.pipe(filter(step => step === 5)).subscribe(() => {
         this.displayBorneKmSubject.next(true);
@@ -526,7 +524,8 @@ export default class Scenario {
       this.actualPointSubject
     ).pipe(
       withLatestFrom(this.actualRoadSubject),
-      filter(() => this.automatedRoadOn || this.automatedRoadAlwaysOn),
+      filter(() => this.roadSteps.getAutomatedRoadOn()
+        || this.roadSteps.getAutomatedRoadAlwaysOn()),
       map(values => ({
         sens: values[0][0].sens,
         interval: values[0][0].interval || this.intervalMap.get(values[1]),
@@ -543,6 +542,16 @@ export default class Scenario {
         this.hasNextSubject.next(false);
       }
     });
+    this.roadSteps = new RoadSteps(this.automatedObservable,
+      this.actualRoadSubject,
+      actualPointSubject,
+      nextKmTraveledSubject,
+      isLoadingSubject,
+      onRoadAgainSubject,
+      actualBoxesSubject,
+      this.nextStepSubject,
+      canvas,
+      pixelRatio);
   }
 
   launch() {
@@ -553,12 +562,12 @@ export default class Scenario {
       this.landingFunction();
       this.isLoadingSubject.next(false);
     } else if (index > 4) {
-      this.automatedRoadAlwaysOn = true;
+      this.roadSteps.automatedRoadAlwaysGoesOn();
       this.landingFunction();
       for (let ind = 4; ind <= index; ind += 1) {
         this.nextStepSubject.next(ind);
       }
-      this.stoppingStep = this.ROADS_BEGIN_BY_STEP[index - 4];
+      this.roadSteps.setStoppingStep(this.ROADS_BEGIN_BY_STEP[index - 4]);
       this.launchAutomatedSubject.next({ sens: 1, interval: 1 });
     } else {
       this.nextStepSubject.next(0);
@@ -572,7 +581,7 @@ export default class Scenario {
     if (index <= 4) {
       this.nextStepSubject.next(index);
     } else if (index > 4) {
-      this.automatedRoadOn = true;
+      this.roadSteps.automatedRoadGoesOn();
       const interval = !!document.documentMode || !!window.StyleMedia ? 20 : null;
       this.launchAutomatedSubject.next({ sens: 1, interval });
       this.onRoadAgainSubject.next(false);
@@ -583,7 +592,7 @@ export default class Scenario {
   previousStep() {
     const index = this.scenarioService.getCurrentStep() - 1;
     if (index > 3) {
-      this.automatedRoadOn = true;
+      this.roadSteps.automatedRoadGoesOn();
       const interval = !!document.documentMode || !!window.StyleMedia ? 20 : null;
       this.launchAutomatedSubject.next({ sens: -1, interval });
       this.onRoadAgainSubject.next(false);
