@@ -14,34 +14,14 @@ import ScenarioService from './scenario.service';
 import { Airport, Sky } from '../scenery';
 import { OrientedVector, Coordinate, AnimatedLine } from '../tools';
 import buildRoads from './road-markers';
+import buildCoastlines from './coastline-markers';
+import buildCity from './city-markers';
+import buildDecors from './decor-markers';
 import LandscapeSteps from './landscape-steps';
 import RoadSteps from './road-steps';
 
-// PLANNING refacto le système de route trello:#83
 // DONE refacto la class pour supprimer la notion de scenario trello:#126
 export default class Scenario {
-  canvas;
-
-  actualPointSubject;
-
-  actualBoxesSubject;
-
-  nextStepSubject;
-
-  airport;
-
-  initPoint;
-
-  airportPoint;
-
-  landingPoint;
-
-  actualRoadSubject;
-
-  airplaneObservable;
-
-  scenarioService;
-
   landingFunction = () => {
     this.actualBoxesSubject.next(3);
     this.actualPointSubject.next(this.airportPoint);
@@ -50,7 +30,7 @@ export default class Scenario {
 
   ROADS = [];
 
-  // DOING externalise les étapes dans un autre fichier trello:#126
+  // DONE externalise les étapes dans un autre fichier trello:#126
   steps = [
     // launch step
     () => {
@@ -205,18 +185,9 @@ export default class Scenario {
     }
   ];
 
-  constructor(
-    canvas,
-    pixelRatio,
-    actualPointSubject,
-    actualBoxesSubject,
-    onRoadAgainSubject,
-    hasPreviousSubject,
-    hasNextSubject,
-    isLoadingSubject,
-    nextKmTraveledSubject,
-    displayBorneKmSubject
-  ) {
+  constructor(canvas, pixelRatio, actualPointSubject, actualBoxesSubject, onRoadAgainSubject,
+    hasPreviousSubject, hasNextSubject, isLoadingSubject, nextKmTraveledSubject,
+    displayBorneKmSubject) {
     this.canvas = canvas;
     this.actualPointSubject = actualPointSubject;
     this.actualBoxesSubject = actualBoxesSubject;
@@ -228,12 +199,14 @@ export default class Scenario {
     this.displayBorneKmSubject = displayBorneKmSubject;
     this.scenarioService = new ScenarioService();
     this.nextStepSubject = new Subject();
-    this.landscapeSteps = new LandscapeSteps(this.nextStepSubject, canvas, pixelRatio);
     this.airport = new Airport();
     this.initPoint = new Coordinate(754, 476, pixelRatio);
     this.airportPoint = new Coordinate(708, 502, pixelRatio);
     this.landingPoint = new Coordinate(670, 526, pixelRatio);
     this.ROADS = buildRoads(pixelRatio);
+    this.COASTLINES = buildCoastlines(pixelRatio);
+    this.CITIES = buildCity(pixelRatio);
+    this.DECORS = buildDecors(pixelRatio);
     this.actualRoadSubject = new BehaviorSubject(this.ROADS[0].id);
     this.airplaneObservable = combineLatest(
       of({ sens: 1, interval: 320 }),
@@ -255,16 +228,11 @@ export default class Scenario {
         this.hasNextSubject.next(false);
       }
     });
-    this.roadSteps = new RoadSteps(this.actualRoadSubject,
-      actualPointSubject,
-      nextKmTraveledSubject,
-      isLoadingSubject,
-      onRoadAgainSubject,
-      actualBoxesSubject,
-      this.nextStepSubject,
-      this.launchAutomatedSubject,
-      canvas,
-      pixelRatio);
+    this.landscapeSteps = new LandscapeSteps(this.nextStepSubject,
+      canvas, this.COASTLINES, this.CITIES, this.DECORS);
+    this.roadSteps = new RoadSteps(this.actualRoadSubject, actualPointSubject,
+      nextKmTraveledSubject, isLoadingSubject, onRoadAgainSubject, actualBoxesSubject,
+      this.nextStepSubject, this.launchAutomatedSubject, canvas, this.ROADS);
   }
 
   launch() {

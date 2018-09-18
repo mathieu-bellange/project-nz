@@ -8,11 +8,11 @@ import {
 
 import { Van, KapitiBoat } from '../scenery';
 import { AnimatedLine } from '../tools';
-import buildRoads from './road-markers';
 import roadStepsData from './road-steps.data.json';
 import boxStepsData from './box-steps.data.json';
 import animationStepsData from './animation-steps.data.json';
 
+// PLANNING refacto le système de route trello:#83
 export default class RoadSteps {
   automatedRoadOn = false;
 
@@ -32,7 +32,7 @@ export default class RoadSteps {
     nextStepSubject,
     launchAutomatedSubject,
     canvas,
-    pixelRatio
+    roads
   ) {
     this.actualRoadSubject = actualRoadSubject;
     this.actualPointSubject = actualPointSubject;
@@ -42,7 +42,7 @@ export default class RoadSteps {
     this.actualBoxesSubject = actualBoxesSubject;
     this.nextStepSubject = nextStepSubject;
     this.canvas = canvas;
-    this.ROADS = buildRoads(pixelRatio);
+    this.ROADS = roads;
     this.van = new Van();
     this.kapitiBoat = new KapitiBoat();
     const theDelay = !!document.documentMode || !!window.StyleMedia ? 60 : 20;

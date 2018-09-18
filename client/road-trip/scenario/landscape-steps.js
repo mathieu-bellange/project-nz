@@ -3,18 +3,14 @@ import {
 } from 'rxjs/operators';
 
 import landscapeStepsData from './landscape-steps.data.json';
-import buildCoastlines from './coastline-markers';
-import buildCity from './city-markers';
-import buildDecors from './decor-markers';
 
 export default class LandscapeSteps {
-  constructor(nextStepSubject, canvas, pixelRatio) {
+  constructor(nextStepSubject, canvas, coastlines, cities, decors) {
     this.nextStepSubject = nextStepSubject;
     this.canvas = canvas;
-    this.pixelRatio = pixelRatio;
-    this.COASTLINES = buildCoastlines(pixelRatio);
-    this.CITIES = buildCity(pixelRatio);
-    this.DECORS = buildDecors(pixelRatio);
+    this.COASTLINES = coastlines;
+    this.CITIES = cities;
+    this.DECORS = decors;
   }
 
   declareDecorsGenerator = (indexStep, indexDecor) => {
