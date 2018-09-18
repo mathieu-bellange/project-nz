@@ -7,7 +7,6 @@ import {
 import {
   delay,
   map,
-  withLatestFrom,
   filter
 } from 'rxjs/operators';
 
@@ -39,8 +38,6 @@ export default class Scenario {
 
   actualRoadSubject;
 
-  automatedObservable;
-
   airplaneObservable;
 
   scenarioService;
@@ -54,8 +51,6 @@ export default class Scenario {
   ROADS = [];
 
   ROADS_BEGIN_BY_STEP = [];
-
-  intervalMap = new Map();
 
   // DOING externalise les étapes dans un autre fichier trello:#126
   steps = [
@@ -105,14 +100,12 @@ export default class Scenario {
     },
     // fourth step
     () => {
-      this.intervalMap.set(this.ROADS[0].id, 160);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[0].begin);
       this.roadSteps.execute(4);
       this.landscapeSteps.execute(4);
     },
     // fifth step
     () => {
-      this.intervalMap.set(this.ROADS[1].id, 160);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[1].begin);
       this.roadSteps.execute(5);
       this.landscapeSteps.execute(5);
@@ -123,150 +116,107 @@ export default class Scenario {
     },
     // sixth step
     () => {
-      this.intervalMap.set(this.ROADS[2].id, 160);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[2].begin);
       this.roadSteps.execute(6);
       this.landscapeSteps.execute(6);
     },
     // Seventh step
     () => {
-      this.intervalMap.set(this.ROADS[3].id, 160);
-      this.intervalMap.set(this.ROADS[4].id, 160);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[3].begin);
       this.roadSteps.execute(7);
       this.landscapeSteps.execute(7);
     },
     // Eigth step
     () => {
-      this.intervalMap.set(this.ROADS[5].id, 80);
-      this.intervalMap.set(this.ROADS[6].id, 160);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[5].begin);
       this.roadSteps.execute(8);
       this.landscapeSteps.execute(8);
     },
     // ninth step
     () => {
-      this.intervalMap.set(this.ROADS[7].id, 40);
-      this.intervalMap.set(this.ROADS[8].id, 160);
-      this.intervalMap.set(this.ROADS[9].id, 80);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[7].begin);
       this.roadSteps.execute(9);
       this.landscapeSteps.execute(9);
     },
     // tenth step
     () => {
-      this.intervalMap.set(this.ROADS[10].id, 80);
-      this.intervalMap.set(this.ROADS[11].id, 80);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[10].begin);
       this.roadSteps.execute(10);
       this.landscapeSteps.execute(10);
     },
     // eleventh step
     () => {
-      this.intervalMap.set(this.ROADS[12].id, 80);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[12].begin);
       this.roadSteps.execute(11);
       this.landscapeSteps.execute(11);
     },
     // twelveth step
     () => {
-      this.intervalMap.set(this.ROADS[13].id, 80);
-      this.intervalMap.set(this.ROADS[14].id, 80);
-      this.intervalMap.set(this.ROADS[15].id, 80);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[13].begin);
       this.roadSteps.execute(12);
       this.landscapeSteps.execute(12);
     },
     // Thirteenth step
     () => {
-      this.intervalMap.set(this.ROADS[16].id, 80);
-      this.intervalMap.set(this.ROADS[17].id, 80);
-      this.intervalMap.set(this.ROADS[18].id, 40);
-      this.intervalMap.set(this.ROADS[19].id, 40);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[16].begin);
       this.roadSteps.execute(13);
       this.landscapeSteps.execute(13);
     },
     // Fourteenth step
     () => {
-      this.intervalMap.set(this.ROADS[20].id, 160);
-      this.intervalMap.set(this.ROADS[21].id, 160);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[20].begin);
       this.roadSteps.execute(14);
       this.landscapeSteps.execute(14);
     },
     // fifteenth step
     () => {
-      this.intervalMap.set(this.ROADS[22].id, 160);
-      this.intervalMap.set(this.ROADS[23].id, 80);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[22].begin);
       this.roadSteps.execute(15);
       this.landscapeSteps.execute(15);
     },
     // sixteenth step
     () => {
-      this.intervalMap.set(this.ROADS[24].id, 80);
-      this.intervalMap.set(this.ROADS[25].id, 80);
-      this.intervalMap.set(this.ROADS[26].id, 40);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[24].begin);
       this.roadSteps.execute(16);
       this.landscapeSteps.execute(16);
     },
     // seventeenth step
     () => {
-      this.intervalMap.set(this.ROADS[27].id, 40);
-      this.intervalMap.set(this.ROADS[28].id, 160);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[27].begin);
       this.roadSteps.execute(17);
       this.landscapeSteps.execute(17);
     },
     // eighteenth step
     () => {
-      this.intervalMap.set(this.ROADS[29].id, 80);
-      this.intervalMap.set(this.ROADS[30].id, 80);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[29].begin);
       this.roadSteps.execute(18);
       this.landscapeSteps.execute(18);
     },
     // nineteenth step
     () => {
-      this.intervalMap.set(this.ROADS[31].id, 40);
-      this.intervalMap.set(this.ROADS[32].id, 160);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[31].begin);
       this.roadSteps.execute(19);
       this.landscapeSteps.execute(19);
     },
     // twentieth step
     () => {
-      this.intervalMap.set(this.ROADS[33].id, 160);
-      this.intervalMap.set(this.ROADS[34].id, 40);
-      this.intervalMap.set(this.ROADS[35].id, 80);
-      this.intervalMap.set(this.ROADS[36].id, 80);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[33].begin);
       this.roadSteps.execute(20);
       this.landscapeSteps.execute(20);
     },
     // twenty first step
     () => {
-      this.intervalMap.set(this.ROADS[37].id, 80);
-      this.intervalMap.set(this.ROADS[38].id, 80);
-      this.intervalMap.set(this.ROADS[39].id, 80);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[37].begin);
       this.roadSteps.execute(21);
     },
     // twenty second step
     () => {
-      this.intervalMap.set(this.ROADS[40].id, 80);
-      this.intervalMap.set(this.ROADS[41].id, 40);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[40].begin);
       this.roadSteps.execute(22);
       this.landscapeSteps.execute(22);
     },
     // twenty third step
     () => {
-      this.intervalMap.set(this.ROADS[42].id, 40);
-      this.intervalMap.set(this.ROADS[43].id, 160);
-      this.intervalMap.set(this.ROADS[44].id, 40);
       this.ROADS_BEGIN_BY_STEP.push(this.ROADS[42].begin);
       this.roadSteps.execute(23);
       this.landscapeSteps.execute(23);
@@ -319,22 +269,6 @@ export default class Scenario {
       delay(10)
     );
     this.launchAutomatedSubject = new Subject();
-    const theDelay = !!document.documentMode || !!window.StyleMedia ? 60 : 20;
-    this.automatedObservable = combineLatest(
-      this.launchAutomatedSubject,
-      this.actualPointSubject
-    ).pipe(
-      withLatestFrom(this.actualRoadSubject),
-      filter(() => this.roadSteps.getAutomatedRoadOn()
-        || this.roadSteps.getAutomatedRoadAlwaysOn()),
-      map(values => ({
-        sens: values[0][0].sens,
-        interval: values[0][0].interval || this.intervalMap.get(values[1]),
-        roadId: values[1],
-        currentPoint: values[0][1]
-      })),
-      delay(theDelay)
-    );
     this.nextStepSubject.subscribe((step) => {
       if (step < 5) {
         this.hasPreviousSubject.next(false);
@@ -343,14 +277,14 @@ export default class Scenario {
         this.hasNextSubject.next(false);
       }
     });
-    this.roadSteps = new RoadSteps(this.automatedObservable,
-      this.actualRoadSubject,
+    this.roadSteps = new RoadSteps(this.actualRoadSubject,
       actualPointSubject,
       nextKmTraveledSubject,
       isLoadingSubject,
       onRoadAgainSubject,
       actualBoxesSubject,
       this.nextStepSubject,
+      this.launchAutomatedSubject,
       canvas,
       pixelRatio);
   }

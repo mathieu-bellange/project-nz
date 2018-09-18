@@ -1,7 +1,9 @@
+import { combineLatest } from 'rxjs';
 import {
   map,
   withLatestFrom,
-  filter
+  filter,
+  delay
 } from 'rxjs/operators';
 
 import { Van, KapitiBoat } from '../scenery';
@@ -16,8 +18,9 @@ export default class RoadSteps {
 
   automatedRoadAlwaysOn = false;
 
+  intervalMap = new Map();
+
   constructor(
-    automatedObservable,
     actualRoadSubject,
     actualPointSubject,
     nextKmTraveledSubject,
@@ -25,10 +28,10 @@ export default class RoadSteps {
     onRoadAgainSubject,
     actualBoxesSubject,
     nextStepSubject,
+    launchAutomatedSubject,
     canvas,
     pixelRatio
   ) {
-    this.automatedObservable = automatedObservable;
     this.actualRoadSubject = actualRoadSubject;
     this.actualPointSubject = actualPointSubject;
     this.nextKmTraveledSubject = nextKmTraveledSubject;
@@ -40,6 +43,21 @@ export default class RoadSteps {
     this.ROADS = buildRoads(pixelRatio);
     this.van = new Van();
     this.kapitiBoat = new KapitiBoat();
+    const theDelay = !!document.documentMode || !!window.StyleMedia ? 60 : 20;
+    this.automatedObservable = combineLatest(
+      launchAutomatedSubject,
+      this.actualPointSubject
+    ).pipe(
+      withLatestFrom(this.actualRoadSubject),
+      filter(() => this.automatedRoadOn || this.automatedRoadAlwaysOn),
+      map(values => ({
+        sens: values[0][0].sens,
+        interval: values[0][0].interval || this.intervalMap.get(values[1]),
+        roadId: values[1],
+        currentPoint: values[0][1]
+      })),
+      delay(theDelay)
+    );
   }
 
   declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
@@ -123,12 +141,15 @@ export default class RoadSteps {
 
   execute(indexStep) {
     roadStepsData[indexStep].forEach(
-      data => this.declareAnimatedLine(
-        data.indexRoad,
-        data.showBegin,
-        data.showEnd,
-        data.hideRoad
-      ), this
+      (data) => {
+        this.declareAnimatedLine(
+          data.indexRoad,
+          data.showBegin,
+          data.showEnd,
+          data.hideRoad
+        );
+        this.intervalMap.set(this.ROADS[data.indexRoad].id, data.interval);
+      }, this
     );
     boxStepsData[indexStep].forEach(
       data => this.declareSteps(
@@ -156,14 +177,6 @@ export default class RoadSteps {
 
   automatedRoadAlwaysGoesOn() {
     this.automatedRoadAlwaysOn = true;
-  }
-
-  getAutomatedRoadOn() {
-    return this.automatedRoadOn;
-  }
-
-  getAutomatedRoadAlwaysOn() {
-    return this.automatedRoadAlwaysOn;
   }
 
   setStoppingStep(stoppingStep) {
