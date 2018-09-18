@@ -98,5 +98,10 @@
     "cities": [12],
     "coastlines": [],
     "decors": [17]
+  },
+  {
+    "cities": [],
+    "coastlines": [],
+    "decors": []
   }
 ]

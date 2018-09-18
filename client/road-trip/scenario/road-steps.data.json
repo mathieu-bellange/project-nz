@@ -87,5 +87,8 @@
     { "indexRoad": 42, "showBegin": true, "showEnd": false, "hideRoad": false, "interval": 40 },
     { "indexRoad": 43, "showBegin": false, "showEnd": false, "hideRoad": false, "interval": 160 },
     { "indexRoad": 44, "showBegin": false, "showEnd": true, "hideRoad": false, "interval": 40 }
+  ],
+  [
+    { "indexRoad": 45, "showBegin": true, "showEnd": true, "hideRoad": true, "interval": 0 }
   ]
 ]

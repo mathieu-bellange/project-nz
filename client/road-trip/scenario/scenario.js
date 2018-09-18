@@ -50,8 +50,6 @@ export default class Scenario {
 
   ROADS = [];
 
-  ROADS_BEGIN_BY_STEP = [];
-
   // DOING externalise les étapes dans un autre fichier trello:#126
   steps = [
     // launch step
@@ -100,13 +98,11 @@ export default class Scenario {
     },
     // fourth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[0].begin);
       this.roadSteps.execute(4);
       this.landscapeSteps.execute(4);
     },
     // fifth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[1].begin);
       this.roadSteps.execute(5);
       this.landscapeSteps.execute(5);
       const sub = this.nextStepSubject.pipe(filter(step => step === 5)).subscribe(() => {
@@ -116,114 +112,96 @@ export default class Scenario {
     },
     // sixth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[2].begin);
       this.roadSteps.execute(6);
       this.landscapeSteps.execute(6);
     },
     // Seventh step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[3].begin);
       this.roadSteps.execute(7);
       this.landscapeSteps.execute(7);
     },
     // Eigth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[5].begin);
       this.roadSteps.execute(8);
       this.landscapeSteps.execute(8);
     },
     // ninth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[7].begin);
       this.roadSteps.execute(9);
       this.landscapeSteps.execute(9);
     },
     // tenth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[10].begin);
       this.roadSteps.execute(10);
       this.landscapeSteps.execute(10);
     },
     // eleventh step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[12].begin);
       this.roadSteps.execute(11);
       this.landscapeSteps.execute(11);
     },
     // twelveth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[13].begin);
       this.roadSteps.execute(12);
       this.landscapeSteps.execute(12);
     },
     // Thirteenth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[16].begin);
       this.roadSteps.execute(13);
       this.landscapeSteps.execute(13);
     },
     // Fourteenth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[20].begin);
       this.roadSteps.execute(14);
       this.landscapeSteps.execute(14);
     },
     // fifteenth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[22].begin);
       this.roadSteps.execute(15);
       this.landscapeSteps.execute(15);
     },
     // sixteenth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[24].begin);
       this.roadSteps.execute(16);
       this.landscapeSteps.execute(16);
     },
     // seventeenth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[27].begin);
       this.roadSteps.execute(17);
       this.landscapeSteps.execute(17);
     },
     // eighteenth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[29].begin);
       this.roadSteps.execute(18);
       this.landscapeSteps.execute(18);
     },
     // nineteenth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[31].begin);
       this.roadSteps.execute(19);
       this.landscapeSteps.execute(19);
     },
     // twentieth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[33].begin);
       this.roadSteps.execute(20);
       this.landscapeSteps.execute(20);
     },
     // twenty first step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[37].begin);
       this.roadSteps.execute(21);
     },
     // twenty second step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[40].begin);
       this.roadSteps.execute(22);
       this.landscapeSteps.execute(22);
     },
     // twenty third step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[42].begin);
       this.roadSteps.execute(23);
       this.landscapeSteps.execute(23);
     },
     // twenty fourth step
     () => {
-      this.ROADS_BEGIN_BY_STEP.push(this.ROADS[45].begin);
+      this.roadSteps.execute(24);
     }
   ];
 
@@ -302,7 +280,7 @@ export default class Scenario {
       for (let ind = 4; ind <= index; ind += 1) {
         this.nextStepSubject.next(ind);
       }
-      this.roadSteps.setStoppingStep(this.ROADS_BEGIN_BY_STEP[index - 4]);
+      this.roadSteps.setStoppingStep(index - 4);
       this.launchAutomatedSubject.next({ sens: 1, interval: 1 });
     } else {
       this.nextStepSubject.next(0);

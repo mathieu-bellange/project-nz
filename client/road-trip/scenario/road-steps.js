@@ -20,6 +20,8 @@ export default class RoadSteps {
 
   intervalMap = new Map();
 
+  ROADS_BEGIN_BY_STEP = [];
+
   constructor(
     actualRoadSubject,
     actualPointSubject,
@@ -141,7 +143,7 @@ export default class RoadSteps {
 
   execute(indexStep) {
     roadStepsData[indexStep].forEach(
-      (data) => {
+      (data, index) => {
         this.declareAnimatedLine(
           data.indexRoad,
           data.showBegin,
@@ -149,6 +151,7 @@ export default class RoadSteps {
           data.hideRoad
         );
         this.intervalMap.set(this.ROADS[data.indexRoad].id, data.interval);
+        if (index === 0) this.ROADS_BEGIN_BY_STEP.push(this.ROADS[data.indexRoad].begin);
       }, this
     );
     boxStepsData[indexStep].forEach(
@@ -179,7 +182,7 @@ export default class RoadSteps {
     this.automatedRoadAlwaysOn = true;
   }
 
-  setStoppingStep(stoppingStep) {
-    this.stoppingStep = stoppingStep;
+  setStoppingStep(stoppingStepIndex) {
+    this.stoppingStep = this.ROADS_BEGIN_BY_STEP[stoppingStepIndex];
   }
 }

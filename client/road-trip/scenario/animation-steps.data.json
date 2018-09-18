@@ -83,5 +83,6 @@
     { "indexRoad": 42, "svg": "van", "reverse": true, "hideBegin": true, "hideEnd": false },
     { "indexRoad": 43, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": false },
     { "indexRoad": 44, "svg": "van", "reverse": true, "hideBegin": false, "hideEnd": true }
-  ]
+  ],
+  []
 ]
