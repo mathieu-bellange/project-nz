@@ -13,23 +13,22 @@ export default class AnimatedLine {
 
   sensSubscribe;
 
-  constructor(line) {
+  constructor(line, hideRoad, canvas) {
     this.line = line;
     const sqrt = ((line.end.x - line.begin.x) ** 2) + ((line.end.y - line.begin.y) ** 2);
     this.initLength = Math.ceil(Math.sqrt(sqrt));
     this.currentLength = this.initLength;
     this.sensSubject = new Subject();
-  }
-
-  draw(draw) {
-    this.path = draw.line(this.line.begin.x, this.line.begin.y, this.line.end.x, this.line.end.y)
-      .stroke({
+    if (!hideRoad) {
+      this.path = canvas.line(
+        this.line.begin.x, this.line.begin.y, this.line.end.x, this.line.end.y
+      ).stroke({
         dasharray: this.initLength,
         dashoffset: this.initLength,
         color: '#000',
         width: 2
       });
-    return this;
+    }
   }
 
   animate(o) {

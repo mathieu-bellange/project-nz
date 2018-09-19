@@ -64,10 +64,7 @@ export default class RoadSteps {
 
   declareAnimatedLine = (indexRoad, showBegin, showEnd, hideRoad) => {
     const road = this.ROADS[indexRoad];
-    let animatedLine = new AnimatedLine(road);
-    if (!hideRoad) {
-      animatedLine = animatedLine.draw(this.canvas);
-    }
+    const animatedLine = new AnimatedLine(road, hideRoad, this.canvas);
     this.automatedObservable.pipe(filter(o => o.roadId === road.id))
       .subscribe((o) => {
         if (o.sens === 1 && road.begin.isEqual(o.currentPoint)) {

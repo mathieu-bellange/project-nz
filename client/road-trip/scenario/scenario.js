@@ -59,7 +59,7 @@ export default class Scenario {
     },
     // third step
     () => {
-      const animatedLine = new AnimatedLine(new OrientedVector('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y));
+      const animatedLine = new AnimatedLine(new OrientedVector('airplaneLine', this.initPoint.x, this.initPoint.y, this.airportPoint.x, this.airportPoint.y), true);
       const sub = this.nextStepSubject.pipe(filter(step => step === 3)).subscribe(() => {
         this.hasNextSubject.next(false);
         this.sky.stop();
