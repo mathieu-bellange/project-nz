@@ -20,7 +20,6 @@ import buildDecors from './decor-markers';
 import LandscapeSteps from './landscape-steps';
 import RoadSteps from './road-steps';
 
-// DONE refacto la class pour supprimer la notion de scenario trello:#126
 export default class Scenario {
   landingFunction = () => {
     this.actualBoxesSubject.next(3);
@@ -30,7 +29,6 @@ export default class Scenario {
 
   ROADS = [];
 
-  // DONE externalise les étapes dans un autre fichier trello:#126
   steps = [
     // launch step
     () => {

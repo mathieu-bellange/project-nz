@@ -12,7 +12,7 @@ import roadStepsData from './road-steps.data.json';
 import boxStepsData from './box-steps.data.json';
 import animationStepsData from './animation-steps.data.json';
 
-// PLANNING refacto le système de route trello:#83
+// NOTE refacto le système de route trello:#83
 export default class RoadSteps {
   automatedRoadOn = false;
 

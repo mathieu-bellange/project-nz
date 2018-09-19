@@ -186,12 +186,10 @@ export default class RoadTrip extends React.Component {
     this.initSvgJs();
   }
 
-  // DONE refacto pour appeler directement le prochain step trello:#126
   onNextStep() {
     this.scenario.nextStep();
   }
 
-  // DONE refacto pour appeler directement le précédent step trello:#126
   onPreviousStep() {
     this.scenario.previousStep();
   }

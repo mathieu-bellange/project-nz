@@ -15,7 +15,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-// DONE refacto pour passer tous les fichiers en .sss trello:#86
 module.exports = {
 
   entry: {

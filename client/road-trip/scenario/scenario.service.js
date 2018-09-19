@@ -1,4 +1,3 @@
-// DONE refacto la class pour supprimer la notion de scenario, on ne conserve que l'étape trello:#126
 export default class ScenarioService {
   CURRENT_STEP_TOKEN = 'currentStep';
 
