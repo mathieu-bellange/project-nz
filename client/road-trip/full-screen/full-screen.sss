@@ -1,4 +1,4 @@
-.full-screen
+.screen-full
   position: absolute
   top: 0
   right: 0
@@ -16,6 +16,8 @@
     visibility: hidden
   &:hover
     opacity: 1
+  &.collapse
+    background-image: url(/images/normal-screen.svg)
 
 @media (max-width: 1366px)
   .full-screen
