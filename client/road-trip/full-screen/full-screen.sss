@@ -1,0 +1,31 @@
+.full-screen
+  position: absolute
+  top: 0
+  right: 0
+  z-index: 1
+  background-image: url(/images/full-screen.svg)
+  background-size: cover
+  background-position: center
+  width: 2em
+  height: 1.75em
+  margin: 0.5em 1em
+  cursor: pointer
+  opacity: 0.25
+  transition: opacity 0.25s ease-in
+  &.loading
+    visibility: hidden
+  &:hover
+    opacity: 1
+
+@media (max-width: 1366px)
+  .full-screen
+    width: 1em
+    height: 0.875em
+    font-size: 1em
+
+@media (max-width: 960px)
+  .full-screen
+    top: auto
+    bottom: 0
+    width: 100%
+    text-align: center

@@ -16,12 +16,13 @@ import {
 import { Scenario } from './scenario';
 import RoadTripCanvas from './canvas';
 import RoadController from './road-controller';
+import FullScreen from './full-screen';
 import BorneKm from './borne-km';
 import * as Boxes from './boxes';
 import PopinWrapper from './popin';
 import LoadingComponent from './loading';
 
-// PLANNING ajouter un composant gérant le passage pleine écran trello:#96
+// DOING ajouter un composant gérant le passage pleine écran trello:#96
 // PLANNING ajouter un composant permettant de gérer le step courant trello:#125
 export default class RoadTrip extends React.Component {
   width = 1080;
@@ -222,6 +223,7 @@ export default class RoadTrip extends React.Component {
           loading={this.state.loading}
           componentMountSubject={this.roadControllerMountSubject}
         ></RoadController>
+        <FullScreen loading={this.state.loading}></FullScreen>
         <BorneKm
           display={this.state.displayBorneKm}
           start={this.state.startKm}
