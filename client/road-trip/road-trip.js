@@ -22,7 +22,7 @@ import * as Boxes from './boxes';
 import PopinWrapper from './popin';
 import LoadingComponent from './loading';
 
-// DOING ajouter un composant gérant le passage pleine écran trello:#96
+// DONE ajouter un composant gérant le passage pleine écran trello:#96
 // PLANNING ajouter un composant permettant de gérer le step courant trello:#125
 export default class RoadTrip extends React.Component {
   width = 1080;
