@@ -17,8 +17,7 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.createMarkup = this.createMarkup.bind(this);
-    this.alreadyOnTheRoad = this.scenarioService.getCurrentStep() > 0
-      || this.scenarioService.getCurrentScenario() > 0;
+    this.alreadyOnTheRoad = this.scenarioService.getCurrentStep() > 0;
   }
 
   render() {
