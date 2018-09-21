@@ -18,8 +18,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
 
   entry: {
-    main: './client/app',
-    polyfills: './client/polyfills'
+    polyfills: './client/polyfills',
+    main: './client/app'
   },
 
   resolve: {
@@ -99,7 +99,8 @@ module.exports = {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
-          priority: -10
+          priority: -10,
+          name: 'vendor'
         },
         default: {
           minChunks: 2,

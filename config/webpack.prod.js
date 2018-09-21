@@ -9,7 +9,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -17,13 +16,11 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 /**
  * Webpack Constants
  */
-const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
 const METADATA = {
   host: HOST,
-  port: PORT,
-  ENV
+  port: PORT
 };
 
 module.exports = webpackMerge(commonConfig, {
@@ -58,7 +55,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-filename
      */
-    filename: '[name].[chunkhash].bundle.js',
+    filename: '[name].[hash].bundle.js',
 
     /**
      * The filename of the SourceMaps for the JavaScript files.
@@ -66,7 +63,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
      */
-    sourceMapFilename: '[name].[chunkhash].bundle.map',
+    sourceMapFilename: '[name].[hash].bundle.map',
 
     /**
      * The filename of non-entry chunks as relative path
@@ -74,7 +71,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
      */
-    chunkFilename: '[id].[chunkhash].chunk.js'
+    chunkFilename: '[name].[hash].chunk.js'
 
   },
 
@@ -92,21 +89,6 @@ module.exports = webpackMerge(commonConfig, {
       template: 'client/index.html',
       chunksSortMode: 'dependency'
     }),
-    new DefinePlugin({
-      ENV: JSON.stringify(METADATA.ENV),
-      'process.env': {
-        ENV: JSON.stringify(METADATA.ENV),
-        NODE_ENV: JSON.stringify(METADATA.ENV)
-      }
-    }),
-
-    /**
-     * Plugin: WebpackMd5Hash
-     * Description: Plugin to replace a standard webpack chunkhash with md5.
-     *
-     * See: https://www.npmjs.com/package/webpack-md5-hash
-     */
-    new WebpackMd5Hash(),
 
     /**
      * Plugin: UglifyJsPlugin
@@ -164,7 +146,7 @@ module.exports = webpackMerge(commonConfig, {
      * See: https://github.com/webpack/compression-webpack-plugin
      */
     new CompressionPlugin({
-      regExp: /\.sss$|\.html$|\.js$|\.map$/,
+      test: /\.sss$|\.html$|\.js$|\.map$/,
       threshold: 2 * 1024
     }),
     new OptimizeCSSAssetsPlugin({})

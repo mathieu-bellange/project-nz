@@ -8,13 +8,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 /**
  * Webpack Constants
  */
-const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 const METADATA = {
   host: HOST,
-  port: PORT,
-  ENV
+  port: PORT
 };
 
 /**
@@ -80,14 +78,6 @@ module.exports = webpackMerge(commonConfig, {
     new HtmlWebpackPlugin({
       template: 'client/index.html',
       chunksSortMode: 'dependency'
-    }),
-
-    new DefinePlugin({
-      ENV: JSON.stringify(METADATA.ENV),
-      'process.env': {
-        ENV: JSON.stringify(METADATA.ENV),
-        NODE_ENV: JSON.stringify(METADATA.ENV)
-      }
     })
   ],
 
