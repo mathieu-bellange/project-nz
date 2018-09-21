@@ -10,7 +10,7 @@
   From: Nantes, France
 
 /* SITE */
-  Last update: 2018/03/21
+  Last update: 2018/09/21
   Language: French
   Doctype: HTML5
   IDE: Atom, Adobe XD, Inkscape
