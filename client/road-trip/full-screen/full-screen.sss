@@ -1,0 +1,36 @@
+.screen-full
+  position: absolute
+  top: 0
+  right: 0
+  z-index: 1
+  background-image: url(/images/full-screen.svg)
+  background-size: cover
+  background-position: center
+  width: 2em
+  height: 1.75em
+  margin: 0.5em 1em
+  cursor: pointer
+  opacity: 0.25
+  transition: opacity 0.25s ease-in
+  &.loading
+    visibility: hidden
+  &:hover
+    opacity: 1
+  &.collapse
+    display: none
+
+@media (max-width: 1366px)
+  .screen-full
+    width: 1.5em
+    height: 1.31em
+    font-size: 1em
+    margin: 0.5em
+
+@media (max-width: 960px)
+  .screen-full
+    display: none
+
+@supports not (-ms-ime-align:auto)
+  .screen-full.collapse
+    display: inline-block
+    background-image: url(/images/normal-screen.svg)
